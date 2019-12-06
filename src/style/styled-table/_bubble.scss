@@ -1,0 +1,75 @@
+.bubble-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .bubble-circle {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .bubble-circle-main {
+      stroke: $icon-grey-color;
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .bubble-circle-content {
+      fill: $icon-grey-color;
+    }
+
+    .bubble-circle-text-content {
+      fill: white;
+      text-anchor: middle;
+      font-size: 85%;
+    }
+
+    &.error {
+      .bubble-circle-main {
+        stroke: $red-color;
+      }
+
+      .bubble-circle-content {
+        fill: $red-color;
+      }
+    }
+
+    &.success {
+      .bubble-circle-main {
+        stroke: $green-color;
+      }
+
+      .bubble-circle-content {
+        fill: $green-color;
+      }
+    }
+
+    &.info {
+      .bubble-circle-main {
+        stroke: $blue-color;
+      }
+
+      .bubble-circle-content {
+        fill: $blue-color;
+      }
+    }
+
+    &.warning {
+      .bubble-circle-main {
+        stroke: $orange-color;
+      }
+
+      .bubble-circle-content {
+        fill: $orange-color;
+      }
+    }
+  }
+}

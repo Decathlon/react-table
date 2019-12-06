@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell component should render the default responsive 1`] = `
+<div
+  className="responsive-container foo-class-name"
+/>
+`;

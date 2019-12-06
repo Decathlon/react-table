@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableSelectionMenu component should render TableSelectionMenu closed menu 1`] = `
+<React.Fragment>
+  <ForwardRef(WithStyles)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    anchorReference="anchorEl"
+    elevation={1}
+    onClose={[MockFunction]}
+    open={false}
+  />
+</React.Fragment>
+`;
+
+exports[`TableSelectionMenu component should render TableSelectionMenu opened menu 1`] = `
+<React.Fragment>
+  <ForwardRef(WithStyles)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    anchorReference="anchorEl"
+    elevation={1}
+    onClose={[MockFunction]}
+    open={true}
+  />
+</React.Fragment>
+`;
+
+exports[`TableSelectionMenu component should render TableSelectionMenu opened menu with actions 1`] = `
+<React.Fragment>
+  <ForwardRef(WithStyles)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+    anchorReference="anchorEl"
+    elevation={1}
+    onClose={[MockFunction]}
+    open={true}
+  >
+    <menuItem
+      onClick={[Function]}
+      selectedCells={
+        Object {
+          "1": Array [
+            0,
+            1,
+            2,
+          ],
+          "2": Array [
+            0,
+            1,
+            2,
+          ],
+        }
+      }
+    >
+      Foo item
+    </menuItem>
+    <DefaultMenuItem
+      onClick={[Function]}
+      selectedCells={
+        Object {
+          "1": Array [
+            0,
+            1,
+            2,
+          ],
+          "2": Array [
+            0,
+            1,
+            2,
+          ],
+        }
+      }
+    >
+      Bar item
+    </DefaultMenuItem>
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;

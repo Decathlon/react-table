@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Virtualizer should render children 1`] = `
+<Scroller
+  height={100}
+  onScroll={[Function]}
+  virtualHeight={4250}
+  virtualWidth={4250}
+  width={100}
+>
+  <div>
+    Foo
+  </div>
+</Scroller>
+`;

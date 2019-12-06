@@ -1,0 +1,696 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`elementary table component should render a table with custom cell size 1`] = `
+<table
+  className="table-root"
+>
+  <thead>
+    <Row
+      absoluteIndex={0}
+      cells={
+        Array [
+          Object {
+            "id": "wawoo",
+            "value": "Wawooo!",
+          },
+          Object {
+            "id": "wah",
+            "value": "Wah!",
+          },
+          Object {
+            "id": "cool",
+            "value": "Cool!",
+          },
+        ]
+      }
+      className=""
+      columns={
+        Object {
+          "0": Object {
+            "size": 320,
+          },
+          "4": Object {
+            "size": 300,
+          },
+        }
+      }
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="front"
+      index={0}
+      isHeader={true}
+      isSelectable={false}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+      size={24}
+    />
+  </thead>
+  <tbody>
+    <Row
+      absoluteIndex={1}
+      cells={
+        Array [
+          Object {
+            "id": "react",
+            "subItems": Array [
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "storybook",
+                    "value": "Storybook",
+                  },
+                  Object {
+                    "id": "jest",
+                    "value": "Jest",
+                  },
+                  Object {
+                    "id": "Enzym",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "enzyme",
+                  },
+                ],
+                "id": "foo",
+              },
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "docker",
+                    "value": "Docker",
+                  },
+                  Object {
+                    "id": "doccomp",
+                    "value": "Docker compose",
+                  },
+                  Object {
+                    "id": "Sentry",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "Sentry",
+                  },
+                ],
+                "id": "back",
+              },
+            ],
+            "value": "React",
+          },
+          Object {
+            "id": "angular",
+            "value": "Angular",
+          },
+          Object {
+            "id": "vuejs",
+            "value": "VueJS",
+          },
+        ]
+      }
+      className=""
+      columns={
+        Object {
+          "0": Object {
+            "size": 320,
+          },
+          "4": Object {
+            "size": 300,
+          },
+        }
+      }
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="front1"
+      index={1}
+      isSelectable={true}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+      title="foo"
+    />
+    <Row
+      absoluteIndex={2}
+      cells={
+        Array [
+          Object {
+            "id": "python",
+            "value": "Python",
+          },
+          Object {
+            "id": "Go",
+            "subItems": Array [
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "storybook",
+                    "value": "Storybook",
+                  },
+                  Object {
+                    "id": "jest",
+                    "value": "Jest",
+                  },
+                  Object {
+                    "id": "Enzym",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "enzyme",
+                  },
+                ],
+                "id": "foo",
+              },
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "docker",
+                    "value": "Docker",
+                  },
+                  Object {
+                    "id": "doccomp",
+                    "value": "Docker compose",
+                  },
+                  Object {
+                    "id": "Sentry",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "Sentry",
+                  },
+                ],
+                "id": "back",
+              },
+            ],
+            "value": "Go",
+          },
+          Object {
+            "id": "Java",
+            "value": "java",
+          },
+        ]
+      }
+      className=""
+      columns={
+        Object {
+          "0": Object {
+            "size": 320,
+          },
+          "4": Object {
+            "size": 300,
+          },
+        }
+      }
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="back"
+      index={2}
+      isSelectable={true}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+      size={150}
+    />
+  </tbody>
+</table>
+`;
+
+exports[`elementary table component should render the default table 1`] = `
+<table
+  className="table-root"
+>
+  <thead>
+    <Row
+      absoluteIndex={0}
+      cells={
+        Array [
+          Object {
+            "id": "wawoo",
+            "value": "Wawooo!",
+          },
+          Object {
+            "id": "wah",
+            "value": "Wah!",
+          },
+          Object {
+            "id": "cool",
+            "value": "Cool!",
+          },
+        ]
+      }
+      className=""
+      columns={Object {}}
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="front"
+      index={0}
+      isHeader={true}
+      isSelectable={false}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+    />
+  </thead>
+  <tbody>
+    <Row
+      absoluteIndex={1}
+      cells={
+        Array [
+          Object {
+            "id": "react",
+            "subItems": Array [
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "storybook",
+                    "value": "Storybook",
+                  },
+                  Object {
+                    "id": "jest",
+                    "value": "Jest",
+                  },
+                  Object {
+                    "id": "Enzym",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "enzyme",
+                  },
+                ],
+                "id": "foo",
+              },
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "docker",
+                    "value": "Docker",
+                  },
+                  Object {
+                    "id": "doccomp",
+                    "value": "Docker compose",
+                  },
+                  Object {
+                    "id": "Sentry",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "Sentry",
+                  },
+                ],
+                "id": "back",
+              },
+            ],
+            "value": "React",
+          },
+          Object {
+            "id": "angular",
+            "value": "Angular",
+          },
+          Object {
+            "id": "vuejs",
+            "value": "VueJS",
+          },
+        ]
+      }
+      className=""
+      columns={Object {}}
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="front1"
+      index={1}
+      isSelectable={true}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+      title="foo"
+    />
+    <Row
+      absoluteIndex={2}
+      cells={
+        Array [
+          Object {
+            "id": "python",
+            "value": "Python",
+          },
+          Object {
+            "id": "Go",
+            "subItems": Array [
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "storybook",
+                    "value": "Storybook",
+                  },
+                  Object {
+                    "id": "jest",
+                    "value": "Jest",
+                  },
+                  Object {
+                    "id": "Enzym",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "enzyme",
+                  },
+                ],
+                "id": "foo",
+              },
+              Object {
+                "cells": Array [
+                  Object {
+                    "id": "docker",
+                    "value": "Docker",
+                  },
+                  Object {
+                    "id": "doccomp",
+                    "value": "Docker compose",
+                  },
+                  Object {
+                    "id": "Sentry",
+                    "subItems": Array [
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "storybook",
+                            "value": "Storybook",
+                          },
+                          Object {
+                            "id": "jest",
+                            "value": "Jest",
+                          },
+                          Object {
+                            "id": "Enzym",
+                            "subItems": Array [],
+                            "value": "enzyme",
+                          },
+                        ],
+                        "id": "foo",
+                      },
+                      Object {
+                        "cells": Array [
+                          Object {
+                            "id": "docker",
+                            "value": "Docker",
+                          },
+                          Object {
+                            "id": "doccomp",
+                            "value": "Docker compose",
+                          },
+                          Object {
+                            "id": "Sentry",
+                            "subItems": Array [],
+                            "value": "Sentry",
+                          },
+                        ],
+                        "id": "back",
+                      },
+                    ],
+                    "value": "Sentry",
+                  },
+                ],
+                "id": "back",
+              },
+            ],
+            "value": "Go",
+          },
+          Object {
+            "id": "Java",
+            "value": "java",
+          },
+        ]
+      }
+      className=""
+      columns={Object {}}
+      elevatedColumnIndexes={Object {}}
+      getRowTreeLength={[Function]}
+      getVisibleRows={[Function]}
+      globalColumnProps={Object {}}
+      id="back"
+      index={2}
+      isSelectable={true}
+      isVisible={true}
+      level={0}
+      relativeSubIndexesMapping={Object {}}
+      selectedCells={Array []}
+    />
+  </tbody>
+</table>
+`;

@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bubble component should render a bubble with content 1`] = `
+<div
+  className="bubble-container"
+>
+  <div>
+    Foo
+  </div>
+  <svg
+    className="bubble-circle"
+    height="100%"
+    viewBox="0 0 100 100"
+    width="100%"
+  >
+    <circle
+      className="bubble-circle-main"
+      cx="50"
+      cy="50"
+      r="45"
+    />
+    <React.Fragment>
+      <circle
+        className="bubble-circle-content"
+        cx="80"
+        cy="20"
+        r="10"
+      />
+      <text
+        className="bubble-circle-text-content"
+        x={80}
+        y={24}
+      >
+        30
+      </text>
+    </React.Fragment>
+  </svg>
+</div>
+`;
+
+exports[`Bubble component should render a bubble without badge 1`] = `
+<div
+  className="bubble-container"
+>
+  <svg
+    className="bubble-circle foo-class-name"
+    height="100%"
+    viewBox="0 0 100 100"
+    width="100%"
+  >
+    <circle
+      className="bubble-circle-main"
+      cx="50"
+      cy="50"
+      r="45"
+    />
+  </svg>
+</div>
+`;
+
+exports[`Bubble component should render a success bubble with content 1`] = `
+<div
+  className="bubble-container"
+>
+  <div>
+    Foo
+  </div>
+  <svg
+    className="bubble-circle success"
+    height="100%"
+    viewBox="0 0 100 100"
+    width="100%"
+  >
+    <circle
+      className="bubble-circle-main"
+      cx="50"
+      cy="50"
+      r="45"
+    />
+    <React.Fragment>
+      <circle
+        className="bubble-circle-content"
+        cx="80"
+        cy="20"
+        r="10"
+      />
+      <text
+        className="bubble-circle-text-content"
+        x={80}
+        y={24}
+      >
+        30
+      </text>
+    </React.Fragment>
+  </svg>
+</div>
+`;
+
+exports[`Bubble component should render the default bubble 1`] = `
+<div
+  className="bubble-container"
+>
+  <svg
+    className="bubble-circle"
+    height="100%"
+    viewBox="0 0 100 100"
+    width="100%"
+  >
+    <circle
+      className="bubble-circle-main"
+      cx="50"
+      cy="50"
+      r="45"
+    />
+    <React.Fragment>
+      <circle
+        className="bubble-circle-content"
+        cx="80"
+        cy="20"
+        r="10"
+      />
+      <text
+        className="bubble-circle-text-content"
+        x={80}
+        y={24}
+      >
+        30
+      </text>
+    </React.Fragment>
+  </svg>
+</div>
+`;

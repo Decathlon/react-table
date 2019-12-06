@@ -1,0 +1,87 @@
+.table-root {
+  width: 100%;
+  display: table;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  .table-cell {
+    &-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .table-overflow-wrapper {
+    overflow: hidden;
+    padding-left: 24px;
+    padding-right: 24px;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(236, 236, 236, 0.5) !important;
+  }
+
+  .table-cell-sub-item-toggle {
+    margin-left: -20px !important;
+  }
+
+  .table-cell-container {
+    height: 100%;
+    position: relative;
+  }
+
+  .table-column {
+    font-size: 0.875rem;
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.43;
+    vertical-align: inherit;
+    padding: 4px 16px 4px 16px;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+
+    &.disabled {
+      background-color: rgba(195, 195, 195, 0.17);
+    }
+
+    &.selected {
+      background-color: rgba(2, 171, 255, 0.1) !important;
+      // gets rid of the blue selection overlay, but prevents value selection, which may suck
+      // -webkit-touch-callout: none;
+      // -webkit-user-select: none;
+      // -khtml-user-select: none;
+      // -moz-user-select: none;
+      // -ms-user-select: none;
+      // user-select: none;
+    }
+    &.elevated-start + .table-column {
+      .table-overflow-wrapper {
+        position: relative;
+        &::after {
+          content: "";
+          border: solid 1px transparent;
+          box-shadow: 6px 0px 9px 1px rgba(0, 0, 0, 0.2);
+          position: absolute;
+          height: calc(100% + 5px);
+          top: 0;
+          right: calc(100% + 5px);
+        }
+      }
+    }
+    &.elevated-end {
+      .table-overflow-wrapper {
+        position: relative;
+        &::before {
+          content: "";
+          border: solid 1px transparent;
+          box-shadow: 0px 0 9px 1px rgba(0, 0, 0, 0.2);
+          position: absolute;
+          height: calc(100% + 5px);
+          top: 0;
+          right: -5px;
+          width: 3px;
+        }
+      }
+    }
+  }
+}

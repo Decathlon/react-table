@@ -1,0 +1,357 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row component should render a Row with a small size 1`] = `
+<React.Fragment>
+  <tr
+    className="table-row"
+    data-testid="table-row"
+    style={
+      Object {
+        "height": 25,
+      }
+    }
+  >
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="small"
+      index={0}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 25,
+          "width": "auto",
+        }
+      }
+      value="Wawooo!"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="wah"
+      index={1}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 25,
+          "width": "auto",
+        }
+      }
+      value="Wah!"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="cool"
+      index={2}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 25,
+          "width": "auto",
+        }
+      }
+      value="Cool!"
+    />
+  </tr>
+</React.Fragment>
+`;
+
+exports[`Row component should render a Row with nested children 1`] = `
+<React.Fragment>
+  <tr
+    className="table-row"
+    data-testid="table-row"
+    style={
+      Object {
+        "height": 56,
+      }
+    }
+  >
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="storybook"
+      index={0}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Storybook"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="jest"
+      index={1}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Jest"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="Enzym"
+      index={2}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      subItems={
+        Array [
+          Object {
+            "cells": Array [
+              Object {
+                "id": "sushi",
+                "value": "Sushi",
+              },
+              Object {
+                "id": "pizza",
+                "value": "Pizza",
+              },
+              Object {
+                "id": "mafe",
+                "value": "Mafe",
+              },
+            ],
+            "id": "miam",
+          },
+        ]
+      }
+      value="enzyme"
+    />
+  </tr>
+</React.Fragment>
+`;
+
+exports[`Row component should render a Row with span 1`] = `
+<React.Fragment>
+  <tr
+    className="table-row"
+    data-testid="table-row"
+    style={
+      Object {
+        "height": 56,
+      }
+    }
+  >
+    <RowSpan
+      color="gray"
+      length={1}
+      opened={false}
+      title="foo"
+      toggle={[Function]}
+      width={110}
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      hideSubItemsOpener={false}
+      id="storybook"
+      index={0}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Storybook"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      hideSubItemsOpener={false}
+      id="jest"
+      index={1}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Jest"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      hideSubItemsOpener={true}
+      id="Enzym"
+      index={2}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      subItems={
+        Array [
+          Object {
+            "cells": Array [
+              Object {
+                "id": "sushi",
+                "value": "Sushi",
+              },
+              Object {
+                "id": "pizza",
+                "value": "Pizza",
+              },
+              Object {
+                "id": "mafe",
+                "value": "Mafe",
+              },
+            ],
+            "id": "miam",
+          },
+        ]
+      }
+      value="enzyme"
+    />
+  </tr>
+</React.Fragment>
+`;
+
+exports[`Row component should render a simple row 1`] = `
+<React.Fragment>
+  <tr
+    className="table-row"
+    data-testid="table-row"
+    style={
+      Object {
+        "height": 56,
+      }
+    }
+  >
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="storybook"
+      index={0}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Storybook"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="jest"
+      index={1}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      value="Jest"
+    />
+    <Cell
+      className=""
+      colspan={1}
+      component="td"
+      id="Enzym"
+      index={2}
+      isSelectable={true}
+      isSelected={false}
+      onCallOpen={[Function]}
+      opened={false}
+      rowIndex={0}
+      style={
+        Object {
+          "height": 56,
+          "width": "auto",
+        }
+      }
+      subItems={Array []}
+      value="enzyme"
+    />
+  </tr>
+</React.Fragment>
+`;
+
+exports[`Row component should render the default table 1`] = `
+<React.Fragment>
+  <tr
+    className="table-row"
+    data-testid="table-row"
+    style={
+      Object {
+        "height": 56,
+      }
+    }
+  />
+</React.Fragment>
+`;

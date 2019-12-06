@@ -1,0 +1,106 @@
+// must have the same value as MAX_ROW_LEVEL in constants.ts
+$max-row-level: 2;
+$max-row-level-1: $max-row-level - 1;
+$bg-color: $green-color;
+
+// Ideally we'd want to color the odd ones, but we need a thead/tbody separation
+.table-row:nth-of-type(even) {
+  background-color: rgba(193, 193, 193, 0.05);
+}
+
+.table-row {
+  color: inherit;
+  outline: 0;
+  vertical-align: middle;
+  &.head {
+    .table-column {
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.3125rem;
+    }
+  }
+  &.elevated-start {
+    box-shadow: 0px 3px 7px -1px rgba(113, 113, 113, 0.18);
+  }
+  &.elevated-end {
+    box-shadow: 0px -3px 7px -1px rgba(113, 113, 113, 0.18);
+  }
+
+  &.last-sub-row {
+    .table-column:not(.row-span-column):first-child::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      position: absolute;
+      top: calc(15px + 100% / 2);
+      background-color: $bg-color;
+      right: calc(100% - 35px);
+      box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @for $level from 2 through $max-row-level {
+    $padding: ($level * 30)+5;
+    &.sub-row__#{$level} {
+      .table-column:first-child::after {
+        right: calc(100% - #{$padding}px) !important;
+      }
+    }
+  }
+
+  &.opened {
+    .table-column.row-span-column + .table-column::after,
+    .table-column:not(.row-span-column):first-child::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      position: absolute;
+      top: calc(15px + 100% / 2);
+      background-color: $bg-color;
+      right: calc(100% - 35px);
+      box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.5);
+    }
+    @for $level from 1 through $max-row-level-1 {
+      $padding: (($level + 1) * 30)+5;
+      &.sub-row__#{$level} {
+        .table-column.row-span-column + .table-column::after,
+        .table-column:not(.row-span-column):first-child::after {
+          right: calc(100% - #{$padding}px) !important;
+        }
+      }
+    }
+  }
+
+  &.sub-row {
+    .table-column:not(.row-span-column):first-child {
+      &::before {
+        content: "";
+        border-left: solid 1px $bg-color;
+        position: absolute;
+        height: 100%;
+        top: calc(15px - 100% / 2);
+        box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.5);
+      }
+      .table-cell-container {
+        padding-left: 30px;
+      }
+    }
+
+    @for $level from 1 through $max-row-level {
+      $padding: ($level * 30);
+      &__#{$level} {
+        .table-column:not(.row-span-column):first-child {
+          &::before {
+            right: calc(100% - #{$padding}px) !important;
+          }
+          .table-cell-container {
+            padding-left: #{$padding}px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextMenuHandler component should render children 1`] = `
+<React.Fragment>
+  <div>
+    Foo
+  </div>
+</React.Fragment>
+`;

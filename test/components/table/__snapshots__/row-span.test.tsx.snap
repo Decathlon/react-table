@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RowSpan component should render a closed span 1`] = `
+<td
+  className="table-column row-span-column"
+  rowSpan={2}
+  style={
+    Object {
+      "borderLeft": "solid 10px red",
+      "maxWidth": 110,
+      "minWidth": 110,
+      "width": 110,
+    }
+  }
+>
+  <div
+    className="row-span-container"
+  >
+    <div
+      className="row-span-text"
+    >
+      Foo
+    </div>
+    <ForwardRef(WithStyles)
+      data-testid="table-row-span-btn"
+      onClick={[Function]}
+    >
+      <ForwardRef(WithStyles)>
+        keyboard_arrow_right
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </div>
+</td>
+`;
+
+exports[`RowSpan component should render an opened span 1`] = `
+<td
+  className="table-column row-span-column"
+  rowSpan={2}
+  style={
+    Object {
+      "borderLeft": "solid 10px initial",
+      "maxWidth": 110,
+      "minWidth": 110,
+      "width": 110,
+    }
+  }
+>
+  <div
+    className="row-span-container open"
+  >
+    <ForwardRef(WithStyles)
+      data-testid="table-row-span-btn"
+      onClick={[Function]}
+    >
+      <ForwardRef(WithStyles)>
+        keyboard_arrow_down
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+    <div
+      className="row-span-text vertical"
+    >
+      Foo
+    </div>
+  </div>
+</td>
+`;

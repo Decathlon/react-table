@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColumnVisisbilityController component should render the default ColumnVisisbilityController 1`] = `
+<React.Fragment>
+  <span
+    onClick={[Function]}
+  >
+    Foo
+  </span>
+  <ForwardRef(WithStyles)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    data-testid="column-visibility-menu"
+    elevation={2}
+    id="wp_table-toolbar_toggle-aggregates-menu"
+    onClose={[Function]}
+    open={false}
+    transformOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+  >
+    <ForwardRef(WithStyles)
+      classes={
+        Object {
+          "root": "table-interaction-menu",
+        }
+      }
+    >
+      <ForwardRef(WithStyles)
+        data-testid="column-visibility-foo"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="visibility-off"
+          >
+            visibility_off
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="FOO"
+          primary="FOO"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        data-testid="column-visibility-bar"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="visibility-on"
+          >
+            visibility
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="BAR"
+          primary="BAR"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;

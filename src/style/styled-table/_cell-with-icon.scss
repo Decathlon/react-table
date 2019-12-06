@@ -1,0 +1,11 @@
+.cell-with-icon {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__icon {
+    color: $icon-grey-color;
+    font-size: medium !important;
+  }
+}

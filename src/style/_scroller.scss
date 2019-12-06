@@ -1,0 +1,15 @@
+.scroller-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+
+  .scroller-content {
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    overflow: hidden;
+  }
+}

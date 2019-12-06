@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectionHandler component should render children 1`] = `
+<div
+  className="selection-handler-container"
+>
+  <ContextMenuHandler
+    selectedCells={Object {}}
+  >
+    [Function]
+  </ContextMenuHandler>
+</div>
+`;

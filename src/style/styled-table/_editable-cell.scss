@@ -1,0 +1,55 @@
+.editable-cell {
+  display: flex;
+  &:hover ::before {
+    border-bottom-width: 2px !important;
+  }
+  &__underline {
+    &::after {
+      border-bottom: 2px solid $mint-color !important;
+    }
+  }
+  &.error {
+    .editable-cell__underline {
+      &::after {
+        border-bottom: 2px solid $red-color !important;
+      }
+    }
+  }
+
+  &__value {
+    position: relative;
+    &.edited-cell {
+      .text {
+        &:before {
+          border-bottom-width: 2px;
+        }
+      }
+    }
+    .text {
+      display: flex;
+      justify-content: center;
+      min-width: 20px;
+
+      &:before {
+        left: 0;
+        right: 0;
+        bottom: -5px;
+        content: "";
+        position: absolute;
+        border-bottom: 1px solid $mint-color;
+      }
+    }
+  }
+
+  &.empty {
+    min-width: 100%;
+    cursor: text;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.edited-cell {
+  color: $mint-color;
+  font-weight: bold !important;
+}

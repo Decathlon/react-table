@@ -1,0 +1,23 @@
+# Linter Options
+options:
+  formatter: stylish
+
+# File Options
+files:
+  include:
+    - "src/stye/*.s+(a|c)ss"
+    - "src/stye/**/*.s+(a|c)ss"
+
+# Rule Configuration
+rules:
+  # Disallows
+  no-ids: 2
+  no-important: 2
+
+  # Style Guide
+  quotes:
+    - 1
+    - style: double
+  indentation:
+    - 1
+    - size: 2

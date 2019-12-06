@@ -1,0 +1,464 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell component should render a cell with closed subItems 1`] = `
+<th
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <ForwardRef(WithStyles)
+        className="table-cell-sub-item-toggle"
+        data-testid="table-cell-sub-item-toggle"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          keyboard_arrow_right
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</th>
+`;
+
+exports[`Cell component should render a cell with custom cell content 1`] = `
+<td
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <cellContent
+        id="foo"
+        index={0}
+        name="Foo"
+      />
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render a cell with custom style 1`] = `
+<td
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": "25px",
+      "padding": 0,
+      "width": "50px",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": "25px",
+        "width": "50px",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": "25px",
+            "lineHeight": "25pxpx",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render a cell with custom style with colspan 1`] = `
+<td
+  className="table-column"
+  colSpan={2}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": "25px",
+      "padding": 0,
+      "width": 100,
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": "25px",
+        "width": 100,
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": "25px",
+            "lineHeight": "25pxpx",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render a cell with opened subItems 1`] = `
+<td
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <ForwardRef(WithStyles)
+        className="table-cell-sub-item-toggle"
+        data-testid="table-cell-sub-item-toggle"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          keyboard_arrow_down
+        </ForwardRef(WithStyles)>
+      </ForwardRef(WithStyles)>
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 1`] = `
+<td
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render a header cell 1`] = `
+<th
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</th>
+`;
+
+exports[`Cell component should render a selected cell 1`] = `
+<td
+  className="table-column selected"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
+exports[`Cell component should render the default cell 1`] = `
+<td
+  className="table-column"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</td>
+`;

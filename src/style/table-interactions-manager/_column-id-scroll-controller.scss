@@ -1,0 +1,16 @@
+.scroll-controlller {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  &__field {
+    width: 275px !important;
+    top: -4px;
+  }
+
+  &__button {
+    padding: 0 !important;
+    height: 24px !important;
+    width: 24px !important;
+  }
+}

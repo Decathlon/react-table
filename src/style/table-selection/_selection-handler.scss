@@ -1,0 +1,6 @@
+.selection-handler-container {
+  *::selection {
+    background-color: transparent;
+    color: inherit;
+  }
+}
