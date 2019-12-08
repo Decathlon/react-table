@@ -26,7 +26,7 @@ export interface IMask {
  *
  * If input is cleared, value is set to initial_value
  */
-export interface IProps extends IContentCellProps {
+export interface IEdiTableCellProps extends IContentCellProps {
   isEdited: boolean;
   initial_value: number;
   value: number;
@@ -36,7 +36,7 @@ export interface IProps extends IContentCellProps {
   validateValue?: (value: number) => boolean;
 }
 
-export interface IState {
+interface IState {
   inputValue: string;
   /** determine if the cell is focused */
   isFocused: boolean;
@@ -44,8 +44,8 @@ export interface IState {
   isValidValue: boolean;
 }
 
-export default class EdiTableCell extends React.PureComponent<IProps, IState> {
-  constructor(props: IProps) {
+export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps, IState> {
+  constructor(props: IEdiTableCellProps) {
     super(props);
     const { value } = this.props;
     const newInputValue = this.getInputValue();

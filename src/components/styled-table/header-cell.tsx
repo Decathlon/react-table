@@ -3,14 +3,14 @@ import classNames from "classnames";
 
 import Bubble from "./bubble";
 
-interface IProps {
+export interface IHeaderCellProps {
   title: string;
   value: string;
   badge?: string;
   isCurrent?: boolean;
 }
 
-const HeaderCell = ({ title, value, badge, isCurrent }: IProps) => {
+const HeaderCell = ({ title, value, badge, isCurrent }: IHeaderCellProps) => {
   const cellContent = (
     <div className="header-cell-data">
       <div className="header-cell-title">{title}</div>

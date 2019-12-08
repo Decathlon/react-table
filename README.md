@@ -24,7 +24,7 @@ npm install -S @decathlon/react-table
 
 
 ```js
-import Table from "@decathlon/react-table";
+import { Table } from "@decathlon/react-table";
 import "@decathlon/react-table/dist/style/index.css";
 
  const rows = [
@@ -74,7 +74,7 @@ function MyComponent() {
 
 ```bash
 git clone ...
-cd @decathlon/react-table
+cd react-table
 npm ci
 npm run storybook
 ```

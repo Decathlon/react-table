@@ -9,14 +9,14 @@ export enum BubbleType {
   error = "error"
 }
 
-interface IProps {
+export interface IBubbleProps {
   className?: string;
   badge?: string;
   type?: BubbleType;
   children?: JSX.Element;
 }
 
-const Bubble = ({ className, badge, type, children }: IProps) => (
+const Bubble = ({ className, badge, type, children }: IBubbleProps) => (
   <div className="bubble-container">
     {children}
     <svg className={classNames("bubble-circle", className, type || "")} height="100%" width="100%" viewBox="0 0 100 100">

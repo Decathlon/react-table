@@ -8,7 +8,7 @@ import { TableInteractionsContext } from "./table-interactions-manager";
 import { CellSize, CELL_SIZES, CellDimention } from "./reducers";
 import { Nullable } from "../typing";
 
-export interface IProps {
+export interface ICellDimensionControllerProps {
   /** The current cell width of the table. */
   cellWidth: CellDimention;
   /** The current row Height of the table. */
@@ -21,7 +21,7 @@ export interface IProps {
   updateCellWidth: (size: CellSize) => void;
 }
 
-export const DumbCellDimensionController: React.FunctionComponent<IProps> = React.memo(
+export const DumbCellDimensionController: React.FunctionComponent<ICellDimensionControllerProps> = React.memo(
   ({ updateCellWidth, updateRowHeight, buttonRenderer, rowHeight, cellWidth }) => {
     const [anchorEl, setAnchorEl] = React.useState<Nullable<Element>>(null);
     const isOpen = Boolean(anchorEl);
@@ -93,7 +93,7 @@ export const DumbCellDimensionController: React.FunctionComponent<IProps> = Reac
   }
 );
 
-const CellDimensionController: React.FunctionComponent<Pick<IProps, "buttonRenderer">> = props => {
+const CellDimensionController: React.FunctionComponent<Pick<ICellDimensionControllerProps, "buttonRenderer">> = props => {
   return (
     <TableInteractionsContext.Consumer>
       {({ cellWidth, rowHeight, updateCellWidth, updateRowHeight }) => {

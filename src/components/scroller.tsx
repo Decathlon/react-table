@@ -41,7 +41,7 @@ export interface IOnScroll {
   scrollLeft: number;
 }
 
-export interface IProps {
+export interface IScrollerProps {
   /** The global content width */
   virtualWidth: number;
   /**  The global content height */
@@ -56,7 +56,8 @@ export interface IProps {
 }
 
 const defaultScroll = { scrollLeft: 0, scrollTop: 0 };
-class Scroller extends React.Component<IProps, {}> {
+
+class Scroller extends React.Component<IScrollerProps> {
   private scrollerContainer: React.RefObject<HTMLDivElement> = React.createRef();
 
   private scrollOrigin: ScrollOrigin = ScrollOrigin.native;
@@ -76,7 +77,7 @@ class Scroller extends React.Component<IProps, {}> {
   /*
     We update the Scroll component only if his props are modified.
   */
-  public shouldComponentUpdate(nextProps: IProps) {
+  public shouldComponentUpdate(nextProps: IScrollerProps) {
     return !isEqual(nextProps, this.props);
   }
 

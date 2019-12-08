@@ -17,13 +17,13 @@ export interface ISelection {
   selectedCells: ISelectedCells;
 }
 
-export interface IOptionalProps {
+export interface ISelectionHandlerOptionalProps {
   isDisabledVerticalSelection?: boolean;
   isDisabledHorizontalSelection?: boolean;
   menuComponent?: React.ComponentType<any>;
 }
 
-export interface IProps extends IOptionalProps {
+export interface ISelectionHandlerProps extends ISelectionHandlerOptionalProps {
   children: (props: ISelection) => JSX.Element;
 }
 
@@ -31,14 +31,14 @@ export interface ISelectedCells {
   [rowIndex: string]: number[];
 }
 
-export interface IState {
+interface IState {
   selectedCells: ISelectedCells;
 }
 
-class SelectionHandler extends React.Component<IProps, IState> {
+class SelectionHandler extends React.Component<ISelectionHandlerProps, IState> {
   private startingCell: Nullable<ICellCoordinates> = null;
 
-  constructor(props: IProps) {
+  constructor(props: ISelectionHandlerProps) {
     super(props);
     this.state = { selectedCells: {} };
   }

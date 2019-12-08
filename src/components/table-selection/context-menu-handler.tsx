@@ -13,7 +13,7 @@ interface IChildrenProps {
   onContextMenu: (selectionContext: ISelectionContext) => void;
 }
 
-interface IProps {
+export interface IContextMenuHandlerProps {
   selectedCells: ISelectedCells;
   children: (props: IChildrenProps) => JSX.Element;
   menuComponent?: React.ComponentType<any>;
@@ -21,7 +21,11 @@ interface IProps {
 
 const defaultSelectionContext = { anchorEl: null, contextCell: null };
 
-const ContextMenuHandler: React.FunctionComponent<IProps> = ({ children, selectedCells, menuComponent: MenuComponent }) => {
+const ContextMenuHandler: React.FunctionComponent<IContextMenuHandlerProps> = ({
+  children,
+  selectedCells,
+  menuComponent: MenuComponent
+}) => {
   const [context, setContext] = React.useState<ISelectionContext>(defaultSelectionContext);
   const { anchorEl } = context;
   const isMenuOpened = !!anchorEl;

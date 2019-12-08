@@ -3,7 +3,7 @@ import * as React from "react";
 import Table from "../table/table";
 import { OnHorizontallyScrollProps } from "../virtualizer";
 import { TableInteractionsAction, updateHiddenColumns, updateRowHeight, updateCellWidth, updateColumnsCursor } from "./actions";
-import TableInteractionsManagerReducer, { IState, CellSize, CellValue, initialState } from "./reducers";
+import TableInteractionsManagerReducer, { ITableInteractionManagerState, CellSize, CellValue, initialState } from "./reducers";
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
 
@@ -17,7 +17,7 @@ interface Column {
   index: number;
 }
 
-interface IProvider extends IState {
+interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   /** The table ref. */
   table: Nullable<React.MutableRefObject<Nullable<Table>>>;
   /** The current hidden columns of the table (indexes). */
@@ -45,14 +45,14 @@ interface IProps {
   children: JSX.Element | JSX.Element[];
   toggleableColumns: Column[];
   /** The initial table interaction config. */
-  initialConfig?: Partial<IState>;
+  initialConfig?: Partial<ITableInteractionManagerState>;
   /** Callback fired when the interaction context state hase changed. */
-  onStateUpdate?: (state: IState) => void;
+  onStateUpdate?: (state: ITableInteractionManagerState) => void;
 }
 
 const nullFunction = (): any => null;
 
-const initialContentxt: IProvider = {
+const initialContentxt: ITableInteractionsManagerProps = {
   ...initialState,
   table: null,
   hiddenColumnsIndexes: [],
@@ -65,7 +65,9 @@ const initialContentxt: IProvider = {
   onHorizontallyScroll: nullFunction
 };
 
-export const TableInteractionsContext: React.Context<IProvider> = React.createContext<IProvider>({
+export const TableInteractionsContext: React.Context<ITableInteractionsManagerProps> = React.createContext<
+  ITableInteractionsManagerProps
+>({
   ...initialContentxt
 });
 

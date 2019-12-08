@@ -4,7 +4,7 @@ import classnames from "classnames";
 
 import { IContentCellProps } from "../table/cell";
 
-export interface IProps extends IContentCellProps {
+export interface ICellWithIconProps extends IContentCellProps {
   /** The material icon name for the icon button component. */
   iconName: string;
   /** value of the cell */
@@ -17,7 +17,14 @@ export interface IProps extends IContentCellProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const CellWithIcon: React.FunctionComponent<IProps> = ({ id, value, tooltipTitle, iconName, className, onClick }) => {
+export const CellWithIcon: React.FunctionComponent<ICellWithIconProps> = ({
+  id,
+  value,
+  tooltipTitle,
+  iconName,
+  className,
+  onClick
+}) => {
   const icon = <Icon className="cell-with-icon__icon">{iconName}</Icon>;
   const action = onClick ? (
     <IconButton data-testid={`toolbar-action-btn${id ? `-${id}` : ""}`} id={id} className="cell-with-icon__btn" onClick={onClick}>

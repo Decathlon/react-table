@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "React components for efficiently rendering large tabular data",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Decathlon/react-table"
@@ -19,9 +20,11 @@
     "immutability-helper": "~3.0.1",
     "lodash": "~4.17.15",
     "memoize-one": "~5.1.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
     "react-number-format": "~4.3.1"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
     "@babel/core": "~7.7.4",
@@ -90,6 +93,9 @@
     "test:unit": "jest",
     "test:watch": "npm run test:unit -- --watch",
     "test:generate-output": "jest --json --outputFile=jest-test-results.json",
+    "precoverage": "npm run pretest && rimraf coverage/",
+    "coverage": "npm run test:unit -- --coverage",
+    "pretest": "rimraf tests.entry.js.map test/results.xml",
     "lint": "npm run lint:eslint && npm run lint:css && npm run lint:prettier",
     "lint:eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./",
     "lint:css": "sass-lint --verbose",

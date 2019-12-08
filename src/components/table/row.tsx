@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { isEqual } from "lodash";
 import { MouseClickButtons, MAX_ROW_LEVEL } from "../constants";
 import Cell, { ICell, ICellCoordinates } from "./cell";
-import RowSpan, { IRowSpanProps } from "./row-span";
+import RowSpan, { IRowSpan } from "./row-span";
 import { IColumn, IColumnOptions, ITree } from "./elementary-table";
 import {
   computeCellStyle,
@@ -37,12 +37,12 @@ export interface IRow<IDataCoordinates = any> extends IRowOptions {
   /** Defines if the line is selectable. If true, user can select the row's cells */
   isSelectable?: boolean;
   /** The row span propos used only if isSpan is true */
-  rowSpanProps?: IRowSpanProps;
+  rowSpanProps?: IRowSpan;
   /** Defines if the sub rows are fixed. to use only if the table is virtualized */
   fixSubRows?: boolean;
 }
 
-export interface IProps extends IRow {
+export interface IRowProps extends IRow {
   /** The absolute index in the table */
   absoluteIndex: number;
   /** The relative index in a level of the table */
@@ -99,7 +99,7 @@ const defaultRelativeIndex: Partial<IRelativeIndex> = {
   index: undefined
 };
 
-export default class Row extends React.Component<IProps, IState> {
+export default class Row extends React.Component<IRowProps, IState> {
   public static defaultProps = {
     index: 0,
     absoluteIndex: 0,
@@ -114,7 +114,7 @@ export default class Row extends React.Component<IProps, IState> {
     globalColumnProps: {}
   };
 
-  constructor(props: IProps) {
+  constructor(props: IRowProps) {
     super(props);
     const { cells } = this.props;
     this.state = {
@@ -124,7 +124,7 @@ export default class Row extends React.Component<IProps, IState> {
     };
   }
 
-  public componentDidUpdate(prevProps: IProps) {
+  public componentDidUpdate(prevProps: IRowProps) {
     const { cells } = this.props;
     if (prevProps.cells !== cells) {
       this.setState({
@@ -133,7 +133,7 @@ export default class Row extends React.Component<IProps, IState> {
     }
   }
 
-  public shouldComponentUpdate(nextProps: IProps) {
+  public shouldComponentUpdate(nextProps: IRowProps) {
     const nextRowProps = { ...nextProps };
     const rowProps = { ...this.props };
     // not used if no opened cell
