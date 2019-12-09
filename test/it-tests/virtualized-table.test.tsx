@@ -4,7 +4,7 @@ import { cleanup, fireEvent, getByTestId, getByText } from "@testing-library/rea
 
 import { customRender } from "../utils/react-testing-library-utils";
 import { generateTable, generateTableWithCustomColspan, generateRow } from "../../stories/utils/tables";
-import Table, { IProps as ITableProps } from "../../src/components/table/table";
+import Table, { ITableProps } from "../../src/components/table/table";
 import { getCellsOfRow, getRows } from "../utils/table";
 import { ROW_SPAN_WIDTH } from "../../src/components/constants";
 import { IRow } from "../../src/components/table/row";

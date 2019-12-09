@@ -11,21 +11,21 @@ interface Column {
   label: string;
 }
 
-interface IProps {
+interface IColumnVisibilityControllerProps {
   /** toggleable columns to control */
   columns: Column[];
   /** The menu button activator renderer */
   buttonRenderer: (toggleMenu: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void) => JSX.Element;
 }
 
-interface IDumbProps extends IProps {
+interface IDumbColumnVisibilityControllerProps extends IColumnVisibilityControllerProps {
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIds: string[];
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
   updateHiddenIds: (hiddenIds: string[]) => void;
 }
 
-export const DumbColumnVisibilityController: React.FunctionComponent<IDumbProps> = React.memo(
+export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumnVisibilityControllerProps> = React.memo(
   ({ buttonRenderer, columns, hiddenColumnsIds, updateHiddenIds }) => {
     const [anchorEl, setAnchorEl] = React.useState<Nullable<Element>>(null);
     const isOpen = Boolean(anchorEl);
@@ -89,7 +89,7 @@ export const DumbColumnVisibilityController: React.FunctionComponent<IDumbProps>
   }
 );
 
-const ColumnVisibilityController: React.FunctionComponent<IProps> = props => {
+const ColumnVisibilityController: React.FunctionComponent<IColumnVisibilityControllerProps> = props => {
   return (
     <TableInteractionsContext.Consumer>
       {({ hiddenColumnsIds, updateHiddenIds }) => {

@@ -5,24 +5,28 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 
-export interface IColumn {
+export interface IColumnLabel {
   id: string;
   label: string;
 }
 
-export interface IProps {
+export interface IColumnIdScrollControllerProps {
   /** Scrollable columns to control */
-  columns: IColumn[];
+  columns: IColumnLabel[];
 }
 
-export interface IDumbProps extends IProps {
+export interface IDumbIColumnIdScrollControllerPropsProps extends IColumnIdScrollControllerProps {
   /** The current columns cursor of the table (current scroll). */
   columnsCursorId?: string;
   /** The scroll controler (scrolling by column id). Please see the WeekScrollerController. */
   goToColumnId: (columnId: string) => void;
 }
 
-export const DumbColumnIdScrollController: React.FunctionComponent<IDumbProps> = ({ columns, columnsCursorId, goToColumnId }) => {
+export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnIdScrollControllerPropsProps> = ({
+  columns,
+  columnsCursorId,
+  goToColumnId
+}) => {
   const selectedColumnIndex = React.useMemo(() => columns.findIndex(column => column.id === columnsCursorId), [columnsCursorId]);
 
   const gotToColumn = (columnIndex: number) => {
@@ -84,7 +88,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbProps> =
   );
 };
 
-const ColumnIdScrollController: React.FunctionComponent<IProps> = props => {
+const ColumnIdScrollController: React.FunctionComponent<IColumnIdScrollControllerProps> = props => {
   return (
     <TableInteractionsContext.Consumer>
       {({ columnsCursor, goToColumnId }) => {

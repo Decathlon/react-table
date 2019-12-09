@@ -51,7 +51,7 @@ export interface ICell<IDataCoordinates = any> {
   component?: CellTag;
 }
 
-export interface IProps extends ICell {
+export interface ICellProps extends ICell {
   /** index of the cell in its row */
   index: number;
   /** index of the row of the cell */
@@ -76,7 +76,7 @@ export interface IProps extends ICell {
 
 const defaultCellComponent = "td";
 
-export default class Cell extends React.Component<IProps> {
+export default class Cell extends React.Component<ICellProps> {
   static defaultProps = {
     index: 0,
     // relativeLevel: 0,
@@ -88,7 +88,7 @@ export default class Cell extends React.Component<IProps> {
 
   private container = React.createRef<HTMLDivElement>();
 
-  public shouldComponentUpdate(nextProps: IProps, nextState: IProps) {
+  public shouldComponentUpdate(nextProps: ICellProps, nextState: ICellProps) {
     const nextRowProps = { ...nextProps };
     const rowProps = { ...this.props };
     const nextStyle = nextRowProps.style;

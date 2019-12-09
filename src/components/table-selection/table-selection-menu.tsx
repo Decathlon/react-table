@@ -28,7 +28,7 @@ export interface IMenuAction {
   menuItem?: React.ComponentType<any>;
 }
 
-interface IProps extends IMenuProps {
+export interface ITableSelectionMenuProps extends IMenuProps {
   actions: IMenuAction[];
 }
 
@@ -36,7 +36,7 @@ const DefaultMenuItem: React.FunctionComponent<IMenuItemProps> = ({ onClick, chi
   return <MenuItem onClick={onClick}>{children}</MenuItem>;
 };
 
-const TableSelectionMenu: React.FunctionComponent<IProps> = ({
+const TableSelectionMenu: React.FunctionComponent<ITableSelectionMenuProps> = ({
   actions,
   isMenuOpened,
   closeMenu,

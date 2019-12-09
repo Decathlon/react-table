@@ -6,15 +6,15 @@ interface IElementSize {
   height: number;
 }
 
-export interface IOptionalProps {
+export interface IResponsiveContainerOptionalProps {
   className?: string;
 }
 
-export interface IProps extends IOptionalProps {
+export interface IResponsiveContainerProps extends IResponsiveContainerOptionalProps {
   children: (size: IElementSize) => JSX.Element;
 }
 
-const ResponsiveContainer = ({ className, children }: IProps) => {
+const ResponsiveContainer = ({ className, children }: IResponsiveContainerProps) => {
   const wrapper = React.useRef<HTMLDivElement>(null);
   const [{ height, width }, setSize] = React.useState<IElementSize>({
     height: 0,

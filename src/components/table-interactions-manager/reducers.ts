@@ -21,7 +21,7 @@ export interface CellDimention {
   size: CellSize;
 }
 
-export interface IState {
+export interface ITableInteractionManagerState {
   /** The current cell width of the table. */
   cellWidth: CellDimention;
   /** The current row Height of the table. */
@@ -32,14 +32,14 @@ export interface IState {
   columnsCursor: Nullable<CellValue>;
 }
 
-export const initialState: IState = {
+export const initialState: ITableInteractionManagerState = {
   cellWidth: { value: ColumnWidth[CellSize.medium], size: CellSize.medium },
   rowHeight: { value: RowHeight[CellSize.medium], size: CellSize.medium },
   columnsCursor: null,
   hiddenColumnsIds: []
 };
 
-const tableManagerReducer = (state: IState = initialState, action: TableInteractionsAction) => {
+const tableManagerReducer = (state: ITableInteractionManagerState = initialState, action: TableInteractionsAction) => {
   switch (action.type) {
     case actionTypes.UPDATE_CELL_WIDTH:
       return {

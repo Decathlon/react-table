@@ -1,9 +1,9 @@
 import * as React from "react";
 import { isEqual } from "lodash";
-import ElementaryTable, { IElementaryTableProps, IColumnOptions, ITree, IColumns, ITrees } from "./elementary-table";
+import ElementaryTable, { IElementaryTable, IColumnOptions, ITree, IColumns, ITrees } from "./elementary-table";
 import { IRowOptions } from "./row";
-import ResponsiveContainer, { IOptionalProps as IOptionalRCProps } from "../responsive-container";
-import Virtualizer, { IOptionalProps as IOptionalVProps } from "../virtualizer";
+import ResponsiveContainer, { IResponsiveContainerOptionalProps } from "../responsive-container";
+import Virtualizer, { IVirtualizerOptionalProps } from "../virtualizer";
 import {
   getTreesLength,
   getAllIndexesMap,
@@ -19,12 +19,12 @@ import {
   IElevateds,
   getDenseColumns
 } from "../utils/table";
-import SelectionHandler, { ISelection, IOptionalProps as IOptionalSelectionProps } from "../table-selection/selection-handler";
+import SelectionHandler, { ISelection, ISelectionHandlerOptionalProps } from "../table-selection/selection-handler";
 import { ROW_SPAN_WIDTH } from "../constants";
 import { ICell, ICellCoordinates } from "./cell";
 import shallowEqual from "../utils/shallowEqual";
 
-interface IVirtualizerProps extends Partial<IOptionalVProps> {
+interface IVirtualizerProps extends Partial<IVirtualizerOptionalProps> {
   /**  The width of the visible window. To specify if not responsive */
   width?: number;
   /**  The height of the visible window. To specify if not responsive */
@@ -35,10 +35,10 @@ interface IVirtualizerProps extends Partial<IOptionalVProps> {
  * We will be using something as close as possible to the original table,
  * with separated abstractions in this component
  * */
-export interface IProps<IDataCoordinates = any> extends IElementaryTableProps<IDataCoordinates> {
-  responsiveContainerProps: IOptionalRCProps;
+export interface ITableProps<IDataCoordinates = any> extends IElementaryTable<IDataCoordinates> {
+  responsiveContainerProps: IResponsiveContainerOptionalProps;
   virtualizerProps: IVirtualizerProps;
-  selectionProps?: IOptionalSelectionProps;
+  selectionProps?: ISelectionHandlerOptionalProps;
   isSelectable?: boolean;
   isVirtualized?: boolean;
   /** A list of branches to initialize opened rows and sub rows */
@@ -53,7 +53,7 @@ export interface IState {
   fixedRowsIndexes: number[];
 }
 
-class Table<IDataCoordinates = any> extends React.Component<IProps<IDataCoordinates>, IState> {
+class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoordinates>, IState> {
   static defaultProps = {
     isSelectable: true,
     isVirtualized: false,
@@ -80,7 +80,7 @@ class Table<IDataCoordinates = any> extends React.Component<IProps<IDataCoordina
 
   private columnsLength = 0;
 
-  public constructor(props: IProps<IDataCoordinates>) {
+  public constructor(props: ITableProps<IDataCoordinates>) {
     super(props);
     const {
       initialOpenedTrees,
@@ -104,7 +104,7 @@ class Table<IDataCoordinates = any> extends React.Component<IProps<IDataCoordina
     }
   }
 
-  public shouldComponentUpdate(nextProps: IProps<IDataCoordinates>, nextState: IState) {
+  public shouldComponentUpdate(nextProps: ITableProps<IDataCoordinates>, nextState: IState) {
     const { virtualizerProps, initialOpenedTrees, ...otherProps } = this.props;
     const { virtualizerProps: nextVirtualizerProps, initialOpenedTrees: nextInitialOpenedTrees, ...nextOtherProps } = nextProps;
     const { initialScroll, ...otherVirtualizerProps } = virtualizerProps;
@@ -116,7 +116,7 @@ class Table<IDataCoordinates = any> extends React.Component<IProps<IDataCoordina
     );
   }
 
-  public componentDidUpdate(prevProps: IProps<IDataCoordinates>) {
+  public componentDidUpdate(prevProps: ITableProps<IDataCoordinates>) {
     const { rows } = this.props;
     const { openedTrees } = this.state;
     if (prevProps.rows !== rows) {

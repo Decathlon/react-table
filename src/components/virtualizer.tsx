@@ -47,7 +47,7 @@ interface IChildrenProps extends IRowsState, IColumnState {
   cellWidth: number;
 }
 
-export interface IOptionalProps {
+export interface IVirtualizerOptionalProps {
   /** List of fixed columns on the left or right of your table */
   fixedColumns: number[];
   /** List of fixed rows on the top or bottom of your table */
@@ -91,7 +91,7 @@ export interface IOptionalProps {
   hiddenRows: number[];
 }
 
-export interface IProps extends IOptionalProps {
+export interface IVirtualizerProps extends IVirtualizerOptionalProps {
   /**  The width of the visible window */
   width: number;
   /**  The height of the visible window */
@@ -106,7 +106,7 @@ export interface IProps extends IOptionalProps {
 
 interface IState extends IRowsState, IColumnState {}
 
-class Virtualizer extends React.Component<IProps, IState> {
+class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   public static defaultProps = {
     fixedColumns: [],
     fixedRows: [],
@@ -145,7 +145,7 @@ class Virtualizer extends React.Component<IProps, IState> {
 
   private scroller: React.RefObject<Scroller> = React.createRef<Scroller>();
 
-  public constructor(props: IProps) {
+  public constructor(props: IVirtualizerProps) {
     super(props);
     this.initializeGridProps();
     const visibleColumnIndexes = this.getVisibleColumnIndexes();
@@ -170,7 +170,7 @@ class Virtualizer extends React.Component<IProps, IState> {
     }
   }
 
-  public componentDidUpdate(prevProps: IProps) {
+  public componentDidUpdate(prevProps: IVirtualizerProps) {
     const {
       height,
       width,

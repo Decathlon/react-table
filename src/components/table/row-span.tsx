@@ -5,7 +5,7 @@ import classnames from "classnames";
 
 import { ROW_SPAN_WIDTH } from "../constants";
 
-export interface IRowSpanProps {
+export interface IRowSpan {
   /** Text being displayed when row-span is opened */
   title?: string;
   /** The width of the cell */
@@ -14,7 +14,7 @@ export interface IRowSpanProps {
   color?: string;
 }
 
-export interface IProps extends IRowSpanProps {
+export interface IRowSpanProps extends IRowSpan {
   /** callback function called when butten is clicked on */
   toggle: () => void;
   /** status of the component */
@@ -23,7 +23,7 @@ export interface IProps extends IRowSpanProps {
   length: number;
 }
 
-const RowSpan = ({ toggle, opened, length, title, width, color }: IProps) => {
+const RowSpan = ({ toggle, opened, length, title, width, color }: IRowSpanProps) => {
   return (
     <td
       className="table-column row-span-column"

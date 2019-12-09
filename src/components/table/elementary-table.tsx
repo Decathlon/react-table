@@ -39,7 +39,7 @@ export interface IColumns {
   [index: number]: IColumn;
 }
 
-export interface IElementaryTableProps<IDataCoordinates = any> {
+export interface IElementaryTable<IDataCoordinates = any> {
   id: string;
   /** All rows constituting the table */
   rows: IRow<IDataCoordinates>[];
@@ -61,7 +61,7 @@ export interface IElementaryTableProps<IDataCoordinates = any> {
   isSpan?: boolean;
 }
 
-export interface IProps<IDataCoordinates = any> extends IElementaryTableProps<IDataCoordinates>, ISelection {
+export interface IElementaryTableProps<IDataCoordinates = any> extends IElementaryTable<IDataCoordinates>, ISelection {
   /** List of fixed rows on the top or bottom of your table. Delegated by the virtualizer component */
   fixedRowsIndexes?: number[];
   /** A mapping between relative and absolute rows indexes. Delegated by the Table component for example */
@@ -74,7 +74,7 @@ export interface IProps<IDataCoordinates = any> extends IElementaryTableProps<ID
   onRowClose?: (closedTree: ITree) => void;
 }
 
-class ElementaryTable extends React.Component<IProps> {
+class ElementaryTable extends React.Component<IElementaryTableProps> {
   static defaultProps = {
     elevatedColumnIndexes: {},
     elevatedRowIndexes: {},
