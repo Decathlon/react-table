@@ -13,9 +13,6 @@
   },
   "homepage": "https://github.com/Decathlon/react-table/blob/master/README.md",
   "dependencies": {
-    "@material-ui/core": "~4.7.1",
-    "@material-ui/icons": "~4.5.1",
-    "@material-ui/styles": "~4.7.1",
     "classnames": "~2.2.6",
     "immutability-helper": "~3.0.1",
     "lodash": "~4.17.15",
@@ -23,11 +20,17 @@
     "react-number-format": "~4.3.1"
   },
   "peerDependencies": {
+    "@material-ui/core": "~4.7.1",
+    "@material-ui/icons": "~4.5.1",
+    "@material-ui/styles": "~4.7.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
     "@babel/core": "~7.7.4",
+    "@material-ui/core": "~4.7.1",
+    "@material-ui/icons": "~4.5.1",
+    "@material-ui/styles": "~4.7.1",
     "@storybook/addon-a11y": "~5.2.8",
     "@storybook/addon-actions": "~5.2.8",
     "@storybook/addon-centered": "~5.2.8",
