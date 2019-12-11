@@ -28,12 +28,12 @@ export interface IMask {
  */
 export interface IEdiTableCellProps extends IContentCellProps {
   isEdited: boolean;
-  initial_value: number;
-  value: number;
+  initial_value: Nullable<number>;
+  value: Nullable<number>;
   mask: IMask;
-  formatValue: (value: number, mask: IMask) => string;
+  formatValue: (value: Nullable<number>, mask?: IMask) => string;
   onConfirmValue: (value: Nullable<number>) => void;
-  validateValue?: (value: number) => boolean;
+  validateValue?: (value: Nullable<number>) => boolean;
 }
 
 interface IState {
@@ -123,7 +123,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     });
   };
 
-  private isValidValue = (value: number) => {
+  private isValidValue = (value: Nullable<number>) => {
     const { validateValue } = this.props;
     const isNumber = value !== null && !isNaN(value);
     return validateValue && isNumber ? validateValue(value) : true;

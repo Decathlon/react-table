@@ -9,6 +9,7 @@ import EditableCell, { IMask } from "../../../src/components/styled-table/editab
 import Table from "../../../src/components/table/table";
 import { IContentCellProps } from "../../../src/components/table/cell";
 import { getTable } from "./tables";
+import { Nullable } from "../../../src/components/typing";
 
 interface IProps extends IContentCellProps {
   defaultValue: number;
@@ -22,22 +23,26 @@ const mask: IMask = {
   decimals: 2
 };
 
-const formatValue = (value: number, mask) =>
-  value === null
+export const formatValue = (value: Nullable<number>, mask?: IMask) =>
+  mask && value === null
     ? "-"
     : new Intl.NumberFormat("fr-FR", {
+        //@ts-ignore mask is defined
         style: mask.is_percentage ? "percent" : undefined,
+        //@ts-ignore mask is defined
         maximumFractionDigits: mask.decimals,
+        //@ts-ignore mask is defined
         minimumFractionDigits: mask.decimals
+        //@ts-ignore value is defined
       }).format(value);
 
 const EditableCellParent = (props: IProps) => {
   const { defaultValue, alreadyEdited, maxValue } = props;
 
-  const [isEdited, setIsEdited] = React.useState(alreadyEdited);
-  const [value, setValue] = React.useState(defaultValue);
+  const [isEdited, setIsEdited] = React.useState(alreadyEdited || false);
+  const [value, setValue] = React.useState<Nullable<number>>(defaultValue);
 
-  const handleOnConfirmValue = value => {
+  const handleOnConfirmValue = (value: Nullable<number>) => {
     action("onConfirmValue")(value);
     setValue(value);
     setIsEdited(defaultValue !== value);
@@ -50,7 +55,7 @@ const EditableCellParent = (props: IProps) => {
       value={value}
       mask={mask}
       formatValue={formatValue}
-      validateValue={maxValue ? value => value <= maxValue : null}
+      validateValue={maxValue ? (value: Nullable<number>) => (value ? value <= maxValue : false) : undefined}
       onConfirmValue={handleOnConfirmValue}
     />
   );

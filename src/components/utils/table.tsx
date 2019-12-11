@@ -25,7 +25,7 @@ export interface IElevateds {
 
 export interface IAbsoluteIndex {
   index: number;
-  parentIndex: number | null;
+  parentIndex: Nullable<number>;
 }
 
 export interface IRelativeIndex {
@@ -193,7 +193,7 @@ export const getElevatedIndexes = (
   }, {});
 };
 
-export const getAllIndexesMap = (trees: ITrees = {}, rows: IRow[], root: number | null = null): IIndexesMap => {
+export const getAllIndexesMap = (trees: ITrees = {}, rows: IRow[], root: Nullable<number> = null): IIndexesMap => {
   const defaultValue = { absolute: {}, relative: {} };
   return rows
     ? rows.reduce((currentValue, _, rowIndex) => {
@@ -258,7 +258,7 @@ export const getTreeLength = (tree: ITree, rows: IRow[]): number => {
   return getTreesLength(subTrees, subRows) + current;
 };
 
-export const getIndexesMap = (trees: ITrees = {}, rowIndex: number, rows: IRow[], root: number | null = null): IIndexesMap => {
+export const getIndexesMap = (trees: ITrees = {}, rowIndex: number, rows: IRow[], root: Nullable<number> = null): IIndexesMap => {
   const result: IIndexesMap = { absolute: {}, relative: {} };
   const treesBeforeIndex = Object.keys(trees).reduce<ITrees>((result, treeRowIndex) => {
     if (parseInt(treeRowIndex) < rowIndex) {
@@ -291,7 +291,7 @@ export const getIndexesMap = (trees: ITrees = {}, rowIndex: number, rows: IRow[]
   return result;
 };
 
-export const getRootIndex = (absoluteIndex: number, root: number | null, absoluteIndexesMap: IAbsoluteIndexesMap): number => {
+export const getRootIndex = (absoluteIndex: number, root: Nullable<number>, absoluteIndexesMap: IAbsoluteIndexesMap): number => {
   const { parentIndex } = absoluteIndexesMap[absoluteIndex] || defaultAbsoluteIndex;
   if (parentIndex === root) {
     return absoluteIndex;
