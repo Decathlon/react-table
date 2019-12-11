@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderCell component should render the current HeaderCell 1`] = `
+<div
+  className="header-cell header-cell-current"
+>
+  <React.Fragment>
+    <div
+      className="header-cell-line"
+    />
+    <UNDEFINED
+      badge="30"
+      className="header-cell-bubble"
+    >
+      <div
+        className="header-cell-data"
+      >
+        <div
+          className="header-cell-title"
+        >
+          Foo
+        </div>
+        <div
+          className="header-cell-value"
+        >
+          Bar
+        </div>
+      </div>
+    </UNDEFINED>
+  </React.Fragment>
+</div>
+`;
+
+exports[`HeaderCell component should render the default HeaderCell (with subtitle) 1`] = `
+<div
+  className="header-cell"
+>
+  <div
+    className="header-cell-data"
+  >
+    <div
+      className="header-cell-title"
+    >
+      Foo
+    </div>
+    <div
+      className="header-cell-value"
+    >
+      Bar
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HeaderCell component should render the default HeaderCell 1`] = `
+<div
+  className="header-cell"
+>
+  <div
+    className="header-cell-data"
+  >
+    <div
+      className="header-cell-title"
+    >
+      Foo
+    </div>
+    <div
+      className="header-cell-value"
+    >
+      Bar
+    </div>
+  </div>
+</div>
+`;

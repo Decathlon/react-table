@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CellWithIcon component should render the CellWithIcon with a tooltip 1`] = `
+<div
+  className="cell-with-icon"
+>
+  <div
+    className="cell-with-icon__value"
+  >
+    TUNING
+  </div>
+  <ForwardRef(WithStyles)
+    title="Hello Foo"
+  >
+    <ForwardRef(WithStyles)
+      className="cell-with-icon__icon"
+    >
+      edit
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`CellWithIcon component should render the CellWithIcon with a tooltip and an action 1`] = `
+<div
+  className="cell-with-icon"
+>
+  <div
+    className="cell-with-icon__value"
+  >
+    TUNING
+  </div>
+  <ForwardRef(WithStyles)
+    title="Hello Foo"
+  >
+    <ForwardRef(WithStyles)
+      className="cell-with-icon__btn"
+      data-testid="toolbar-action-btn"
+      onClick={[MockFunction]}
+    >
+      <ForwardRef(WithStyles)
+        className="cell-with-icon__icon"
+      >
+        edit
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`CellWithIcon component should render the CellWithIcon with an action 1`] = `
+<div
+  className="cell-with-icon"
+>
+  <div
+    className="cell-with-icon__value"
+  >
+    TUNING
+  </div>
+  <ForwardRef(WithStyles)
+    className="cell-with-icon__btn"
+    data-testid="toolbar-action-btn"
+    onClick={[MockFunction]}
+  >
+    <ForwardRef(WithStyles)
+      className="cell-with-icon__icon"
+    >
+      edit
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</div>
+`;
+
+exports[`CellWithIcon component should render the default CellWithIcon 1`] = `
+<div
+  className="cell-with-icon"
+>
+  <div
+    className="cell-with-icon__value"
+  >
+    TUNING
+  </div>
+  <ForwardRef(WithStyles)
+    className="cell-with-icon__icon"
+  >
+    edit
+  </ForwardRef(WithStyles)>
+</div>
+`;
