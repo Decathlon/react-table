@@ -1,6 +1,6 @@
 {
   "name": "@decathlon/react-table",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React components for efficiently rendering large tabular data",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,9 @@
     "url": "https://github.com/Decathlon/react-table/issues"
   },
   "homepage": "https://github.com/Decathlon/react-table/blob/master/README.md",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "classnames": "~2.2.6",
     "immutability-helper": "~3.0.1",
