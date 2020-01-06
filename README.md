@@ -1,4 +1,3 @@
-
 # @decathlon/react-table
 
 React components for efficiently rendering large tabular data
@@ -13,6 +12,7 @@ React components for efficiently rendering large tabular data
 *A table with custom right click menu*
 
 ![Storybook](https://cdn.jsdelivr.net/gh/storybooks/brand@master/badge/badge-storybook.svg)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDecathlon%2Freact-table.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FDecathlon%2Freact-table?ref=badge_shield)
 
 ### Installing
 
@@ -107,3 +107,6 @@ See also the list of [contributors](https://github.com/Decathlon/react-table/gra
 ## License
 
 This project is licensed under the Apache-2.0 License - see the [LICENSE.md](https://github.com/Decathlon/react-table/blob/master/LICENSE) file for details
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FDecathlon%2Freact-table.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FDecathlon%2Freact-table?ref=badge_large)
