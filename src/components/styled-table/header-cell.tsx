@@ -14,7 +14,9 @@ const HeaderCell = ({ title, value, badge, isCurrent }: IHeaderCellProps) => {
   const cellContent = (
     <div className="header-cell-data">
       <div className="header-cell-title">{title}</div>
-      <div className="header-cell-value">{value}</div>
+      <div className="header-cell-value" title={value}>
+        {value}
+      </div>
     </div>
   );
 
