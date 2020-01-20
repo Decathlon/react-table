@@ -1,7 +1,7 @@
 // must have the same value as MAX_ROW_LEVEL in constants.ts
 $max-row-level: 2;
 $max-row-level-1: $max-row-level - 1;
-$bg-color: $green-color;
+$bg-color: $light-grey-color;
 
 // Ideally we'd want to color the odd ones, but we need a thead/tbody separation
 .table-row:nth-of-type(even) {
