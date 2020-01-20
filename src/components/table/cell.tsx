@@ -223,7 +223,9 @@ export default class Cell extends React.Component<ICellProps> {
                 dataCoordinates={dataCoordinates}
               />
             ) : (
-              <div style={styles.text}>{value}</div>
+              <div style={styles.text} className="cell-value" title={Component === "th" ? value || "" : ""}>
+                {value}
+              </div>
             )}
           </div>
         </div>

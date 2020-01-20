@@ -45,12 +45,14 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
         </ForwardRef(WithStyles)>
       </ForwardRef(WithStyles)>
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title="bar"
       >
         bar
       </div>
@@ -140,12 +142,14 @@ exports[`Cell component should render a cell with custom style 1`] = `
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": "25px",
             "lineHeight": "25pxpx",
           }
         }
+        title=""
       >
         bar
       </div>
@@ -190,12 +194,14 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": "25px",
             "lineHeight": "25pxpx",
           }
         }
+        title=""
       >
         bar
       </div>
@@ -249,12 +255,14 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
         </ForwardRef(WithStyles)>
       </ForwardRef(WithStyles)>
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title=""
       >
         bar
       </div>
@@ -299,12 +307,14 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title=""
       >
         bar
       </div>
@@ -349,12 +359,14 @@ exports[`Cell component should render a header cell 1`] = `
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title="bar"
       >
         bar
       </div>
@@ -399,12 +411,14 @@ exports[`Cell component should render a selected cell 1`] = `
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title=""
       >
         bar
       </div>
@@ -449,12 +463,14 @@ exports[`Cell component should render the default cell 1`] = `
       }
     >
       <div
+        className="cell-value"
         style={
           Object {
             "height": 56,
             "lineHeight": "56px",
           }
         }
+        title=""
       >
         bar
       </div>

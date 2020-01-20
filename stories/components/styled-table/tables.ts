@@ -32,10 +32,12 @@ const indicatorNames = [
   "ADVISED_TURNOVERF"
 ];
 
+const text = "Lorem Ipsum is that it has a more-or-less normal";
+
 export function getTable(cells = {}) {
   const weeks = Array.from(Array(52), (_, rowIndex) => ({
     id: rowIndex < 9 ? `0${rowIndex + 1}` : `${rowIndex + 1}`,
-    value: `W${rowIndex + 1}`
+    value: `W${rowIndex + 1}${rowIndex === 3 ? text : ""}`
   }));
   const headerRow: IRow = {
     id: "headers",
@@ -44,7 +46,7 @@ export function getTable(cells = {}) {
     cells: [
       {
         id: "indicators",
-        value: "Indicateurs"
+        value: `Indicateurs ${  text}`
       }
     ]
   };
