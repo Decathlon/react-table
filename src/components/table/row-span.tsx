@@ -1,7 +1,6 @@
 import * as React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import { Icon } from "@material-ui/core";
-import classnames from "classnames";
 
 import { ROW_SPAN_WIDTH } from "../constants";
 
@@ -32,15 +31,14 @@ const RowSpan = ({ toggle, opened, length, title, width, color }: IRowSpanProps)
         minWidth: width,
         maxWidth: width,
         width,
-        borderLeft: `solid 10px ${color}`
+        borderLeft: `solid 15px ${color}`
       }}
     >
-      <div className={classnames("row-span-container", { open: opened })}>
-        {!opened ? <div className="row-span-text">{title}</div> : null}
+      <div className="row-span-container">
+        <div className="row-span-text">{title}</div>
         <IconButton data-testid="table-row-span-btn" onClick={toggle}>
           <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
         </IconButton>
-        {opened ? <div className="row-span-text vertical">{title}</div> : null}
       </div>
     </td>
   );

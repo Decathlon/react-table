@@ -6,7 +6,7 @@ exports[`RowSpan component should render a closed span 1`] = `
   rowSpan={2}
   style={
     Object {
-      "borderLeft": "solid 10px red",
+      "borderLeft": "solid 15px red",
       "maxWidth": 110,
       "minWidth": 110,
       "width": 110,
@@ -39,7 +39,7 @@ exports[`RowSpan component should render an opened span 1`] = `
   rowSpan={2}
   style={
     Object {
-      "borderLeft": "solid 10px initial",
+      "borderLeft": "solid 15px initial",
       "maxWidth": 110,
       "minWidth": 110,
       "width": 110,
@@ -47,8 +47,13 @@ exports[`RowSpan component should render an opened span 1`] = `
   }
 >
   <div
-    className="row-span-container open"
+    className="row-span-container"
   >
+    <div
+      className="row-span-text"
+    >
+      Foo
+    </div>
     <ForwardRef(WithStyles)
       data-testid="table-row-span-btn"
       onClick={[Function]}
@@ -57,11 +62,6 @@ exports[`RowSpan component should render an opened span 1`] = `
         keyboard_arrow_down
       </ForwardRef(WithStyles)>
     </ForwardRef(WithStyles)>
-    <div
-      className="row-span-text vertical"
-    >
-      Foo
-    </div>
   </div>
 </td>
 `;
