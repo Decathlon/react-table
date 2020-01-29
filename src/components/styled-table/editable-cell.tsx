@@ -103,18 +103,16 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
 
   private getInputValue = () => {
     const { value, mask } = this.props;
-    let newInputValue = "";
+    let newInputValue = value;
     const isNumber = value !== null && !isNaN(value);
-    if (isNumber) {
-      if (mask.is_percentage) {
-        // @ts-ignore value !== null
-        newInputValue = (value * 100).toFixed(mask.decimals).toString();
-      } else {
-        // @ts-ignore value !== null
-        newInputValue = value.toFixed(mask.decimals).toString();
-      }
+    if (isNumber && mask.is_percentage) {
+      // @ts-ignore value !== null
+      newInputValue = value * 100;
     }
-    return newInputValue;
+    /** Remove zero decimals .i.e '100.00' => '100' */
+    const regex = /\.(0){1,}[^1-9]/;
+    // @ts-ignore value !== null
+    return isNumber ? newInputValue.toFixed(mask.decimals).replace(regex, "") : "";
   };
 
   protected clearFocus = () => {

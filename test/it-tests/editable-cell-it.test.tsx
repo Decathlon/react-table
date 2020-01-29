@@ -15,7 +15,7 @@ interface IProps extends IContentCellProps {
 }
 
 // https://stackoverflow.com/questions/52329629/intl-numberformat-behaves-incorrectly-in-jest-unit-test
-const formatValue = (value: Nullable<number>) => (value === null ? "-" : `${value},00 €`);
+const formatValue = (value: Nullable<number>) => (value === null ? "-" : `${value.toFixed(2)} €`);
 
 //@ts-ignore
 const focus = () => {};
@@ -73,9 +73,9 @@ describe("EditableCell component integration tests", () => {
     // usage of focus : https://github.com/s-yadav/react-number-format/issues/269
     fireEvent.change(input, { target: { value: 22, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
-    expect(getByText("22,00 €")).toBeTruthy();
+    expect(getByText("22.00 €")).toBeTruthy();
 
-    fireEvent.click(getByText("22,00 €"));
+    fireEvent.click(getByText("22.00 €"));
     input = getByTestId("editable-cell-text-field").querySelector("input");
     fireEvent.change(input, { target: { value: NaN, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
@@ -89,11 +89,44 @@ describe("EditableCell component integration tests", () => {
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
-    fireEvent.click(getByText("3,00 €"));
+    fireEvent.click(getByText("3.00 €"));
     const input = getByTestId("editable-cell-text-field").querySelector("input");
     fireEvent.change(input, { target: { value: null, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
-    expect(getByText("0,00 €")).toBeTruthy();
+    expect(getByText("0.00 €")).toBeTruthy();
+  });
+
+  test("should render input with defaultValue", () => {
+    const props = {
+      defaultValue: 3.01,
+      alreadyEdited: false
+    };
+
+    const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
+    fireEvent.click(getByText("3.01 €"));
+    expect(getByDisplayValue("3,01")).toBeTruthy();
+  });
+
+  test("should render input with defaultValue formatted without trailing zero", () => {
+    const props = {
+      defaultValue: 3,
+      alreadyEdited: false
+    };
+
+    const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
+    fireEvent.click(getByText("3.00 €"));
+    expect(getByDisplayValue("3")).toBeTruthy();
+  });
+
+  test("should render input with defaultValue keeping the trailing 0", () => {
+    const props = {
+      defaultValue: 3.1,
+      alreadyEdited: false
+    };
+
+    const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
+    fireEvent.click(getByText("3.10 €"));
+    expect(getByDisplayValue("3,10")).toBeTruthy();
   });
 
   test("shouldn't update inputValue with incorrect value", () => {
@@ -105,17 +138,17 @@ describe("EditableCell component integration tests", () => {
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
 
-    fireEvent.click(getByText("12,00 €"));
+    fireEvent.click(getByText("12.00 €"));
     let input = getByTestId("editable-cell-text-field").querySelector("input");
     fireEvent.change(input, { target: { value: 8, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
-    expect(getByText("12,00 €")).toBeTruthy();
+    expect(getByText("12.00 €")).toBeTruthy();
 
-    fireEvent.click(getByText("12,00 €"));
+    fireEvent.click(getByText("12.00 €"));
     input = getByTestId("editable-cell-text-field").querySelector("input");
     fireEvent.change(input, { target: { value: 15, focus } });
     input = getByTestId("editable-cell-text-field").querySelector("input");
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
-    expect(getByText("15,00 €")).toBeTruthy();
+    expect(getByText("15.00 €")).toBeTruthy();
   });
 });
