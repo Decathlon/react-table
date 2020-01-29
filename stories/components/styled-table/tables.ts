@@ -46,7 +46,7 @@ export function getTable(cells = {}) {
     cells: [
       {
         id: "indicators",
-        value: `Indicateurs ${  text}`
+        value: `Indicateurs ${text}`
       }
     ]
   };
