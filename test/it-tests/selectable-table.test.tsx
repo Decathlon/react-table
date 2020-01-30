@@ -2,10 +2,10 @@
 import * as React from "react";
 import { cleanup, fireEvent } from "@testing-library/react";
 
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import { generateTable } from "../../stories/utils/tables";
 import Table from "../../src/components/table/table";
-import { fireMouseEvent, getCellsOfRow, getRows } from "../utils/table";
+import { fireMouseEvent, getCellsOfRow, getRows } from "../tests-utils/table";
 import TableSelectionMenu, { IMenuProps, IMenuAction } from "../../src/components/table-selection/table-selection-menu";
 
 const selectionClassName = "selected";

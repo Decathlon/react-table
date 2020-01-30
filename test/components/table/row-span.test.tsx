@@ -4,7 +4,7 @@ import { createRenderer } from "react-test-renderer/shallow";
 import { cleanup, fireEvent } from "@testing-library/react";
 
 import RowSpan from "../../../src/components/table/row-span";
-import { customRender } from "../../utils/react-testing-library-utils";
+import { customRender } from "../../tests-utils/react-testing-library-utils";
 
 describe("RowSpan component", () => {
   test("should render a closed span", () => {
