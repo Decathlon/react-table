@@ -2,10 +2,10 @@
 import * as React from "react";
 import { cleanup, fireEvent, getByTestId } from "@testing-library/react";
 
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import { generateTable } from "../../stories/utils/tables";
 import Table from "../../src/components/table/table";
-import { getCellsOfRow, getRows } from "../utils/table";
+import { getCellsOfRow, getRows } from "../tests-utils/table";
 
 describe("elementary table component", () => {
   test("should render a table with all of rows and all of columns", () => {

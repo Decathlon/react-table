@@ -9,3 +9,6 @@ export const isEmptyObj = (value: object) => {
   }
   return true;
 };
+
+export const getStringNumberWithoutTrailingZeros = (value: number, decimals: number): string =>
+  Number(value.toFixed(decimals)).toString();

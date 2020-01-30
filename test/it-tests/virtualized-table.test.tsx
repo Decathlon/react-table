@@ -2,10 +2,10 @@
 import * as React from "react";
 import { cleanup, fireEvent, getByTestId, getByText } from "@testing-library/react";
 
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import { generateTable, generateTableWithCustomColspan, generateRow } from "../../stories/utils/tables";
 import Table, { ITableProps } from "../../src/components/table/table";
-import { getCellsOfRow, getRows } from "../utils/table";
+import { getCellsOfRow, getRows } from "../tests-utils/table";
 import { ROW_SPAN_WIDTH } from "../../src/components/constants";
 import { IRow } from "../../src/components/table/row";
 

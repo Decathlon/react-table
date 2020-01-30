@@ -3,7 +3,7 @@ import * as React from "react";
 import { cleanup, fireEvent, getByTestId } from "@testing-library/react";
 
 import { subRows, subMiam } from "../../stories/utils/tables";
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
 
 describe("Row component integration tests", () => {

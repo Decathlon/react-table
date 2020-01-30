@@ -7,10 +7,10 @@ import CellDimensionController from "../../src/components/table-interactions-man
 import TabeInteractionManager, {
   TableInteractionsContext
 } from "../../src/components/table-interactions-manager/table-interactions-manager";
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
 import { getTable } from "../../stories/components/styled-table/tables";
-import { getCellsOfRow, getRows } from "../utils/table";
+import { getCellsOfRow, getRows } from "../tests-utils/table";
 
 const defaultProps = getTable();
 

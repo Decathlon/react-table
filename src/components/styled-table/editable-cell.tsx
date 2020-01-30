@@ -5,6 +5,7 @@ import classnames from "classnames";
 
 import { IContentCellProps } from "../table/cell";
 import { Nullable } from "../typing";
+import { getStringNumberWithoutTrailingZeros } from "../utils";
 
 // @ts-ignore https://github.com/s-yadav/react-number-format/issues/180
 const NumberFormatComponent = NumberFormat.default || NumberFormat;
@@ -109,10 +110,8 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
       // @ts-ignore value !== null
       newInputValue = value * 100;
     }
-    /** Remove zero decimals .i.e '100.00' => '100' */
-    const regex = /\.(0){1,}[^1-9]/;
     // @ts-ignore value !== null
-    return isNumber ? newInputValue.toFixed(mask.decimals).replace(regex, "") : "";
+    return isNumber ? getStringNumberWithoutTrailingZeros(newInputValue, mask.decimals) : "";
   };
 
   protected clearFocus = () => {

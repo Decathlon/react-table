@@ -3,7 +3,7 @@
 import * as React from "react";
 import { fireEvent } from "@testing-library/react";
 
-import { customRender } from "../utils/react-testing-library-utils";
+import { customRender } from "../tests-utils/react-testing-library-utils";
 import EdiTableCell, { KEYCODE_ENTER } from "../../src/components/styled-table/editable-cell";
 import { IContentCellProps } from "../../src/components/table/cell";
 import { Nullable } from "../../src/components/typing";
@@ -107,7 +107,7 @@ describe("EditableCell component integration tests", () => {
     expect(getByDisplayValue("3,01")).toBeTruthy();
   });
 
-  test("should render input with defaultValue formatted without trailing zero", () => {
+  test("should render input with defaultValue formatted without its two trailing zeros", () => {
     const props = {
       defaultValue: 3,
       alreadyEdited: false
@@ -118,7 +118,7 @@ describe("EditableCell component integration tests", () => {
     expect(getByDisplayValue("3")).toBeTruthy();
   });
 
-  test("should render input with defaultValue keeping the trailing 0", () => {
+  test("should render input with defaultValue without the trailing 0", () => {
     const props = {
       defaultValue: 3.1,
       alreadyEdited: false
@@ -126,7 +126,7 @@ describe("EditableCell component integration tests", () => {
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
     fireEvent.click(getByText("3.10 €"));
-    expect(getByDisplayValue("3,10")).toBeTruthy();
+    expect(getByDisplayValue("3,1")).toBeTruthy();
   });
 
   test("shouldn't update inputValue with incorrect value", () => {
