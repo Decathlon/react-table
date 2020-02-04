@@ -32,6 +32,22 @@ describe("EdiTableCell component", () => {
     expect(rendered).toMatchSnapshot();
   });
 
+  test("should render a disabled editable cell", () => {
+    const props: IEdiTableCellProps = {
+      isEdited: false,
+      value: 0,
+      initial_value: 0,
+      onConfirmValue: jest.fn(),
+      mask,
+      formatValue,
+      disabled: true
+    };
+    const shallowRenderer = createRenderer();
+    shallowRenderer.render(<EdiTableCell {...props} />);
+    const rendered = shallowRenderer.getRenderOutput();
+    expect(rendered).toMatchSnapshot();
+  });
+
   test("should render editable cell with null value : '-'", () => {
     const props: IEdiTableCellProps = {
       isEdited: false,
