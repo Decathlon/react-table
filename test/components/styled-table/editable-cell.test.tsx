@@ -40,7 +40,7 @@ describe("EdiTableCell component", () => {
       onConfirmValue: jest.fn(),
       mask,
       formatValue,
-      disabled: true
+      isDisabled: true
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);

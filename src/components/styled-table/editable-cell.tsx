@@ -32,7 +32,7 @@ export interface IEdiTableCellProps extends IContentCellProps {
   initial_value: Nullable<number>;
   value: Nullable<number>;
   mask: IMask;
-  disabled?: boolean;
+  isDisabled?: boolean;
   formatValue: (value: Nullable<number>, mask?: IMask) => string;
   onConfirmValue: (value: Nullable<number>) => void;
   validateValue?: (value: Nullable<number>) => boolean;
@@ -164,7 +164,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
 
   public render() {
     const { inputValue, isFocused, isValidValue } = this.state;
-    const { isEdited, value, mask, formatValue, disabled } = this.props;
+    const { isEdited, value, mask, formatValue, isDisabled } = this.props;
     let inputValueWidth = inputValue !== "" ? inputValue.trim().length * 10 : minInputWidth;
     inputValueWidth = inputValueWidth < minInputWidth ? minInputWidth : inputValueWidth;
     return (
@@ -174,9 +174,9 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
           error: !isValidValue
         })}
         data-testid="editable-cell"
-        onClick={!disabled && !isFocused ? this.focus : undefined}
+        onClick={!isDisabled && !isFocused ? this.focus : undefined}
       >
-        {!disabled && isFocused ? (
+        {!isDisabled && isFocused ? (
           // @ts-ignore https://github.com/s-yadav/react-number-format/issues/180
           <NumberFormatComponent
             autoFocus
