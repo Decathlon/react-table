@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`EdiTableCell component should render a disabled editable cell 1`] = `
+<div
+  className="editable-cell"
+  data-testid="editable-cell"
+>
+  <div
+    className="editable-cell__value"
+  >
+    <span
+      className="text"
+    >
+      0.00
+    </span>
+  </div>
+</div>
+`;
+
 exports[`EdiTableCell component should render editable cell with null value : '-' 1`] = `
 <div
   className="editable-cell empty"

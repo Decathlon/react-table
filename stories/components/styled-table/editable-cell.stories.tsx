@@ -15,6 +15,7 @@ interface IProps extends IContentCellProps {
   defaultValue: number;
   alreadyEdited?: boolean;
   maxValue?: number;
+  isDisabled?: boolean;
 }
 
 const mask: IMask = {
@@ -37,7 +38,7 @@ export const formatValue = (value: Nullable<number>, mask?: IMask) =>
       }).format(value);
 
 const EditableCellParent = (props: IProps) => {
-  const { defaultValue, alreadyEdited, maxValue } = props;
+  const { defaultValue, alreadyEdited, maxValue, isDisabled } = props;
 
   const [isEdited, setIsEdited] = React.useState(alreadyEdited || false);
   const [value, setValue] = React.useState<Nullable<number>>(defaultValue);
@@ -57,6 +58,7 @@ const EditableCellParent = (props: IProps) => {
       formatValue={formatValue}
       validateValue={maxValue ? (value: Nullable<number>) => (value ? value <= maxValue : false) : undefined}
       onConfirmValue={handleOnConfirmValue}
+      isDisabled={isDisabled}
     />
   );
 };
@@ -91,6 +93,17 @@ storiesOf("Styled Table/editable cell", module)
     () => (
       <div style={{ padding: 10 }}>
         <EditableCellParent defaultValue={123.45} alreadyEdited />
+      </div>
+    ),
+    {
+      info: { inline: true }
+    }
+  )
+  .add(
+    "Disabled",
+    () => (
+      <div style={{ padding: 10 }}>
+        <EditableCellParent defaultValue={123.45} alreadyEdited isDisabled />
       </div>
     ),
     {
