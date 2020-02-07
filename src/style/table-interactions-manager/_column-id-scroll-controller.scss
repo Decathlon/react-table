@@ -14,3 +14,8 @@
     width: 24px !important;
   }
 }
+
+#column-id-scroll-controller > .MuiMenu-paper {
+  max-height: 512px;
+  margin-top: 32px;
+}
