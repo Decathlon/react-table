@@ -156,7 +156,7 @@ export default class Cell extends React.Component<ICellProps> {
       event.preventDefault();
       const contextCell = { rowIndex, cellIndex: index };
       const selectionContext: ISelectionContext = {
-        anchorEl: event.target as Element,
+        anchorEl: this.container.current,
         contextCell
       };
       onContextMenu(selectionContext);
