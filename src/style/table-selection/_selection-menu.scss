@@ -6,3 +6,11 @@
     font-weight: 800;
   }
 }
+
+.MuiPopover-root {
+  pointer-events: none;
+
+  .MuiMenu-list {
+    pointer-events: auto;
+  }
+}

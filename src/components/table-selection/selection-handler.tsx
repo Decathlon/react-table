@@ -15,6 +15,8 @@ export interface ISelection {
   /** on right click handler */
   onCellContextMenu?: (selectionContext: ISelectionContext) => void;
   selectedCells: ISelectedCells;
+  /** Function to close the context menu */
+  closeMenu?: () => void;
 }
 
 export interface ISelectionHandlerOptionalProps {
@@ -87,12 +89,13 @@ class SelectionHandler extends React.Component<ISelectionHandlerProps, IState> {
     return (
       <div className="selection-handler-container">
         <ContextMenuHandler selectedCells={selectedCells} menuComponent={menuComponent}>
-          {({ onContextMenu }) => {
+          {({ onContextMenu, closeMenu }) => {
             return children({
               onCellMouseDown,
               onCellMouseEnter,
               onCellMouseUp,
               onCellContextMenu: onContextMenu,
+              closeMenu,
               selectedCells
             });
           }}
