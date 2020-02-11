@@ -55,6 +55,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
       </IconButton>
 
       <Select
+        MenuProps={{ id: "column-id-scroll-controller" }}
         autoWidth
         id="table-toolbar_current-column"
         className="scroll-controlller__field"

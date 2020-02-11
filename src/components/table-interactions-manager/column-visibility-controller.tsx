@@ -58,6 +58,7 @@ export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumn
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           onClose={onClose}
           anchorEl={anchorEl}
+          className="visibility-controller-button"
         >
           <List classes={{ root: "table-interaction-menu" }}>
             {columns.length > 0

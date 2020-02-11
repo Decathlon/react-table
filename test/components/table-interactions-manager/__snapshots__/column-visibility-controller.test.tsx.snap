@@ -15,6 +15,7 @@ exports[`ColumnVisisbilityController component should render the default ColumnV
         "vertical": "bottom",
       }
     }
+    className="visibility-controller-button"
     data-testid="column-visibility-menu"
     elevation={2}
     id="wp_table-toolbar_toggle-aggregates-menu"

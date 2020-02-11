@@ -7,6 +7,7 @@ import { ColumnWidth } from "../../../src/components/constants";
 import { withThemeProvider } from "../../utils/decorators";
 import CellDimensionController from "../../../src/components/table-interactions-manager/cell-dimensions-controller";
 import ColumnVisibilityController from "../../../src/components/table-interactions-manager/column-visibility-controller";
+import ColumnIdScrollController from "../../../src/components/table-interactions-manager/column-id-scroll-controller";
 import TabeInteractionManager, {
   TableInteractionsContext
 } from "../../../src/components/table-interactions-manager/table-interactions-manager";
@@ -34,6 +35,11 @@ const storyInfoDefault = {
 const toolBarStyle = {
   display: "flex",
   justifyContent: "center"
+};
+
+const defaultColumnIdScrollControllerProps = {
+  columns: Array.from({ length: 50 }).map((_, i: number) => ({ id: i.toString(), label: `Label_${i}` })),
+  defaultValue: "0"
 };
 
 storiesOf("Table interactions manager", module)
@@ -117,7 +123,12 @@ storiesOf("Table interactions manager", module)
     {
       info: storyInfoDefault
     }
-  )
+  ).add(
+    "Column id scroll controller",
+    () =>  <ColumnIdScrollController {...defaultColumnIdScrollControllerProps} />
+  , {
+    info: storyInfoDefault
+  })
   .add("Integrated", () => (
     <TabeInteractionManager initialConfig={{ columnsCursor: { id: "03", index: 3 } }} toggleableColumns={toggleableColumns}>
       <TableInteractionsContext.Consumer>
