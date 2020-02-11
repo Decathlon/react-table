@@ -17,6 +17,11 @@ import TableSelectionMenu, {
 } from "../../src/components/table-selection/table-selection-menu";
 import Table from "../../src/components/table/table";
 import { generateTable } from "../utils/tables";
+import { Nullable } from "../../src/components/typing";
+
+interface ICustomCellContentProps {
+  defaultValue: string;
+}
 
 const AlertDialog: React.FunctionComponent<IActionMenuComponent> = ({ onClose }) => {
   return (
@@ -84,20 +89,20 @@ export const SelectionMenu: React.FunctionComponent<IMenuProps> = props => {
 };
 
 export const TableScrollController = () => {
-  const table = React.useRef<Table>();
+  const table = React.useRef<Table>(null);
   const goToColumnIndex = number("goToColumn", 20);
   const goToRowIndex = number("goToRow", 32);
   const columnId = "(0,39)-0";
   const goToColumn = () => {
-    table.current.goToColumnIndex(goToColumnIndex);
+    table.current?.goToColumnIndex(goToColumnIndex);
   };
 
   const goToColumnId = () => {
-    table.current.goToColumnId(columnId);
+    table.current?.goToColumnId(columnId);
   };
 
   const goToRow = () => {
-    table.current.goToRowIndex(goToRowIndex);
+    table.current?.goToRowIndex(goToRowIndex);
   };
 
   return (
@@ -135,7 +140,7 @@ export const TableScrollController = () => {
 
 export const TableColumnsRowsController = () => {
   const [hiddenColumns, setHiddenColumn] = React.useState<number[]>([]);
-  const [hiddenRow, setHiddenRow] = React.useState<number>();
+  const [hiddenRow, setHiddenRow] = React.useState<Nullable<number>>();
   const toggleColumn = (columnIndex: number) => () => {
     const newHiddenColumns = [...hiddenColumns];
     const indexOfColumn = newHiddenColumns.indexOf(columnIndex);
@@ -195,20 +200,22 @@ export const TableColumnsRowsController = () => {
   );
 };
 
-export const CustomCellContent = ({ defaultValue }: { defaultValue: string }) => {
+export const CustomCellContent = ({
+  defaultValue
+}: ICustomCellContentProps): React.FunctionComponentElement<ICustomCellContentProps> => {
   const [editable, setEditable] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>(defaultValue);
 
-  const toggleEditable = () => {
+  const toggleEditable = (): void => {
     setEditable(!editable);
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
   };
 
   return (
-    <div role="cell" onClick={!editable ? toggleEditable : null} style={{ color: "green" }}>
+    <div role="cell" onClick={!editable ? toggleEditable : undefined} style={{ color: "green" }}>
       {editable ? (
         <div>
           <TextField id="cell-id-foo" value={value} onChange={onChange} style={{ width: "auto" }} />

@@ -167,7 +167,7 @@ describe("Cell component", () => {
     expect(props.onMouseUp).toBeCalled();
     // onContextMenu
     const eventTarget = wrapper
-      .find("[data-testid='table-column']")
+      .find("[data-testid='table-cell-wrapper-foo']")
       .last()
       .getDOMNode();
     wrapper
