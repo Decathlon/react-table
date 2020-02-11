@@ -123,10 +123,8 @@ storiesOf("Table interactions manager", module)
     {
       info: storyInfoDefault
     }
-  ).add(
-    "Column id scroll controller",
-    () =>  <ColumnIdScrollController {...defaultColumnIdScrollControllerProps} />
-  , {
+  )
+  .add("Column id scroll controller", () => <ColumnIdScrollController {...defaultColumnIdScrollControllerProps} />, {
     info: storyInfoDefault
   })
   .add("Integrated", () => (
