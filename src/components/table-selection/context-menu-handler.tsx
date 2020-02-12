@@ -11,8 +11,6 @@ export interface ISelectionContext {
 
 interface IChildrenProps {
   onContextMenu: (selectionContext: ISelectionContext) => void;
-  /** Function to close the context menu */
-  closeMenu?: () => void;
 }
 
 export interface IContextMenuHandlerProps {
@@ -44,7 +42,7 @@ const ContextMenuHandler: React.FunctionComponent<IContextMenuHandlerProps> = ({
   };
   return (
     <>
-      {children({ onContextMenu: setContext, closeMenu })}
+      {children({ onContextMenu: setContext })}
       {MenuComponent ? <MenuComponent {...menuProps} /> : null}
     </>
   );

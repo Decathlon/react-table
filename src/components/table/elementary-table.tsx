@@ -72,8 +72,6 @@ export interface IElementaryTableProps<IDataCoordinates = any> extends IElementa
   onRowOpen?: (openedTree: ITree) => void;
   /** Called when a cell of the row is closed */
   onRowClose?: (closedTree: ITree) => void;
-  /** Function to close the context menu */
-  closeMenu?: () => void;
 }
 
 class ElementaryTable extends React.Component<IElementaryTableProps> {
@@ -127,8 +125,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       onCellMouseUp,
       onCellMouseEnter,
       onCellContextMenu,
-      selectedCells,
-      closeMenu
+      selectedCells
     } = this.props;
     const [relativeIndexes, rowsToRender] = this.getVisibleRows(rows, null, fixedRowsIndexes);
 
@@ -178,7 +175,6 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             onCellMouseEnter={onCellMouseEnter}
             onCellMouseUp={onCellMouseUp}
             onCellContextMenu={onCellContextMenu}
-            closeMenu={closeMenu}
             selectedCells={rowSelectedCells}
             // Table utils
             getVisibleRows={this.getVisibleRows}

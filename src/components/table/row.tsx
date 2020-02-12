@@ -88,8 +88,6 @@ export interface IRowProps extends IRow {
   onOpen?: (openedTree: ITree) => void;
   /** Callback when we are closing the subItems of the row */
   onClose?: (closedTree: ITree) => void;
-  /** Function to close the context menu */
-  closeMenu?: () => void;
 }
 
 interface IState {
@@ -334,8 +332,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       onCellMouseUp,
       onCellContextMenu,
       selectedCells,
-      isSelectable,
-      closeMenu
+      isSelectable
     } = this.props;
     const { mappingCellsWithColspan } = this.state;
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
@@ -408,7 +405,6 @@ export default class Row extends React.Component<IRowProps, IState> {
                   onMouseEnter={onCellMouseEnter}
                   onMouseUp={onCellMouseUp}
                   onContextMenu={onCellContextMenu}
-                  closeMenu={closeMenu}
                 />
               );
             })}
