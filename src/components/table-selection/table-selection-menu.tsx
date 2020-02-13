@@ -67,6 +67,7 @@ const TableSelectionMenu: React.FunctionComponent<ITableSelectionMenuProps> = ({
         anchorEl={anchorEl}
         anchorReference="anchorEl"
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        id="selection-menu"
       >
         {actions.map(action => {
           const MenuItemComponent = action.menuItem || DefaultMenuItem;

@@ -12,6 +12,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu closed me
     }
     anchorReference="anchorEl"
     elevation={1}
+    id="selection-menu"
     onClose={[MockFunction]}
     open={false}
   />
@@ -30,6 +31,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
     }
     anchorReference="anchorEl"
     elevation={1}
+    id="selection-menu"
     onClose={[MockFunction]}
     open={true}
   />
@@ -48,6 +50,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
     }
     anchorReference="anchorEl"
     elevation={1}
+    id="selection-menu"
     onClose={[MockFunction]}
     open={true}
   >
