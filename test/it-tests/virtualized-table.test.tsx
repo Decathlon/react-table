@@ -292,7 +292,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[6])[1].textContent).toEqual("(19,1)");
 
     // Open the first level
-    fireEvent.click(getByTestId(rows[1], "table-row-span-btn"));
+    fireEvent.click(getByTestId(rows[1], "table-toggle-row-btn"));
     rows = getRows(container);
     header = getRows(container, true);
 

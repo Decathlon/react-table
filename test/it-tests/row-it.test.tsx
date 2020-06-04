@@ -18,7 +18,7 @@ describe("Row component integration tests", () => {
   test("should open and render a child row openable with a rowSpan", () => {
     const props = subRows({ subsubRows: subMiam })[0];
     const { container } = customRender(<Table id="foo" isSpan rows={[props]} />);
-    fireEvent.click(getByTestId(container, "table-row-span-btn"));
+    fireEvent.click(getByTestId(container, "table-toggle-row-btn"));
     expect(container.getElementsByClassName("table-row")).toHaveLength(2);
     cleanup();
   });

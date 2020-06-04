@@ -22,7 +22,7 @@ exports[`RowSpan component should render a closed span 1`] = `
       Foo
     </div>
     <ForwardRef(WithStyles)
-      data-testid="table-row-span-btn"
+      data-testid="table-toggle-row-btn"
       onClick={[Function]}
     >
       <ForwardRef(WithStyles)>
@@ -55,7 +55,7 @@ exports[`RowSpan component should render an opened span 1`] = `
       Foo
     </div>
     <ForwardRef(WithStyles)
-      data-testid="table-row-span-btn"
+      data-testid="table-toggle-row-btn"
       onClick={[Function]}
     >
       <ForwardRef(WithStyles)>
