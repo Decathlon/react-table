@@ -278,9 +278,11 @@ export default class Row extends React.Component<IRowProps, IState> {
         (nextRowAbsoluteIndex ? filterIndexes(rowSelectedCells, rowAbsoluteIndex, nextRowAbsoluteIndex) : rowSelectedCells);
       // span delegated only for the first visible row (index === 0)
       const subDelegatedSpan = index === 0 ? rowSpan : undefined;
+      const subrowId = `${id}-${subRow.id}`;
       return (
         <Row
-          key={`row-${id}-${subRow.id}`}
+          key={`row-${subrowId}`}
+          id={subrowId}
           {...globalProps}
           {...subRow}
           className={classNames(subRow.className, `sub-row sub-row__${minLevel}`, {
@@ -352,7 +354,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       <>
         {isVisible ? (
           <tr
-            data-testid={`table-row${isHeader ? "-header" : ""}`}
+            data-testid={`table-${isHeader ? "header" : "row"}-${id}`}
             className={classNames("table-row", className, {
               head: isHeader,
               opened: openedCellIndex !== null

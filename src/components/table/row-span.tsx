@@ -36,7 +36,7 @@ const RowSpan = ({ toggle, opened, length, title, width, color }: IRowSpanProps)
     >
       <div className="row-span-container">
         <div className="row-span-text">{title}</div>
-        <IconButton data-testid="table-row-span-btn" onClick={toggle}>
+        <IconButton data-testid="table-toggle-row-btn" onClick={toggle}>
           <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
         </IconButton>
       </div>

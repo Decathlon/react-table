@@ -4,7 +4,7 @@ exports[`Row component should render a Row with a small size 1`] = `
 <React.Fragment>
   <tr
     className="table-row"
-    data-testid="table-row"
+    data-testid="table-row-small"
     style={
       Object {
         "height": 25,
@@ -76,7 +76,7 @@ exports[`Row component should render a Row with nested children 1`] = `
 <React.Fragment>
   <tr
     className="table-row"
-    data-testid="table-row"
+    data-testid="table-row-foo"
     style={
       Object {
         "height": 56,
@@ -169,7 +169,7 @@ exports[`Row component should render a Row with span 1`] = `
 <React.Fragment>
   <tr
     className="table-row"
-    data-testid="table-row"
+    data-testid="table-row-foo"
     style={
       Object {
         "height": 56,
@@ -273,7 +273,7 @@ exports[`Row component should render a simple row 1`] = `
 <React.Fragment>
   <tr
     className="table-row"
-    data-testid="table-row"
+    data-testid="table-row-foo"
     style={
       Object {
         "height": 56,
@@ -346,7 +346,7 @@ exports[`Row component should render the default table 1`] = `
 <React.Fragment>
   <tr
     className="table-row"
-    data-testid="table-row"
+    data-testid="table-row-foo"
     style={
       Object {
         "height": 56,
