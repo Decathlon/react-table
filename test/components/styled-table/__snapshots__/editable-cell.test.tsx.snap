@@ -7,6 +7,7 @@ exports[`EdiTableCell component should render a disabled editable cell 1`] = `
 >
   <div
     className="editable-cell__value"
+    title="0.00"
   >
     <span
       className="text"
@@ -25,6 +26,7 @@ exports[`EdiTableCell component should render editable cell with null value : '-
 >
   <div
     className="editable-cell__value"
+    title="-"
   >
     <span
       className="text"
@@ -43,6 +45,7 @@ exports[`EdiTableCell component should render editable cell with percentage valu
 >
   <div
     className="editable-cell__value"
+    title="100.00%"
   >
     <span
       className="text"
@@ -61,6 +64,7 @@ exports[`EdiTableCell component should render edited cell 1`] = `
 >
   <div
     className="editable-cell__value edited-cell"
+    title="50.00"
   >
     <span
       className="text"
@@ -79,6 +83,7 @@ exports[`EdiTableCell component should render the default editable cell 1`] = `
 >
   <div
     className="editable-cell__value"
+    title="0.00"
   >
     <span
       className="text"

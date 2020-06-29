@@ -149,7 +149,7 @@ exports[`Cell component should render a cell with custom style 1`] = `
             "lineHeight": "25pxpx",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>
@@ -201,7 +201,7 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
             "lineHeight": "25pxpx",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>
@@ -262,7 +262,7 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
             "lineHeight": "56px",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>
@@ -314,7 +314,7 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
             "lineHeight": "56px",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>
@@ -418,7 +418,7 @@ exports[`Cell component should render a selected cell 1`] = `
             "lineHeight": "56px",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>
@@ -470,7 +470,7 @@ exports[`Cell component should render the default cell 1`] = `
             "lineHeight": "56px",
           }
         }
-        title=""
+        title="bar"
       >
         bar
       </div>

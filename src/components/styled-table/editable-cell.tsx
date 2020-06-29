@@ -167,6 +167,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     const { isEdited, value, mask, formatValue, isDisabled } = this.props;
     let inputValueWidth = inputValue !== "" ? inputValue.trim().length * 10 : minInputWidth;
     inputValueWidth = inputValueWidth < minInputWidth ? minInputWidth : inputValueWidth;
+    const formattedValue = formatValue(value, mask);
     return (
       <div
         className={classnames("editable-cell", {
@@ -200,8 +201,9 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
             className={classnames("editable-cell__value", {
               [EDITED_CELL_CLASSNAME]: isEdited
             })}
+            title={formattedValue}
           >
-            <span className="text">{formatValue(value, mask)}</span>
+            <span className="text">{formattedValue}</span>
           </div>
         )}
       </div>
