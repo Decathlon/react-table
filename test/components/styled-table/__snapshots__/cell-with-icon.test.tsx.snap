@@ -6,6 +6,7 @@ exports[`CellWithIcon component should render the CellWithIcon with a tooltip 1`
 >
   <div
     className="cell-with-icon__value"
+    title="TUNING"
   >
     TUNING
   </div>
@@ -27,6 +28,7 @@ exports[`CellWithIcon component should render the CellWithIcon with a tooltip an
 >
   <div
     className="cell-with-icon__value"
+    title="TUNING"
   >
     TUNING
   </div>
@@ -54,6 +56,7 @@ exports[`CellWithIcon component should render the CellWithIcon with an action 1`
 >
   <div
     className="cell-with-icon__value"
+    title="TUNING"
   >
     TUNING
   </div>
@@ -77,6 +80,7 @@ exports[`CellWithIcon component should render the default CellWithIcon 1`] = `
 >
   <div
     className="cell-with-icon__value"
+    title="TUNING"
   >
     TUNING
   </div>

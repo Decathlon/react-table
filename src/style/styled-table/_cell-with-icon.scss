@@ -4,6 +4,11 @@
   justify-content: space-between;
   align-items: center;
 
+  &__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   &__icon {
     color: $icon-grey-color;
     font-size: medium !important;
