@@ -36,7 +36,9 @@ export const CellWithIcon: React.FunctionComponent<ICellWithIconProps> = ({
 
   return (
     <div className={classnames("cell-with-icon", className)}>
-      <div className="cell-with-icon__value">{value}</div>
+      <div className="cell-with-icon__value" title={value}>
+        {value}
+      </div>
       {tooltipTitle ? <Tooltip title={tooltipTitle}>{action}</Tooltip> : action}
     </div>
   );
