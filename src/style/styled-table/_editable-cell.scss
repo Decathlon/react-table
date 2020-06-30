@@ -1,5 +1,7 @@
 .editable-cell {
   display: flex;
+  justify-content: center;
+  min-width: 100%;
   &:hover ::before {
     border-bottom-width: 2px !important;
   }
@@ -18,6 +20,10 @@
 
   &__value {
     position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-width: 20px;
     &.edited-cell {
       .text {
         &:before {
@@ -26,9 +32,10 @@
       }
     }
     .text {
-      display: flex;
-      justify-content: center;
-      min-width: 20px;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
 
       &:before {
         left: 0;
@@ -42,10 +49,7 @@
   }
 
   &.empty {
-    min-width: 100%;
     cursor: text;
-    display: flex;
-    justify-content: center;
   }
 }
 
