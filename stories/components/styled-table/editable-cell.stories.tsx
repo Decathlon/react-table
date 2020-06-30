@@ -69,8 +69,7 @@ const defaultProps = getTable({
     1: {
       cellContent: EditableCellParent,
       cellContentProps: {
-        defaultValue: null,
-        maxValue: 1000
+        defaultValue: null
       }
     }
   }
