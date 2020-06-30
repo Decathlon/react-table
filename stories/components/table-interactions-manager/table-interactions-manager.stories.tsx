@@ -1,7 +1,7 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
-import { IconButton, Icon } from "@material-ui/core";
+import { IconButton, Icon, Button } from "@material-ui/core";
 
 import { ColumnWidth } from "../../../src/components/constants";
 import { withThemeProvider } from "../../utils/decorators";
@@ -14,6 +14,8 @@ import TabeInteractionManager, {
 import { CellSize } from "../../../src/components/table-interactions-manager/reducers";
 import { getTable } from "../styled-table/tables";
 import Table from "../../../src/components/table/table";
+import { table3Levels } from "../table/table.stories";
+import { ITrees } from "../../../src/components/table/elementary-table";
 
 const defaultProps = getTable();
 
@@ -40,6 +42,14 @@ const toolBarStyle = {
 const defaultColumnIdScrollControllerProps = {
   columns: Array.from({ length: 50 }).map((_, i: number) => ({ id: i.toString(), label: `Label_${i}` })),
   defaultValue: "0"
+};
+
+const trees: ITrees = {
+  1: {
+    rowIndex: 1,
+    columnIndex: 0,
+    subTrees: { 0: { rowIndex: 1, columnIndex: 2 } }
+  }
 };
 
 storiesOf("Table interactions manager", module)
@@ -178,4 +188,41 @@ storiesOf("Table interactions manager", module)
         }}
       </TableInteractionsContext.Consumer>
     </TabeInteractionManager>
-  ));
+  ))
+  .add(
+    "With rows control",
+    () => (
+      <TabeInteractionManager>
+        <TableInteractionsContext.Consumer>
+          {({ table, openTrees, closeTrees }) => {
+            return (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: 10,
+                    width: "100%"
+                  }}
+                >
+                  <Button color="primary" variant="contained" onClick={() => openTrees(trees)}>
+                    Open the row
+                  </Button>
+                  <Button color="primary" variant="contained" onClick={() => closeTrees(trees)}>
+                    Close the row
+                  </Button>
+                </div>
+                <Table ref={table} {...defaultProps} isSelectable={false} isSpan rows={table3Levels} />
+              </>
+            );
+          }}
+        </TableInteractionsContext.Consumer>
+      </TabeInteractionManager>
+    ),
+    {
+      info: {
+        inline: true,
+        propTables: [TabeInteractionManager]
+      }
+    }
+  );

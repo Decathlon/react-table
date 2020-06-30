@@ -173,23 +173,6 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
     return rowsLength;
   };
 
-  public openTrees = (trees: ITrees) => {
-    const { openedTrees } = this.state;
-    const currentOpenedTrees = openedTrees || {};
-    const newOpenedTrees = { ...currentOpenedTrees, ...trees };
-    this.updateRowsLength(newOpenedTrees);
-  };
-
-  public closeTrees = (trees: ITrees) => {
-    const { openedTrees } = this.state;
-    const currentOpenedTrees = openedTrees || {};
-    const newOpenedTrees = { ...currentOpenedTrees };
-    Object.keys(trees).forEach(rowId => {
-      delete newOpenedTrees[rowId];
-    });
-    this.updateRowsLength(newOpenedTrees);
-  };
-
   private updateRowsLength = (openedTrees: ITrees) => {
     const { rows } = this.props;
     const newIndexesMapping = getAllIndexesMap(openedTrees, rows);
@@ -221,6 +204,23 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
     if (Object.keys(newOpenedTrees).length !== Object.keys(openedTrees).length) {
       this.updateRowsLength(newOpenedTrees);
     }
+  };
+
+  public openTrees = (trees: ITrees) => {
+    const { openedTrees } = this.state;
+    const currentOpenedTrees = openedTrees || {};
+    const newOpenedTrees = { ...currentOpenedTrees, ...trees };
+    this.updateRowsLength(newOpenedTrees);
+  };
+
+  public closeTrees = (trees: ITrees) => {
+    const { openedTrees } = this.state;
+    const currentOpenedTrees = openedTrees || {};
+    const newOpenedTrees = { ...currentOpenedTrees };
+    Object.keys(trees).forEach(rowId => {
+      delete newOpenedTrees[rowId];
+    });
+    this.updateRowsLength(newOpenedTrees);
   };
 
   public goToColumnIndex = (columnIndex: number) => {
