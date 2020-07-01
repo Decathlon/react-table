@@ -282,7 +282,6 @@ export default class Row extends React.Component<IRowProps, IState> {
       return (
         <Row
           key={`row-${subrowId}`}
-          // @ts-ignore
           id={subrowId}
           {...globalProps}
           {...subRow}
