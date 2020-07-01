@@ -18,7 +18,7 @@ const defaultProps = {
 
 const table2Levels = tableWithSubItems({ firstSubRows: subRows({}) });
 
-const table3Levels = tableWithSubItems({
+export const table3Levels = tableWithSubItems({
   firstSubRows: subRows({ subsubRows: subMiam })
 });
 

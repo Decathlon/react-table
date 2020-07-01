@@ -6,6 +6,7 @@ import { TableInteractionsAction, updateHiddenColumns, updateRowHeight, updateCe
 import TableInteractionsManagerReducer, { ITableInteractionManagerState, CellSize, CellValue, initialState } from "./reducers";
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
+import { ITrees } from "../table/elementary-table";
 
 export interface OnScrollCallbackProps {
   /** The current column id. */
@@ -34,6 +35,10 @@ interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   goToColumnIndex: (columnIndex: number) => void;
   /** return the cell props of the table */
   getCell: (cellCoordinates: ICellCoordinates) => Nullable<ICell>;
+  /** Control opened rows */
+  openTrees: (trees: ITrees) => void;
+  /** Control closed rows */
+  closeTrees: (trees: ITrees) => void;
   /** Callback fired when a "scroll" (Horizontally) event is detected. */
   onHorizontallyScroll: (
     props: OnHorizontallyScrollProps,
@@ -62,6 +67,8 @@ const initialContentxt: ITableInteractionsManagerProps = {
   goToColumnId: nullFunction,
   goToColumnIndex: nullFunction,
   getCell: nullFunction,
+  openTrees: nullFunction,
+  closeTrees: nullFunction,
   onHorizontallyScroll: nullFunction
 };
 
@@ -134,6 +141,26 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
     [actions, table]
   );
 
+  const openTrees = React.useCallback(
+    (trees: ITrees) => {
+      if (table.current) {
+        return table.current.openTrees(trees);
+      }
+      return null;
+    },
+    [table]
+  );
+
+  const closeTrees = React.useCallback(
+    (trees: ITrees) => {
+      if (table.current) {
+        return table.current.closeTrees(trees);
+      }
+      return null;
+    },
+    [table]
+  );
+
   const onHorizontallyScroll = React.useCallback(
     (onScrollProps: OnHorizontallyScrollProps, callback?: (onScrollCallbackProps: OnScrollCallbackProps) => void) => {
       const { columnsCursor } = onScrollProps;
@@ -186,6 +213,8 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
         goToColumnIndex,
         goToColumnId,
         getCell,
+        openTrees,
+        closeTrees,
         table
       }}
     >
