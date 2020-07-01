@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import Table, { IState as ITableState } from "../table/table";
+import Table from "../table/table";
 import { OnHorizontallyScrollProps } from "../virtualizer";
 import { TableInteractionsAction, updateHiddenColumns, updateRowHeight, updateCellWidth, updateColumnsCursor } from "./actions";
 import TableInteractionsManagerReducer, { ITableInteractionManagerState, CellSize, CellValue, initialState } from "./reducers";
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
 import { ITrees } from "../table/elementary-table";
+import useComponent, { ComponentRef } from "../../hooks/useComponent";
 
 export interface OnScrollCallbackProps {
   /** The current column id. */
@@ -19,10 +20,9 @@ interface Column {
 }
 
 interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
+  tableRef: Nullable<(table: Table) => void>;
   /** The table ref. */
-  table: Nullable<React.MutableRefObject<Nullable<Table>>>;
-  /** The table state  */
-  tableState: Nullable<ITableState>;
+  table: Nullable<ComponentRef<Table>>;
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIndexes: number[];
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
@@ -41,13 +41,12 @@ interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   openTrees: (trees: ITrees) => void;
   /** Control closed rows */
   closeTrees: (trees: ITrees) => void;
-  /** Callback fired when the table state has changed */
-  onTableUpdate: (state: ITableState) => void;
   /** Callback fired when a "scroll" (Horizontally) event is detected. */
   onHorizontallyScroll: (
     props: OnHorizontallyScrollProps,
     callback?: (onScrollCallbackProps: OnScrollCallbackProps) => void
   ) => void;
+  onTableUpdate: () => void;
 }
 
 interface IProps {
@@ -63,8 +62,8 @@ const nullFunction = (): any => null;
 
 const initialContext: ITableInteractionsManagerProps = {
   ...initialState,
+  tableRef: nullFunction,
   table: null,
-  tableState: null,
   hiddenColumnsIndexes: [],
   updateHiddenIds: nullFunction,
   updateRowHeight: nullFunction,
@@ -93,7 +92,9 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
     hiddenColumnsIds: initalHiddenColumnsIds,
     ...initialConfig
   });
-  const table = React.useRef<Table>(null);
+
+  const [tableRef, table, onTableUpdate] = useComponent<Table>();
+
   const { columnsCursor, hiddenColumnsIds } = state;
   const { id: currentColumnsCursorId, index: currentColumnsCursorIndex } = columnsCursor || {
     id: null,
@@ -114,10 +115,6 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
       onStateUpdate(state);
     }
   }, [state]);
-
-  const [tableState, setTableState] = React.useState(table.current?.state || null);
-
-  const onTableUpdate = React.useCallback((newTableState: ITableState) => setTableState(newTableState), []);
 
   const goToColumnId = React.useCallback(
     (columnId: string) => {
@@ -211,7 +208,6 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
       }, []),
     [hiddenColumnsIds, hiddenColumnsIdsMapping]
   );
-
   return (
     <TableInteractionsContext.Provider
       value={{
@@ -225,9 +221,9 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
         getCell,
         openTrees,
         closeTrees,
+        tableRef,
         onTableUpdate,
-        table,
-        tableState
+        table
       }}
     >
       {children}

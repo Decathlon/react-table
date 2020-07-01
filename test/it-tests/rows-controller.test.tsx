@@ -31,7 +31,7 @@ describe("Rows controller", () => {
     const { container, getByText } = customRender(
       <TabeInteractionManager>
         <TableInteractionsContext.Consumer>
-          {({ table, openTrees, closeTrees }) => {
+          {({ tableRef, openTrees, closeTrees }) => {
             return (
               <>
                 <Button color="primary" variant="contained" onClick={() => openTrees(trees)}>
@@ -40,7 +40,7 @@ describe("Rows controller", () => {
                 <Button color="primary" variant="contained" onClick={() => closeTrees(trees)}>
                   Close the row
                 </Button>
-                <Table ref={table} {...defaultProps} isSelectable={false} isSpan rows={table3Levels} />
+                <Table ref={tableRef} {...defaultProps} isSelectable={false} isSpan rows={table3Levels} />
               </>
             );
           }}

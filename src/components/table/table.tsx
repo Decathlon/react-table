@@ -43,7 +43,7 @@ export interface ITableProps<IDataCoordinates = any> extends IElementaryTable<ID
   selectionProps?: ISelectionHandlerOptionalProps;
   isSelectable?: boolean;
   isVirtualized?: boolean;
-  onStateUpdate?: (state: IState) => void;
+  onOpenedTreesUpdate?: (openedTrees: ITrees) => void;
 }
 
 export interface IState {
@@ -175,7 +175,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
   };
 
   private updateRowsLength = (openedTrees: ITrees) => {
-    const { rows, onStateUpdate } = this.props;
+    const { rows, onOpenedTreesUpdate } = this.props;
     const newIndexesMapping = getAllIndexesMap(openedTrees, rows);
     const newRowsLength = this.getRowslength(openedTrees);
 
@@ -187,8 +187,8 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         fixedRowsIndexes: this.getFixedRowsIndexes(openedTrees, newIndexesMapping.relative)
       },
       () => {
-        if (onStateUpdate) {
-          onStateUpdate(this.state);
+        if (onOpenedTreesUpdate) {
+          onOpenedTreesUpdate(openedTrees);
         }
       }
     );
