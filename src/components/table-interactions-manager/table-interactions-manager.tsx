@@ -7,6 +7,7 @@ import TableInteractionsManagerReducer, { ITableInteractionManagerState, CellSiz
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
 import { ITrees } from "../table/elementary-table";
+import useComponent, { ComponentRef } from "../../hooks/useComponent";
 
 export interface OnScrollCallbackProps {
   /** The current column id. */
@@ -19,8 +20,9 @@ interface Column {
 }
 
 interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
+  tableRef: Nullable<(table: Table) => void>;
   /** The table ref. */
-  table: Nullable<React.MutableRefObject<Nullable<Table>>>;
+  table: Nullable<ComponentRef<Table>>;
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIndexes: number[];
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
@@ -44,6 +46,7 @@ interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
     props: OnHorizontallyScrollProps,
     callback?: (onScrollCallbackProps: OnScrollCallbackProps) => void
   ) => void;
+  onTableUpdate: () => void;
 }
 
 interface IProps {
@@ -51,14 +54,15 @@ interface IProps {
   toggleableColumns: Column[];
   /** The initial table interaction config. */
   initialConfig?: Partial<ITableInteractionManagerState>;
-  /** Callback fired when the interaction context state hase changed. */
+  /** Callback fired when the interaction context state has changed. */
   onStateUpdate?: (state: ITableInteractionManagerState) => void;
 }
 
 const nullFunction = (): any => null;
 
-const initialContentxt: ITableInteractionsManagerProps = {
+const initialContext: ITableInteractionsManagerProps = {
   ...initialState,
+  tableRef: nullFunction,
   table: null,
   hiddenColumnsIndexes: [],
   updateHiddenIds: nullFunction,
@@ -69,13 +73,14 @@ const initialContentxt: ITableInteractionsManagerProps = {
   getCell: nullFunction,
   openTrees: nullFunction,
   closeTrees: nullFunction,
-  onHorizontallyScroll: nullFunction
+  onHorizontallyScroll: nullFunction,
+  onTableUpdate: nullFunction
 };
 
 export const TableInteractionsContext: React.Context<ITableInteractionsManagerProps> = React.createContext<
   ITableInteractionsManagerProps
 >({
-  ...initialContentxt
+  ...initialContext
 });
 
 const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, toggleableColumns = [] }: IProps) => {
@@ -87,7 +92,9 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
     hiddenColumnsIds: initalHiddenColumnsIds,
     ...initialConfig
   });
-  const table = React.useRef<Table>(null);
+
+  const [tableRef, table, onTableUpdate] = useComponent<Table>();
+
   const { columnsCursor, hiddenColumnsIds } = state;
   const { id: currentColumnsCursorId, index: currentColumnsCursorIndex } = columnsCursor || {
     id: null,
@@ -201,7 +208,6 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
       }, []),
     [hiddenColumnsIds, hiddenColumnsIdsMapping]
   );
-
   return (
     <TableInteractionsContext.Provider
       value={{
@@ -215,6 +221,8 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
         getCell,
         openTrees,
         closeTrees,
+        tableRef,
+        onTableUpdate,
         table
       }}
     >

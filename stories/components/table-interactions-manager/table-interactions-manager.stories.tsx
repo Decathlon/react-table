@@ -140,7 +140,7 @@ storiesOf("Table interactions manager", module)
   .add("Integrated", () => (
     <TabeInteractionManager initialConfig={{ columnsCursor: { id: "03", index: 3 } }} toggleableColumns={toggleableColumns}>
       <TableInteractionsContext.Consumer>
-        {({ onHorizontallyScroll, hiddenColumnsIndexes, cellWidth, rowHeight, table, columnsCursor }) => {
+        {({ onHorizontallyScroll, hiddenColumnsIndexes, cellWidth, rowHeight, tableRef, columnsCursor }) => {
           return (
             <>
               <div style={toolBarStyle}>
@@ -165,7 +165,7 @@ storiesOf("Table interactions manager", module)
                 className={cellWidth.size === CellSize.small && "small-table"}
               >
                 <Table
-                  ref={table}
+                  ref={tableRef}
                   {...defaultProps}
                   columns={{ 0: { style: { justifyContent: "left" }, size: 200 } }}
                   isVirtualized
@@ -194,7 +194,7 @@ storiesOf("Table interactions manager", module)
     () => (
       <TabeInteractionManager>
         <TableInteractionsContext.Consumer>
-          {({ table, openTrees, closeTrees }) => {
+          {({ onTableUpdate, tableRef, openTrees, closeTrees }) => {
             return (
               <>
                 <div
@@ -212,7 +212,14 @@ storiesOf("Table interactions manager", module)
                     Close the row
                   </Button>
                 </div>
-                <Table ref={table} {...defaultProps} isSelectable={false} isSpan rows={table3Levels} />
+                <Table
+                  ref={tableRef}
+                  {...defaultProps}
+                  isSelectable={false}
+                  isSpan
+                  rows={table3Levels}
+                  onOpenedTreesUpdate={onTableUpdate}
+                />
               </>
             );
           }}

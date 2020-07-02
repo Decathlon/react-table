@@ -50,7 +50,7 @@ describe("ColumnVisisbilityController component", () => {
     const { container, getByText, getByTestId } = customRender(
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: [] }} toggleableColumns={toggleableColumns}>
         <TableInteractionsContext.Consumer>
-          {({ onHorizontallyScroll, table, columnsCursor, hiddenColumnsIndexes }) => {
+          {({ onHorizontallyScroll, tableRef, columnsCursor, hiddenColumnsIndexes }) => {
             return (
               <>
                 <ColumnVisisbilityController
@@ -58,7 +58,7 @@ describe("ColumnVisisbilityController component", () => {
                   buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Visisbility Controller</div>}
                 />
                 <Table
-                  ref={table}
+                  ref={tableRef}
                   {...defaultProps}
                   isVirtualized
                   virtualizerProps={{

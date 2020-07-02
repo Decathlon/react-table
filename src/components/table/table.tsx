@@ -38,11 +38,12 @@ interface IVirtualizerProps extends Partial<IVirtualizerOptionalProps> {
 export interface ITableProps<IDataCoordinates = any> extends IElementaryTable<IDataCoordinates> {
   responsiveContainerProps: IResponsiveContainerOptionalProps;
   virtualizerProps: IVirtualizerProps;
+  /** A list of branches to initialize opened rows and sub rows */
+  initialOpenedTrees: ITrees;
   selectionProps?: ISelectionHandlerOptionalProps;
   isSelectable?: boolean;
   isVirtualized?: boolean;
-  /** A list of branches to initialize opened rows and sub rows */
-  initialOpenedTrees: ITrees;
+  onOpenedTreesUpdate?: (openedTrees: ITrees) => void;
 }
 
 export interface IState {
@@ -174,16 +175,23 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
   };
 
   private updateRowsLength = (openedTrees: ITrees) => {
-    const { rows } = this.props;
+    const { rows, onOpenedTreesUpdate } = this.props;
     const newIndexesMapping = getAllIndexesMap(openedTrees, rows);
     const newRowsLength = this.getRowslength(openedTrees);
 
-    this.setState({
-      indexesMapping: newIndexesMapping,
-      openedTrees,
-      rowsLength: newRowsLength,
-      fixedRowsIndexes: this.getFixedRowsIndexes(openedTrees, newIndexesMapping.relative)
-    });
+    this.setState(
+      {
+        indexesMapping: newIndexesMapping,
+        openedTrees,
+        rowsLength: newRowsLength,
+        fixedRowsIndexes: this.getFixedRowsIndexes(openedTrees, newIndexesMapping.relative)
+      },
+      () => {
+        if (onOpenedTreesUpdate) {
+          onOpenedTreesUpdate(openedTrees);
+        }
+      }
+    );
   };
 
   private onRowOpen = (openedTree: ITree) => {

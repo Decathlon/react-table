@@ -57,12 +57,12 @@ describe("CellDimensionController component", () => {
       // init scroll to the week number 12
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: [], columnsCursor: { id: "12", index: 12 } }}>
         <TableInteractionsContext.Consumer>
-          {({ onHorizontallyScroll, table, columnsCursor, cellWidth, rowHeight }) => {
+          {({ onHorizontallyScroll, tableRef, columnsCursor, cellWidth, rowHeight }) => {
             return (
               <>
                 <CellDimensionController buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Dimension Controller</div>} />
                 <Table
-                  ref={table}
+                  ref={tableRef}
                   {...defaultProps}
                   isVirtualized
                   virtualizerProps={{
