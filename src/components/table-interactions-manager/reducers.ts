@@ -9,23 +9,21 @@ export enum CellSize {
   large = "large"
 }
 
-export const CELL_SIZES: CellSize[] = [CellSize.small, CellSize.medium, CellSize.large];
-
 export interface CellValue {
   id: string;
   index: number;
 }
 
-export interface CellDimention {
+export interface CellDimension {
   value: number;
-  size: CellSize;
+  size: string;
 }
 
 export interface ITableInteractionManagerState {
   /** The current cell width of the table. */
-  cellWidth: CellDimention;
+  cellWidth: CellDimension;
   /** The current row Height of the table. */
-  rowHeight: CellDimention;
+  rowHeight: CellDimension;
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIds: string[];
   /** The current columns cursor of the table (current scroll). */
@@ -44,12 +42,12 @@ const tableManagerReducer = (state: ITableInteractionManagerState = initialState
     case actionTypes.UPDATE_CELL_WIDTH:
       return {
         ...state,
-        cellWidth: { value: ColumnWidth[action.size], size: action.size }
+        cellWidth: action.value
       };
     case actionTypes.UPDATE_ROW_HEIGHT:
       return {
         ...state,
-        rowHeight: { value: RowHeight[action.size], size: action.size }
+        rowHeight: action.value
       };
     case actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXTES:
       return {

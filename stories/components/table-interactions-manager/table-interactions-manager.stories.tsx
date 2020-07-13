@@ -52,6 +52,18 @@ const trees: ITrees = {
   }
 };
 
+const customCellWidthOptions = {
+  s: 150,
+  m: 200,
+  l: 300
+};
+
+const customRowHeightOptions = {
+  s: 50,
+  m: 100,
+  l: 150
+};
+
 storiesOf("Table interactions manager", module)
   .addDecorator(withThemeProvider)
   .addParameters({
@@ -138,7 +150,71 @@ storiesOf("Table interactions manager", module)
     info: storyInfoDefault
   })
   .add("Integrated", () => (
-    <TabeInteractionManager initialConfig={{ columnsCursor: { id: "03", index: 3 } }} toggleableColumns={toggleableColumns}>
+    <TabeInteractionManager
+      initialConfig={{
+        columnsCursor: { id: "03", index: 3 }
+      }}
+      toggleableColumns={toggleableColumns}
+    >
+      <TableInteractionsContext.Consumer>
+        {({ onHorizontallyScroll, hiddenColumnsIndexes, cellWidth, rowHeight, table, columnsCursor }) => {
+          return (
+            <>
+              <div style={toolBarStyle}>
+                <CellDimensionController
+                  buttonRenderer={toggleMenu => (
+                    <IconButton onClick={toggleMenu}>
+                      <Icon>line_weight</Icon>
+                    </IconButton>
+                  )}
+                />
+                <ColumnVisibilityController
+                  columns={toggleableColumns}
+                  buttonRenderer={toggleMenu => (
+                    <IconButton onClick={toggleMenu}>
+                      <Icon>view_week</Icon>
+                    </IconButton>
+                  )}
+                />
+              </div>
+              <div
+                style={{ height: "calc(100vh - 55px)", width: "100%" }}
+                className={cellWidth.size === CellSize.small && "small-table"}
+              >
+                <Table
+                  ref={table}
+                  {...defaultProps}
+                  columns={{ 0: { style: { justifyContent: "left" }, size: 200 } }}
+                  isVirtualized
+                  isSelectable={false}
+                  virtualizerProps={{
+                    hiddenColumns: hiddenColumnsIndexes,
+                    minColumnWidth: cellWidth.value,
+                    minRowHeight: rowHeight.value,
+                    initialScroll: {
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                    },
+                    fixedRows,
+                    fixedColumns,
+                    onHorizontallyScroll
+                  }}
+                />
+              </div>
+            </>
+          );
+        }}
+      </TableInteractionsContext.Consumer>
+    </TabeInteractionManager>
+  ))
+  .add("Integrated with custom cell sizes", () => (
+    <TabeInteractionManager
+      initialConfig={{
+        columnsCursor: { id: "03", index: 3 },
+        cellWidth: { size: "m", value: customCellWidthOptions.m },
+        rowHeight: { size: "m", value: customRowHeightOptions.m }
+      }}
+      toggleableColumns={toggleableColumns}
+    >
       <TableInteractionsContext.Consumer>
         {({ onHorizontallyScroll, hiddenColumnsIndexes, cellWidth, rowHeight, tableRef, columnsCursor }) => {
           return (
@@ -150,6 +226,8 @@ storiesOf("Table interactions manager", module)
                       <Icon>line_weight</Icon>
                     </IconButton>
                   )}
+                  cellWidthOptions={customCellWidthOptions}
+                  rowHeightOptions={customRowHeightOptions}
                 />
                 <ColumnVisibilityController
                   columns={toggleableColumns}

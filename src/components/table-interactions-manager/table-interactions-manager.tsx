@@ -3,7 +3,12 @@ import * as React from "react";
 import Table from "../table/table";
 import { OnHorizontallyScrollProps } from "../virtualizer";
 import { TableInteractionsAction, updateHiddenColumns, updateRowHeight, updateCellWidth, updateColumnsCursor } from "./actions";
-import TableInteractionsManagerReducer, { ITableInteractionManagerState, CellSize, CellValue, initialState } from "./reducers";
+import TableInteractionsManagerReducer, {
+  ITableInteractionManagerState,
+  CellValue,
+  initialState,
+  CellDimension
+} from "./reducers";
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
 import { ITrees } from "../table/elementary-table";
@@ -28,9 +33,9 @@ interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
   updateHiddenIds: (hiddenIds: string[]) => void;
   /** The row height controler. Please see the CellDimensionController */
-  updateRowHeight: (size: CellSize) => void;
+  updateRowHeight: (value: CellDimension) => void;
   /** The cell width controler. Please see the CellDimensionController */
-  updateCellWidth: (size: CellSize) => void;
+  updateCellWidth: (value: CellDimension) => void;
   /** The scroll controler (scrolling by column id). Please see the WeekScrollerController. */
   goToColumnId: (columnId: string) => void;
   /** The scroll controler (scrolling by column index). Please see the WeekScrollerController. */
@@ -185,8 +190,8 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
   );
 
   const updateCellWidth = React.useCallback(
-    (size: CellSize) => {
-      actions.updateCellWidth(size);
+    (value: CellDimension) => {
+      actions.updateCellWidth(value);
       /** We need an async scrolling. Waiting for cell width update. */
       if (currentColumnsCursorId) {
         setImmediate(() => {
@@ -237,8 +242,8 @@ TableInteractionsManager.defaultProps = {
 
 const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) => ({
   updateHiddenIds: (hiddenIds: string[]) => dispatch(updateHiddenColumns(hiddenIds)),
-  updateRowHeight: (size: CellSize) => dispatch(updateRowHeight(size)),
-  updateCellWidth: (size: CellSize) => dispatch(updateCellWidth(size)),
+  updateRowHeight: (value: CellDimension) => dispatch(updateRowHeight(value)),
+  updateCellWidth: (value: CellDimension) => dispatch(updateCellWidth(value)),
   updateColumnsCursor: (columnsCursor: CellValue) => dispatch(updateColumnsCursor(columnsCursor))
 });
 

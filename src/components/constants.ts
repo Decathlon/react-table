@@ -18,14 +18,14 @@ export enum MouseClickButtons {
   left = "left"
 }
 
-export enum RowHeight {
-  small = 60,
-  medium = 80,
-  large = 100
-}
+export const RowHeight = {
+  small: 60,
+  medium: 80,
+  large: 100
+};
 
-export enum ColumnWidth {
-  small = 90,
-  medium = 160,
-  large = 230
-}
+export const ColumnWidth = {
+  small: 90,
+  medium: 160,
+  large: 230
+};
