@@ -1,24 +1,24 @@
 import * as actionTypes from "./actions-types";
-import { CellSize, CellValue } from "./reducers";
+import { CellValue, CellDimension } from "./reducers";
 
 export interface UpdateCellWidth {
   type: actionTypes.UPDATE_CELL_WIDTH;
-  size: CellSize;
+  value: CellDimension;
 }
 
-export const updateCellWidth = (size: CellSize): UpdateCellWidth => ({
+export const updateCellWidth = (value: CellDimension): UpdateCellWidth => ({
   type: actionTypes.UPDATE_CELL_WIDTH,
-  size
+  value
 });
 
 export interface UpdateRowHeight {
   type: actionTypes.UPDATE_ROW_HEIGHT;
-  size: CellSize;
+  value: CellDimension;
 }
 
-export const updateRowHeight = (size: CellSize): UpdateRowHeight => ({
+export const updateRowHeight = (value: CellDimension): UpdateRowHeight => ({
   type: actionTypes.UPDATE_ROW_HEIGHT,
-  size
+  value
 });
 
 export interface UpdateHiddenColumns {

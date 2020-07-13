@@ -1,5 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CellDimensionController component should render CellDimensionController with default cell sizes 1`] = `
+<React.Fragment>
+  <span
+    onClick={[Function]}
+  >
+    Foo
+  </span>
+  <ForwardRef(WithStyles)
+    anchorEl={null}
+    anchorOrigin={
+      Object {
+        "horizontal": "center",
+        "vertical": "bottom",
+      }
+    }
+    data-testid="cell-dimensions-menu"
+    elevation={2}
+    onClose={[Function]}
+    open={false}
+    transformOrigin={
+      Object {
+        "horizontal": "right",
+        "vertical": "top",
+      }
+    }
+  >
+    <ForwardRef(WithStyles)
+      classes={
+        Object {
+          "root": "table-interaction-menu",
+        }
+      }
+    >
+      <ForwardRef(WithStyles)>
+        Columns
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        data-testid="column-width-dimension-xs"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="column-width-dimension-checked"
+          >
+            radio_button_checked
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="xs"
+          primary="xs"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        data-testid="column-width-dimension-xl"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="column-width-dimension-unchecked"
+          >
+            radio_button_unchecked
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="xl"
+          primary="xl"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles) />
+      <ForwardRef(WithStyles)>
+        Rows
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        data-testid="row-height-dimension-s"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="row-height-dimension-checked"
+          >
+            radio_button_checked
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="s"
+          primary="s"
+        />
+      </ForwardRef(WithStyles)>
+      <ForwardRef(WithStyles)
+        data-testid="row-height-dimension-m"
+        onClick={[Function]}
+      >
+        <ForwardRef(WithStyles)>
+          <ForwardRef(WithStyles)
+            data-testid="row-height-dimension-unchecked"
+          >
+            radio_button_unchecked
+          </ForwardRef(WithStyles)>
+        </ForwardRef(WithStyles)>
+        <ForwardRef(WithStyles)
+          id="m"
+          primary="m"
+        />
+      </ForwardRef(WithStyles)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</React.Fragment>
+`;
+
 exports[`CellDimensionController component should render the default CellDimensionController 1`] = `
 <React.Fragment>
   <span

@@ -21,4 +21,20 @@ describe("CellDimensionController component", () => {
     const rendered = shallowRenderer.getRenderOutput();
     expect(rendered).toMatchSnapshot();
   });
+  test("should render CellDimensionController with default cell sizes", () => {
+    const props = {
+      cellWidth: { value: 100, size: "xs" },
+      rowHeight: { value: 100, size: "s" },
+      rowHeightOptions: { s: 100, m: 200 },
+      cellWidthOptions: { xs: 100, xl: 200 },
+      updateRowHeight: jest.fn(),
+      updateCellWidth: jest.fn()
+    };
+    const shallowRenderer = createRenderer();
+    shallowRenderer.render(
+      <DumbCellDimensionController {...props} buttonRenderer={toggleMenu => <span onClick={toggleMenu}>Foo</span>} />
+    );
+    const rendered = shallowRenderer.getRenderOutput();
+    expect(rendered).toMatchSnapshot();
+  });
 });

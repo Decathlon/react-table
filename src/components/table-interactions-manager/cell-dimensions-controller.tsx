@@ -5,24 +5,37 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { Icon, ListItemText, List, MenuItem, ListItemIcon } from "@material-ui/core";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
-import { CellSize, CELL_SIZES, CellDimention } from "./reducers";
+import { CellDimension } from "./reducers";
 import { Nullable } from "../typing";
+import { RowHeight, ColumnWidth } from "../constants";
 
 export interface ICellDimensionControllerProps {
+  /** Keys / values for row height */
+  rowHeightOptions?: Record<string, number>;
+  /** Keys / values for column width */
+  cellWidthOptions?: Record<string, number>;
   /** The current cell width of the table. */
-  cellWidth: CellDimention;
+  cellWidth: CellDimension;
   /** The current row Height of the table. */
-  rowHeight: CellDimention;
+  rowHeight: CellDimension;
   /** The menu button activator renderer */
   buttonRenderer: (toggleMenu: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void) => JSX.Element;
   /** The row height controler. Please see the CellDimensionController */
-  updateRowHeight: (size: CellSize) => void;
+  updateRowHeight: (size: CellDimension) => void;
   /** The cell width controler. Please see the CellDimensionController */
-  updateCellWidth: (size: CellSize) => void;
+  updateCellWidth: (size: CellDimension) => void;
 }
 
 export const DumbCellDimensionController: React.FunctionComponent<ICellDimensionControllerProps> = React.memo(
-  ({ updateCellWidth, updateRowHeight, buttonRenderer, rowHeight, cellWidth }) => {
+  ({
+    updateCellWidth,
+    updateRowHeight,
+    buttonRenderer,
+    rowHeight,
+    cellWidth,
+    rowHeightOptions = RowHeight,
+    cellWidthOptions = ColumnWidth
+  }) => {
     const [anchorEl, setAnchorEl] = React.useState<Nullable<Element>>(null);
     const isOpen = Boolean(anchorEl);
 
@@ -34,12 +47,12 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
       setAnchorEl(anchorEl ? null : event.currentTarget);
     };
 
-    const getColumnWidthUpdater = (size: CellSize) => () => {
-      updateCellWidth(size);
+    const getColumnWidthUpdater = (size: string) => () => {
+      updateCellWidth({ size, value: cellWidthOptions[size] });
     };
 
-    const getRowHeightUpdater = (size: CellSize) => () => {
-      updateRowHeight(size);
+    const getRowHeightUpdater = (size: string) => () => {
+      updateRowHeight({ size, value: rowHeightOptions[size] });
     };
     return (
       <>
@@ -55,7 +68,7 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
         >
           <List classes={{ root: "table-interaction-menu" }}>
             <ListSubheader>Columns</ListSubheader>
-            {CELL_SIZES.map(size => (
+            {Object.keys(cellWidthOptions).map(size => (
               <MenuItem
                 key={`column-${size}`}
                 data-testid={`column-width-dimension-${size}`}
@@ -74,7 +87,7 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
             ))}
             <Divider />
             <ListSubheader>Rows</ListSubheader>
-            {CELL_SIZES.map(size => (
+            {Object.keys(rowHeightOptions).map(size => (
               <MenuItem key={`row-${size}`} data-testid={`row-height-dimension-${size}`} onClick={getRowHeightUpdater(size)}>
                 <ListItemIcon>
                   {rowHeight.size === size ? (
@@ -93,7 +106,10 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
   }
 );
 
-const CellDimensionController: React.FunctionComponent<Pick<ICellDimensionControllerProps, "buttonRenderer">> = props => {
+const CellDimensionController: React.FunctionComponent<Pick<
+  ICellDimensionControllerProps,
+  "buttonRenderer" | "cellWidthOptions" | "rowHeightOptions"
+>> = props => {
   return (
     <TableInteractionsContext.Consumer>
       {({ cellWidth, rowHeight, updateCellWidth, updateRowHeight }) => {
