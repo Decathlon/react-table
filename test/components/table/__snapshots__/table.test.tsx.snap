@@ -648,6 +648,7 @@ exports[`Table component should render the default table 1`] = `
           },
         ],
         "id": "back",
+        "loading": false,
       },
       Object {
         "cells": Array [

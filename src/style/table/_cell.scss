@@ -89,6 +89,14 @@
 .cell-value {
   overflow: hidden;
   text-overflow: ellipsis;
+
+  .cell-skeleton-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 th {
@@ -96,5 +104,9 @@ th {
     width: 100%;
     white-space: nowrap;
     text-align: start;
+
+    .cell-skeleton-container {
+      justify-content: start;
+    }
   }
 }

@@ -1,5 +1,6 @@
 import * as React from "react";
 import IconButton from "@material-ui/core/IconButton";
+import Skeleton from "@material-ui/lab/Skeleton";
 import classNames from "classnames";
 import { isEqual } from "lodash";
 
@@ -49,6 +50,8 @@ export interface ICell<IDataCoordinates = any> {
   style?: React.CSSProperties;
   /** tag name of the cell */
   component?: CellTag;
+  /** loading state of the cell */
+  loading?: boolean;
 }
 
 export interface ICellProps extends ICell {
@@ -167,6 +170,7 @@ export default class Cell extends React.Component<ICellProps> {
     const {
       id,
       index,
+      loading,
       className,
       component,
       value,
@@ -221,10 +225,17 @@ export default class Cell extends React.Component<ICellProps> {
                 index={index}
                 isSelected={isSelected}
                 dataCoordinates={dataCoordinates}
+                loading={loading}
               />
             ) : (
               <div style={styles.text} className="cell-value" title={value || ""}>
-                {value}
+                {loading ? (
+                  <div className="cell-skeleton-container" style={styles.text}>
+                    <Skeleton variant="rect" width={30} height={15} />
+                  </div>
+                ) : (
+                  value
+                )}
               </div>
             )}
           </div>

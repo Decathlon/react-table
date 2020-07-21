@@ -16,6 +16,8 @@ interface IColumnVisibilityControllerProps {
   columns: Column[];
   /** The menu button activator renderer */
   buttonRenderer: (toggleMenu: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void) => JSX.Element;
+  /** The column visibility handler, called when the column visibility has changed */
+  onColumnVisibilityChange?: (columnId: string, isAdded: boolean) => void;
 }
 
 interface IDumbColumnVisibilityControllerProps extends IColumnVisibilityControllerProps {
@@ -26,7 +28,7 @@ interface IDumbColumnVisibilityControllerProps extends IColumnVisibilityControll
 }
 
 export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumnVisibilityControllerProps> = React.memo(
-  ({ buttonRenderer, columns, hiddenColumnsIds, updateHiddenIds }) => {
+  ({ buttonRenderer, columns, hiddenColumnsIds, updateHiddenIds, onColumnVisibilityChange }) => {
     const [anchorEl, setAnchorEl] = React.useState<Nullable<Element>>(null);
     const isOpen = Boolean(anchorEl);
 
@@ -40,8 +42,13 @@ export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumn
 
     const updateHiddenColumnsIds = (columnId: string) => {
       const newColumns = hiddenColumnsIds.filter(hiddenColumnId => hiddenColumnId !== columnId);
+      let columnAdded = true;
       if (newColumns.length === hiddenColumnsIds.length) {
         newColumns.push(columnId);
+        columnAdded = false;
+      }
+      if (onColumnVisibilityChange) {
+        onColumnVisibilityChange(columnId, columnAdded);
       }
       updateHiddenIds(newColumns);
     };

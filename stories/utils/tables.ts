@@ -2,10 +2,12 @@ import { IRow } from "../../src/components/table/row";
 
 export const simpleTable = ({
   customCell,
-  customCellProps
+  customCellProps,
+  loading = false
 }: {
   customCell?: React.ComponentType<any>;
   customCellProps?: object;
+  loading?: boolean;
 }): IRow[] => [
   {
     id: "front",
@@ -46,6 +48,7 @@ export const simpleTable = ({
   },
   {
     id: "back",
+    loading: loading,
     cells: [
       {
         id: "python",
