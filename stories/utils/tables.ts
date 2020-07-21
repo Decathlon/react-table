@@ -48,7 +48,7 @@ export const simpleTable = ({
   },
   {
     id: "back",
-    loading: loading,
+    loading,
     cells: [
       {
         id: "python",
