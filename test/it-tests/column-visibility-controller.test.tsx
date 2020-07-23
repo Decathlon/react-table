@@ -47,6 +47,7 @@ describe("ColumnVisisbilityController component", () => {
       { id: "foo", index: 1, label: "FOO" },
       { id: "bar", index: 2, label: "BAR" }
     ];
+    const onColumnVisibilityChange = jest.fn();
     const { container, getByText, getByTestId } = customRender(
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: [] }} toggleableColumns={toggleableColumns}>
         <TableInteractionsContext.Consumer>
@@ -56,6 +57,7 @@ describe("ColumnVisisbilityController component", () => {
                 <ColumnVisisbilityController
                   columns={toggleableColumns}
                   buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Visisbility Controller</div>}
+                  onColumnVisibilityChange={onColumnVisibilityChange}
                 />
                 <Table
                   ref={tableRef}
@@ -90,23 +92,27 @@ describe("ColumnVisisbilityController component", () => {
     fireEvent.scroll(getByTestId("scroller-container"));
     header = getRows(container, true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W2")).toBeTruthy();
+    expect(onColumnVisibilityChange).toBeCalledWith(1, false);
 
     // hide the BAR column
     fireEvent.click(getByText("BAR"));
     fireEvent.scroll(getByTestId("scroller-container"));
     header = getRows(container, true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W3")).toBeTruthy();
+    expect(onColumnVisibilityChange).toBeCalledWith(2, false);
 
     // display the FOO column
     fireEvent.click(getByText("FOO"));
     fireEvent.scroll(getByTestId("scroller-container"));
     header = getRows(container, true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W1")).toBeTruthy();
+    expect(onColumnVisibilityChange).toBeCalledWith(1, true);
 
     // display the BAR column
     fireEvent.click(getByText("BAR"));
     fireEvent.scroll(getByTestId("scroller-container"));
     header = getRows(container, true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W1")).toBeTruthy();
+    expect(onColumnVisibilityChange).toBeCalledWith(2, true);
   });
 });

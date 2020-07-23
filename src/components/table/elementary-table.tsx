@@ -33,6 +33,8 @@ export interface IColumnOptions {
 export interface IColumn extends IColumnOptions {
   isSelectable?: boolean;
   disableLevelPadding?: boolean;
+  /** loading state of the column */
+  loading?: boolean;
 }
 
 export interface IColumns {

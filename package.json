@@ -1,6 +1,6 @@
 {
   "name": "@decathlon/react-table",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "React components for efficiently rendering large tabular data",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,7 @@
     "dist"
   ],
   "dependencies": {
+    "@material-ui/lab": "~4.0.0-alpha.56",
     "classnames": "~2.2.6",
     "immutability-helper": "~3.0.1",
     "lodash": "~4.17.15",

@@ -40,6 +40,8 @@ export interface IRow<IDataCoordinates = any> extends IRowOptions {
   rowSpanProps?: IRowSpan;
   /** Defines if the sub rows are fixed. to use only if the table is virtualized */
   fixSubRows?: boolean;
+  /** loading state of the row */
+  loading?: boolean;
 }
 
 export interface IRowProps extends IRow {
@@ -316,6 +318,7 @@ export default class Row extends React.Component<IRowProps, IState> {
   public render() {
     const {
       id,
+      loading,
       className,
       absoluteIndex,
       isVisible,
@@ -385,11 +388,13 @@ export default class Row extends React.Component<IRowProps, IState> {
               // By default, columns, rows and cells are selectable
               const cellIsSelectable =
                 isSelectable && column.isSelectable && (cell.isSelectable === undefined || cell.isSelectable === true);
+              const cellLoading = column.loading || cell.loading || loading;
               return (
                 <Cell
                   key={`cell-${id}-${cell.id}`}
                   component={isHeader ? "th" : "td"}
                   {...cell}
+                  loading={cellLoading}
                   colspan={mappingColspanToIndex ? mappingColspanToIndex[cellIndex] : 1}
                   className={classNames(cell.className, column.className, {
                     [`elevated-${elevation}`]: elevation

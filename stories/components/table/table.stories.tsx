@@ -48,6 +48,20 @@ storiesOf("Table/Default", module)
     info: storyInfoDefault
   })
   .add(
+    "With loading",
+    () => (
+      <Table
+        id="tableId"
+        rows={simpleTable({ loading: true })}
+        isSelectable={false}
+        columns={{ 0: { disableLevelPadding: true }, 1: { loading: true } }}
+      />
+    ),
+    {
+      info: storyInfoDefault
+    }
+  )
+  .add(
     "With cell custom content",
     () => (
       <Table
