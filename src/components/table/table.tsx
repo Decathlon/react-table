@@ -296,6 +296,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
       ...tableProps
     } = this.props;
     const { indexesMapping, openedTrees } = this.state;
+
     const renderElementaryTable = (selection: ISelection = { selectedCells: {} }): JSX.Element => (
       <ElementaryTable
         {...tableProps}
@@ -314,6 +315,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         openedTrees={openedTrees}
       />
     );
+
     return isSelectable ? (
       <SelectionHandler {...selectionProps}>{renderElementaryTable}</SelectionHandler>
     ) : (

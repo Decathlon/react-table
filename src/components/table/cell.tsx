@@ -75,6 +75,8 @@ export interface ICellProps extends ICell {
   onMouseUp?: () => void;
   /** Callback when we try to open the context menu */
   onContextMenu?: (selectionContext: ISelectionContext) => void;
+  /** Function to close the context menu */
+  closeMenu?: () => void;
 }
 
 const defaultCellComponent = "td";
@@ -132,7 +134,8 @@ export default class Cell extends React.Component<ICellProps> {
   };
 
   private onMouseDown = (event: React.MouseEvent<HTMLElement>) => {
-    const { onMouseDown, index, rowIndex } = this.props;
+    const { onMouseDown, index, rowIndex, closeMenu } = this.props;
+    if (closeMenu) closeMenu();
     if (onMouseDown) {
       const mouseClickButtonId = getMouseClickButton(event.nativeEvent.button);
       onMouseDown({ rowIndex, cellIndex: index }, mouseClickButtonId);
@@ -189,6 +192,7 @@ export default class Cell extends React.Component<ICellProps> {
     const justifyContent = style && style.justifyContent;
     const styles = this.getStyles();
     const Component = component || defaultCellComponent;
+
     return (
       <Component
         key={`cell-${id}`}

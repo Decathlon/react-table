@@ -6,3 +6,11 @@
     font-weight: 800;
   }
 }
+
+#selection-menu {
+  pointer-events: none;
+
+  .MuiMenu-list {
+    pointer-events: auto;
+  }
+}
