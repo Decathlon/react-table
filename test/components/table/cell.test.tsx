@@ -27,6 +27,14 @@ describe("Cell component", () => {
     expect(rendered).toMatchSnapshot();
   });
 
+  test("should render the cell with a custom class Name", () => {
+    const props = { id: "foo", loading: true, rowIndex: 0, subItems: [], getClassName: () => "custom-className" };
+    const shallowRenderer = createRenderer();
+    shallowRenderer.render(<Cell {...props} />);
+    const rendered = shallowRenderer.getRenderOutput();
+    expect(rendered).toMatchSnapshot();
+  });
+
   test("should render a cell with custom style", () => {
     const props = {
       id: "foo",

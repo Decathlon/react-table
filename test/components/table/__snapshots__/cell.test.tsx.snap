@@ -427,6 +427,72 @@ exports[`Cell component should render a selected cell 1`] = `
 </td>
 `;
 
+exports[`Cell component should render the cell with a custom class Name 1`] = `
+<td
+  className="table-column custom-className"
+  colSpan={1}
+  data-testid="table-column"
+  onContextMenu={[Function]}
+  onMouseDown={[Function]}
+  onMouseEnter={[Function]}
+  onMouseUp={[Function]}
+  style={
+    Object {
+      "height": 56,
+      "padding": 0,
+      "width": "auto",
+    }
+  }
+>
+  <div
+    className="table-overflow-wrapper"
+    data-testid="table-cell-wrapper-foo"
+    style={
+      Object {
+        "height": 56,
+        "width": "auto",
+      }
+    }
+  >
+    <div
+      className="table-cell-container"
+      style={
+        Object {
+          "justifyContent": undefined,
+        }
+      }
+    >
+      <div
+        className="cell-value"
+        style={
+          Object {
+            "height": 56,
+            "lineHeight": "56px",
+          }
+        }
+        title=""
+      >
+        <div
+          className="cell-skeleton-container"
+          style={
+            Object {
+              "height": 56,
+              "lineHeight": "56px",
+            }
+          }
+        >
+          <ForwardRef(WithStyles)
+            height={15}
+            variant="rect"
+            width={30}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</td>
+`;
+
 exports[`Cell component should render the default cell 1`] = `
 <td
   className="table-column"

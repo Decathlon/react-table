@@ -32,6 +32,8 @@ export interface ICell<IDataCoordinates = any> {
   id: string;
   /** The CSS class name of the cell. */
   className?: string;
+  /** The CSS class name getter of the cell. */
+  getClassName?: (props: ICell) => string;
   /** value of the cell */
   value?: string;
   /** value of colspan */
@@ -171,6 +173,7 @@ export default class Cell extends React.Component<ICellProps> {
       id,
       index,
       loading,
+      getClassName,
       className,
       component,
       value,
@@ -189,12 +192,13 @@ export default class Cell extends React.Component<ICellProps> {
     const justifyContent = style && style.justifyContent;
     const styles = this.getStyles();
     const Component = component || defaultCellComponent;
+    const dynamicClassName = getClassName ? getClassName(this.props) : className;
     return (
       <Component
         key={`cell-${id}`}
         colSpan={colspan}
         data-testid="table-column"
-        className={classNames("table-column", className, {
+        className={classNames("table-column", dynamicClassName, {
           selected: isSelected && isSelectable
         })}
         onMouseDown={this.onMouseDown}
