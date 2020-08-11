@@ -176,4 +176,18 @@ storiesOf("Table/Default", module)
       notes: { markdown: Readme },
       info: storyInfoDefault
     }
+  )
+  .add(
+    "With dynamic className",
+    () => {
+      const { rows } = defaultProps;
+      rows[1].cells[1].getClassName = () => {
+        return "selected";
+      };
+      return <Table {...defaultProps} isSelectable={false} />;
+    },
+    {
+      notes: { markdown: Readme },
+      info: storyInfoDefault
+    }
   );
