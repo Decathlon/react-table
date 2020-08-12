@@ -11,13 +11,13 @@ interface IDumbFixedColumnControllerProps extends IFixedColumnControllerProps {
   /** The current fixed columns of the table (indexes). */
   fixedColumnsIds: string[];
   /** The fixed columns controller. Please see the FixedColumnController. */
-  updateFixedColumnsIds: (hiddenIds: string[]) => void;
+  updateFixedColumnsIds: (fixedIds: string[]) => void;
 }
 
 export const DumbFixedColumnController: React.FunctionComponent<IDumbFixedColumnControllerProps> = React.memo(
   ({ children, columnId, updateFixedColumnsIds, fixedColumnsIds }) => {
     const toggleFixedColumnId = () => {
-      const newColumns = fixedColumnsIds.filter(hiddenColumnId => hiddenColumnId !== columnId);
+      const newColumns = fixedColumnsIds.filter(fixedColumnId => fixedColumnId !== columnId);
       if (newColumns.length === fixedColumnsIds.length) {
         newColumns.push(columnId);
       }
