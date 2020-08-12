@@ -22,13 +22,23 @@ export const updateRowHeight = (value: CellDimension): UpdateRowHeight => ({
 });
 
 export interface UpdateHiddenColumns {
-  type: actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXTES;
+  type: actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXES;
   hiddenColumnsIds: string[];
 }
 
 export const updateHiddenColumns = (hiddenColumnsIds: string[]): UpdateHiddenColumns => ({
-  type: actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXTES,
+  type: actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXES,
   hiddenColumnsIds
+});
+
+export interface UpdateFixedColumns {
+  type: actionTypes.UPDATE_FIXED_COLUMNS_INDEXES;
+  fixedColumnsIds: string[];
+}
+
+export const updateFixedColumns = (fixedColumnsIds: string[]): UpdateFixedColumns => ({
+  type: actionTypes.UPDATE_FIXED_COLUMNS_INDEXES,
+  fixedColumnsIds
 });
 
 export interface UpdateColumnsCursor {
@@ -41,4 +51,9 @@ export const updateColumnsCursor = (columnsCursor: CellValue): UpdateColumnsCurs
   columnsCursor
 });
 
-export type TableInteractionsAction = UpdateCellWidth | UpdateRowHeight | UpdateHiddenColumns | UpdateColumnsCursor;
+export type TableInteractionsAction =
+  | UpdateCellWidth
+  | UpdateRowHeight
+  | UpdateHiddenColumns
+  | UpdateColumnsCursor
+  | UpdateFixedColumns;
