@@ -8,9 +8,9 @@ interface IFixedColumnControllerProps {
 }
 
 interface IDumbFixedColumnControllerProps extends IFixedColumnControllerProps {
-  /** The current hidden columns of the table (indexes). */
+  /** The current fixed columns of the table (indexes). */
   fixedColumnsIds: string[];
-  /** The hidden columns controller. Please see the FixedColumnController. */
+  /** The fixed columns controller. Please see the FixedColumnController. */
   updateFixedColumnsIds: (hiddenIds: string[]) => void;
 }
 
