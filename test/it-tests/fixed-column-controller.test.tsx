@@ -17,13 +17,13 @@ describe("FixedColumnController component", () => {
     const { container, getByTestId } = customRender(
       <TabeInteractionManager>
         <TableInteractionsContext.Consumer>
-          {({ onHorizontallyScroll, tableRef, columnsCursor, fixedColumnsIds, fixedColumnsIndexes }) => {
+          {({ onHorizontallyScroll, tableRef, columnsCursor, fixedColumnsIndexes }) => {
             return (
               <>
                 <FixedColumnController columnId="30">
-                  {togglefixedColumn => (
-                    <div data-testid="pin-column" onClick={togglefixedColumn}>
-                      {fixedColumnsIds.includes("30") ? "Unpin" : "Pin"} w30
+                  {({ toggleFixedColumnId, isFixed }) => (
+                    <div data-testid="pin-column" onClick={toggleFixedColumnId}>
+                      {isFixed ? "Unpin" : "Pin"} w30
                     </div>
                   )}
                 </FixedColumnController>

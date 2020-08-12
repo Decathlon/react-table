@@ -16,7 +16,7 @@ describe("FixedColumnController component", () => {
     const shallowRenderer = createRenderer();
     shallowRenderer.render(
       <DumbFixedColumnController {...props}>
-        {toggleFixedColumn => <span onClick={toggleFixedColumn}>Bar</span>}
+        {({ toggleFixedColumnId }) => <span onClick={toggleFixedColumnId}>Bar</span>}
       </DumbFixedColumnController>
     );
     const rendered = shallowRenderer.getRenderOutput();

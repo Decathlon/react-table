@@ -315,7 +315,7 @@ storiesOf("Table interactions manager", module)
   .add("With pinned control", () => (
     <TabeInteractionManager>
       <TableInteractionsContext.Consumer>
-        {({ onHorizontallyScroll, fixedColumnsIndexes, fixedColumnsIds, cellWidth, rowHeight, tableRef, columnsCursor }) => {
+        {({ onHorizontallyScroll, fixedColumnsIndexes, cellWidth, rowHeight, tableRef, columnsCursor }) => {
           return (
             <>
               <div
@@ -327,16 +327,16 @@ storiesOf("Table interactions manager", module)
                 }}
               >
                 <FixedColumnController columnId="12">
-                  {togglefixedColumn => (
-                    <Button color="primary" variant="contained" onClick={togglefixedColumn}>
-                      {fixedColumnsIds.includes("12") ? "Unpin" : "Pin"} w12
+                  {({ toggleFixedColumnId, isFixed }) => (
+                    <Button color="primary" variant="contained" onClick={toggleFixedColumnId}>
+                      {isFixed ? "Unpin" : "Pin"} w12
                     </Button>
                   )}
                 </FixedColumnController>
                 <FixedColumnController columnId="30">
-                  {togglefixedColumn => (
-                    <Button color="primary" variant="contained" onClick={togglefixedColumn}>
-                      {fixedColumnsIds.includes("30") ? "Unpin" : "Pin"} w30
+                  {({ toggleFixedColumnId, isFixed }) => (
+                    <Button color="primary" variant="contained" onClick={toggleFixedColumnId}>
+                      {isFixed ? "Unpin" : "Pin"} w30
                     </Button>
                   )}
                 </FixedColumnController>

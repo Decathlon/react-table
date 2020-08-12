@@ -2,9 +2,14 @@ import * as React from "react";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 
+interface IFixedColumnChildrenProps {
+  toggleFixedColumnId: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  isFixed: boolean;
+}
+
 interface IFixedColumnControllerProps {
   columnId: string;
-  children: (toggleFixedColumnId: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void) => JSX.Element;
+  children: (props: IFixedColumnChildrenProps) => JSX.Element;
 }
 
 interface IDumbFixedColumnControllerProps extends IFixedColumnControllerProps {
@@ -16,6 +21,9 @@ interface IDumbFixedColumnControllerProps extends IFixedColumnControllerProps {
 
 export const DumbFixedColumnController: React.FunctionComponent<IDumbFixedColumnControllerProps> = React.memo(
   ({ children, columnId, updateFixedColumnsIds, fixedColumnsIds }) => {
+    const isFixed = React.useMemo(() => {
+      return fixedColumnsIds.includes(columnId);
+    }, [columnId, fixedColumnsIds]);
     const toggleFixedColumnId = () => {
       const newColumns = fixedColumnsIds.filter(fixedColumnId => fixedColumnId !== columnId);
       if (newColumns.length === fixedColumnsIds.length) {
@@ -24,7 +32,7 @@ export const DumbFixedColumnController: React.FunctionComponent<IDumbFixedColumn
       updateFixedColumnsIds(newColumns);
     };
 
-    return children(toggleFixedColumnId);
+    return children({ toggleFixedColumnId, isFixed });
   }
 );
 
