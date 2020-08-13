@@ -12,7 +12,7 @@ const rows = subRows({});
 
 describe("Cell component", () => {
   test("should render the default cell", () => {
-    const props = { id: "foo", rowIndex: 0, value: "bar", subItems: [] };
+    const props = { id: "foo", rowIndex: 0, relativeRowIndex: 0, value: "bar", subItems: [] };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
     const rendered = shallowRenderer.getRenderOutput();
@@ -20,7 +20,7 @@ describe("Cell component", () => {
   });
 
   test("should render the loading cell", () => {
-    const props = { id: "foo", loading: true, rowIndex: 0, subItems: [] };
+    const props = { id: "foo", loading: true, rowIndex: 0, relativeRowIndex: 0, subItems: [] };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
     const rendered = shallowRenderer.getRenderOutput();
@@ -28,7 +28,14 @@ describe("Cell component", () => {
   });
 
   test("should render the cell with a custom class Name", () => {
-    const props = { id: "foo", loading: true, rowIndex: 0, subItems: [], getClassName: () => "custom-className" };
+    const props = {
+      id: "foo",
+      loading: true,
+      rowIndex: 0,
+      relativeRowIndex: 0,
+      subItems: [],
+      getClassName: () => "custom-className"
+    };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
     const rendered = shallowRenderer.getRenderOutput();
@@ -39,6 +46,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: [],
       style: {
@@ -56,6 +64,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: [],
       colspan: 2,
@@ -74,6 +83,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: []
     };
@@ -87,6 +97,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: rows
     };
@@ -100,6 +111,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
       hideSubItemsOpener: true
@@ -114,6 +126,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
       opened: true
@@ -128,6 +141,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       isSelected: true
     };
@@ -141,6 +155,7 @@ describe("Cell component", () => {
     const props = {
       id: "foo",
       rowIndex: 0,
+      relativeRowIndex: 0,
       cellContent: ({ name }: { name: string }) => <div>{name}</div>,
       cellContentProps: { name: "Foo" }
     };
@@ -155,6 +170,7 @@ describe("Cell component", () => {
       id: "foo",
       index: 2,
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
       onMouseEnter: jest.fn(),
@@ -201,6 +217,7 @@ describe("Cell component", () => {
       id: "foo",
       index: 2,
       rowIndex: 0,
+      relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
       onCallOpen: jest.fn()

@@ -2,7 +2,15 @@ import * as React from "react";
 
 import Table from "../table/table";
 import { OnHorizontallyScrollProps } from "../virtualizer";
-import { TableInteractionsAction, updateHiddenColumns, updateRowHeight, updateCellWidth, updateColumnsCursor } from "./actions";
+import {
+  TableInteractionsAction,
+  updateHiddenColumns,
+  updateRowHeight,
+  updateCellWidth,
+  updateColumnsCursor,
+  updateFixedColumns,
+  updateFixedRows
+} from "./actions";
 import TableInteractionsManagerReducer, {
   ITableInteractionManagerState,
   CellValue,
@@ -30,8 +38,16 @@ interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   table: Nullable<ComponentRef<Table>>;
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIndexes: number[];
+  /** The current fixed columns of the table (indexes). */
+  fixedColumnsIndexes: number[];
+  /** The current fixed rows of the table (indexes). */
+  fixedRowsIndexes: number[];
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
   updateHiddenIds: (hiddenIds: string[]) => void;
+  /** The fixed columns controller. */
+  updateFixedColumnsIds: (fixedIds: string[]) => void;
+  /** The fixed rows controller. */
+  updateFixedRowsIndexes: (fixedIndexes: number[]) => void;
   /** The row height controler. Please see the CellDimensionController */
   updateRowHeight: (value: CellDimension) => void;
   /** The cell width controler. Please see the CellDimensionController */
@@ -70,7 +86,11 @@ const initialContext: ITableInteractionsManagerProps = {
   tableRef: nullFunction,
   table: null,
   hiddenColumnsIndexes: [],
+  fixedColumnsIndexes: [],
+  fixedRowsIndexes: [],
   updateHiddenIds: nullFunction,
+  updateFixedColumnsIds: nullFunction,
+  updateFixedRowsIndexes: nullFunction,
   updateRowHeight: nullFunction,
   updateCellWidth: nullFunction,
   goToColumnId: nullFunction,
@@ -100,7 +120,7 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
 
   const [tableRef, table, onTableUpdate] = useComponent<Table>();
 
-  const { columnsCursor, hiddenColumnsIds } = state;
+  const { columnsCursor, hiddenColumnsIds, fixedColumnsIds, fixedRowsIndexes } = state;
   const { id: currentColumnsCursorId, index: currentColumnsCursorIndex } = columnsCursor || {
     id: null,
     index: null
@@ -213,12 +233,26 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
       }, []),
     [hiddenColumnsIds, hiddenColumnsIdsMapping]
   );
+
+  const fixedColumnsIndexes = React.useMemo(
+    () =>
+      fixedColumnsIds.reduce<number[]>((result, columnId) => {
+        const columnIndex = table.current?.getColumnIndex(columnId);
+        if (columnIndex && columnIndex >= 0) {
+          result.push(columnIndex);
+        }
+        return result;
+      }, []),
+    [fixedColumnsIds, table]
+  );
   return (
     <TableInteractionsContext.Provider
       value={{
         ...actions,
         ...state,
         hiddenColumnsIndexes,
+        fixedColumnsIndexes,
+        fixedRowsIndexes,
         updateCellWidth,
         onHorizontallyScroll,
         goToColumnIndex,
@@ -242,6 +276,8 @@ TableInteractionsManager.defaultProps = {
 
 const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) => ({
   updateHiddenIds: (hiddenIds: string[]) => dispatch(updateHiddenColumns(hiddenIds)),
+  updateFixedColumnsIds: (fixedIds: string[]) => dispatch(updateFixedColumns(fixedIds)),
+  updateFixedRowsIndexes: (fixedIndexes: number[]) => dispatch(updateFixedRows(fixedIndexes)),
   updateRowHeight: (value: CellDimension) => dispatch(updateRowHeight(value)),
   updateCellWidth: (value: CellDimension) => dispatch(updateCellWidth(value)),
   updateColumnsCursor: (columnsCursor: CellValue) => dispatch(updateColumnsCursor(columnsCursor))

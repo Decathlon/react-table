@@ -197,8 +197,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
         prevProps.minRowHeight !== minRowHeight ||
         prevProps.rowsCount !== rowsCount ||
         prevProps.columnsCount !== columnsCount ||
-        // not check when fixedColumns has changed. We haven't sub columns
         !isEqual(prevProps.fixedRows, fixedRows) ||
+        !isEqual(prevProps.fixedColumns, fixedColumns) ||
         !isEqual(prevProps.hiddenColumns, hiddenColumns) ||
         // TODO we need to scroll to keep the first unfixed row visible
         !isEqual(prevProps.hiddenRows, hiddenRows))

@@ -100,6 +100,8 @@ exports[`Cell component should render a cell with custom cell content 1`] = `
         id="foo"
         index={0}
         name="Foo"
+        relativeRowIndex={0}
+        rowIndex={0}
       />
     </div>
   </div>
