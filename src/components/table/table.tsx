@@ -118,8 +118,8 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
   }
 
   public componentDidUpdate(prevProps: ITableProps<IDataCoordinates>) {
-    const { rows } = this.props;
-    const { openedTrees } = this.state;
+    const { rows, virtualizerProps } = this.props;
+    const { openedTrees, indexesMapping } = this.state;
     if (prevProps.rows !== rows) {
       this.columnsLength = getColumnsLength(rows);
       const newIndexesMapping = getAllIndexesMap(openedTrees, rows);
@@ -128,6 +128,10 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         rowsLength: this.getRowslength(openedTrees),
         columnsIndexesIdsMapping: rows[0] ? getIndexesIdsMapping(rows[0].cells) : {},
         fixedRowsIndexes: this.getFixedRowsIndexes(openedTrees, newIndexesMapping.relative)
+      });
+    } else if (!isEqual(prevProps.virtualizerProps?.fixedRows, virtualizerProps?.fixedRows)) {
+      this.setState({
+        fixedRowsIndexes: this.getFixedRowsIndexes(openedTrees, indexesMapping.relative)
       });
     }
   }

@@ -9,6 +9,7 @@ import CellDimensionController from "../../../src/components/table-interactions-
 import ColumnVisibilityController from "../../../src/components/table-interactions-manager/column-visibility-controller";
 import ColumnIdScrollController from "../../../src/components/table-interactions-manager/column-id-scroll-controller";
 import FixedColumnController from "../../../src/components/table-interactions-manager/fixed-column-controller";
+import FixedRowController from "../../../src/components/table-interactions-manager/fixed-row-controller";
 import TabeInteractionManager, {
   TableInteractionsContext
 } from "../../../src/components/table-interactions-manager/table-interactions-manager";
@@ -312,7 +313,7 @@ storiesOf("Table interactions manager", module)
       }
     }
   )
-  .add("With pinned control", () => (
+  .add("With pinned columns control", () => (
     <TabeInteractionManager>
       <TableInteractionsContext.Consumer>
         {({ onHorizontallyScroll, fixedColumnsIndexes, cellWidth, rowHeight, tableRef, columnsCursor }) => {
@@ -359,6 +360,63 @@ storiesOf("Table interactions manager", module)
                     },
                     fixedRows,
                     fixedColumns: [...fixedColumns, ...fixedColumnsIndexes],
+                    onHorizontallyScroll
+                  }}
+                />
+              </div>
+            </>
+          );
+        }}
+      </TableInteractionsContext.Consumer>
+    </TabeInteractionManager>
+  ))
+  .add("With pinned rows control", () => (
+    <TabeInteractionManager>
+      <TableInteractionsContext.Consumer>
+        {({ onHorizontallyScroll, fixedRowsIndexes, cellWidth, rowHeight, tableRef, columnsCursor }) => {
+          return (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  marginBottom: 10,
+                  width: "100%"
+                }}
+              >
+                <FixedRowController rowIndex={3}>
+                  {({ toggleFixedRowIndex, isFixed }) => (
+                    <Button color="primary" variant="contained" onClick={toggleFixedRowIndex}>
+                      {isFixed ? "Unpin" : "Pin"} MARGIN_RATE
+                    </Button>
+                  )}
+                </FixedRowController>
+                <FixedRowController rowIndex={15}>
+                  {({ toggleFixedRowIndex, isFixed }) => (
+                    <Button color="primary" variant="contained" onClick={toggleFixedRowIndex}>
+                      {isFixed ? "Unpin" : "Pin"} CA_TTC_OMNICANALF
+                    </Button>
+                  )}
+                </FixedRowController>
+              </div>
+              <div
+                style={{ height: "calc(100vh - 55px)", width: "100%" }}
+                className={cellWidth.size === CellSize.small && "small-table"}
+              >
+                <Table
+                  ref={tableRef}
+                  {...defaultProps}
+                  columns={{ 0: { style: { justifyContent: "left" }, size: 200 } }}
+                  isVirtualized
+                  isSelectable={false}
+                  virtualizerProps={{
+                    minColumnWidth: cellWidth.value,
+                    minRowHeight: rowHeight.value,
+                    initialScroll: {
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                    },
+                    fixedRows: [...fixedRows, ...fixedRowsIndexes],
+                    fixedColumns,
                     onHorizontallyScroll
                   }}
                 />

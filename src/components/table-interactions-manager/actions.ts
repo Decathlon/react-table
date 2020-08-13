@@ -41,6 +41,16 @@ export const updateFixedColumns = (fixedColumnsIds: string[]): UpdateFixedColumn
   fixedColumnsIds
 });
 
+export interface UpdateFixedRows {
+  type: actionTypes.UPDATE_FIXED_ROWS_INDEXES;
+  fixedRowsIndexes: number[];
+}
+
+export const updateFixedRows = (fixedRowsIndexes: number[]): UpdateFixedRows => ({
+  type: actionTypes.UPDATE_FIXED_ROWS_INDEXES,
+  fixedRowsIndexes
+});
+
 export interface UpdateColumnsCursor {
   type: actionTypes.UPDATE_COLUMNS_CURSOR;
   columnsCursor: CellValue;
@@ -56,4 +66,5 @@ export type TableInteractionsAction =
   | UpdateRowHeight
   | UpdateHiddenColumns
   | UpdateColumnsCursor
-  | UpdateFixedColumns;
+  | UpdateFixedColumns
+  | UpdateFixedRows;

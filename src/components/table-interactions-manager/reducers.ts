@@ -28,6 +28,8 @@ export interface ITableInteractionManagerState {
   hiddenColumnsIds: string[];
   /** The current fixed columns of the table (indexes). */
   fixedColumnsIds: string[];
+  /** The current fixed rows of the table (indexes). */
+  fixedRowsIndexes: number[];
   /** The current columns cursor of the table (current scroll). */
   columnsCursor: Nullable<CellValue>;
 }
@@ -37,7 +39,8 @@ export const initialState: ITableInteractionManagerState = {
   rowHeight: { value: RowHeight[CellSize.medium], size: CellSize.medium },
   columnsCursor: null,
   hiddenColumnsIds: [],
-  fixedColumnsIds: []
+  fixedColumnsIds: [],
+  fixedRowsIndexes: []
 };
 
 const tableManagerReducer = (state: ITableInteractionManagerState = initialState, action: TableInteractionsAction) => {
@@ -61,6 +64,11 @@ const tableManagerReducer = (state: ITableInteractionManagerState = initialState
       return {
         ...state,
         fixedColumnsIds: action.fixedColumnsIds
+      };
+    case actionTypes.UPDATE_FIXED_ROWS_INDEXES:
+      return {
+        ...state,
+        fixedRowsIndexes: action.fixedRowsIndexes
       };
     case actionTypes.UPDATE_COLUMNS_CURSOR:
       return {
