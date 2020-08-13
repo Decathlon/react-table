@@ -284,9 +284,9 @@ export default class Row extends React.Component<IRowProps, IState> {
       return (
         <Row
           key={`row-${subrowId}`}
-          id={subrowId}
           {...globalProps}
           {...subRow}
+          id={subrowId}
           className={classNames(subRow.className, `sub-row sub-row__${minLevel}`, {
             "last-sub-row": subRows.length === subRowIndex + 1
           })}
@@ -321,6 +321,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       loading,
       className,
       absoluteIndex,
+      index: relativeRowIndex,
       isVisible,
       isSpan,
       isHeader,
@@ -401,6 +402,7 @@ export default class Row extends React.Component<IRowProps, IState> {
                   })}
                   index={cellIndex}
                   rowIndex={absoluteIndex}
+                  relativeRowIndex={relativeRowIndex}
                   isSelectable={cellIsSelectable}
                   isSelected={isSelected}
                   opened={openedCellIndex === cellIndex}

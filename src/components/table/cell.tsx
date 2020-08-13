@@ -22,6 +22,8 @@ export interface IContentCellProps<IDataCoordinates = any> {
   index?: number;
   /** index of the row of the cell */
   rowIndex?: number;
+  /** relative index of the row of the cell */
+  relativeRowIndex?: number;
   /** determine if we should show a selected cell */
   isSelected?: boolean;
   /** The coordinates of the data in the data structure */
@@ -63,6 +65,8 @@ export interface ICellProps extends ICell {
   index: number;
   /** index of the row of the cell */
   rowIndex: number;
+  /** relative index of the row of the cell */
+  relativeRowIndex: number;
   /** determine if we should show a selected cell */
   isSelected?: boolean;
   /** determine if this cell is opened or not */
@@ -174,6 +178,7 @@ export default class Cell extends React.Component<ICellProps> {
     const {
       id,
       index,
+      relativeRowIndex,
       rowIndex,
       loading,
       getClassName,
@@ -231,6 +236,7 @@ export default class Cell extends React.Component<ICellProps> {
                 id={id}
                 index={index}
                 rowIndex={rowIndex}
+                relativeRowIndex={relativeRowIndex}
                 isSelected={isSelected}
                 dataCoordinates={dataCoordinates}
                 loading={loading}

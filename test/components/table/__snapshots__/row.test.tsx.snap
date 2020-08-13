@@ -21,6 +21,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -40,6 +41,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -59,6 +61,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -93,6 +96,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -112,6 +116,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -131,6 +136,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -195,6 +201,7 @@ exports[`Row component should render a Row with span 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -215,6 +222,7 @@ exports[`Row component should render a Row with span 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -235,6 +243,7 @@ exports[`Row component should render a Row with span 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -290,6 +299,7 @@ exports[`Row component should render a simple row 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -309,6 +319,7 @@ exports[`Row component should render a simple row 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
@@ -328,6 +339,7 @@ exports[`Row component should render a simple row 1`] = `
       isSelected={false}
       onCallOpen={[Function]}
       opened={false}
+      relativeRowIndex={0}
       rowIndex={0}
       style={
         Object {
