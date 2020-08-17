@@ -33,6 +33,7 @@ storiesOf("Styled Table/Header cell", module)
           value={text("value", "Bar")}
           badge={text("badge", "28")}
           isCurrent={boolean("isCurrent", false)}
+          className={text("className", "custom")}
         />
       </div>
     ),
