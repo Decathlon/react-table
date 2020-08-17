@@ -50,6 +50,10 @@ export interface IScrollerProps {
   width: number;
   /**  The height of the visible window */
   height: number;
+  /**  The horizontal part width of the scroll bar */
+  horizontalPartWidth?: number;
+  /** Ignored parts indexes */
+  ignoredHorizontalParts?: number[];
   children?: JSX.Element;
   /**  Called when the scroll container has been scrolled */
   onScroll: (scrollValues: IOnScroll) => void;
@@ -70,6 +74,8 @@ class Scroller extends React.Component<IScrollerProps> {
 
   private currentScrollLeft = 0;
 
+  private prevIgnoredHorizontalParts?: number[];
+
   public componentDidMount() {
     this.initializeMaxScrollValues();
   }
@@ -83,21 +89,35 @@ class Scroller extends React.Component<IScrollerProps> {
 
   public componentDidUpdate(prevProps: IScrollerProps) {
     this.initializeMaxScrollValues();
-    // keep the relative scrollLeft value when the virtualWidth has been changed
-    if (this.scrollerContainer.current) {
+    const { ignoredHorizontalParts } = this.props;
+    if (ignoredHorizontalParts !== prevProps.ignoredHorizontalParts) {
+      this.prevIgnoredHorizontalParts = prevProps.ignoredHorizontalParts;
+    }
+    this.keepHorizontalScrollLeft(prevProps);
+  }
+
+  /*
+    keep the relative scrollLeft value when the virtualWidth has been changed
+  */
+  private keepHorizontalScrollLeft = (prevProps: IScrollerProps) => {
+    const { virtualWidth, horizontalPartWidth, ignoredHorizontalParts } = this.props;
+    if (this.scrollerContainer.current && horizontalPartWidth) {
       const { scrollLeft } = this.scrollerContainer.current;
-      const { virtualWidth } = this.props;
-      if (prevProps.virtualWidth !== virtualWidth) {
-        const newLeft = scrollLeft - (prevProps.virtualWidth - virtualWidth) / 2;
+      if (prevProps.virtualWidth !== virtualWidth && scrollLeft) {
+        const nbIgnoredHorizontalParts = ignoredHorizontalParts?.length || 0;
+        const nbPrevIgnoredHorizontalParts = this.prevIgnoredHorizontalParts?.length || 0;
+        const nbRemovedParts = nbPrevIgnoredHorizontalParts - nbIgnoredHorizontalParts;
+        const scrollablePartsAreChanged =
+          this.prevIgnoredHorizontalParts && ignoredHorizontalParts !== this.prevIgnoredHorizontalParts;
+        // 1 if added or 0 if scrollable parts are changed ;
+        const changeKind = scrollablePartsAreChanged ? 1 : 0;
+        const oldPartScrollIndex = Math.floor(scrollLeft / horizontalPartWidth);
+        // 1 nb changed parts
+        const newLeft = (oldPartScrollIndex + changeKind * nbRemovedParts) * horizontalPartWidth;
         this.scrollToLeft(newLeft);
       }
-      // @TODO keep the relative scrollTop value
-      // if (prevProps.virtualHeight !== virtualHeight) {
-      //   const newTop = scrollTop - (prevProps.virtualHeight - virtualHeight) / 2;
-      //   this.scrollToTop(newTop);
-      // }
     }
-  }
+  };
 
   private initializeMaxScrollValues = () => {
     const { virtualHeight, virtualWidth, width, height } = this.props;

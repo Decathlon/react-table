@@ -3,6 +3,8 @@
 exports[`Virtualizer should render children 1`] = `
 <Scroller
   height={100}
+  horizontalPartWidth={85}
+  ignoredHorizontalParts={Array []}
   onScroll={[Function]}
   virtualHeight={4250}
   virtualWidth={4250}
