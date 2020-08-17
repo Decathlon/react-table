@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`HeaderCell component should render the HeaderCell (with custom className) 1`] = `
+<div
+  className="header-cell custom"
+>
+  <div
+    className="header-cell-data"
+  >
+    <div
+      className="header-cell-title"
+    >
+      Foo
+    </div>
+    <div
+      className="header-cell-value"
+      title="Bar"
+    >
+      Bar
+    </div>
+  </div>
+</div>
+`;
+
 exports[`HeaderCell component should render the current HeaderCell 1`] = `
 <div
   className="header-cell header-cell-current"

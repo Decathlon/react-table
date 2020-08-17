@@ -6,11 +6,12 @@ import Bubble from "./bubble";
 export interface IHeaderCellProps {
   title: string;
   value: string;
+  className?: string;
   badge?: string;
   isCurrent?: boolean;
 }
 
-const HeaderCell = ({ title, value, badge, isCurrent }: IHeaderCellProps) => {
+const HeaderCell = ({ title, value, className, badge, isCurrent }: IHeaderCellProps) => {
   const cellContent = (
     <div className="header-cell-data">
       <div className="header-cell-title">{title}</div>
@@ -23,7 +24,9 @@ const HeaderCell = ({ title, value, badge, isCurrent }: IHeaderCellProps) => {
   return (
     <div
       className={classNames("header-cell", {
-        "header-cell-current": isCurrent
+        "header-cell-current": isCurrent,
+        // @ts-ignore use className variable only if the props is defined
+        [className]: className
       })}
     >
       {isCurrent ? (

@@ -20,6 +20,13 @@ describe("HeaderCell component", () => {
     expect(rendered).toMatchSnapshot();
   });
 
+  test("should render the HeaderCell (with custom className)", () => {
+    const shallowRenderer = createRenderer();
+    shallowRenderer.render(<HeaderCell title="Foo" value="Bar" badge="30" className="custom" />);
+    const rendered = shallowRenderer.getRenderOutput();
+    expect(rendered).toMatchSnapshot();
+  });
+
   test("should render the current HeaderCell", () => {
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<HeaderCell title="Foo" value="Bar" badge="30" isCurrent />);
