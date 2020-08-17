@@ -251,7 +251,7 @@ describe("Virtualizer", () => {
     expect(instance.state).toEqual(expectedState);
     // scroll to the last row
     scroll = {
-      scrollTop: 10000,
+      scrollTop: 9350,
       scrollLeft: 0,
       directions: [ScrollDirection.down],
       scrollOrigin: ScrollOrigin.external,
@@ -598,7 +598,7 @@ describe("Virtualizer", () => {
     instance.scroller.current.scrollToLeft = jest.fn();
     instance.scrollToColumnIndex(25);
     // @ts-ignore
-    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2185.5);
+    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2371.5);
   });
 
   test("should call the scrollToTop scroller method (scroll to row index)", () => {

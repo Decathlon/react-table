@@ -81,8 +81,22 @@ class Scroller extends React.Component<IScrollerProps> {
     return !isEqual(nextProps, this.props);
   }
 
-  public componentDidUpdate() {
+  public componentDidUpdate(prevProps: IScrollerProps) {
     this.initializeMaxScrollValues();
+    // keep the relative scrollLeft value when the virtualWidth has been changed
+    if (this.scrollerContainer.current) {
+      const { scrollLeft } = this.scrollerContainer.current;
+      const { virtualWidth } = this.props;
+      if (prevProps.virtualWidth !== virtualWidth) {
+        const newLeft = scrollLeft - (prevProps.virtualWidth - virtualWidth) / 2;
+        this.scrollToLeft(newLeft);
+      }
+      // @TODO keep the relative scrollTop value
+      // if (prevProps.virtualHeight !== virtualHeight) {
+      //   const newTop = scrollTop - (prevProps.virtualHeight - virtualHeight) / 2;
+      //   this.scrollToTop(newTop);
+      // }
+    }
   }
 
   private initializeMaxScrollValues = () => {

@@ -7,7 +7,8 @@ import {
   addSequentialIndexesToFixedIndexList,
   getElevatedIndexes,
   getVisibleIndexesInsideDatalength,
-  IElevateds
+  IElevateds,
+  scrollIndexToGridIndex
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -137,8 +138,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private virtualHeight = 0;
 
-  private maxRowStart = 0;
-
   private visibleFixedColumns: number[] = [];
 
   private visibleFixedRows: number[] = [];
@@ -203,37 +202,12 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
         // TODO we need to scroll to keep the first unfixed row visible
         !isEqual(prevProps.hiddenRows, hiddenRows))
     ) {
-      const { visibleColumnIndexes } = this.state;
       const { scrollTop, scrollLeft } = this.scroller.current.getScrollValues();
       this.initializeGridProps();
       const newColumnsState = this.getVisibleColumnsState(scrollLeft);
-      const setGridState = () => {
-        const newRowsState = this.getVisibleRowsState(scrollTop);
-        // @ts-ignore
-        this.setState({ ...newRowsState, ...newColumnsState });
-      };
-
-      if (newColumnsState) {
-        const { visibleColumnIndexes: newVisibleColumnIndexes } = newColumnsState;
-        const prevFirstColumnIndex = visibleColumnIndexes.findIndex(index => !fixedColumns.includes(index));
-        const firstColumnIndex = newVisibleColumnIndexes.findIndex(index => !fixedColumns.includes(index));
-        const nbHiddenFixedColumns = firstColumnIndex - prevFirstColumnIndex;
-        const prevFirstColumn = visibleColumnIndexes[prevFirstColumnIndex];
-        const firstColumn = newVisibleColumnIndexes[firstColumnIndex];
-
-        // if we changed the fixed columns, then we must to scroll to keep the first unfixed column visible
-        if (nbHiddenFixedColumns && prevFirstColumn !== firstColumn) {
-          // will set the state indirectly
-          const isScrolled = this.scrollToColumnIndex(prevFirstColumn);
-          if (!isScrolled) {
-            setGridState();
-          }
-        } else {
-          setGridState();
-        }
-      } else {
-        setGridState();
-      }
+      const newRowsState = this.getVisibleRowsState(scrollTop);
+      // @ts-ignore
+      this.setState({ ...newRowsState, ...newColumnsState });
     }
   }
 
@@ -262,11 +236,14 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const extraCellsWidth = fixedCellsWidth.sum + verticalPadding;
     const scrollableRowsHeight = height - extraCellsHeight;
     const scrollableColumnsWidth = width - extraCellsWidth;
-    const scrollableRowsCount = rowsLength - fixedCellsHeight.count;
-    const scrollableColumnsCount = columnsLength - fixedCellsWidth.count;
 
-    this.visibleFixedColumns = fixedColumns.filter(fixedColumn => !hiddenColumns.includes(fixedColumn));
     this.visibleFixedRows = fixedRows.filter(fixedRow => !hiddenRows.includes(fixedRow));
+    this.visibleFixedColumns = fixedColumns.filter(fixedColumn => !hiddenColumns.includes(fixedColumn));
+
+    const scrollableRowsCount = rowsLength - fixedCellsHeight.count - (hiddenRows.length - this.visibleFixedRows.length);
+    const scrollableColumnsCount =
+      columnsLength - fixedCellsWidth.count - (hiddenColumns.length - this.visibleFixedColumns.length);
+
     this.rowsCount =
       rowsCount !== undefined ? rowsCount : Math.floor(scrollableRowsHeight / minCellHeight + fixedCellsHeight.count);
     this.columnsCount =
@@ -285,19 +262,19 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
-    this.maxRowStart = rowsLength && rowsLength - this.rowsCount;
   };
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
     const { rowsLength, hiddenRows } = this.props;
-    // Taking the min of the calculated value and maximum row start since the scrollTop value would scroll up to rowLength
-    const rowIndexStart = Math.max(Math.min(Math.floor(scrollTop / this.cellHeight), this.maxRowStart), 0);
+    const scrollIndex = Math.floor(scrollTop / this.cellHeight);
+    const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
     return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
   };
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
     const { columnsLength, hiddenColumns } = this.props;
-    const columnIndexStart = Math.floor(scrollLeft / this.cellWidth);
+    const scrollIndex = Math.floor(scrollLeft / this.cellWidth);
+    const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
     return addSequentialIndexesToFixedIndexList(
       this.visibleFixedColumns,
       columnIndexStart,
@@ -335,7 +312,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const { visibleRowIndexes } = this.state;
     const newVisibleRowIndexes = this.getVisibleRowIndexes(scrollTop);
     let rowState = null;
-    if (!isEqual(newVisibleRowIndexes, visibleRowIndexes)) {
+    if (!isEqual(newVisibleRowIndexes, visibleRowIndexes) && newVisibleRowIndexes.length === visibleRowIndexes.length) {
       rowState = {
         visibleRowIndexes: newVisibleRowIndexes,
         elevatedRowIndexes: this.getElevatedRowIndexes(newVisibleRowIndexes)
@@ -348,7 +325,10 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const { visibleColumnIndexes } = this.state;
     const newVisibleColumnIndexes = this.getVisibleColumnIndexes(scrollLeft);
     let columnState = null;
-    if (!isEqual(newVisibleColumnIndexes, visibleColumnIndexes)) {
+    if (
+      !isEqual(newVisibleColumnIndexes, visibleColumnIndexes) &&
+      newVisibleColumnIndexes.length === visibleColumnIndexes.length
+    ) {
       columnState = {
         visibleColumnIndexes: newVisibleColumnIndexes,
         elevatedColumnIndexes: this.getElevatedColumnIndexes(newVisibleColumnIndexes)
@@ -398,10 +378,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   public scrollToColumnIndex = (columnIndex: number) => {
     if (this.scroller.current) {
-      // the reverse getVisibleColumnIndexes operation
-      const nbOfFixedIndexesBeforeStartIndex = this.visibleFixedColumns.filter(fixedIndex => fixedIndex <= columnIndex).length;
-      const toleft = this.cellWidth * (columnIndex - nbOfFixedIndexesBeforeStartIndex) + this.cellWidth / 2;
-
+      const toleft = this.cellWidth * columnIndex + this.cellWidth / 2;
       return this.scroller.current.scrollToLeft(toleft);
     }
     return false;
@@ -409,9 +386,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   public scrollToRowIndex = (rowIndex: number) => {
     if (this.scroller.current) {
-      // the reverse getVisibleRowIndexes operation
-      const nbOfFixedIndexesBeforeStartIndex = this.visibleFixedRows.filter(fixedIndex => fixedIndex <= rowIndex).length;
-      const toTop = this.cellHeight * (rowIndex - nbOfFixedIndexesBeforeStartIndex) + this.cellHeight / 2;
+      const toTop = this.cellHeight * rowIndex + this.cellHeight / 2;
       return this.scroller.current.scrollToTop(toTop);
     }
     return false;

@@ -149,9 +149,11 @@ export const TableColumnsRowsController = () => {
     } else {
       newHiddenColumns.push(columnIndex);
     }
+
     setHiddenColumn(newHiddenColumns.sort());
   };
 
+  console.log("newHiddenColumns", hiddenColumns);
   const toggleRow = () => {
     setHiddenRow(hiddenRow ? null : 1);
   };
@@ -184,16 +186,16 @@ export const TableColumnsRowsController = () => {
       </div>
       <Table
         {...generateTable(50, 50, {}, true)}
-        isSpan
         isSelectable={false}
         isVirtualized
         virtualizerProps={{
           hiddenColumns,
           hiddenRows: hiddenRow ? [hiddenRow] : [],
           fixedRows: object("fixedRows", [0, 1, 2, 8]),
-          fixedColumns: [0, 1, 2, 3, 4, 49],
+          fixedColumns: [0, 1, 2],
           height: number("height", 500),
-          width: number("width", 1000)
+          width: number("width", 1100),
+          minColumnWidth: 90
         }}
       />
     </div>

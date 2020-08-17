@@ -109,29 +109,24 @@ export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProper
 };
 
 /**
- * memoized method to be run only when params has been changed
- * @param {number[]} fixedIndexes a list of number
- * @return {number} returns a number that is the first number that is not present in the fixedIndex list
- *
- * @example with fixedIndexes = [0,1,2,3,4]
- * @returns 5
- *
- * @example with fixedIndexes = [0,4]
- * @returns 1
+ * @param {number} scrollIndex the scroll index computed by the scroller
+ * @param {number[]} hiddenIndexes the list of the hidden indexes of the grid
+ * @return {number} the index corresponding to the index of the scroller
  */
-export const getFirstUnfixedIndex = memoizeFunc((fixedIndexes: number[] = []): number => {
-  if (fixedIndexes[0] > 0) {
-    return 0;
-  }
-
-  for (let i = 0; i < fixedIndexes.length; i += 1) {
-    if (fixedIndexes[i + 1] - fixedIndexes[i] !== 1) {
-      return fixedIndexes[i] + 1;
+export const scrollIndexToGridIndex = (scrollIndex: number, hiddenIndexes: number[] = []) => {
+  let previousHiddenItems = 0;
+  let itemsToJump = 0;
+  const isHidden = hiddenIndexes.includes(scrollIndex);
+  for (let i = 0; i < hiddenIndexes.length; i += 1) {
+    const hiddenIndex = hiddenIndexes[i];
+    if (hiddenIndex <= scrollIndex) {
+      previousHiddenItems += 1;
+    } else if (isHidden && scrollIndex + itemsToJump + 1 === hiddenIndex) {
+      itemsToJump += 1;
     }
   }
-
-  return 0;
-});
+  return scrollIndex + previousHiddenItems + itemsToJump;
+};
 
 /**
  * @param {number[]} fixedIndexes a list of number
@@ -151,9 +146,7 @@ export const addSequentialIndexesToFixedIndexList = (
 ): number[] => {
   const result = [];
   const numberOfIndexesToAdd = totalCount - fixedIndexes.length;
-  const firstUnfixedIndex = getFirstUnfixedIndex(fixedIndexes);
-  const nbOfFixedIndexesBeforeStartIndex = fixedIndexes.filter(fixedIndex => fixedIndex <= firstUnfixedIndex + indexStart).length;
-  let itemIndex = indexStart + nbOfFixedIndexesBeforeStartIndex;
+  let itemIndex = indexStart;
   while (result.length < numberOfIndexesToAdd && itemIndex < maxLength) {
     if (!fixedIndexes.includes(itemIndex) && !hiddenIndexes.includes(itemIndex)) {
       result.push(itemIndex);
