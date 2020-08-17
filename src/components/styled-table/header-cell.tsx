@@ -23,9 +23,8 @@ const HeaderCell = ({ title, value, className = "", badge, isCurrent }: IHeaderC
 
   return (
     <div
-      className={classNames("header-cell", {
-        "header-cell-current": isCurrent,
-        [className]: className
+      className={classNames("header-cell", className, {
+        "header-cell-current": isCurrent
       })}
     >
       {isCurrent ? (
