@@ -42,7 +42,7 @@ describe("computeCellStyle", () => {
   });
 });
 
-describe.only("scrollIndexToGridIndex method", () => {
+describe("scrollIndexToGridIndex method", () => {
   test("should return the first visible index (jump 3 and 4)", () => {
     const gridIndex = Utils.scrollIndexToGridIndex(2, [0, 1, 2, 3, 4]);
     expect(gridIndex).toEqual(7);

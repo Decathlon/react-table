@@ -204,9 +204,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     ) {
       const { scrollTop, scrollLeft } = this.scroller.current.getScrollValues();
       this.initializeGridProps();
-      const newColumnsState = this.getVisibleColumnsState(scrollLeft);
-      const newRowsState = this.getVisibleRowsState(scrollTop);
-      // @ts-ignore
+      const newColumnsState = this.getVisibleColumnsState(scrollLeft) || {};
+      const newRowsState = this.getVisibleRowsState(scrollTop) || {};
       this.setState({ ...newRowsState, ...newColumnsState });
     }
   }
