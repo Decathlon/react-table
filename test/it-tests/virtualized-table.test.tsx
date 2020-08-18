@@ -128,7 +128,7 @@ describe("virtualized table component", () => {
       />
     );
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1245 }
+      target: { scrollTop: 750 }
     });
     const rows = getRows(container);
     expect(rows).toHaveLength(8);
@@ -159,7 +159,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[6])[1].textContent).toEqual("(19,1)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1245 }
+      target: { scrollTop: 800 }
     });
     rows = getRows(container);
     header = getRows(container, true);
@@ -217,7 +217,7 @@ describe("virtualized table component", () => {
     expect(cellsOfRow[9].textContent).toEqual("(1,19)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 993 }
+      target: { scrollLeft: 1100 }
     });
     cellsOfRow = getCellsOfRow(getRows(container)[0]);
     expect(cellsOfRow[0].textContent).toEqual("(1,0)");
@@ -253,7 +253,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[6])[1].textContent).toEqual("(19,1)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1245 }
+      target: { scrollTop: 800 }
     });
     rows = getRows(container);
     header = getRows(container, true);
@@ -392,9 +392,9 @@ describe("virtualized table component", () => {
     // Open the therd level
     fireEvent.click(getByTestId(rows[5], "table-cell-sub-item-toggle"));
     rows = getRows(container);
-    // Scroll to buttom 4*20*25px (500/20) = 2000
+    // Scroll to buttom 4*20*25px (500/20) - fixed rows = 1550
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 2000 }
+      target: { scrollTop: 1550 }
     });
     rows = getRows(container);
     let header = getRows(container, true);
@@ -577,7 +577,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 400 }
+      target: { scrollLeft: 1400 }
     });
     const rows = getRows(container);
     expect(getCellsOfRow(rows[0])[5].textContent).toEqual("(1,7)");
@@ -607,7 +607,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third row that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 400 }
+      target: { scrollTop: 700 }
     });
     const rows = getRows(container);
     expect(getCellsOfRow(rows[4])[0].textContent).toEqual("(10,0)");
@@ -714,7 +714,7 @@ describe("virtualized table component", () => {
     rows = getRows(container);
     // Scroll to buttom 4*20*25px (500/20) = 2000
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 2500 }
+      target: { scrollTop: 1625 }
     });
     rows = getRows(container);
     let header = getRows(container, true);
@@ -750,7 +750,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 400 }
+      target: { scrollLeft: 500 }
     });
 
     let rows = getRows(container);
@@ -786,7 +786,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 400 }
+      target: { scrollLeft: 650 }
     });
 
     let rows = getRows(container);
@@ -851,7 +851,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 400 }
+      target: { scrollLeft: 650 }
     });
 
     let rows = getRows(container);
@@ -877,7 +877,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 400 }
+      target: { scrollLeft: 1150 }
     });
 
     let rows = getRows(container);

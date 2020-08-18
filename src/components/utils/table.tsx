@@ -90,6 +90,17 @@ export function compareNumbers(a: number, b: number): number {
   return a - b;
 }
 
+export const findFirstNotIncluded = (source: number[], items: number[]): number => {
+  let index = 0;
+  while (index < source.length) {
+    if (!items.includes(source[index])) {
+      return source[index];
+    }
+    index += 1;
+  }
+  return -1;
+};
+
 export const computeCellStyle = (column?: IColumn, options?: IRowOptions): React.CSSProperties => {
   let cellStyle: React.CSSProperties = {};
   if (column) {
@@ -109,29 +120,25 @@ export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProper
 };
 
 /**
- * memoized method to be run only when params has been changed
- * @param {number[]} fixedIndexes a list of number
- * @return {number} returns a number that is the first number that is not present in the fixedIndex list
- *
- * @example with fixedIndexes = [0,1,2,3,4]
- * @returns 5
- *
- * @example with fixedIndexes = [0,4]
- * @returns 1
+ * @param {number} scrollIndex the scroll index computed by the scroller
+ * @param {number[]} ignoredIndexes the list of the ignored indexes of the grid
+ * @return {number} the index corresponding to the index of the scroller
  */
-export const getFirstUnfixedIndex = memoizeFunc((fixedIndexes: number[] = []): number => {
-  if (fixedIndexes[0] > 0) {
-    return 0;
-  }
-
-  for (let i = 0; i < fixedIndexes.length; i += 1) {
-    if (fixedIndexes[i + 1] - fixedIndexes[i] !== 1) {
-      return fixedIndexes[i] + 1;
+export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: number[] = []) => {
+  let previousIgnoredIndexes = 0;
+  let indexesToJump = 0;
+  const isIgnored = ignoredIndexes.includes(scrollIndex);
+  for (let i = 0; i < ignoredIndexes.length; i += 1) {
+    const ignoredIndex = ignoredIndexes[i];
+    if (ignoredIndex <= scrollIndex) {
+      previousIgnoredIndexes += 1;
+    } else if (isIgnored && scrollIndex + indexesToJump + 1 === ignoredIndex) {
+      indexesToJump += 1;
     }
   }
 
-  return 0;
-});
+  return scrollIndex + previousIgnoredIndexes + indexesToJump;
+};
 
 /**
  * @param {number[]} fixedIndexes a list of number
@@ -150,16 +157,27 @@ export const addSequentialIndexesToFixedIndexList = (
   hiddenIndexes: number[] = []
 ): number[] => {
   const result = [];
+  let ignoredIndexes = [...fixedIndexes, ...hiddenIndexes];
   const numberOfIndexesToAdd = totalCount - fixedIndexes.length;
-  const firstUnfixedIndex = getFirstUnfixedIndex(fixedIndexes);
-  const nbOfFixedIndexesBeforeStartIndex = fixedIndexes.filter(fixedIndex => fixedIndex <= firstUnfixedIndex + indexStart).length;
-  let itemIndex = indexStart + nbOfFixedIndexesBeforeStartIndex;
+  let itemIndex = indexStart;
+  // forward
   while (result.length < numberOfIndexesToAdd && itemIndex < maxLength) {
-    if (!fixedIndexes.includes(itemIndex) && !hiddenIndexes.includes(itemIndex)) {
+    if (!ignoredIndexes.includes(itemIndex)) {
       result.push(itemIndex);
     }
     itemIndex += 1;
   }
+  // backward if not enough items
+  if (result.length < numberOfIndexesToAdd) {
+    ignoredIndexes = [...ignoredIndexes, ...result];
+    while (result.length < numberOfIndexesToAdd && itemIndex > 0) {
+      if (!ignoredIndexes.includes(itemIndex) && itemIndex < maxLength) {
+        result.push(itemIndex);
+      }
+      itemIndex -= 1;
+    }
+  }
+
   return result.concat(fixedIndexes).sort(compareNumbers);
 };
 

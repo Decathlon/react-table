@@ -42,25 +42,43 @@ describe("computeCellStyle", () => {
   });
 });
 
-describe("getFirstUnfixedIndex method", () => {
-  test("should return the first number (5) not present in the fixedIndexes list", () => {
-    const firstUnfixedIndex = Utils.getFirstUnfixedIndex([0, 1, 2, 3, 4]);
-    expect(firstUnfixedIndex).toEqual(5);
+describe("findFirstNotIncluded method", () => {
+  test("should return -1", () => {
+    let item = Utils.findFirstNotIncluded([], []);
+    expect(item).toEqual(-1);
+    item = Utils.findFirstNotIncluded([], [1, 2]);
+    expect(item).toEqual(-1);
+    item = Utils.findFirstNotIncluded([1, 2], [1, 2]);
+    expect(item).toEqual(-1);
   });
 
-  test("should return the first number (0) not present in the fixedIndexes list", () => {
-    const firstUnfixedIndex = Utils.getFirstUnfixedIndex([1, 2, 3, 4]);
-    expect(firstUnfixedIndex).toEqual(0);
+  test("should return the first not included item", () => {
+    let item = Utils.findFirstNotIncluded([2, 3], []);
+    expect(item).toEqual(2);
+    item = Utils.findFirstNotIncluded([2, 3], [1, 2, 4]);
+    expect(item).toEqual(3);
+  });
+});
+
+describe("scrollIndexToGridIndex method", () => {
+  test("should return the first visible index (jump 3 and 4)", () => {
+    const gridIndex = Utils.scrollIndexToGridIndex(2, [0, 1, 2, 3, 4]);
+    expect(gridIndex).toEqual(7);
   });
 
-  test("should return the first number (2) not present in the fixedIndexes list", () => {
-    const firstUnfixedIndex = Utils.getFirstUnfixedIndex([0, 1, 3, 4]);
-    expect(firstUnfixedIndex).toEqual(2);
+  test("should return the first visible index (no jumping)", () => {
+    const gridIndex = Utils.scrollIndexToGridIndex(3, [1, 2, 4]);
+    expect(gridIndex).toEqual(5);
   });
 
-  test("should return 0 when the fixedIndexes list is empty", () => {
-    const firstUnfixedIndex = Utils.getFirstUnfixedIndex([]);
-    expect(firstUnfixedIndex).toEqual(0);
+  test("should return the first  visible index (jump 4)", () => {
+    const gridIndex = Utils.scrollIndexToGridIndex(3, [0, 1, 3, 4]);
+    expect(gridIndex).toEqual(7);
+  });
+
+  test("should return scrollIndex when the hiddenIndexes list is empty", () => {
+    const gridIndex = Utils.scrollIndexToGridIndex(4, []);
+    expect(gridIndex).toEqual(4);
   });
 });
 
@@ -72,12 +90,12 @@ describe("addSequentialIndexesToFixedIndexList method", () => {
 
   test("should return a list of sequential ids, starting at (index start: 1) + (fixed index before start: 1), concat to fixed index input", () => {
     const newList = Utils.addSequentialIndexesToFixedIndexList([0, 2], 1, 6, 4);
-    expect(newList).toEqual([0, 2, 3, 4]);
+    expect(newList).toEqual([0, 1, 2, 3]);
   });
 
   test("should return a list of sequential ids, starting at (index start: 1) + (fixed indexes before start: 0,1,2,3,4), concat to fixed index input", () => {
     const newList = Utils.addSequentialIndexesToFixedIndexList([0, 1, 2, 3, 4], 1, 57, 7);
-    expect(newList).toEqual([0, 1, 2, 3, 4, 6, 7]);
+    expect(newList).toEqual([0, 1, 2, 3, 4, 5, 6]);
   });
 
   test("should return a list with only fixed indexes", () => {
