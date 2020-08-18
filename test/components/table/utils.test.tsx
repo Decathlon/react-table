@@ -42,6 +42,24 @@ describe("computeCellStyle", () => {
   });
 });
 
+describe("findFirstNotIncluded method", () => {
+  test("should return -1", () => {
+    let item = Utils.findFirstNotIncluded([], []);
+    expect(item).toEqual(-1);
+    item = Utils.findFirstNotIncluded([], [1, 2]);
+    expect(item).toEqual(-1);
+    item = Utils.findFirstNotIncluded([1, 2], [1, 2]);
+    expect(item).toEqual(-1);
+  });
+
+  test("should return the first not included item", () => {
+    let item = Utils.findFirstNotIncluded([2, 3], []);
+    expect(item).toEqual(2);
+    item = Utils.findFirstNotIncluded([2, 3], [1, 2, 4]);
+    expect(item).toEqual(3);
+  });
+});
+
 describe("scrollIndexToGridIndex method", () => {
   test("should return the first visible index (jump 3 and 4)", () => {
     const gridIndex = Utils.scrollIndexToGridIndex(2, [0, 1, 2, 3, 4]);

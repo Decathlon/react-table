@@ -8,7 +8,8 @@ import {
   getElevatedIndexes,
   getVisibleIndexesInsideDatalength,
   IElevateds,
-  scrollIndexToGridIndex
+  scrollIndexToGridIndex,
+  findFirstNotIncluded
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -349,8 +350,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       // @ts-ignore
       this.setState({ ...newRowsState, ...newColumnsState }, () => {
         const { visibleColumnIndexes, visibleRowIndexes } = this.state;
-        const columnsCursor = visibleColumnIndexes[this.visibleFixedColumns.length];
-        const rowsCursor = visibleRowIndexes[this.visibleFixedRows.length];
+        const columnsCursor = findFirstNotIncluded(visibleColumnIndexes, this.visibleFixedColumns);
+        const rowsCursor = findFirstNotIncluded(visibleRowIndexes, this.visibleFixedRows);
         onScroll &&
           onScroll({
             scrollValues,
@@ -372,7 +373,9 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   public scrollToColumnIndex = (columnIndex: number) => {
     if (this.scroller.current) {
-      const toleft = this.cellWidth * columnIndex + this.cellWidth / 2;
+      const { hiddenColumns } = this.props;
+      const nbOfHiddenIndexesBeforeStartIndex = hiddenColumns.filter(hiddenIndex => hiddenIndex <= columnIndex).length;
+      const toleft = this.cellWidth * (columnIndex - nbOfHiddenIndexesBeforeStartIndex) + this.cellWidth / 2;
       return this.scroller.current.scrollToLeft(toleft);
     }
     return false;
@@ -380,7 +383,9 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   public scrollToRowIndex = (rowIndex: number) => {
     if (this.scroller.current) {
-      const toTop = this.cellHeight * rowIndex + this.cellHeight / 2;
+      const { hiddenRows } = this.props;
+      const nbOfHiddenIndexesBeforeStartIndex = hiddenRows.filter(hiddenIndex => hiddenIndex <= rowIndex).length;
+      const toTop = this.cellHeight * (rowIndex - nbOfHiddenIndexesBeforeStartIndex) + this.cellHeight / 2;
       return this.scroller.current.scrollToTop(toTop);
     }
     return false;

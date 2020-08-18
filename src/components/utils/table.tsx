@@ -90,6 +90,17 @@ export function compareNumbers(a: number, b: number): number {
   return a - b;
 }
 
+export const findFirstNotIncluded = (source: number[], items: number[]): number => {
+  let index = 0;
+  while (index < source.length) {
+    if (!items.includes(source[index])) {
+      return source[index];
+    }
+    index += 1;
+  }
+  return -1;
+};
+
 export const computeCellStyle = (column?: IColumn, options?: IRowOptions): React.CSSProperties => {
   let cellStyle: React.CSSProperties = {};
   if (column) {
