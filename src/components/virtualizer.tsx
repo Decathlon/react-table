@@ -130,10 +130,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private columnsCount = 0;
 
-  private scrollableRowsCount = 0;
-
-  private scrollableColumnsCount = 0;
-
   private cellHeight = 0;
 
   private cellWidth = 0;
@@ -242,10 +238,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
     this.visibleFixedRows = fixedRows.filter(fixedRow => !hiddenRows.includes(fixedRow));
     this.visibleFixedColumns = fixedColumns.filter(fixedColumn => !hiddenColumns.includes(fixedColumn));
-
-    this.scrollableRowsCount = rowsLength - fixedCellsHeight.count - (hiddenRows.length - this.visibleFixedRows.length);
-    this.scrollableColumnsCount =
-      columnsLength - fixedCellsWidth.count - (hiddenColumns.length - this.visibleFixedColumns.length);
+    const scrollableColumnsCount = columnsLength - fixedCellsWidth.count - hiddenColumns.length + this.visibleFixedColumns.length;
+    const scrollableRowsCount = rowsLength - fixedCellsHeight.count - hiddenRows.length + this.visibleFixedRows.length;
 
     this.rowsCount =
       rowsCount !== undefined ? rowsCount : Math.floor(scrollableRowsHeight / minCellHeight + fixedCellsHeight.count);
@@ -263,8 +257,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       ? Math.ceil((scrollableColumnsWidth - verticalScrollbarSize) / (this.columnsCount - fixedCellsWidth.count))
       : 0;
 
-    this.virtualWidth = this.scrollableColumnsCount * this.cellWidth + extraCellsWidth;
-    this.virtualHeight = this.scrollableRowsCount * this.cellHeight + extraCellsHeight;
+    this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
+    this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
   };
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
@@ -315,7 +309,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const { visibleRowIndexes } = this.state;
     const newVisibleRowIndexes = this.getVisibleRowIndexes(scrollTop);
     let rowState = null;
-    if (!isEqual(newVisibleRowIndexes, visibleRowIndexes) && newVisibleRowIndexes.length === visibleRowIndexes.length) {
+    if (!isEqual(newVisibleRowIndexes, visibleRowIndexes)) {
       rowState = {
         visibleRowIndexes: newVisibleRowIndexes,
         elevatedRowIndexes: this.getElevatedRowIndexes(newVisibleRowIndexes)
@@ -328,10 +322,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const { visibleColumnIndexes } = this.state;
     const newVisibleColumnIndexes = this.getVisibleColumnIndexes(scrollLeft);
     let columnState = null;
-    if (
-      !isEqual(newVisibleColumnIndexes, visibleColumnIndexes) &&
-      newVisibleColumnIndexes.length === visibleColumnIndexes.length
-    ) {
+    if (!isEqual(newVisibleColumnIndexes, visibleColumnIndexes)) {
       columnState = {
         visibleColumnIndexes: newVisibleColumnIndexes,
         elevatedColumnIndexes: this.getElevatedColumnIndexes(newVisibleColumnIndexes)

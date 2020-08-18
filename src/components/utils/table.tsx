@@ -110,22 +110,23 @@ export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProper
 
 /**
  * @param {number} scrollIndex the scroll index computed by the scroller
- * @param {number[]} hiddenIndexes the list of the hidden indexes of the grid
+ * @param {number[]} ignoredIndexes the list of the ignored indexes of the grid
  * @return {number} the index corresponding to the index of the scroller
  */
-export const scrollIndexToGridIndex = (scrollIndex: number, hiddenIndexes: number[] = []) => {
-  let previousHiddenItems = 0;
-  let itemsToJump = 0;
-  const isHidden = hiddenIndexes.includes(scrollIndex);
-  for (let i = 0; i < hiddenIndexes.length; i += 1) {
-    const hiddenIndex = hiddenIndexes[i];
-    if (hiddenIndex <= scrollIndex) {
-      previousHiddenItems += 1;
-    } else if (isHidden && scrollIndex + itemsToJump + 1 === hiddenIndex) {
-      itemsToJump += 1;
+export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: number[] = []) => {
+  let previousIgnoredIndexes = 0;
+  let indexesToJump = 0;
+  const isIgnored = ignoredIndexes.includes(scrollIndex);
+  for (let i = 0; i < ignoredIndexes.length; i += 1) {
+    const ignoredIndex = ignoredIndexes[i];
+    if (ignoredIndex <= scrollIndex) {
+      previousIgnoredIndexes += 1;
+    } else if (isIgnored && scrollIndex + indexesToJump + 1 === ignoredIndex) {
+      indexesToJump += 1;
     }
   }
-  return scrollIndex + previousHiddenItems + itemsToJump;
+
+  return scrollIndex + previousIgnoredIndexes + indexesToJump;
 };
 
 /**
@@ -145,14 +146,27 @@ export const addSequentialIndexesToFixedIndexList = (
   hiddenIndexes: number[] = []
 ): number[] => {
   const result = [];
+  let ignoredIndexes = [...fixedIndexes, ...hiddenIndexes];
   const numberOfIndexesToAdd = totalCount - fixedIndexes.length;
   let itemIndex = indexStart;
+  // forward
   while (result.length < numberOfIndexesToAdd && itemIndex < maxLength) {
-    if (!fixedIndexes.includes(itemIndex) && !hiddenIndexes.includes(itemIndex)) {
+    if (!ignoredIndexes.includes(itemIndex)) {
       result.push(itemIndex);
     }
     itemIndex += 1;
   }
+  // backward if not enough items
+  if (result.length < numberOfIndexesToAdd) {
+    ignoredIndexes = [...ignoredIndexes, ...result];
+    while (result.length < numberOfIndexesToAdd && itemIndex > 0) {
+      if (!ignoredIndexes.includes(itemIndex) && itemIndex < maxLength) {
+        result.push(itemIndex);
+      }
+      itemIndex -= 1;
+    }
+  }
+
   return result.concat(fixedIndexes).sort(compareNumbers);
 };
 
