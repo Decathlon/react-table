@@ -14,7 +14,7 @@ const rows = tableWithSubItems({
 describe("computeRowStyle", () => {
   test("should return a height property at a value corresponding to size input", () => {
     const rowStyle = Utils.computeRowStyle({ size: 10 });
-    expect(rowStyle).toEqual({ height: 10 });
+    expect(rowStyle).toEqual({ height: 9 });
   });
   test("should return empty object when given no input", () => {
     const rowStyle = Utils.computeRowStyle(null);
@@ -30,7 +30,7 @@ describe("computeCellStyle", () => {
     expect(cellStyle).toEqual({
       color: "red",
       width: 20,
-      height: 30
+      height: 29
     });
   });
 
