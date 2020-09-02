@@ -9,6 +9,8 @@ export interface IRowSpan {
   title?: string;
   /** The width of the cell */
   width?: number;
+  /** The width of the cell */
+  height?: number;
   /** the background color of the cell */
   color?: string;
 }
@@ -22,7 +24,7 @@ export interface IRowSpanProps extends IRowSpan {
   length: number;
 }
 
-const RowSpan = ({ toggle, opened, length, title, width, color }: IRowSpanProps) => {
+const RowSpan = ({ toggle, opened, length, title, width, height, color }: IRowSpanProps) => {
   return (
     <td
       className="table-column row-span-column"
@@ -34,7 +36,7 @@ const RowSpan = ({ toggle, opened, length, title, width, color }: IRowSpanProps)
         borderLeft: `solid 15px ${color}`
       }}
     >
-      <div className="row-span-container">
+      <div style={height ? { height: height } : undefined} className="row-span-container">
         <div className="row-span-text">{title}</div>
         <IconButton data-testid="table-toggle-row-btn" onClick={toggle}>
           <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>

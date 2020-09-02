@@ -218,7 +218,7 @@ export default class Row extends React.Component<IRowProps, IState> {
     if (!hasSubItems) {
       return <td className="table-column row-span-column" rowSpan={1} />;
     }
-    const { isVisible, cells, openedTree, absoluteIndex, getRowTreeLength, visibleRowIndexes, rowSpanProps } = this.props;
+    const { isVisible, cells, openedTree, absoluteIndex, getRowTreeLength, visibleRowIndexes, rowSpanProps, size } = this.props;
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
     const subItems = openedCell ? openedCell.subItems || [] : [];
@@ -227,7 +227,15 @@ export default class Row extends React.Component<IRowProps, IState> {
       visibleRowIndexes && getRowTreeLength
         ? getRowTreeLength(absoluteIndex) + (isVisible ? 1 : 0)
         : getTreesLength(subTrees, subItems) + subItems.length + 1;
-    return <RowSpan opened={!!openedCell} length={openedCell ? length : 1} toggle={this.toggleFirstCell} {...rowSpanProps} />;
+    return (
+      <RowSpan
+        opened={!!openedCell}
+        length={openedCell ? length : 1}
+        toggle={this.toggleFirstCell}
+        {...rowSpanProps}
+        height={size}
+      />
+    );
   };
 
   private getDelegatedSpan = (firstCellIndexWithSubItems: number) => {
