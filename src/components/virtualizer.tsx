@@ -131,6 +131,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private columnsCount = 0;
 
+  private adaptedHeight = 0;
+
   private cellHeight = 0;
 
   private cellWidth = 0;
@@ -251,13 +253,15 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     // if has Vertical ScrollBar
     const verticalScrollbarSize = rowsLength && this.rowsCount < rowsLength ? SCROLLBAR_SIZE : 0;
 
-    this.cellHeight = this.rowsCount
-      ? Math.ceil((scrollableRowsHeight - horizontalScrollbarSize) / (this.rowsCount - fixedCellsHeight.count))
+    const cellHeight = this.rowsCount
+      ? (scrollableRowsHeight - horizontalScrollbarSize) / (this.rowsCount - fixedCellsHeight.count)
       : 0;
     this.cellWidth = this.columnsCount
       ? Math.ceil((scrollableColumnsWidth - verticalScrollbarSize) / (this.columnsCount - fixedCellsWidth.count))
       : 0;
 
+    this.adaptedHeight = cellHeight * (this.rowsCount - fixedCellsHeight.count) + extraCellsHeight + horizontalScrollbarSize / 2;
+    this.cellHeight = Math.ceil(cellHeight);
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
   };
@@ -392,13 +396,13 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   public render() {
-    const { children, height, width, columnsLength, rowsLength, hiddenColumns } = this.props;
+    const { children, width, columnsLength, rowsLength, hiddenColumns } = this.props;
     const { elevatedColumnIndexes, elevatedRowIndexes, visibleColumnIndexes, visibleRowIndexes } = this.state;
     return (
       <Scroller
         ref={this.scroller}
         width={width}
-        height={height}
+        height={this.adaptedHeight}
         virtualWidth={this.virtualWidth}
         virtualHeight={this.virtualHeight}
         onScroll={this.onScroll}
