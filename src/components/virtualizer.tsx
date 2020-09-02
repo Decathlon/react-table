@@ -11,7 +11,7 @@ import {
   scrollIndexToGridIndex,
   findFirstNotIncluded
 } from "./utils/table";
-import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
+import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH, BORDER_SIZE } from "./constants";
 import { Nullable } from "./typing";
 
 export interface IRowsState {
@@ -253,15 +253,18 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     // if has Vertical ScrollBar
     const verticalScrollbarSize = rowsLength && this.rowsCount < rowsLength ? SCROLLBAR_SIZE : 0;
 
-    const cellHeight = this.rowsCount
-      ? (scrollableRowsHeight - horizontalScrollbarSize) / (this.rowsCount - fixedCellsHeight.count)
+    this.cellHeight = this.rowsCount
+      ? Math.ceil((scrollableRowsHeight - horizontalScrollbarSize) / (this.rowsCount - fixedCellsHeight.count))
       : 0;
     this.cellWidth = this.columnsCount
       ? Math.ceil((scrollableColumnsWidth - verticalScrollbarSize) / (this.columnsCount - fixedCellsWidth.count))
       : 0;
 
-    this.adaptedHeight = cellHeight * (this.rowsCount - fixedCellsHeight.count) + extraCellsHeight + horizontalScrollbarSize / 2;
-    this.cellHeight = Math.ceil(cellHeight);
+    this.adaptedHeight =
+      this.cellHeight * (this.rowsCount - fixedCellsHeight.count) -
+      this.rowsCount * BORDER_SIZE +
+      extraCellsHeight +
+      horizontalScrollbarSize;
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
   };
