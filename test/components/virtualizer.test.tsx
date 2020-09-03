@@ -34,8 +34,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
     const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -81,8 +81,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
     const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 30],
@@ -111,8 +111,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
     const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [1, 3, 4, 14],
@@ -139,8 +139,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
     const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -164,8 +164,8 @@ describe("Virtualizer", () => {
       children: jest.fn()
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / props.rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / props.columnsCount);
+    const cellHeight = Math.ceil(props.height / props.rowsCount);
+    const cellWidth = Math.ceil(props.width / props.columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2],
@@ -191,8 +191,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor(props.height / props.minRowHeight);
     const columnsCount = Math.floor(props.width / props.minColumnWidth);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3], // 400/100 === 4 columns
@@ -216,8 +216,8 @@ describe("Virtualizer", () => {
       children: jest.fn()
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / props.rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / props.columnsCount);
+    const cellHeight = Math.ceil(props.height / props.rowsCount);
+    const cellWidth = Math.ceil(props.width / props.columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -251,7 +251,7 @@ describe("Virtualizer", () => {
     expect(instance.state).toEqual(expectedState);
     // scroll to the last row
     scroll = {
-      scrollTop: 9350,
+      scrollTop: 9600,
       scrollLeft: 0,
       directions: [ScrollDirection.down],
       scrollOrigin: ScrollOrigin.external,
@@ -302,8 +302,8 @@ describe("Virtualizer", () => {
       children: jest.fn()
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / props.rowsCount);
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / props.columnsCount);
+    const cellHeight = Math.ceil(props.height / props.rowsCount);
+    const cellWidth = Math.ceil(props.width / props.columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -530,10 +530,8 @@ describe("Virtualizer", () => {
     mount(<Virtualizer {...props} />);
     const rowsCount = Math.floor((props.height - props.fixedCellsHeight.sum) / DEFAULT_ROW_HEIGHT) + props.fixedCellsHeight.count;
     const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil(
-      (props.height - SCROLLBAR_SIZE - props.fixedCellsHeight.sum) / (rowsCount - props.fixedCellsHeight.count)
-    );
-    const cellWidth = Math.ceil((props.width - SCROLLBAR_SIZE) / columnsCount);
+    const cellHeight = Math.ceil((props.height - props.fixedCellsHeight.sum) / (rowsCount - props.fixedCellsHeight.count));
+    const cellWidth = Math.ceil(props.width / columnsCount);
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -563,10 +561,8 @@ describe("Virtualizer", () => {
     const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
     const columnsCount = Math.floor((props.width - props.fixedCellsWidth.sum) / MIN_COLUMN_WIDTH) + props.fixedCellsWidth.count;
 
-    const cellHeight = Math.ceil((props.height - SCROLLBAR_SIZE) / rowsCount);
-    const cellWidth = Math.ceil(
-      (props.width - SCROLLBAR_SIZE - props.fixedCellsWidth.sum) / (columnsCount - props.fixedCellsWidth.count)
-    );
+    const cellHeight = Math.ceil(props.height / rowsCount);
+    const cellWidth = Math.ceil((props.width - props.fixedCellsWidth.sum) / (columnsCount - props.fixedCellsWidth.count));
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -598,7 +594,7 @@ describe("Virtualizer", () => {
     instance.scroller.current.scrollToLeft = jest.fn();
     instance.scrollToColumnIndex(25);
     // @ts-ignore
-    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2371.5);
+    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2550);
   });
 
   test("should call the scrollToTop scroller method (scroll to row index)", () => {
