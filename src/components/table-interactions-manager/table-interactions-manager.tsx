@@ -21,6 +21,7 @@ import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
 import { ITrees } from "../table/elementary-table";
 import useComponent, { ComponentRef } from "../../hooks/useComponent";
+import { compareNumbers } from "../utils/table";
 
 export interface OnScrollCallbackProps {
   /** The current column id. */
@@ -224,13 +225,15 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
 
   const hiddenColumnsIndexes = React.useMemo(
     () =>
-      hiddenColumnsIds.reduce<number[]>((result, columnId) => {
-        const columnIndex = hiddenColumnsIdsMapping[columnId];
-        if (columnIndex >= 0) {
-          result.push(columnIndex);
-        }
-        return result;
-      }, []),
+      hiddenColumnsIds
+        .reduce<number[]>((result, columnId) => {
+          const columnIndex = hiddenColumnsIdsMapping[columnId];
+          if (columnIndex >= 0) {
+            result.push(columnIndex);
+          }
+          return result;
+        }, [])
+        .sort(compareNumbers),
     [hiddenColumnsIds, hiddenColumnsIdsMapping]
   );
 
