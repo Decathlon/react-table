@@ -68,7 +68,7 @@ describe("scrollIndexToGridIndex method", () => {
 
   test("should return the first visible index (no jumping)", () => {
     const gridIndex = Utils.scrollIndexToGridIndex(3, [1, 2, 4]);
-    expect(gridIndex).toEqual(5);
+    expect(gridIndex).toEqual(6);
   });
 
   test("should return the first  visible index (jump 4)", () => {
