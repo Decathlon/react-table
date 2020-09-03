@@ -243,6 +243,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
     this.visibleFixedRows = fixedRows.filter(fixedRow => !hiddenRows.includes(fixedRow));
     this.visibleFixedColumns = fixedColumns.filter(fixedColumn => !hiddenColumns.includes(fixedColumn));
+
     const scrollableColumnsCount = columnsLength - fixedCellsWidth.count - hiddenColumns.length + this.visibleFixedColumns.length;
     const scrollableRowsCount = rowsLength - fixedCellsHeight.count - hiddenRows.length + this.visibleFixedRows.length;
 
@@ -253,12 +254,14 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
     this.cellHeight = this.rowsCount ? Math.ceil(scrollableRowsHeight / (this.rowsCount - fixedCellsHeight.count)) : 0;
     this.cellWidth = this.columnsCount ? Math.ceil(scrollableColumnsWidth / (this.columnsCount - fixedCellsWidth.count)) : 0;
+
     this.adaptedWidth =
       this.cellWidth * (this.columnsCount - fixedCellsWidth.count) - this.columnsCount * BORDER_SIZE + extraCellsWidth;
 
-    // if has Horizontal ScrollBar
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
+
+    // if has Horizontal ScrollBar
     const horizontalScrollbarSize = this.adaptedWidth < this.virtualWidth ? SCROLLBAR_SIZE : 0;
     this.adaptedHeight =
       this.cellHeight * (this.rowsCount - fixedCellsHeight.count) -
