@@ -125,14 +125,14 @@ export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProper
  * @return {number} the index corresponding to the index of the scroller
  */
 export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: number[] = []) => {
-  let updatedScollIndex = scrollIndex;
+  let updatedScrollIndex = scrollIndex;
   for (let i = 0; i < ignoredIndexes.length; i += 1) {
-    if (ignoredIndexes[i] <= updatedScollIndex) {
-      updatedScollIndex += 1;
+    if (ignoredIndexes[i] <= updatedScrollIndex) {
+      updatedScrollIndex += 1;
     }
   }
 
-  return updatedScollIndex;
+  return updatedScrollIndex;
 };
 
 /**
