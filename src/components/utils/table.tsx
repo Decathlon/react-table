@@ -121,23 +121,18 @@ export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProper
 
 /**
  * @param {number} scrollIndex the scroll index computed by the scroller
- * @param {number[]} ignoredIndexes the list of the ignored indexes of the grid
+ * @param {number[]} ignoredIndexes the list of the sorted ignored indexes of the grid
  * @return {number} the index corresponding to the index of the scroller
  */
 export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: number[] = []) => {
-  let previousIgnoredIndexes = 0;
-  let indexesToJump = 0;
-  const isIgnored = ignoredIndexes.includes(scrollIndex);
+  let updatedScrollIndex = scrollIndex;
   for (let i = 0; i < ignoredIndexes.length; i += 1) {
-    const ignoredIndex = ignoredIndexes[i];
-    if (ignoredIndex <= scrollIndex) {
-      previousIgnoredIndexes += 1;
-    } else if (isIgnored && scrollIndex + indexesToJump + 1 === ignoredIndex) {
-      indexesToJump += 1;
+    if (ignoredIndexes[i] <= updatedScrollIndex) {
+      updatedScrollIndex += 1;
     }
   }
 
-  return scrollIndex + previousIgnoredIndexes + indexesToJump;
+  return updatedScrollIndex;
 };
 
 /**

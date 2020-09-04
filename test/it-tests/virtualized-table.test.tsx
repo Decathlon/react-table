@@ -128,7 +128,7 @@ describe("virtualized table component", () => {
       />
     );
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 750 }
+      target: { scrollTop: 825 }
     });
     const rows = getRows(container);
     expect(rows).toHaveLength(8);
@@ -159,7 +159,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[6])[1].textContent).toEqual("(19,1)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 800 }
+      target: { scrollTop: 875 }
     });
     rows = getRows(container);
     header = getRows(container, true);
@@ -253,7 +253,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[6])[1].textContent).toEqual("(19,1)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 800 }
+      target: { scrollTop: 875 }
     });
     rows = getRows(container);
     header = getRows(container, true);
@@ -607,7 +607,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third row that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 700 }
+      target: { scrollTop: 775 }
     });
     const rows = getRows(container);
     expect(getCellsOfRow(rows[4])[0].textContent).toEqual("(10,0)");
@@ -714,7 +714,7 @@ describe("virtualized table component", () => {
     rows = getRows(container);
     // Scroll to buttom 4*20*25px (500/20) = 2000
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1625 }
+      target: { scrollTop: 1675 }
     });
     rows = getRows(container);
     let header = getRows(container, true);
