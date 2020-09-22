@@ -10,7 +10,6 @@ import Table from "../../../src/components/table/table";
 import { IContentCellProps } from "../../../src/components/table/cell";
 import { getTable } from "./tables";
 import { Nullable } from "../../../src/components/typing";
-import { SelectionMenu } from "../../stories-components/selection-menu";
 
 interface IProps extends IContentCellProps {
   defaultValue: number;
@@ -21,7 +20,7 @@ interface IProps extends IContentCellProps {
 
 const mask: IMask = {
   is_percentage: false,
-  is_negative: false,
+  is_negative: true,
   decimals: 2
 };
 
@@ -128,10 +127,7 @@ storiesOf("Styled Table/editable cell", module)
         {...defaultProps}
         columns={{ 0: { style: { justifyContent: "left" } } }}
         isVirtualized
-        isSelectable
-        selectionProps={{
-          menuComponent: SelectionMenu
-        }}
+        isSelectable={false}
         virtualizerProps={{
           fixedRows: object("fixedRows", [0]),
           fixedColumns: object("fixedColumns", [0]),
