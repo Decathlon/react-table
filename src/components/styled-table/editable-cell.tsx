@@ -93,6 +93,10 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     return [false, newValue];
   };
 
+  private selectValue = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    event.currentTarget.select();
+  };
+
   private focus = () => {
     const { value } = this.props;
     const newInputValue = this.getInputValue();
@@ -190,7 +194,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
             thousandSeparator=" "
             decimalSeparator=","
             style={{ width: inputValueWidth }}
-            InputProps={{ classes: { underline: "editable-cell__underline" } }}
+            InputProps={{ classes: { underline: "editable-cell__underline" }, onFocus: this.selectValue }}
             isNumericString
             decimalScale={mask.decimals}
             allowNegative={mask.is_negative}
