@@ -7,6 +7,7 @@ import { number } from "@storybook/addon-knobs";
 import Readme from "./virtualizer.md";
 import { withThemeProvider } from "../utils/decorators";
 import Virtualizer from "../../src/components/virtualizer";
+import Virtualizer2 from "../../src/components/virtualizer2";
 
 const items = Array.from(Array(100), (_, index) => ({
   id: index,
@@ -257,6 +258,75 @@ storiesOf("Virtualizer", module)
             );
           }}
         </Virtualizer>
+      );
+    },
+    { info: { inline: true } }
+  )
+  .add(
+    "Horizontal Virtualizer",
+    () => {
+      const padding = number("padding", 100);
+      return (
+        <Virtualizer2
+          horizontalProps={{
+            size: number("height", 1000),
+            visibleItemsCount: number("columnsCount", 7),
+            totalItemsCount: items.length,
+            fixedItemsIndexes: fixedItemsIndexes,
+            padding: padding + padding,
+            initialScrollItemIndex: 10340
+          }}
+          verticalProps={{
+            size: 70,
+            totalItemsCount: 1,
+            visibleItemsCount: 1
+          }}
+        >
+          {({ visibleColumnIndexes, cellWidth }) => {
+            const visibleItems = visibleColumnIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            return (
+              <HorizontalList items={visibleItems} itemWidth={cellWidth} fixedItems={fixedItemsIndexes}>
+                <div style={{ ...styles.verticalPadding, width: padding }}>
+                  <span>My Padding</span>
+                </div>
+              </HorizontalList>
+            );
+          }}
+        </Virtualizer2>
+      );
+    },
+    { info: { inline: true } }
+  )
+  .add(
+    "Vertical Virtualize",
+    () => {
+      const padding = number("padding", 100);
+      return (
+        <Virtualizer2
+          verticalProps={{
+            size: number("height", 500),
+            visibleItemsCount: number("columnsCount", 7),
+            totalItemsCount: items.length,
+            fixedItemsIndexes: fixedItemsIndexes,
+            padding: padding
+          }}
+          horizontalProps={{
+            size: 350,
+            totalItemsCount: 1,
+            visibleItemsCount: 1
+          }}
+        >
+          {({ visibleRowIndexes, cellHeight }) => {
+            const visibleItems = visibleRowIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            return (
+              <List items={visibleItems} itemHeight={cellHeight} fixedItems={fixedItemsIndexes}>
+                <div style={{ ...styles.horizontalPadding, height: padding }}>
+                  <span>My Padding</span>
+                </div>
+              </List>
+            );
+          }}
+        </Virtualizer2>
       );
     },
     { info: { inline: true } }
