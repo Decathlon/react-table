@@ -256,7 +256,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     this.cellWidth = this.columnsCount ? Math.ceil(scrollableColumnsWidth / (this.columnsCount - fixedCellsWidth.count)) : 0;
 
     this.adaptedWidth =
-      this.cellWidth * (this.columnsCount - fixedCellsWidth.count) - this.columnsCount * BORDER_SIZE + extraCellsWidth;
+      this.cellWidth * (this.columnsCount - fixedCellsWidth.count) + this.columnsCount * BORDER_SIZE + extraCellsWidth;
 
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
@@ -264,7 +264,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     // if has Horizontal ScrollBar
     const horizontalScrollbarSize = this.adaptedWidth < this.virtualWidth ? SCROLLBAR_SIZE : 0;
     this.adaptedHeight =
-      this.cellHeight * (this.rowsCount - fixedCellsHeight.count) -
+      this.cellHeight * (this.rowsCount - fixedCellsHeight.count) +
       this.rowsCount * BORDER_SIZE +
       extraCellsHeight +
       horizontalScrollbarSize;
@@ -272,14 +272,14 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
     const { rowsLength, hiddenRows } = this.props;
-    const scrollIndex = Math.floor(scrollTop / this.cellHeight);
+    const scrollIndex = Math.ceil(scrollTop / this.cellHeight);
     const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
     return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
   };
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
     const { columnsLength, hiddenColumns } = this.props;
-    const scrollIndex = Math.floor(scrollLeft / this.cellWidth);
+    const scrollIndex = Math.ceil(scrollLeft / this.cellWidth);
     const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
     return addSequentialIndexesToFixedIndexList(
       this.visibleFixedColumns,
@@ -410,7 +410,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
         virtualWidth={this.virtualWidth}
         virtualHeight={this.virtualHeight}
         onScroll={this.onScroll}
-        horizontalPartWidth={this.cellWidth}
+        horizontalPartWidth={this.cellWidth + 1}
         ignoredHorizontalParts={hiddenColumns}
       >
         {children({

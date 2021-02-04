@@ -235,6 +235,9 @@ class Scroller extends React.Component<IScrollerProps> {
     const verticalScrollBar = hasVerticalScrollBar ? SCROLLBAR_SIZE : 0;
     const horizontalScrollBar = hasHorizontalScrollBar ? SCROLLBAR_SIZE : 0;
 
+    const minScrollContentWidth = minWidth - verticalScrollBar - 2;
+    const minScrollContentHeight = minHeight - horizontalScrollBar - 2;
+
     return (
       <div
         data-testid="scroller-container"
@@ -245,14 +248,16 @@ class Scroller extends React.Component<IScrollerProps> {
           overflowX: hasHorizontalScrollBar ? "scroll" : "hidden",
           overflowY: hasVerticalScrollBar ? "scroll" : "hidden",
           maxHeight: minHeight,
-          maxWidth: minWidth
+          maxWidth: minWidth,
+          minWidth: minScrollContentWidth,
+          minHeight: minScrollContentHeight
         }}
       >
         <div
           className="scroller-content"
           style={{
-            minWidth: minWidth - verticalScrollBar - 2,
-            minHeight: minHeight - horizontalScrollBar - 2
+            minWidth: minScrollContentWidth,
+            minHeight: minScrollContentHeight
           }}
         >
           {newChildren}
