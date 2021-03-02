@@ -7,12 +7,12 @@ exports[`EdiTableCell component should render a disabled editable cell 1`] = `
 >
   <div
     className="editable-cell__value"
-    title="0.00"
+    title="0,00"
   >
     <span
       className="text"
     >
-      0.00
+      0,00
     </span>
   </div>
 </div>
@@ -45,12 +45,12 @@ exports[`EdiTableCell component should render editable cell with percentage valu
 >
   <div
     className="editable-cell__value"
-    title="100.00%"
+    title="100,00 %"
   >
     <span
       className="text"
     >
-      100.00%
+      100,00 %
     </span>
   </div>
 </div>
@@ -64,12 +64,12 @@ exports[`EdiTableCell component should render edited cell 1`] = `
 >
   <div
     className="editable-cell__value edited-cell"
-    title="50.00"
+    title="50,00"
   >
     <span
       className="text"
     >
-      50.00
+      50,00
     </span>
   </div>
 </div>
@@ -83,12 +83,12 @@ exports[`EdiTableCell component should render the default editable cell 1`] = `
 >
   <div
     className="editable-cell__value"
-    title="0.00"
+    title="0,00"
   >
     <span
       className="text"
     >
-      0.00
+      0,00
     </span>
   </div>
 </div>
