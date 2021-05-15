@@ -33,7 +33,7 @@ interface Column {
   index: number;
 }
 
-interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
+export interface ITableInteractionsManagerProps extends ITableInteractionManagerState {
   tableRef: Nullable<(table: Table) => void>;
   /** The table ref. */
   table: Nullable<ComponentRef<Table>>;
@@ -285,5 +285,9 @@ const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) =
   updateCellWidth: (value: CellDimension) => dispatch(updateCellWidth(value)),
   updateColumnsCursor: (columnsCursor: CellValue) => dispatch(updateColumnsCursor(columnsCursor))
 });
+
+export const useTableInteractionsManager = (): ITableInteractionsManagerProps => {
+  return React.useContext(TableInteractionsContext);
+};
 
 export default TableInteractionsManager;
