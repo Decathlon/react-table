@@ -354,13 +354,13 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const newRowsState = hasVerticallyScrolled ? this.getVisibleRowsState(scrollTop) : null;
     const newColumnsState = hasHorizontalyScrolled ? this.getVisibleColumnsState(scrollLeft) : null;
 
-    if (newRowsState || newColumnsState) {
-      // @ts-ignore
-      this.setState({ ...newRowsState, ...newColumnsState }, () => {
+    const handleOnScroll = (): void => {
+      if (onScroll || onHorizontallyScroll || onVerticallyScroll) {
         const { visibleColumnIndexes, visibleRowIndexes } = this.state;
         const columnsCursor = findFirstNotIncluded(visibleColumnIndexes, this.visibleFixedColumns);
         const rowsCursor = findFirstNotIncluded(visibleRowIndexes, this.visibleFixedRows);
-        onScroll &&
+
+        if (onScroll) {
           onScroll({
             scrollValues,
             newColumnsState,
@@ -368,14 +368,25 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
             columnsCursor,
             rowsCursor
           });
-        onHorizontallyScroll &&
+        }
+        if (onHorizontallyScroll) {
           onHorizontallyScroll({
             scrollValues,
             newColumnsState,
             columnsCursor
           });
-        onVerticallyScroll && onVerticallyScroll({ scrollValues, newRowsState, rowsCursor });
-      });
+        }
+        if (onVerticallyScroll) {
+          onVerticallyScroll({ scrollValues, newRowsState, rowsCursor });
+        }
+      }
+    };
+
+    if (newRowsState || newColumnsState) {
+      // @ts-ignore
+      this.setState({ ...newRowsState, ...newColumnsState }, handleOnScroll);
+    } else {
+      handleOnScroll();
     }
   };
 
