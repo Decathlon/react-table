@@ -3,7 +3,7 @@ import { merge } from "lodash";
 import * as memoize from "memoize-one";
 import update from "immutability-helper";
 
-import { DEFAULT_ROW_HEIGHT, MouseClickButtons, BORDER_SIZE } from "../constants";
+import { DEFAULT_ROW_HEIGHT, MouseClickButtons } from "../constants";
 import { IColumn, ITree, IColumns, ITrees } from "../table/elementary-table";
 import { IRowOptions, IRow } from "../table/row";
 import { ICell, ICellCoordinates } from "../table/cell";
@@ -109,13 +109,13 @@ export const computeCellStyle = (column?: IColumn, options?: IRowOptions): React
     }
     cellStyle.width = column.size || "auto";
   }
-  cellStyle.height = (options && options.size && options.size - BORDER_SIZE) || DEFAULT_ROW_HEIGHT;
+  cellStyle.height = (options && options.size) || DEFAULT_ROW_HEIGHT;
   return cellStyle;
 };
 
 export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProperties => {
   const rowStyle: React.CSSProperties = {};
-  rowStyle.height = options && options.size ? options.size - BORDER_SIZE : DEFAULT_ROW_HEIGHT;
+  rowStyle.height = options && options.size ? options.size : DEFAULT_ROW_HEIGHT;
   return rowStyle;
 };
 
@@ -362,7 +362,10 @@ export const getFixedElementFixedSizeSum = (
   fixedElements?: number[],
   hiddenIndexes: number[] = []
 ) => {
-  let fixedElementFixedSizeSum;
+  let fixedElementFixedSizeSum = {
+    sum: 0,
+    count: 0
+  };
   if (fixedElements) {
     fixedElementFixedSizeSum = fixedElements.reduce(
       (currFixedElementFixedSizeSum, index) => {

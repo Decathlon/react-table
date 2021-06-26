@@ -251,8 +251,8 @@ class Scroller extends React.Component<IScrollerProps> {
         <div
           className="scroller-content"
           style={{
-            minWidth: minWidth - verticalScrollBar - 2,
-            minHeight: minHeight - horizontalScrollBar - 2
+            minWidth: minWidth - verticalScrollBar,
+            minHeight: minHeight - horizontalScrollBar
           }}
         >
           {newChildren}

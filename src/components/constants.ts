@@ -4,8 +4,6 @@ export const DEFAULT_COLUMN_WIDTH = "auto";
 
 export const DEFAULT_COLSPAN = 1;
 
-export const BORDER_SIZE = 1;
-
 export const MIN_COLUMN_WIDTH = 100;
 
 export const SUBCELL_PADDING = 30;

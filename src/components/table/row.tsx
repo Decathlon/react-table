@@ -2,7 +2,7 @@ import * as React from "react";
 import classNames from "classnames";
 
 import { isEqual } from "lodash";
-import { MouseClickButtons, MAX_ROW_LEVEL, BORDER_SIZE } from "../constants";
+import { MouseClickButtons, MAX_ROW_LEVEL } from "../constants";
 import Cell, { ICell, ICellCoordinates } from "./cell";
 import RowSpan, { IRowSpan } from "./row-span";
 import { IColumn, IColumnOptions, ITree } from "./elementary-table";
@@ -233,7 +233,7 @@ export default class Row extends React.Component<IRowProps, IState> {
         length={openedCell ? length : 1}
         toggle={this.toggleFirstCell}
         {...rowSpanProps}
-        height={size && size - BORDER_SIZE}
+        height={size}
       />
     );
   };

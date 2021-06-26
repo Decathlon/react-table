@@ -2,7 +2,7 @@
 import * as React from "react";
 import { isEqual } from "lodash";
 
-import Scroller, { IOnScroll, VERTICAL_SCROLL_DIRECTIONS, SCROLLBAR_SIZE, HORIZONTAL_SCROLL_DIRECTIONS } from "./scroller";
+import Scroller, { IOnScroll, VERTICAL_SCROLL_DIRECTIONS, HORIZONTAL_SCROLL_DIRECTIONS } from "./scroller";
 import {
   addSequentialIndexesToFixedIndexList,
   getElevatedIndexes,
@@ -11,7 +11,7 @@ import {
   scrollIndexToGridIndex,
   findFirstNotIncluded
 } from "./utils/table";
-import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH, BORDER_SIZE } from "./constants";
+import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
 
 export interface IRowsState {
@@ -130,10 +130,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   private rowsCount = 0;
 
   private columnsCount = 0;
-
-  private adaptedHeight = 0;
-
-  private adaptedWidth = 0;
 
   private cellHeight = 0;
 
@@ -255,19 +251,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     this.cellHeight = this.rowsCount ? Math.ceil(scrollableRowsHeight / (this.rowsCount - fixedCellsHeight.count)) : 0;
     this.cellWidth = this.columnsCount ? Math.ceil(scrollableColumnsWidth / (this.columnsCount - fixedCellsWidth.count)) : 0;
 
-    this.adaptedWidth =
-      this.cellWidth * (this.columnsCount - fixedCellsWidth.count) - this.columnsCount * BORDER_SIZE + extraCellsWidth;
-
     this.virtualWidth = scrollableColumnsCount * this.cellWidth + extraCellsWidth;
     this.virtualHeight = scrollableRowsCount * this.cellHeight + extraCellsHeight;
-
-    // if has Horizontal ScrollBar
-    const horizontalScrollbarSize = this.adaptedWidth < this.virtualWidth ? SCROLLBAR_SIZE : 0;
-    this.adaptedHeight =
-      this.cellHeight * (this.rowsCount - fixedCellsHeight.count) -
-      this.rowsCount * BORDER_SIZE +
-      extraCellsHeight +
-      horizontalScrollbarSize;
   };
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
@@ -400,13 +385,13 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   public render() {
-    const { children, columnsLength, rowsLength, hiddenColumns } = this.props;
+    const { children, columnsLength, rowsLength, hiddenColumns, width, height } = this.props;
     const { elevatedColumnIndexes, elevatedRowIndexes, visibleColumnIndexes, visibleRowIndexes } = this.state;
     return (
       <Scroller
         ref={this.scroller}
-        width={this.adaptedWidth}
-        height={this.adaptedHeight}
+        width={width}
+        height={height}
         virtualWidth={this.virtualWidth}
         virtualHeight={this.virtualHeight}
         onScroll={this.onScroll}
