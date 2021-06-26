@@ -67,14 +67,20 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
 
   private globalColumnProps?: IColumnOptions;
 
-  private fixedCellsHeight?: {
+  private fixedCellsHeight: {
     sum: number;
     count: number;
+  } = {
+    sum: 0,
+    count: 0
   };
 
-  private fixedCellsWidth?: {
+  private fixedCellsWidth: {
     sum: number;
     count: number;
+  } = {
+    sum: 0,
+    count: 0
   };
 
   private virtualizer: React.RefObject<Virtualizer> = React.createRef<Virtualizer>();
@@ -349,8 +355,9 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         verticalPadding={isSpan ? ROW_SPAN_WIDTH : 0}
       >
         {({ visibleColumnIndexes, visibleRowIndexes, elevatedColumnIndexes, elevatedRowIndexes, cellHeight, cellWidth }) => {
-          const tableWidth = visibleColumnIndexes.length * cellHeight;
-          const denseColumns = getDenseColumns(tableWidth, width, this.columnsLength, columns);
+          const tableWidth = this.fixedCellsWidth.sum + (visibleColumnIndexes.length - this.fixedCellsWidth.count) * cellWidth;
+          const adjustedColumns = getDenseColumns(tableWidth, width, this.columnsLength, columns);
+
           return this.renderTable(
             visibleColumnIndexes,
             visibleRowIndexes,
@@ -359,7 +366,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
             elevatedColumnIndexes,
             elevatedRowIndexes,
             fixedRowsIndexes,
-            denseColumns
+            adjustedColumns
           );
         }}
       </Virtualizer>

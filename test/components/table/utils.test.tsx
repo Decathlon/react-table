@@ -14,7 +14,7 @@ const rows = tableWithSubItems({
 describe("computeRowStyle", () => {
   test("should return a height property at a value corresponding to size input", () => {
     const rowStyle = Utils.computeRowStyle({ size: 10 });
-    expect(rowStyle).toEqual({ height: 9 });
+    expect(rowStyle).toEqual({ height: 10 });
   });
   test("should return empty object when given no input", () => {
     const rowStyle = Utils.computeRowStyle(null);
@@ -30,7 +30,7 @@ describe("computeCellStyle", () => {
     expect(cellStyle).toEqual({
       color: "red",
       width: 20,
-      height: 29
+      height: 30
     });
   });
 
@@ -836,7 +836,7 @@ describe("getFixedElementFixedSizeSum method", () => {
     table.rows[1].size = 150;
     table.rows[4].size = 225;
     const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows);
-    expect(fixedCellsHeight).toBeUndefined();
+    expect(fixedCellsHeight).toEqual({ count: 0, sum: 0 });
   });
 
   test("should return the width of all fixed columns with a custom width and count those elements", () => {

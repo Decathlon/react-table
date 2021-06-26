@@ -21,10 +21,10 @@ $bg-color: $light-grey-color;
     }
   }
   &.elevated-start {
-    box-shadow: 0px 3px 7px -1px rgba(113, 113, 113, 0.18);
+    box-shadow: 0px 3px 7px -1px rgba(113, 113, 113, 0.1);
   }
   &.elevated-end {
-    box-shadow: 0px -3px 7px -1px rgba(113, 113, 113, 0.18);
+    box-shadow: 0px -3px 7px -1px rgba(113, 113, 113, 0.1);
   }
 
   &.last-sub-row {

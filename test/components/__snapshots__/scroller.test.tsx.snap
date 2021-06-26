@@ -18,8 +18,8 @@ exports[`Scroller component should render a vertical scroller 1`] = `
     className="scroller-content"
     style={
       Object {
-        "minHeight": 298,
-        "minWidth": 283,
+        "minHeight": 300,
+        "minWidth": 285,
       }
     }
   />
@@ -53,8 +53,8 @@ exports[`Scroller component should render an horizontal scroller 1`] = `
     className="scroller-content"
     style={
       Object {
-        "minHeight": 283,
-        "minWidth": 298,
+        "minHeight": 285,
+        "minWidth": 300,
       }
     }
   />
@@ -88,8 +88,8 @@ exports[`Scroller component should render the default scroller 1`] = `
     className="scroller-content"
     style={
       Object {
-        "minHeight": 283,
-        "minWidth": 283,
+        "minHeight": 285,
+        "minWidth": 285,
       }
     }
   />
