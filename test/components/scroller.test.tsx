@@ -85,7 +85,7 @@ describe("Scroller component", () => {
     const onScroll = jest.fn();
     const wrapper = mount(<Scroller {...scrollerProps} onScroll={onScroll} />);
     const scrollerInstance: Scroller = wrapper.instance() as Scroller;
-    const maxScrollTop = scrollerProps.virtualHeight - scrollerProps.height + SCROLLBAR_SIZE;
+    const maxScrollTop = scrollerProps.virtualHeight - scrollerProps.height - 5 + SCROLLBAR_SIZE;
     scrollerInstance.scrollToTop(maxScrollTop);
     // @ts-ignore scrollOrigin is private
     expect(scrollerInstance.scrollOrigin).toBe("external");
@@ -156,7 +156,7 @@ describe("Scroller component", () => {
     const onScroll = jest.fn();
     const wrapper = mount(<Scroller {...scrollerProps} onScroll={onScroll} />);
     const scrollerInstance: Scroller = wrapper.instance() as Scroller;
-    const maxScrollLeft = scrollerProps.virtualWidth - scrollerProps.width + SCROLLBAR_SIZE;
+    const maxScrollLeft = scrollerProps.virtualWidth - scrollerProps.width - 5 + SCROLLBAR_SIZE;
     scrollerInstance.scrollToLeft(maxScrollLeft);
     // @ts-ignore scrollOrigin is private
     expect(scrollerInstance.scrollOrigin).toBe("external");

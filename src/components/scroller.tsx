@@ -126,9 +126,9 @@ class Scroller extends React.Component<IScrollerProps> {
     const verticalScrollBar = hasVerticalScrollBar ? SCROLLBAR_SIZE : 0;
     const horizontalScrollBar = hasHorizontalScrollBar ? SCROLLBAR_SIZE : 0;
     // We calculate the maximum value of the scroll
-    this.scrollTopMax = virtualHeight - height + horizontalScrollBar;
+    this.scrollTopMax = virtualHeight - height - 5 + horizontalScrollBar;
     // We calculate the maximum value of the scroll left
-    this.scrollLeftMax = virtualWidth - width + verticalScrollBar;
+    this.scrollLeftMax = virtualWidth - width - 5 + verticalScrollBar;
   };
 
   public getScrollDirections = (): ScrollDirection[] => {
