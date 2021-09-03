@@ -31,6 +31,16 @@ export const updateHiddenColumns = (hiddenColumnsIds: string[]): UpdateHiddenCol
   hiddenColumnsIds
 });
 
+export interface UpdateHiddenRows {
+  type: actionTypes.UPDATE_HIDDEN_ROW_INDEXES;
+  hiddenRowIndexes: number[];
+}
+
+export const updateHiddenRows = (hiddenRowIndexes: number[]): UpdateHiddenRows => ({
+  type: actionTypes.UPDATE_HIDDEN_ROW_INDEXES,
+  hiddenRowIndexes
+});
+
 export interface UpdateFixedColumns {
   type: actionTypes.UPDATE_FIXED_COLUMNS_INDEXES;
   fixedColumnsIds: string[];
@@ -65,6 +75,7 @@ export type TableInteractionsAction =
   | UpdateCellWidth
   | UpdateRowHeight
   | UpdateHiddenColumns
+  | UpdateHiddenRows
   | UpdateColumnsCursor
   | UpdateFixedColumns
   | UpdateFixedRows;

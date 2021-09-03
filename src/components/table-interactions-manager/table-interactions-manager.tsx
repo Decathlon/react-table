@@ -9,7 +9,8 @@ import {
   updateCellWidth,
   updateColumnsCursor,
   updateFixedColumns,
-  updateFixedRows
+  updateFixedRows,
+  updateHiddenRows
 } from "./actions";
 import TableInteractionsManagerReducer, {
   ITableInteractionManagerState,
@@ -45,6 +46,8 @@ export interface ITableInteractionsManagerProps extends ITableInteractionManager
   fixedRowsIndexes: number[];
   /** The hidden columns controller. Please see the ColumnVisibilityController. */
   updateHiddenIds: (hiddenIds: string[]) => void;
+  /** The hidden rows controller. */
+  updateHiddenRowIndexes: (rowIndexes: number[]) => void;
   /** The fixed columns controller. */
   updateFixedColumnsIds: (fixedIds: string[]) => void;
   /** The fixed rows controller. */
@@ -90,6 +93,7 @@ const initialContext: ITableInteractionsManagerProps = {
   fixedColumnsIndexes: [],
   fixedRowsIndexes: [],
   updateHiddenIds: nullFunction,
+  updateHiddenRowIndexes: nullFunction,
   updateFixedColumnsIds: nullFunction,
   updateFixedRowsIndexes: nullFunction,
   updateRowHeight: nullFunction,
@@ -279,6 +283,7 @@ TableInteractionsManager.defaultProps = {
 
 const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) => ({
   updateHiddenIds: (hiddenIds: string[]) => dispatch(updateHiddenColumns(hiddenIds)),
+  updateHiddenRowIndexes: (hiddenIndexes: number[]) => dispatch(updateHiddenRows(hiddenIndexes)),
   updateFixedColumnsIds: (fixedIds: string[]) => dispatch(updateFixedColumns(fixedIds)),
   updateFixedRowsIndexes: (fixedIndexes: number[]) => dispatch(updateFixedRows(fixedIndexes)),
   updateRowHeight: (value: CellDimension) => dispatch(updateRowHeight(value)),

@@ -26,6 +26,8 @@ export interface ITableInteractionManagerState {
   rowHeight: CellDimension;
   /** The current hidden columns of the table (indexes). */
   hiddenColumnsIds: string[];
+  /** The current hidden rows of the table (indexes). */
+  hiddenRowIndexes: number[];
   /** The current fixed columns of the table (indexes). */
   fixedColumnsIds: string[];
   /** The current fixed rows of the table (indexes). */
@@ -40,7 +42,8 @@ export const initialState: ITableInteractionManagerState = {
   columnsCursor: null,
   hiddenColumnsIds: [],
   fixedColumnsIds: [],
-  fixedRowsIndexes: []
+  fixedRowsIndexes: [],
+  hiddenRowIndexes: []
 };
 
 const tableManagerReducer = (state: ITableInteractionManagerState = initialState, action: TableInteractionsAction) => {
@@ -59,6 +62,11 @@ const tableManagerReducer = (state: ITableInteractionManagerState = initialState
       return {
         ...state,
         hiddenColumnsIds: action.hiddenColumnsIds
+      };
+    case actionTypes.UPDATE_HIDDEN_ROW_INDEXES:
+      return {
+        ...state,
+        hiddenRowIndexes: action.hiddenRowIndexes
       };
     case actionTypes.UPDATE_FIXED_COLUMNS_INDEXES:
       return {
