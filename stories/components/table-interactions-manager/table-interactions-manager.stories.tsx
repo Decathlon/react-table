@@ -151,6 +151,42 @@ storiesOf("Table interactions manager", module)
   .add("Column id scroll controller", () => <ColumnIdScrollController {...defaultColumnIdScrollControllerProps} />, {
     info: storyInfoDefault
   })
+  .add("Hide row", () => (
+    <TabeInteractionManager toggleableColumns={toggleableColumns}>
+      <TableInteractionsContext.Consumer>
+        {({ onHorizontallyScroll, updateHiddenRowIndexes, hiddenRowIndexes, cellWidth, rowHeight, tableRef }) => {
+          return (
+            <>
+              <div style={toolBarStyle}>
+                <Button onClick={() => updateHiddenRowIndexes([1])}>Hide first row</Button>
+                <Button onClick={() => updateHiddenRowIndexes([])}>Display first row</Button>
+              </div>
+              <div
+                style={{ height: "calc(100vh - 55px)", width: "100%" }}
+                className={cellWidth.size === CellSize.small && "small-table"}
+              >
+                <Table
+                  ref={tableRef}
+                  {...defaultProps}
+                  columns={{ 0: { style: { justifyContent: "left" }, size: 200 } }}
+                  isVirtualized
+                  isSelectable={false}
+                  virtualizerProps={{
+                    hiddenRows: hiddenRowIndexes,
+                    minColumnWidth: cellWidth.value,
+                    minRowHeight: rowHeight.value,
+                    fixedRows,
+                    fixedColumns,
+                    onHorizontallyScroll
+                  }}
+                />
+              </div>
+            </>
+          );
+        }}
+      </TableInteractionsContext.Consumer>
+    </TabeInteractionManager>
+  ))
   .add("Integrated", () => (
     <TabeInteractionManager
       initialConfig={{
