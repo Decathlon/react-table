@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MenuItem, Menu } from "@material-ui/core";
+import { MenuItem, Menu } from "@mui/material";
 
 import { ISelectionContext } from "./context-menu-handler";
 import { ISelectedCells } from "./selection-handler";

@@ -1,5 +1,4 @@
 /// <reference path="../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { fireEvent, queryByText } from "@testing-library/react";
 
 import FixedColumnController from "../../src/components/table-interactions-manager/fixed-column-controller";

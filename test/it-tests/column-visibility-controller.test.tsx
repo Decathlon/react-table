@@ -1,5 +1,4 @@
 /// <reference path="../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { fireEvent, getByTestId as globalGetByTestId, getByText as globalGetByText } from "@testing-library/react";
 
 import ColumnVisisbilityController from "../../src/components/table-interactions-manager/column-visibility-controller";

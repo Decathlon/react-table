@@ -1,6 +1,5 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import { DumbFixedColumnController } from "../../../src/components/table-interactions-manager/fixed-column-controller";

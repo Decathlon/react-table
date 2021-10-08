@@ -1,5 +1,4 @@
 /// <reference path="../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { cleanup, fireEvent, getByTestId } from "@testing-library/react";
 
 import { customRender } from "../tests-utils/react-testing-library-utils";

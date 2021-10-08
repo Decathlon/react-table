@@ -2,8 +2,8 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { number } from "@storybook/addon-knobs";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
 
 import Scroller from "../../src/components/scroller";
 import { withThemeProvider } from "../utils/decorators";

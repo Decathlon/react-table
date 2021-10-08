@@ -557,7 +557,6 @@ describe("virtualized table component", () => {
   test("Should scroll to the third column that is not fixed", () => {
     const { container } = customRender(
       <Table
-        id="weekly-piloting-table"
         {...generateTable(40, 40, {}, true)}
         isVirtualized
         virtualizerProps={{
@@ -587,7 +586,6 @@ describe("virtualized table component", () => {
   test("Should scroll to the third row that is not fixed", () => {
     const { container } = customRender(
       <Table
-        id="weekly-piloting-table"
         {...generateTable(40, 40, {}, true)}
         isVirtualized
         virtualizerProps={{

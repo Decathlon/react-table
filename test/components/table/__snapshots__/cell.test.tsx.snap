@@ -35,15 +35,16 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
         }
       }
     >
-      <ForwardRef(WithStyles)
+      <ForwardRef(IconButton)
         className="table-cell-sub-item-toggle"
         data-testid="table-cell-sub-item-toggle"
         onClick={[Function]}
+        size="large"
       >
-        <ForwardRef(WithStyles)>
+        <ForwardRef(Icon)>
           keyboard_arrow_right
-        </ForwardRef(WithStyles)>
-      </ForwardRef(WithStyles)>
+        </ForwardRef(Icon)>
+      </ForwardRef(IconButton)>
       <div
         className="cell-value"
         style={
@@ -247,15 +248,16 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
         }
       }
     >
-      <ForwardRef(WithStyles)
+      <ForwardRef(IconButton)
         className="table-cell-sub-item-toggle"
         data-testid="table-cell-sub-item-toggle"
         onClick={[Function]}
+        size="large"
       >
-        <ForwardRef(WithStyles)>
+        <ForwardRef(Icon)>
           keyboard_arrow_down
-        </ForwardRef(WithStyles)>
-      </ForwardRef(WithStyles)>
+        </ForwardRef(Icon)>
+      </ForwardRef(IconButton)>
       <div
         className="cell-value"
         style={
@@ -483,9 +485,9 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
             }
           }
         >
-          <ForwardRef(WithStyles)
+          <ForwardRef(Skeleton)
             height={15}
-            variant="rect"
+            variant="rectangular"
             width={30}
           />
         </div>
@@ -601,9 +603,9 @@ exports[`Cell component should render the loading cell 1`] = `
             }
           }
         >
-          <ForwardRef(WithStyles)
+          <ForwardRef(Skeleton)
             height={15}
-            variant="rect"
+            variant="rectangular"
             width={30}
           />
         </div>

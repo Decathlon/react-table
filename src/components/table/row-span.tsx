@@ -1,6 +1,5 @@
-import * as React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import { Icon } from "@material-ui/core";
+import IconButton from "@mui/material/IconButton";
+import { Icon } from "@mui/material";
 
 import { ROW_SPAN_WIDTH } from "../constants";
 
@@ -38,7 +37,7 @@ const RowSpan = ({ toggle, opened, length, title, width, height, color }: IRowSp
     >
       <div style={height ? { height: height } : undefined} className="row-span-container">
         <div className="row-span-text">{title}</div>
-        <IconButton data-testid="table-toggle-row-btn" onClick={toggle}>
+        <IconButton data-testid="table-toggle-row-btn" onClick={toggle} size="large">
           <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
         </IconButton>
       </div>

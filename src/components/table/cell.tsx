@@ -1,10 +1,10 @@
 import * as React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Skeleton from "@material-ui/lab/Skeleton";
+import IconButton from "@mui/material/IconButton";
+import Skeleton from "@mui/material/Skeleton";
 import classNames from "classnames";
 import { isEqual } from "lodash";
 
-import { Icon } from "@material-ui/core";
+import { Icon } from "@mui/material";
 import { DEFAULT_ROW_HEIGHT, DEFAULT_COLUMN_WIDTH, DEFAULT_COLSPAN, MouseClickButtons } from "../constants";
 import { IRow } from "./row";
 import { getMouseClickButton } from "../utils/table";
@@ -224,7 +224,12 @@ export default class Cell extends React.Component<ICellProps> {
         >
           <div className="table-cell-container" style={{ justifyContent }}>
             {canToggleSubItems ? (
-              <IconButton className="table-cell-sub-item-toggle" data-testid="table-cell-sub-item-toggle" onClick={this.open}>
+              <IconButton
+                className="table-cell-sub-item-toggle"
+                data-testid="table-cell-sub-item-toggle"
+                onClick={this.open}
+                size="large"
+              >
                 <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
               </IconButton>
             ) : null}
@@ -245,7 +250,7 @@ export default class Cell extends React.Component<ICellProps> {
               <div style={styles.text} className="cell-value" title={value || ""}>
                 {loading ? (
                   <div className="cell-skeleton-container" style={styles.text}>
-                    <Skeleton variant="rect" width={30} height={15} />
+                    <Skeleton variant="rectangular" width={30} height={15} />
                   </div>
                 ) : (
                   value

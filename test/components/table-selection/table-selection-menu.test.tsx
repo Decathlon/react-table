@@ -1,5 +1,4 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import TableSelectionMenu, { IMenuAction } from "../../../src/components/table-selection/table-selection-menu";

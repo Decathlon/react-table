@@ -1,5 +1,4 @@
 /* eslint-disable  import/no-extraneous-dependencies */
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { number, object } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";

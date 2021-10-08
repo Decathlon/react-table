@@ -1,6 +1,6 @@
 import * as React from "react";
-import Menu from "@material-ui/core/Menu";
-import { List, ListItemText, Icon, MenuItem, ListItemIcon } from "@material-ui/core";
+import Menu from "@mui/material/Menu";
+import { List, ListItemText, Icon, MenuItem, ListItemIcon } from "@mui/material";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 import { Nullable } from "../typing";

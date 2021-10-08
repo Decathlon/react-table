@@ -1,5 +1,6 @@
 module.exports = {
   verbose: false,
+  testEnvironment: "jsdom",
   roots: ["test"],
   transform: {
     "^.+\\.tsx?$": "ts-jest"

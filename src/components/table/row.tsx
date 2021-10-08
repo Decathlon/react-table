@@ -144,8 +144,10 @@ export default class Row extends React.Component<IRowProps, IState> {
       delete rowProps.visibleRowIndexes;
     }
     const nextSelectCells = nextRowProps.selectedCells;
+    // @ts-ignore
     delete nextRowProps.selectedCells;
     const { selectedCells } = rowProps;
+    // @ts-ignore
     delete rowProps.selectedCells;
     return !shallowEqual(nextRowProps, rowProps) || !isEqual(nextSelectCells, selectedCells);
   }

@@ -1,31 +1,37 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 import * as React from "react";
 import { render, RenderOptions } from "@testing-library/react";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { createTheme, adaptV4Theme, StyledEngineProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/styles";
 
 export const blueDkt = "#0082c3";
 
-const muiDktTheme = createMuiTheme({
-  typography: {
-    fontFamily: "Roboto Condensed"
-  },
-  palette: {
-    primary: {
-      light: blueDkt,
-      dark: blueDkt,
-      main: blueDkt
+const muiDktTheme = createTheme(
+  adaptV4Theme({
+    typography: {
+      fontFamily: "Roboto Condensed"
     },
-    secondary: {
-      light: blueDkt,
-      dark: blueDkt,
-      main: blueDkt
+    palette: {
+      primary: {
+        light: blueDkt,
+        dark: blueDkt,
+        main: blueDkt
+      },
+      secondary: {
+        light: blueDkt,
+        dark: blueDkt,
+        main: blueDkt
+      }
     }
-  }
-});
+  })
+);
 
 const AllTheProviders = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
-  return <ThemeProvider theme={muiDktTheme}>{children}</ThemeProvider>;
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={muiDktTheme}>{children}</ThemeProvider>
+    </StyledEngineProvider>
+  );
 };
 
 // Just using the same typing as react-testing-library render method.

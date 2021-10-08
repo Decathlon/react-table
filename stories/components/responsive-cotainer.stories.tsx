@@ -1,5 +1,4 @@
 /* eslint-disable  import/no-extraneous-dependencies */
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
 
 import ResponsiveContainer from "../../src/components/responsive-container";

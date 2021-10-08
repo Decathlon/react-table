@@ -12,7 +12,7 @@
       "es2016",
       "es2017"
     ],
-    "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+    "jsx": "react-jsx" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "sourceMap": true,
     /* Generates corresponding '.map' file. */
@@ -24,6 +24,8 @@
     /* Raise error on expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true /* Enable strict null checks. */,
     /* Additional Checks */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

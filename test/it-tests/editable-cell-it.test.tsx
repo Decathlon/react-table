@@ -69,14 +69,13 @@ describe("EditableCell component integration tests", () => {
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
     fireEvent.click(getByText("-"));
-    let input = getByTestId("editable-cell-text-field").querySelector("input");
-    // usage of focus : https://github.com/s-yadav/react-number-format/issues/269
+    let input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 22, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("22.00 €")).toBeTruthy();
 
     fireEvent.click(getByText("22.00 €"));
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: NaN, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("-")).toBeTruthy();
@@ -90,7 +89,7 @@ describe("EditableCell component integration tests", () => {
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
     fireEvent.click(getByText("3.00 €"));
-    const input = getByTestId("editable-cell-text-field").querySelector("input");
+    const input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: null, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("0.00 €")).toBeTruthy();
@@ -139,15 +138,15 @@ describe("EditableCell component integration tests", () => {
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
 
     fireEvent.click(getByText("12.00 €"));
-    let input = getByTestId("editable-cell-text-field").querySelector("input");
+    let input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 8, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("12.00 €")).toBeTruthy();
 
     fireEvent.click(getByText("12.00 €"));
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 15, focus } });
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("15.00 €")).toBeTruthy();
   });

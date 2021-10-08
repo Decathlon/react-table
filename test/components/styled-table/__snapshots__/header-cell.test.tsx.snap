@@ -30,7 +30,7 @@ exports[`HeaderCell component should render the current HeaderCell 1`] = `
     <div
       className="header-cell-line"
     />
-    <UNDEFINED
+    <Memo(Bubble)
       badge="30"
       className="header-cell-bubble"
     >
@@ -49,7 +49,7 @@ exports[`HeaderCell component should render the current HeaderCell 1`] = `
           Bar
         </div>
       </div>
-    </UNDEFINED>
+    </Memo(Bubble)>
   </React.Fragment>
 </div>
 `;

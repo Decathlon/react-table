@@ -10,15 +10,15 @@ exports[`CellWithIcon component should render the CellWithIcon with a tooltip 1`
   >
     TUNING
   </div>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Tooltip)
     title="Hello Foo"
   >
-    <ForwardRef(WithStyles)
+    <ForwardRef(Icon)
       className="cell-with-icon__icon"
     >
       edit
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
+    </ForwardRef(Icon)>
+  </ForwardRef(Tooltip)>
 </div>
 `;
 
@@ -32,21 +32,22 @@ exports[`CellWithIcon component should render the CellWithIcon with a tooltip an
   >
     TUNING
   </div>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Tooltip)
     title="Hello Foo"
   >
-    <ForwardRef(WithStyles)
+    <ForwardRef(IconButton)
       className="cell-with-icon__btn"
       data-testid="toolbar-action-btn"
       onClick={[MockFunction]}
+      size="large"
     >
-      <ForwardRef(WithStyles)
+      <ForwardRef(Icon)
         className="cell-with-icon__icon"
       >
         edit
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
+      </ForwardRef(Icon)>
+    </ForwardRef(IconButton)>
+  </ForwardRef(Tooltip)>
 </div>
 `;
 
@@ -60,17 +61,18 @@ exports[`CellWithIcon component should render the CellWithIcon with an action 1`
   >
     TUNING
   </div>
-  <ForwardRef(WithStyles)
+  <ForwardRef(IconButton)
     className="cell-with-icon__btn"
     data-testid="toolbar-action-btn"
     onClick={[MockFunction]}
+    size="large"
   >
-    <ForwardRef(WithStyles)
+    <ForwardRef(Icon)
       className="cell-with-icon__icon"
     >
       edit
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
+    </ForwardRef(Icon)>
+  </ForwardRef(IconButton)>
 </div>
 `;
 
@@ -84,10 +86,10 @@ exports[`CellWithIcon component should render the default CellWithIcon 1`] = `
   >
     TUNING
   </div>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Icon)
     className="cell-with-icon__icon"
   >
     edit
-  </ForwardRef(WithStyles)>
+  </ForwardRef(Icon)>
 </div>
 `;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 import * as NumberFormat from "react-number-format";
 import classnames from "classnames";
 
@@ -125,9 +125,9 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     });
   };
 
-  private isValidValue = (value: Nullable<number>) => {
+  private isValidValue = (value: Nullable<number> | undefined) => {
     const { validateValue } = this.props;
-    const isNumber = value !== null && !isNaN(value);
+    const isNumber = value != null && !isNaN(value);
     return validateValue && isNumber ? validateValue(value) : true;
   };
 
@@ -187,6 +187,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
             autoFocus
             data-testid="editable-cell-text-field"
             customInput={TextField}
+            variant="standard"
             defaultValue={inputValue}
             onValueChange={this.onValueChangeHandle}
             onBlur={this.onBlur}

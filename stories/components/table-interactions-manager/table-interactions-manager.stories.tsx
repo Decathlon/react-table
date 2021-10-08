@@ -1,7 +1,6 @@
 /* eslint-disable  import/no-extraneous-dependencies */
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
-import { IconButton, Icon, Button } from "@material-ui/core";
+import { IconButton, Icon, Button } from "@mui/material";
 
 import { ColumnWidth } from "../../../src/components/constants";
 import { withThemeProvider } from "../../utils/decorators";
@@ -77,7 +76,7 @@ storiesOf("Table interactions manager", module)
       <TabeInteractionManager>
         <CellDimensionController
           buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>line_weight</Icon>
             </IconButton>
           )}
@@ -101,7 +100,7 @@ storiesOf("Table interactions manager", module)
       >
         <CellDimensionController
           buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>line_weight</Icon>
             </IconButton>
           )}
@@ -119,7 +118,7 @@ storiesOf("Table interactions manager", module)
         <ColumnVisibilityController
           columns={toggleableColumns}
           buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>view_week</Icon>
             </IconButton>
           )}
@@ -137,7 +136,7 @@ storiesOf("Table interactions manager", module)
         <ColumnVisibilityController
           columns={toggleableColumns}
           buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>view_week</Icon>
             </IconButton>
           )}
@@ -201,7 +200,7 @@ storiesOf("Table interactions manager", module)
               <div style={toolBarStyle}>
                 <CellDimensionController
                   buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>line_weight</Icon>
                     </IconButton>
                   )}
@@ -209,7 +208,7 @@ storiesOf("Table interactions manager", module)
                 <ColumnVisibilityController
                   columns={toggleableColumns}
                   buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>view_week</Icon>
                     </IconButton>
                   )}
@@ -260,7 +259,7 @@ storiesOf("Table interactions manager", module)
               <div style={toolBarStyle}>
                 <CellDimensionController
                   buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>line_weight</Icon>
                     </IconButton>
                   )}
@@ -270,7 +269,7 @@ storiesOf("Table interactions manager", module)
                 <ColumnVisibilityController
                   columns={toggleableColumns}
                   buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>view_week</Icon>
                     </IconButton>
                   )}

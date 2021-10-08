@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tooltip, IconButton, Icon } from "@material-ui/core";
+import { Tooltip, IconButton, Icon } from "@mui/material";
 import classnames from "classnames";
 
 import { IContentCellProps } from "../table/cell";
@@ -27,7 +27,13 @@ export const CellWithIcon: React.FunctionComponent<ICellWithIconProps> = ({
 }) => {
   const icon = <Icon className="cell-with-icon__icon">{iconName}</Icon>;
   const action = onClick ? (
-    <IconButton data-testid={`toolbar-action-btn${id ? `-${id}` : ""}`} id={id} className="cell-with-icon__btn" onClick={onClick}>
+    <IconButton
+      data-testid={`toolbar-action-btn${id ? `-${id}` : ""}`}
+      id={id}
+      className="cell-with-icon__btn"
+      onClick={onClick}
+      size="medium"
+    >
       {icon}
     </IconButton>
   ) : (

@@ -1,8 +1,7 @@
 /// <reference path="../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { fireEvent } from "@testing-library/react";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 import TabeInteractionManager, {
   TableInteractionsContext

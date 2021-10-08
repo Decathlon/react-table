@@ -1,8 +1,8 @@
 import * as React from "react";
-import Menu from "@material-ui/core/Menu";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { Icon, ListItemText, List, MenuItem, ListItemIcon } from "@material-ui/core";
+import Menu from "@mui/material/Menu";
+import Divider from "@mui/material/Divider";
+import ListSubheader from "@mui/material/ListSubheader";
+import { Icon, ListItemText, List, MenuItem, ListItemIcon } from "@mui/material";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 import { CellDimension } from "./reducers";

@@ -1,6 +1,5 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 /// <reference path="../../typings.d.ts"/>
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { object, number, boolean } from "@storybook/addon-knobs";
 
