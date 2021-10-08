@@ -9,20 +9,20 @@ export const blueDkt = "#0082c3";
 const muiDktTheme = createTheme(
   adaptV4Theme({
     typography: {
-      fontFamily: "Roboto Condensed"
+      fontFamily: "Roboto Condensed",
     },
     palette: {
       primary: {
         light: blueDkt,
         dark: blueDkt,
-        main: blueDkt
+        main: blueDkt,
       },
       secondary: {
         light: blueDkt,
         dark: blueDkt,
-        main: blueDkt
-      }
-    }
+        main: blueDkt,
+      },
+    },
   })
 );
 

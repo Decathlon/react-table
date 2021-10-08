@@ -7,3 +7,5 @@ node_modules/*
 README.md
 stats.json
 jest-test-results.json
+jest.config.js
+.eslintrc.js

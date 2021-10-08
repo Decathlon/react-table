@@ -3,7 +3,7 @@ import { fireEvent, queryByText } from "@testing-library/react";
 
 import FixedRowController from "../../src/components/table-interactions-manager/fixed-row-controller";
 import TabeInteractionManager, {
-  TableInteractionsContext
+  TableInteractionsContext,
 } from "../../src/components/table-interactions-manager/table-interactions-manager";
 import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
@@ -36,9 +36,9 @@ describe("FixedColumnController component", () => {
                     height: 500,
                     width: 1100,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </>

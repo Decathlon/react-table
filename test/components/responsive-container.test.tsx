@@ -7,7 +7,7 @@ describe("Cell component", () => {
   test("should render the default responsive", () => {
     const props = {
       className: "foo-class-name",
-      children: () => <div>Foo</div>
+      children: () => <div>Foo</div>,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<ResponsiveContainer {...props} />);

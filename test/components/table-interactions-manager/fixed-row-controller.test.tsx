@@ -9,7 +9,7 @@ describe("FixedRowController component", () => {
     const props = {
       rowIndex: 2,
       fixedRowsIndexes: [1],
-      updateFixedRowsIndexes: jest.fn()
+      updateFixedRowsIndexes: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(

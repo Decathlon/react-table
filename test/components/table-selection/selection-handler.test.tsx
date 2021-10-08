@@ -9,7 +9,7 @@ describe("SelectionHandler component", () => {
   test("should render children", () => {
     const children = () => <div>Foo</div>;
     const props = {
-      children
+      children,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<SelectionHandler {...props} />);
@@ -21,7 +21,7 @@ describe("SelectionHandler component", () => {
     const source = { rowIndex: 1, cellIndex: 1 };
     const target = { rowIndex: 2, cellIndex: 2 };
     const props = {
-      children: jest.fn()
+      children: jest.fn(),
     };
     const wrapper = mount(<SelectionHandler {...props} />);
     const instance: SelectionHandler = wrapper.instance() as SelectionHandler;
@@ -40,7 +40,7 @@ describe("SelectionHandler component", () => {
     const target = { rowIndex: 2, cellIndex: 2 };
     const props = {
       children: jest.fn(),
-      isDisabledVerticalSelection: true
+      isDisabledVerticalSelection: true,
     };
     const wrapper = mount(<SelectionHandler {...props} />);
     const instance: SelectionHandler = wrapper.instance() as SelectionHandler;
@@ -57,7 +57,7 @@ describe("SelectionHandler component", () => {
     const target = { rowIndex: 2, cellIndex: 2 };
     const props = {
       children: jest.fn(),
-      isDisabledHorizontalSelection: true
+      isDisabledHorizontalSelection: true,
     };
     const wrapper = mount(<SelectionHandler {...props} />);
     const instance: SelectionHandler = wrapper.instance() as SelectionHandler;
@@ -74,7 +74,7 @@ describe("SelectionHandler component", () => {
     const target = { rowIndex: 2, cellIndex: 2 };
     const props = {
       children: jest.fn(),
-      onContextMenu: jest.fn()
+      onContextMenu: jest.fn(),
     };
     const wrapper = mount(<SelectionHandler {...props} />);
     const instance: SelectionHandler = wrapper.instance() as SelectionHandler;

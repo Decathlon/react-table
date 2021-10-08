@@ -25,7 +25,7 @@ export const DumbFixedColumnController: React.FunctionComponent<IDumbFixedColumn
       return fixedColumnsIds.includes(columnId);
     }, [columnId, fixedColumnsIds]);
     const toggleFixedColumnId = () => {
-      const newColumns = fixedColumnsIds.filter(fixedColumnId => fixedColumnId !== columnId);
+      const newColumns = fixedColumnsIds.filter((fixedColumnId) => fixedColumnId !== columnId);
       if (newColumns.length === fixedColumnsIds.length) {
         newColumns.push(columnId);
       }
@@ -36,7 +36,7 @@ export const DumbFixedColumnController: React.FunctionComponent<IDumbFixedColumn
   }
 );
 
-const FixedColumnController: React.FunctionComponent<IFixedColumnControllerProps> = props => {
+const FixedColumnController: React.FunctionComponent<IFixedColumnControllerProps> = (props) => {
   const { fixedColumnsIds, updateFixedColumnsIds } = React.useContext(TableInteractionsContext);
   return <DumbFixedColumnController fixedColumnsIds={fixedColumnsIds} updateFixedColumnsIds={updateFixedColumnsIds} {...props} />;
 };

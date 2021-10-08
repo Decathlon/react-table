@@ -4,7 +4,7 @@ import { fireEvent, getByTestId as globalGetByTestId, getByText as globalGetByTe
 
 import CellDimensionController from "../../src/components/table-interactions-manager/cell-dimensions-controller";
 import TabeInteractionManager, {
-  TableInteractionsContext
+  TableInteractionsContext,
 } from "../../src/components/table-interactions-manager/table-interactions-manager";
 import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
@@ -19,7 +19,7 @@ describe("CellDimensionController component", () => {
   test("should render the default CellDimensionController", () => {
     const { getByTestId, getByText } = customRender(
       <TabeInteractionManager>
-        <CellDimensionController buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Dimension Controller</div>} />
+        <CellDimensionController buttonRenderer={(toggleMenu) => <div onClick={toggleMenu}>Dimension Controller</div>} />
       </TabeInteractionManager>
     );
     fireEvent.click(getByText("Dimension Controller"));
@@ -52,14 +52,14 @@ describe("CellDimensionController component", () => {
   });
 
   test("should scroll to the current column", async () => {
-    const { container, getByTestId, getByText } = customRender(
+    const { getByTestId, getByText } = customRender(
       // init scroll to the week number 12
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: [], columnsCursor: { id: "12", index: 12 } }}>
         <TableInteractionsContext.Consumer>
           {({ onHorizontallyScroll, tableRef, columnsCursor, cellWidth, rowHeight }) => {
             return (
               <>
-                <CellDimensionController buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Dimension Controller</div>} />
+                <CellDimensionController buttonRenderer={(toggleMenu) => <div onClick={toggleMenu}>Dimension Controller</div>} />
                 <Table
                   ref={tableRef}
                   {...defaultProps}
@@ -72,9 +72,9 @@ describe("CellDimensionController component", () => {
                     height: 500,
                     width: 1100,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </>
@@ -86,7 +86,7 @@ describe("CellDimensionController component", () => {
 
     // The initial scroll (week number 12)
     fireEvent.scroll(getByTestId("scroller-container"));
-    let header = getRows(container, true);
+    let header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W12")).toBeTruthy();
 
     fireEvent.click(getByText("Dimension Controller"));
@@ -94,8 +94,10 @@ describe("CellDimensionController component", () => {
 
     // small cell width
     fireEvent.click(columnWidthSamll);
-    fireEvent.scroll(getByTestId("scroller-container"));
-    header = getRows(container, true);
-    await waitFor(() => expect(globalGetByText(getCellsOfRow(header[0])[1], "W12")).toBeTruthy());
+    header = getRows(true);
+    await waitFor(() => {
+      fireEvent.scroll(getByTestId("scroller-container"));
+      return expect(globalGetByText(getCellsOfRow(header[0])[1], "W12")).toBeTruthy();
+    });
   });
 });

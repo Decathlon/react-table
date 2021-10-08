@@ -25,7 +25,7 @@ const mask = {
   currency: "EUR",
   decimals: 2,
   is_percentage: false,
-  is_negative: false
+  is_negative: false,
 };
 
 const EditableCellParent = (props: IProps) => {
@@ -64,7 +64,7 @@ describe("EditableCell component integration tests", () => {
   test("should render textInput on click", () => {
     const props = {
       defaultValue: null,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
@@ -84,7 +84,7 @@ describe("EditableCell component integration tests", () => {
   test("should display 0 when cell is cleared and it initial value is not null", () => {
     const props = {
       defaultValue: 3,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
@@ -98,7 +98,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue", () => {
     const props = {
       defaultValue: 3.01,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -109,7 +109,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue formatted without its two trailing zeros", () => {
     const props = {
       defaultValue: 3,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -120,7 +120,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue without the trailing 0", () => {
     const props = {
       defaultValue: 3.1,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -132,7 +132,7 @@ describe("EditableCell component integration tests", () => {
     const props = {
       defaultValue: 12,
       alreadyEdited: false,
-      checkValue: (value: Nullable<number>) => (value ? value > 10 : false)
+      checkValue: (value: Nullable<number>) => (value ? value > 10 : false),
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);

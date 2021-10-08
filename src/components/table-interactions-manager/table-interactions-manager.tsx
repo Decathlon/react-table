@@ -10,13 +10,13 @@ import {
   updateColumnsCursor,
   updateFixedColumns,
   updateFixedRows,
-  updateHiddenRows
+  updateHiddenRows,
 } from "./actions";
 import TableInteractionsManagerReducer, {
   ITableInteractionManagerState,
   CellValue,
   initialState,
-  CellDimension
+  CellDimension,
 } from "./reducers";
 import { ICellCoordinates, ICell } from "../table/cell";
 import { Nullable } from "../typing";
@@ -104,23 +104,23 @@ const initialContext: ITableInteractionsManagerProps = {
   openTrees: nullFunction,
   closeTrees: nullFunction,
   onHorizontallyScroll: nullFunction,
-  onTableUpdate: nullFunction
+  onTableUpdate: nullFunction,
 };
 
-export const TableInteractionsContext: React.Context<ITableInteractionsManagerProps> = React.createContext<
-  ITableInteractionsManagerProps
->({
-  ...initialContext
-});
+export const TableInteractionsContext: React.Context<ITableInteractionsManagerProps> =
+  React.createContext<ITableInteractionsManagerProps>({
+    ...initialContext,
+  });
 
 const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, toggleableColumns = [] }: IProps) => {
-  const initalHiddenColumnsIds = React.useMemo(() => (toggleableColumns ? toggleableColumns.map(column => column.id) : []), [
-    toggleableColumns
-  ]);
+  const initalHiddenColumnsIds = React.useMemo(
+    () => (toggleableColumns ? toggleableColumns.map((column) => column.id) : []),
+    [toggleableColumns]
+  );
   const [state, dispatch] = React.useReducer(TableInteractionsManagerReducer, {
     ...initialState,
     hiddenColumnsIds: initalHiddenColumnsIds,
-    ...initialConfig
+    ...initialConfig,
   });
 
   const [tableRef, table, onTableUpdate] = useComponent<Table>();
@@ -128,7 +128,7 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
   const { columnsCursor, hiddenColumnsIds, fixedColumnsIds, fixedRowsIndexes } = state;
   const { id: currentColumnsCursorId, index: currentColumnsCursorIndex } = columnsCursor || {
     id: null,
-    index: null
+    index: null,
   };
   const hiddenColumnsIdsMapping = React.useMemo(
     () =>
@@ -219,9 +219,9 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
       actions.updateCellWidth(value);
       /** We need an async scrolling. Waiting for cell width update. */
       if (currentColumnsCursorId) {
-        setImmediate(() => {
+        setTimeout(() => {
           goToColumnId(currentColumnsCursorId);
-        });
+        }, 0);
       }
     },
     [actions, currentColumnsCursorId, goToColumnId]
@@ -269,7 +269,7 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
         closeTrees,
         tableRef,
         onTableUpdate,
-        table
+        table,
       }}
     >
       {children}
@@ -278,7 +278,7 @@ const TableInteractionsManager = ({ children, initialConfig, onStateUpdate, togg
 };
 
 TableInteractionsManager.defaultProps = {
-  toggleableColumns: []
+  toggleableColumns: [],
 };
 
 const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) => ({
@@ -288,7 +288,7 @@ const mapDispatchToProps = (dispatch: React.Dispatch<TableInteractionsAction>) =
   updateFixedRowsIndexes: (fixedIndexes: number[]) => dispatch(updateFixedRows(fixedIndexes)),
   updateRowHeight: (value: CellDimension) => dispatch(updateRowHeight(value)),
   updateCellWidth: (value: CellDimension) => dispatch(updateCellWidth(value)),
-  updateColumnsCursor: (columnsCursor: CellValue) => dispatch(updateColumnsCursor(columnsCursor))
+  updateColumnsCursor: (columnsCursor: CellValue) => dispatch(updateColumnsCursor(columnsCursor)),
 });
 
 export const useTableInteractionsManager = (): ITableInteractionsManagerProps => {

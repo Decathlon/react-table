@@ -32,10 +32,10 @@ const RowSpan = ({ toggle, opened, length, title, width, height, color }: IRowSp
         minWidth: width,
         maxWidth: width,
         width,
-        borderLeft: `solid 15px ${color}`
+        borderLeft: `solid 15px ${color}`,
       }}
     >
-      <div style={height ? { height: height } : undefined} className="row-span-container">
+      <div style={height ? { height } : undefined} className="row-span-container">
         <div className="row-span-text">{title}</div>
         <IconButton data-testid="table-toggle-row-btn" onClick={toggle} size="large">
           <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
@@ -47,7 +47,7 @@ const RowSpan = ({ toggle, opened, length, title, width, height, color }: IRowSp
 
 RowSpan.defaultProps = {
   width: ROW_SPAN_WIDTH,
-  color: "initial"
+  color: "initial",
 };
 
 export default RowSpan;

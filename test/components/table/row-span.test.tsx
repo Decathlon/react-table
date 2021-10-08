@@ -12,7 +12,7 @@ describe("RowSpan component", () => {
       length: 2,
       title: "Foo",
       color: "red",
-      toggle: () => null
+      toggle: () => null,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<RowSpan {...props} />);
@@ -25,7 +25,7 @@ describe("RowSpan component", () => {
       opened: true,
       length: 2,
       title: "Foo",
-      toggle: () => null
+      toggle: () => null,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<RowSpan {...props} />);
@@ -38,7 +38,7 @@ describe("RowSpan component", () => {
       opened: true,
       length: 2,
       title: "Foo",
-      toggle: jest.fn()
+      toggle: jest.fn(),
     };
     const { container } = customRender(<RowSpan {...props} />);
     fireEvent.click(container.getElementsByTagName("button")[0]);

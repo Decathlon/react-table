@@ -24,7 +24,7 @@ const defaultSelectionContext = { anchorEl: null, contextCell: null };
 const ContextMenuHandler: React.FunctionComponent<IContextMenuHandlerProps> = ({
   children,
   selectedCells,
-  menuComponent: MenuComponent
+  menuComponent: MenuComponent,
 }) => {
   const [context, setContext] = React.useState<ISelectionContext>(defaultSelectionContext);
   const { anchorEl } = context;
@@ -38,7 +38,7 @@ const ContextMenuHandler: React.FunctionComponent<IContextMenuHandlerProps> = ({
     isMenuOpened,
     selectedCells,
     selectionContext: context,
-    closeMenu
+    closeMenu,
   };
   return (
     <>

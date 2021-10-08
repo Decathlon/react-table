@@ -29,7 +29,7 @@ const indicatorNames = [
   "TOTAL_FEESF",
   "CONTRIBUTIONF",
   "OVERHEADSF",
-  "ADVISED_TURNOVERF"
+  "ADVISED_TURNOVERF",
 ];
 
 const text = "Lorem Ipsum is that it has a more-or-less normal";
@@ -37,7 +37,7 @@ const text = "Lorem Ipsum is that it has a more-or-less normal";
 export function getTable(cells = {}) {
   const weeks = Array.from(Array(52), (_, rowIndex) => ({
     id: rowIndex < 9 ? `0${rowIndex + 1}` : `${rowIndex + 1}`,
-    value: `W${rowIndex + 1}${rowIndex === 3 ? text : ""}`
+    value: `W${rowIndex + 1}${rowIndex === 3 ? text : ""}`,
   }));
   const headerRow: IRow = {
     id: "headers",
@@ -46,11 +46,11 @@ export function getTable(cells = {}) {
     cells: [
       {
         id: "indicators",
-        value: `Indicateurs ${text}`
-      }
-    ]
+        value: `Indicateurs ${text}`,
+      },
+    ],
   };
-  weeks.forEach(week =>
+  weeks.forEach((week) =>
     headerRow.cells.push({
       id: week.id,
       value: week.value,
@@ -59,33 +59,33 @@ export function getTable(cells = {}) {
         title: "2019",
         isCurrent: week.value === "W12",
         subtitle: "1 éphéméride",
-        value: week.value
-      }
+        value: week.value,
+      },
     })
   );
   const rows: IRow[] = [headerRow];
 
-  indicatorNames.forEach(indicatorName => {
+  indicatorNames.forEach((indicatorName) => {
     const row: IRow = {
       id: indicatorName,
       cells: [
         {
           id: indicatorName,
-          value: indicatorName
-        }
-      ]
+          value: indicatorName,
+        },
+      ],
     };
-    weeks.forEach(week => {
+    weeks.forEach((week) => {
       row.cells.push({
         id: `${indicatorName}-${week.value}`,
-        value: "0.00"
+        value: "0.00",
       });
     });
     rows.push(row);
   });
 
-  Object.keys(cells).forEach(row => {
-    Object.keys(cells[row]).forEach(cell => {
+  Object.keys(cells).forEach((row) => {
+    Object.keys(cells[row]).forEach((cell) => {
       rows[row].cells[cell] = cells[row][cell];
     });
   });

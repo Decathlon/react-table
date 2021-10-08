@@ -23,7 +23,7 @@ export const CellWithIcon: React.FunctionComponent<ICellWithIconProps> = ({
   tooltipTitle,
   iconName,
   className,
-  onClick
+  onClick,
 }) => {
   const icon = <Icon className="cell-with-icon__icon">{iconName}</Icon>;
   const action = onClick ? (

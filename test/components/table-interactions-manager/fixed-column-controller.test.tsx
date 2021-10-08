@@ -10,7 +10,7 @@ describe("FixedColumnController component", () => {
       columnId: "bar",
       fixedColumnsIndexes: [1],
       fixedColumnsIds: ["foo"],
-      updateFixedColumnsIds: jest.fn()
+      updateFixedColumnsIds: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(

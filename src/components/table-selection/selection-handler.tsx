@@ -93,7 +93,7 @@ class SelectionHandler extends React.Component<ISelectionHandlerProps, IState> {
               onCellMouseEnter,
               onCellMouseUp,
               onCellContextMenu: onContextMenu,
-              selectedCells
+              selectedCells,
             });
           }}
         </ContextMenuHandler>

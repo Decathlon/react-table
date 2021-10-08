@@ -16,7 +16,7 @@ const memoizeFunc = memoize.default || memoize;
 
 export enum ElevationType {
   start = "start",
-  end = "end"
+  end = "end",
 }
 
 export interface IElevateds {
@@ -250,7 +250,7 @@ export const filterRowsByIndexes = (
       return indexes;
     }, []);
 
-    return [relativeIndexes, relativeIndexes.map(index => rows[index])];
+    return [relativeIndexes, relativeIndexes.map((index) => rows[index])];
   }
   return [null, rows];
 };
@@ -320,7 +320,7 @@ export const getRowTreeLength = (
   absoluteIndexes: number[],
   absoluteIndexesMap: IAbsoluteIndexesMap
 ) => {
-  return absoluteIndexes.filter(absoluteIndex => getRootIndex(absoluteIndex, rowAbsoluteIndex, absoluteIndexesMap) > -1).length;
+  return absoluteIndexes.filter((absoluteIndex) => getRootIndex(absoluteIndex, rowAbsoluteIndex, absoluteIndexesMap) > -1).length;
 };
 
 /**
@@ -364,7 +364,7 @@ export const getFixedElementFixedSizeSum = (
 ) => {
   let fixedElementFixedSizeSum = {
     sum: 0,
-    count: 0
+    count: 0,
   };
   if (fixedElements) {
     fixedElementFixedSizeSum = fixedElements.reduce(
@@ -374,13 +374,13 @@ export const getFixedElementFixedSizeSum = (
         return !hiddenIndexes.includes(index) && size
           ? {
               sum: currFixedElementFixedSizeSum.sum + size,
-              count: currFixedElementFixedSizeSum.count + 1
+              count: currFixedElementFixedSizeSum.count + 1,
             }
           : currFixedElementFixedSizeSum;
       },
       {
         sum: 0,
-        count: 0
+        count: 0,
       }
     );
   }
@@ -390,7 +390,7 @@ export const getFixedElementFixedSizeSum = (
 /** this method is used to prevent the render of a previously visible index that does not exist in the new data received in props */
 export const getVisibleIndexesInsideDatalength = (dataLength: number, visibleIndexes: number[]): number[] => {
   const lastVisibleIndex = visibleIndexes[visibleIndexes.length - 1];
-  return lastVisibleIndex < dataLength ? visibleIndexes : visibleIndexes.filter(column => column < dataLength);
+  return lastVisibleIndex < dataLength ? visibleIndexes : visibleIndexes.filter((column) => column < dataLength);
 };
 
 /**
@@ -444,7 +444,7 @@ export const getCellPath = (
     if (currentOpenedTree) {
       const rootPathPart: ICellCoordinates = {
         rowIndex: openedRowIndex,
-        cellIndex: currentOpenedTree.columnIndex
+        cellIndex: currentOpenedTree.columnIndex,
       };
       cellPath.push(rootPathPart);
       currentOpenedTrees = currentOpenedTree.subTrees;
@@ -462,7 +462,7 @@ export const getCellPath = (
 export const getCell = (rows: IRow[], cellPath: ICellPath): ICell => {
   let cell: ICell;
   let currentRows = rows;
-  cellPath.forEach(cellPathPart => {
+  cellPath.forEach((cellPathPart) => {
     const row = currentRows[cellPathPart.rowIndex];
     cell = row && row.cells[cellPathPart.cellIndex];
     currentRows = cell ? cell.subItems || [] : [];
@@ -479,14 +479,14 @@ export const setCell = (rows: IRow[], cellPath: ICellPath, newValue: Nullable<IC
         const syncRowIndex = cellPathPart.rowIndex;
         query = {
           [syncRowIndex]: {
-            cells: { [cellPathPart.cellIndex]: { $set: newValue } }
-          }
+            cells: { [cellPathPart.cellIndex]: { $set: newValue } },
+          },
         };
       } else {
         query = {
           [cellPathPart.rowIndex]: {
-            cells: { [cellPathPart.cellIndex]: { subItems: query } }
-          }
+            cells: { [cellPathPart.cellIndex]: { subItems: query } },
+          },
         };
       }
       return query;
@@ -513,33 +513,31 @@ export const generateArray = (startIndex: number, length: number): number[] => {
  * colspanToIndex: {0: 0, 1: 0, 2: 1}
  * }
  */
-export const getMappingCellsWithColspan = memoizeFunc(
-  (cells: ICell[]): IIndexColspanMapping => {
-    let startIndex = 0;
-    return cells.reduce(
-      (result, cell, index) => {
-        const colspan = cell.colspan || 1;
-        const colspanIndexes = generateArray(startIndex, colspan);
-        let isIdentity = true;
-        result.indexToColspan[index] = colspanIndexes;
-        colspanIndexes.reduce((colspanToIndex, colspanIndex) => {
-          colspanToIndex[colspanIndex] = index;
-          isIdentity = isIdentity && colspanIndex === index;
-          return colspanToIndex;
-        }, result.colspanToIndex);
-        startIndex += colspan;
-        // @ts-ignore  Type 'boolean' is not assignable to type 'true' (only for tests)
-        result.isIdentity = result.isIdentity && isIdentity;
-        return result;
-      },
-      {
-        isIdentity: true,
-        indexToColspan: {},
-        colspanToIndex: {}
-      }
-    );
-  }
-);
+export const getMappingCellsWithColspan = memoizeFunc((cells: ICell[]): IIndexColspanMapping => {
+  let startIndex = 0;
+  return cells.reduce(
+    (result, cell, index) => {
+      const colspan = cell.colspan || 1;
+      const colspanIndexes = generateArray(startIndex, colspan);
+      let isIdentity = true;
+      result.indexToColspan[index] = colspanIndexes;
+      colspanIndexes.reduce((colspanToIndex, colspanIndex) => {
+        colspanToIndex[colspanIndex] = index;
+        isIdentity = isIdentity && colspanIndex === index;
+        return colspanToIndex;
+      }, result.colspanToIndex);
+      startIndex += colspan;
+      // @ts-ignore  Type 'boolean' is not assignable to type 'true' (only for tests)
+      result.isIdentity = result.isIdentity && isIdentity;
+      return result;
+    },
+    {
+      isIdentity: true,
+      indexToColspan: {},
+      colspanToIndex: {},
+    }
+  );
+});
 
 /**
  * example :
@@ -597,7 +595,7 @@ export const getDenseColumns = memoizeFunc(
       const denseWidth = containerWidth - tableWidth;
       denseColumns[lastColumnIndex] = {
         ...currentColumn,
-        style: { ...currentColumn.style, paddingRight: denseWidth }
+        style: { ...currentColumn.style, paddingRight: denseWidth },
       };
     }
     return denseColumns;

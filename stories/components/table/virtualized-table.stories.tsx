@@ -12,7 +12,7 @@ import { TableColumnsRowsController, TableScrollController } from "../../stories
 
 const storyInfoDefault = {
   inline: true,
-  propTables: [Row, Table]
+  propTables: [Row, Table],
 };
 
 storiesOf("Table/Virtualized", module)
@@ -28,8 +28,8 @@ storiesOf("Table/Virtualized", module)
       "elementary-table-it",
       "selectable-table",
       "virtualized-table",
-      "utils"
-    ]
+      "utils",
+    ],
   })
   .add(
     "Default",
@@ -44,14 +44,14 @@ storiesOf("Table/Virtualized", module)
             fixedRows: object("fixedRows", [0, 1]),
             fixedColumns: object("fixedColumns", [0, 1]),
             height: number("height", 500),
-            width: number("width", 1000)
+            width: number("width", 1000),
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -71,7 +71,7 @@ storiesOf("Table/Virtualized", module)
               rowsCount: 10,
               columnsCount: 10,
               fixedRows: object("fixedRows", [0, 1, 50]),
-              fixedColumns: object("fixedColumns", [0, 1])
+              fixedColumns: object("fixedColumns", [0, 1]),
             }}
           />
         </div>
@@ -95,15 +95,15 @@ storiesOf("Table/Virtualized", module)
             width: number("width", 1000),
             initialScroll: {
               columnIndex: 13,
-              rowIndex: 15
-            }
+              rowIndex: 15,
+            },
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -120,7 +120,7 @@ storiesOf("Table/Virtualized", module)
             rowsCount: 10,
             columnsCount: 10,
             fixedRows: object("fixedRows", [0, 1]),
-            fixedColumns: object("fixedColumns", [0, 1])
+            fixedColumns: object("fixedColumns", [0, 1]),
           }}
         />
       </div>
@@ -147,7 +147,7 @@ storiesOf("Table/Virtualized", module)
               rowsCount: 10,
               columnsCount: 10,
               fixedRows: object("fixedRows", [0, 1, 99]),
-              fixedColumns: object("fixedColumns", [0, 1, 49, 50])
+              fixedColumns: object("fixedColumns", [0, 1, 49, 50]),
             }}
           />
         </div>
@@ -170,7 +170,7 @@ storiesOf("Table/Virtualized", module)
             rowsCount: 10,
             columnsCount: 10,
             fixedRows: [0, 2, 19],
-            fixedColumns: [0]
+            fixedColumns: [0],
           }}
         />
       </div>
@@ -190,14 +190,14 @@ storiesOf("Table/Virtualized", module)
           virtualizerProps={{
             fixedRows: object("fixedRows", [0, 8]),
             height: number("height", 500),
-            width: number("width", 1000)
+            width: number("width", 1000),
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -213,14 +213,14 @@ storiesOf("Table/Virtualized", module)
           virtualizerProps={{
             fixedColumns: object("fixedColumns", [0, 4]),
             height: number("height", 500),
-            width: number("width", 1000)
+            width: number("width", 1000),
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -240,14 +240,14 @@ storiesOf("Table/Virtualized", module)
             fixedRows: object("fixedRows", [0, 2, 8]),
             fixedColumns: [0, 4],
             height: number("height", 500),
-            width: number("width", 1000)
+            width: number("width", 1000),
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -269,14 +269,14 @@ storiesOf("Table/Virtualized", module)
             fixedRows: [0, 8],
             fixedColumns: [1, 3],
             hiddenColumns: [1, 5],
-            hiddenRows: [1, 5, 6]
+            hiddenRows: [1, 5, 6],
           }}
         />
       );
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -286,7 +286,7 @@ storiesOf("Table/Virtualized", module)
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -296,6 +296,6 @@ storiesOf("Table/Virtualized", module)
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   );

@@ -94,7 +94,7 @@ export default class Cell extends React.Component<ICellProps> {
     style: { height: DEFAULT_ROW_HEIGHT, width: DEFAULT_COLUMN_WIDTH },
     isSelectable: true,
     component: defaultCellComponent,
-    colspan: DEFAULT_COLSPAN
+    colspan: DEFAULT_COLSPAN,
   };
 
   private container = React.createRef<HTMLDivElement>();
@@ -130,12 +130,12 @@ export default class Cell extends React.Component<ICellProps> {
       padding: 0,
       ...others,
       height: cellHeight,
-      width: cellWidth
+      width: cellWidth,
     };
     return {
       wrapper: wrapperStyle,
       text: textStyle,
-      column: columnStyle
+      column: columnStyle,
     };
   };
 
@@ -168,7 +168,7 @@ export default class Cell extends React.Component<ICellProps> {
       const contextCell = { rowIndex, cellIndex: index };
       const selectionContext: ISelectionContext = {
         anchorEl: this.container.current,
-        contextCell
+        contextCell,
       };
       onContextMenu(selectionContext);
     }
@@ -194,7 +194,7 @@ export default class Cell extends React.Component<ICellProps> {
       style,
       colspan,
       isSelectable,
-      isSelected
+      isSelected,
     } = this.props;
     const canToggleSubItems = !hideSubItemsOpener && subItems && subItems.length > 0;
     const justifyContent = style && style.justifyContent;
@@ -207,7 +207,7 @@ export default class Cell extends React.Component<ICellProps> {
         colSpan={colspan}
         data-testid="table-column"
         className={classNames("table-column", dynamicClassName, {
-          selected: isSelected && isSelectable
+          selected: isSelected && isSelectable,
         })}
         onMouseDown={this.onMouseDown}
         onMouseEnter={this.onMouseEnter}

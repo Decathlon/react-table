@@ -9,7 +9,7 @@ const BubbleTypeOptions = {
   info: BubbleType.info,
   success: BubbleType.success,
   warning: BubbleType.warning,
-  error: BubbleType.error
+  error: BubbleType.error,
 };
 
 storiesOf("Bubble", module)
@@ -23,7 +23,7 @@ storiesOf("Bubble", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -34,7 +34,7 @@ storiesOf("Bubble", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -47,6 +47,6 @@ storiesOf("Bubble", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   );

@@ -10,7 +10,7 @@ export enum Type {
   error = "error",
   success = "success",
   warning = "warning",
-  info = "info"
+  info = "info",
 }
 
 export interface ITree {
@@ -81,7 +81,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
     elevatedColumnIndexes: {},
     elevatedRowIndexes: {},
     openedTrees: {},
-    selectedCells: {}
+    selectedCells: {},
   };
 
   /** An utility of the table that return the length of the visible sub-rows
@@ -127,7 +127,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       onCellMouseUp,
       onCellMouseEnter,
       onCellContextMenu,
-      selectedCells
+      selectedCells,
     } = this.props;
     const [relativeIndexes, rowsToRender] = this.getVisibleRows(rows, null, fixedRowsIndexes);
 
@@ -158,7 +158,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             {...globalRowProps}
             {...row}
             className={classnames(row.className, {
-              [`elevated-${elevation}`]: elevation
+              [`elevated-${elevation}`]: elevation,
             })}
             absoluteIndex={rowAbsoluteIndex}
             index={rowIndex}

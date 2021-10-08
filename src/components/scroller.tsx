@@ -8,7 +8,7 @@ export enum ScrollDirection {
   up = "up",
   down = "down",
   right = "right",
-  left = "left"
+  left = "left",
 }
 
 export const VERTICAL_SCROLL_DIRECTIONS = [ScrollDirection.up, ScrollDirection.down];
@@ -19,7 +19,7 @@ export enum ScrollOrigin {
   /**  Scrolling is native if it is enabled by the scroll bar */
   native = "native",
   /**  External otherwise */
-  external = "external"
+  external = "external",
 }
 
 export interface IOnScroll {
@@ -164,7 +164,7 @@ class Scroller extends React.Component<IScrollerProps> {
       maxLeftReached: scrollLeft <= 0,
       maxRightReached: scrollLeft >= this.scrollLeftMax,
       scrollTop,
-      scrollLeft
+      scrollLeft,
     };
   };
 
@@ -220,10 +220,10 @@ class Scroller extends React.Component<IScrollerProps> {
 
   public render() {
     const { virtualWidth, virtualHeight, width, height, children } = this.props;
-    const newChildren = React.Children.map(children, child =>
+    const newChildren = React.Children.map(children, (child) =>
       React.cloneElement(child as React.ReactElement<any>, {
         scrollToLeft: this.scrollToLeft,
-        scrollToTop: this.scrollToTop
+        scrollToTop: this.scrollToTop,
       })
     );
     const hasHorizontalScrollBar = virtualWidth > width;
@@ -245,14 +245,14 @@ class Scroller extends React.Component<IScrollerProps> {
           overflowX: hasHorizontalScrollBar ? "scroll" : "hidden",
           overflowY: hasVerticalScrollBar ? "scroll" : "hidden",
           maxHeight: minHeight,
-          maxWidth: minWidth
+          maxWidth: minWidth,
         }}
       >
         <div
           className="scroller-content"
           style={{
             minWidth: minWidth - verticalScrollBar,
-            minHeight: minHeight - horizontalScrollBar
+            minHeight: minHeight - horizontalScrollBar,
           }}
         >
           {newChildren}
@@ -261,7 +261,7 @@ class Scroller extends React.Component<IScrollerProps> {
           className="scroller-scrollbar"
           style={{
             minWidth: virtualWidth + verticalScrollBar,
-            minHeight: virtualHeight + horizontalScrollBar - (hasVerticalScrollBar ? height : 0)
+            minHeight: virtualHeight + horizontalScrollBar - (hasVerticalScrollBar ? height : 0),
           }}
         />
       </div>

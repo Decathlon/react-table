@@ -8,7 +8,7 @@ describe("ContextMenuHandler component", () => {
     const children = () => <div>Foo</div>;
     const props = {
       children,
-      selectedCells: {}
+      selectedCells: {},
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<ContextMenuHandler {...props} />);

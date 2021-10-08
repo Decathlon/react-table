@@ -54,7 +54,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     this.state = {
       inputValue: newInputValue,
       isFocused: false,
-      isValidValue: this.isValidValue(value)
+      isValidValue: this.isValidValue(value),
     };
   }
 
@@ -103,7 +103,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
     this.setState({
       isFocused: true,
       inputValue: newInputValue,
-      isValidValue: this.isValidValue(value)
+      isValidValue: this.isValidValue(value),
     });
   };
 
@@ -121,7 +121,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
 
   protected clearFocus = () => {
     this.setState({
-      isFocused: false
+      isFocused: false,
     });
   };
 
@@ -137,7 +137,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
 
     if (currentIsValidValue !== isValidValue) {
       this.setState({
-        isValidValue
+        isValidValue,
       });
     }
     return isValidValue;
@@ -145,7 +145,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
 
   private onValueChangeHandle = (values: NumberFormat.NumberFormatValues) => {
     this.setState({
-      inputValue: values.value
+      inputValue: values.value,
     });
   };
 
@@ -176,7 +176,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
       <div
         className={classnames("editable-cell", {
           empty: !isFocused && value === null,
-          error: !isValidValue
+          error: !isValidValue,
         })}
         data-testid="editable-cell"
         onClick={!isDisabled && !isFocused ? this.focus : undefined}
@@ -204,7 +204,7 @@ export default class EdiTableCell extends React.PureComponent<IEdiTableCellProps
         ) : (
           <div
             className={classnames("editable-cell__value", {
-              [EDITED_CELL_CLASSNAME]: isEdited
+              [EDITED_CELL_CLASSNAME]: isEdited,
             })}
             title={formattedValue}
           >

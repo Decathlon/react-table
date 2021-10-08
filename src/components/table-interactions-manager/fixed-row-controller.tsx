@@ -25,7 +25,7 @@ export const DumbFixedRowController: React.FunctionComponent<IDumbFixedRowContro
       return fixedRowsIndexes.includes(rowIndex);
     }, [rowIndex, fixedRowsIndexes]);
     const toggleFixedRowIndex = () => {
-      const newRows = fixedRowsIndexes.filter(fixedRowIndex => fixedRowIndex !== rowIndex);
+      const newRows = fixedRowsIndexes.filter((fixedRowIndex) => fixedRowIndex !== rowIndex);
       if (newRows.length === fixedRowsIndexes.length) {
         newRows.push(rowIndex);
       }
@@ -36,7 +36,7 @@ export const DumbFixedRowController: React.FunctionComponent<IDumbFixedRowContro
   }
 );
 
-const FixedRowController: React.FunctionComponent<IFixedRowControllerProps> = props => {
+const FixedRowController: React.FunctionComponent<IFixedRowControllerProps> = (props) => {
   const { fixedRowsIndexes, updateFixedRowsIndexes } = React.useContext(TableInteractionsContext);
   return (
     <DumbFixedRowController fixedRowsIndexes={fixedRowsIndexes} updateFixedRowsIndexes={updateFixedRowsIndexes} {...props} />

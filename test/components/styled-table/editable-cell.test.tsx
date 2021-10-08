@@ -13,7 +13,7 @@ describe("EdiTableCell component", () => {
     currency: "EUR",
     decimals: 2,
     is_percentage: false,
-    is_negative: false
+    is_negative: false,
   };
 
   test("should render the default editable cell", () => {
@@ -23,7 +23,7 @@ describe("EdiTableCell component", () => {
       initial_value: 0,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);
@@ -39,7 +39,7 @@ describe("EdiTableCell component", () => {
       onConfirmValue: jest.fn(),
       mask,
       formatValue,
-      isDisabled: true
+      isDisabled: true,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);
@@ -54,7 +54,7 @@ describe("EdiTableCell component", () => {
       initial_value: null,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);
@@ -69,7 +69,7 @@ describe("EdiTableCell component", () => {
       initial_value: 1,
       onConfirmValue: jest.fn(),
       mask: { ...mask, is_percentage: true },
-      formatValue
+      formatValue,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);
@@ -84,7 +84,7 @@ describe("EdiTableCell component", () => {
       initial_value: null,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<EdiTableCell {...props} />);
@@ -99,7 +99,7 @@ describe("EdiTableCell component", () => {
       initial_value: 0,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -115,7 +115,7 @@ describe("EdiTableCell component", () => {
       initial_value: 0,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -135,7 +135,7 @@ describe("EdiTableCell component", () => {
       initial_value: 0,
       onConfirmValue: jest.fn(),
       mask: { ...mask, is_percentage: true },
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -155,7 +155,7 @@ describe("EdiTableCell component", () => {
       initial_value: null,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -175,7 +175,7 @@ describe("EdiTableCell component", () => {
       initial_value: 22,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -195,7 +195,7 @@ describe("EdiTableCell component", () => {
       initial_value: 30,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;
@@ -214,7 +214,7 @@ describe("EdiTableCell component", () => {
       initial_value: 0,
       onConfirmValue: jest.fn(),
       mask,
-      formatValue
+      formatValue,
     };
     const wrapper = mount(withThemeProvider(() => <EdiTableCell {...props} />));
     const editableCellInstance: EdiTableCell = wrapper.find(EdiTableCell).instance() as EdiTableCell;

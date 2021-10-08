@@ -25,9 +25,12 @@ export interface IDumbIColumnIdScrollControllerPropsProps extends IColumnIdScrol
 export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnIdScrollControllerPropsProps> = ({
   columns,
   columnsCursorId,
-  goToColumnId
+  goToColumnId,
 }) => {
-  const selectedColumnIndex = React.useMemo(() => columns.findIndex(column => column.id === columnsCursorId), [columnsCursorId]);
+  const selectedColumnIndex = React.useMemo(
+    () => columns.findIndex((column) => column.id === columnsCursorId),
+    [columnsCursorId]
+  );
 
   const gotToColumn = (columnIndex: number) => {
     const column = columns[columnIndex];
@@ -98,7 +101,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
   );
 };
 
-const ColumnIdScrollController: React.FunctionComponent<IColumnIdScrollControllerProps> = props => {
+const ColumnIdScrollController: React.FunctionComponent<IColumnIdScrollControllerProps> = (props) => {
   return (
     <TableInteractionsContext.Consumer>
       {({ columnsCursor, goToColumnId }) => {

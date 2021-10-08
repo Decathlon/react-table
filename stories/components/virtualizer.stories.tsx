@@ -9,7 +9,7 @@ import Virtualizer from "../../src/components/virtualizer";
 
 const items = Array.from(Array(100), (_, index) => ({
   id: index,
-  title: `Item ${index}`
+  title: `Item ${index}`,
 }));
 
 const fixedItemsIndexes = [0, 3, 20];
@@ -18,13 +18,13 @@ const styles = {
   horizontalListContainer: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   listContainer: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   listItem: {
     height: 56,
@@ -35,11 +35,11 @@ const styles = {
     fontSize: 20,
     borderBottom: "solid 1px #d7d4d4",
     borderRight: "solid 1px #d7d4d4",
-    color: "gray"
+    color: "gray",
   },
   fixedItem: {
     backgroundColor: "#1ea7fd",
-    color: "white"
+    color: "white",
   },
   horizontalPadding: {
     width: "100%",
@@ -49,7 +49,7 @@ const styles = {
     alignItems: "center",
     color: "white",
     fontWeight: 900,
-    fontSize: 20
+    fontSize: 20,
   },
   verticalPadding: {
     height: 56,
@@ -59,8 +59,8 @@ const styles = {
     alignItems: "center",
     color: "white",
     fontWeight: 900,
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 };
 storiesOf("Virtualizer", module)
   .addDecorator(withThemeProvider)
@@ -76,14 +76,14 @@ storiesOf("Virtualizer", module)
         columnsLength={1}
       >
         {({ visibleRowIndexes, cellHeight }) => {
-          const visibleItems = visibleRowIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+          const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <List items={visibleItems} itemHeight={cellHeight} />;
         }}
       </Virtualizer>
     ),
     {
       notes: { markdown: Readme },
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -98,7 +98,7 @@ storiesOf("Virtualizer", module)
         fixedRows={fixedItemsIndexes}
       >
         {({ visibleRowIndexes, cellHeight }) => {
-          const visibleItems = visibleRowIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+          const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <List items={visibleItems} itemHeight={cellHeight} fixedItems={fixedItemsIndexes} />;
         }}
       </Virtualizer>
@@ -116,7 +116,7 @@ storiesOf("Virtualizer", module)
         columnsLength={items.length}
       >
         {({ visibleColumnIndexes, cellWidth }) => {
-          const visibleItems = visibleColumnIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+          const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <HorizontalList items={visibleItems} itemWidth={cellWidth} />;
         }}
       </Virtualizer>
@@ -135,7 +135,7 @@ storiesOf("Virtualizer", module)
         fixedColumns={fixedItemsIndexes}
       >
         {({ visibleColumnIndexes, cellWidth }) => {
-          const visibleItems = visibleColumnIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+          const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <HorizontalList items={visibleItems} itemWidth={cellWidth} fixedItems={fixedItemsIndexes} />;
         }}
       </Virtualizer>
@@ -157,7 +157,7 @@ storiesOf("Virtualizer", module)
           horizontalPadding={padding}
         >
           {({ visibleRowIndexes, cellHeight }) => {
-            const visibleItems = visibleRowIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
             return (
               <List items={visibleItems} itemHeight={cellHeight} fixedItems={fixedItemsIndexes}>
                 <div style={{ ...styles.horizontalPadding, height: padding }}>
@@ -187,7 +187,7 @@ storiesOf("Virtualizer", module)
           horizontalPadding={padding}
         >
           {({ visibleRowIndexes, cellHeight }) => {
-            const visibleItems = visibleRowIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
             return (
               <List items={visibleItems} itemHeight={cellHeight} fixedItems={fixedItemsIndexes}>
                 <div style={{ ...styles.horizontalPadding, height: padding }}>
@@ -216,7 +216,7 @@ storiesOf("Virtualizer", module)
           verticalPadding={padding + padding}
         >
           {({ visibleColumnIndexes, cellWidth }) => {
-            const visibleItems = visibleColumnIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
             return (
               <HorizontalList items={visibleItems} itemWidth={cellWidth} fixedItems={fixedItemsIndexes}>
                 <div style={{ ...styles.verticalPadding, width: padding }}>
@@ -246,7 +246,7 @@ storiesOf("Virtualizer", module)
           verticalPadding={padding + padding}
         >
           {({ visibleColumnIndexes, cellWidth }) => {
-            const visibleItems = visibleColumnIndexes.map(vsibleItemIndex => items[vsibleItemIndex]);
+            const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
             return (
               <HorizontalList items={visibleItems} itemWidth={cellWidth} fixedItems={fixedItemsIndexes}>
                 <div style={{ ...styles.verticalPadding, width: padding }}>
@@ -281,14 +281,14 @@ const HorizontalList = ({ items, itemWidth, fixedItems = [], children = null }: 
     // @ts-ignore
     <div style={styles.horizontalListContainer}>
       {children}
-      {items.map(item => (
+      {items.map((item) => (
         <div
           key={item.id}
           // @ts-ignore
           style={{
             ...styles.listItem,
             width: itemWidth,
-            ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {})
+            ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {}),
           }}
         >
           {item.title}
@@ -308,7 +308,7 @@ const List = ({ items, itemHeight, fixedItems = [], children = null }: ListProps
     // @ts-ignore
     <div style={styles.listContainer}>
       {children}
-      {items.map(item => (
+      {items.map((item) => (
         <div
           key={item.id}
           // @ts-ignore
@@ -316,7 +316,7 @@ const List = ({ items, itemHeight, fixedItems = [], children = null }: ListProps
             ...styles.listItem,
             height: itemHeight,
             lineHeight: `${itemHeight}px`,
-            ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {})
+            ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {}),
           }}
         >
           {item.title}

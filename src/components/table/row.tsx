@@ -16,7 +16,7 @@ import {
   getColspanValues,
   IIndexColspanMapping,
   IElevateds,
-  IRelativeIndex
+  IRelativeIndex,
 } from "../utils/table";
 import { ISelectedCells } from "../table-selection/selection-handler";
 import { ISelectionContext } from "../table-selection/context-menu-handler";
@@ -98,7 +98,7 @@ interface IState {
 
 const defaultRelativeIndex: Partial<IRelativeIndex> = {
   subItems: undefined,
-  index: undefined
+  index: undefined,
 };
 
 export default class Row extends React.Component<IRowProps, IState> {
@@ -113,7 +113,7 @@ export default class Row extends React.Component<IRowProps, IState> {
     selectedCells: [],
     getVisibleRows: (rows: IRow[]) => [null, rows],
     relativeSubIndexesMapping: {},
-    globalColumnProps: {}
+    globalColumnProps: {},
   };
 
   constructor(props: IRowProps) {
@@ -122,7 +122,7 @@ export default class Row extends React.Component<IRowProps, IState> {
     this.state = {
       // getMappingCellsWithColspan is memoized (and must remain memorized)
       // TODO we must have a global cache system
-      mappingCellsWithColspan: getMappingCellsWithColspan(cells)
+      mappingCellsWithColspan: getMappingCellsWithColspan(cells),
     };
   }
 
@@ -130,7 +130,7 @@ export default class Row extends React.Component<IRowProps, IState> {
     const { cells } = this.props;
     if (prevProps.cells !== cells) {
       this.setState({
-        mappingCellsWithColspan: getMappingCellsWithColspan(cells)
+        mappingCellsWithColspan: getMappingCellsWithColspan(cells),
       });
     }
   }
@@ -212,7 +212,7 @@ export default class Row extends React.Component<IRowProps, IState> {
 
   private getFirstCellIndexWithSubItems = (): number => {
     const { cells } = this.props;
-    return cells.findIndex(cell => (cell.subItems ? cell.subItems.length > 0 : false));
+    return cells.findIndex((cell) => (cell.subItems ? cell.subItems.length > 0 : false));
   };
 
   /** Only used for the first level */
@@ -265,7 +265,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       onCellContextMenu,
       onCellMouseDown,
       onCellMouseEnter,
-      selectedCells
+      selectedCells,
     } = this.props;
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
@@ -298,7 +298,7 @@ export default class Row extends React.Component<IRowProps, IState> {
           {...subRow}
           id={subrowId}
           className={classNames(subRow.className, `sub-row sub-row__${minLevel}`, {
-            "last-sub-row": subRows.length === subRowIndex + 1
+            "last-sub-row": subRows.length === subRowIndex + 1,
           })}
           absoluteIndex={rowAbsoluteIndex}
           index={subRowIndex}
@@ -348,7 +348,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       onCellMouseUp,
       onCellContextMenu,
       selectedCells,
-      isSelectable
+      isSelectable,
     } = this.props;
     const { mappingCellsWithColspan } = this.state;
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
@@ -371,7 +371,7 @@ export default class Row extends React.Component<IRowProps, IState> {
             data-testid={`table-${isHeader ? "header" : "row"}-${id}`}
             className={classNames("table-row", className, {
               head: isHeader,
-              opened: openedCellIndex !== null
+              opened: openedCellIndex !== null,
             })}
             // @ts-ignore
             style={computeRowStyle(options)}
@@ -388,10 +388,10 @@ export default class Row extends React.Component<IRowProps, IState> {
                 isSelectable: true,
                 ...globalColumnProps,
                 ...cellColumn,
-                style: { ...globalColumnProps.style, ...cellColumn.style }
+                style: { ...globalColumnProps.style, ...cellColumn.style },
               };
               const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
-                index => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
+                (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
               );
               const elevation = elevationIndex !== undefined && elevatedColumnIndexes && elevatedColumnIndexes[elevationIndex];
 
@@ -408,7 +408,7 @@ export default class Row extends React.Component<IRowProps, IState> {
                   loading={cellLoading}
                   colspan={mappingColspanToIndex ? mappingColspanToIndex[cellIndex] : 1}
                   className={classNames(cell.className, column.className, {
-                    [`elevated-${elevation}`]: elevation
+                    [`elevated-${elevation}`]: elevation,
                   })}
                   index={cellIndex}
                   rowIndex={absoluteIndex}

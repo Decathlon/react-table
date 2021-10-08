@@ -10,6 +10,6 @@ addons.setConfig({
 
     // UI
     appBg: "white",
-    appBorderRadius: 4
-  }
+    appBorderRadius: 4,
+  },
 });

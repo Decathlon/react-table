@@ -39,7 +39,7 @@ exports[`CellWithIcon component should render the CellWithIcon with a tooltip an
       className="cell-with-icon__btn"
       data-testid="toolbar-action-btn"
       onClick={[MockFunction]}
-      size="large"
+      size="medium"
     >
       <ForwardRef(Icon)
         className="cell-with-icon__icon"
@@ -65,7 +65,7 @@ exports[`CellWithIcon component should render the CellWithIcon with an action 1`
     className="cell-with-icon__btn"
     data-testid="toolbar-action-btn"
     onClick={[MockFunction]}
-    size="large"
+    size="medium"
   >
     <ForwardRef(Icon)
       className="cell-with-icon__icon"

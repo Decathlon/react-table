@@ -1,5 +1,5 @@
 const path = require("path");
-const toPath = filePath => path.join(process.cwd(), filePath);
+const toPath = (filePath) => path.join(process.cwd(), filePath);
 
 module.exports = {
   stories: ["../stories/**/*.stories.mdx", "../stories/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -9,6 +9,6 @@ module.exports = {
     "@storybook/addon-knobs",
     "@storybook/addon-jest",
     "@storybook/addon-a11y",
-    "@storybook/addon-storysource"
-  ]
+    "@storybook/addon-storysource",
+  ],
 };

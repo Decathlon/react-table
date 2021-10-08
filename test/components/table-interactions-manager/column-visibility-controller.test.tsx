@@ -9,15 +9,15 @@ describe("ColumnVisisbilityController component", () => {
     const props = {
       columns: [
         { id: "foo", index: 1, label: "FOO" },
-        { id: "bar", index: 2, label: "BAR" }
+        { id: "bar", index: 2, label: "BAR" },
       ],
       hiddenColumnsIndexes: [1],
       hiddenColumnsIds: ["foo"],
-      updateHiddenIds: jest.fn()
+      updateHiddenIds: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(
-      <DumbColumnVisibilityController {...props} buttonRenderer={toggleMenu => <span onClick={toggleMenu}>Foo</span>} />
+      <DumbColumnVisibilityController {...props} buttonRenderer={(toggleMenu) => <span onClick={toggleMenu}>Foo</span>} />
     );
     const rendered = shallowRenderer.getRenderOutput();
     expect(rendered).toMatchSnapshot();

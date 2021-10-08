@@ -11,7 +11,7 @@ describe("Row component", () => {
   test("should render the default table", () => {
     const props = {
       id: "foo",
-      cells: []
+      cells: [],
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Row {...props} />);
@@ -58,7 +58,7 @@ describe("Row component", () => {
       absolutIndex: 0,
       onOpen: jest.fn(),
       onClose: jest.fn(),
-      ...rows[0]
+      ...rows[0],
     };
     const RowComponent = ({ openedTree }: { openedTree?: ITree }) =>
       withThemeProvider(() => <Row {...props} openedTree={openedTree} />);
@@ -80,7 +80,7 @@ describe("Row component", () => {
       absolutIndex: 0,
       onOpen: jest.fn(),
       onClose: jest.fn(),
-      ...rows[0]
+      ...rows[0],
     };
     const RowComponent = ({ openedTree }: { openedTree?: ITree }) =>
       withThemeProvider(() => <Row {...props} openedTree={openedTree} />);
@@ -105,7 +105,7 @@ describe("Row component", () => {
       absolutIndex: 0,
       onOpen: jest.fn(),
       onClose: jest.fn(),
-      ...row
+      ...row,
     };
     const RowComponent = ({ openedTree }: { openedTree?: ITree }) =>
       withThemeProvider(() => <Row {...props} openedTree={openedTree} />);
@@ -117,7 +117,7 @@ describe("Row component", () => {
     expect(props.onOpen).toBeCalledWith({
       rowIndex: 0,
       columnIndex: 2,
-      subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+      subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
     });
   });
 
@@ -131,7 +131,7 @@ describe("Row component", () => {
       absolutIndex: 0,
       onOpen: jest.fn(),
       onClose: jest.fn(),
-      ...row
+      ...row,
     };
     const RowComponent = ({ openedTree }: { openedTree?: ITree }) =>
       withThemeProvider(() => <Row {...props} openedTree={openedTree} />);
@@ -141,15 +141,15 @@ describe("Row component", () => {
       openedTree: {
         rowIndex: 0,
         columnIndex: 2,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     });
     // @ts-ignore private method
     instance.onSubRowClose({ rowIndex: 0, columnIndex: 2 });
     expect(props.onOpen).toBeCalledWith({
       rowIndex: 0,
       columnIndex: 2,
-      subTrees: {}
+      subTrees: {},
     });
   });
 });

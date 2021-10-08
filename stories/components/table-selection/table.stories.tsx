@@ -11,7 +11,7 @@ import { getTable } from "../styled-table/tables";
 
 const storyInfoDefault = {
   inline: true,
-  propTables: [Row, SelectionHandler, Table]
+  propTables: [Row, SelectionHandler, Table],
 };
 
 storiesOf("Table/Selection", module)
@@ -27,8 +27,8 @@ storiesOf("Table/Selection", module)
       "elementary-table-it",
       "selectable-table",
       "virtualized-table",
-      "utils"
-    ]
+      "utils",
+    ],
   })
   .add(
     "Default",
@@ -43,12 +43,12 @@ storiesOf("Table/Selection", module)
           height: 500,
           width: 1000,
           rowsCount: 5,
-          columnsCount: 6
+          columnsCount: 6,
         }}
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -59,7 +59,7 @@ storiesOf("Table/Selection", module)
           {...getTable()}
           selectionProps={object("selectionProps", {
             isDisabledVerticalSelection: true,
-            isDisabledHorizontalSelection: false
+            isDisabledHorizontalSelection: false,
           })}
           isVirtualized
           virtualizerProps={{
@@ -68,13 +68,13 @@ storiesOf("Table/Selection", module)
             height: 500,
             width: 1000,
             rowsCount: 5,
-            columnsCount: 6
+            columnsCount: 6,
           }}
         />
       );
     },
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -85,7 +85,7 @@ storiesOf("Table/Selection", module)
           {...getTable()}
           isSelectable
           selectionProps={{
-            menuComponent: SelectionMenu
+            menuComponent: SelectionMenu,
           }}
           isVirtualized
           virtualizerProps={{
@@ -94,12 +94,12 @@ storiesOf("Table/Selection", module)
             height: 500,
             width: 1000,
             rowsCount: 5,
-            columnsCount: 6
+            columnsCount: 6,
           }}
         />
       );
     },
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   );

@@ -8,7 +8,7 @@ export interface UpdateCellWidth {
 
 export const updateCellWidth = (value: CellDimension): UpdateCellWidth => ({
   type: actionTypes.UPDATE_CELL_WIDTH,
-  value
+  value,
 });
 
 export interface UpdateRowHeight {
@@ -18,7 +18,7 @@ export interface UpdateRowHeight {
 
 export const updateRowHeight = (value: CellDimension): UpdateRowHeight => ({
   type: actionTypes.UPDATE_ROW_HEIGHT,
-  value
+  value,
 });
 
 export interface UpdateHiddenColumns {
@@ -28,7 +28,7 @@ export interface UpdateHiddenColumns {
 
 export const updateHiddenColumns = (hiddenColumnsIds: string[]): UpdateHiddenColumns => ({
   type: actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXES,
-  hiddenColumnsIds
+  hiddenColumnsIds,
 });
 
 export interface UpdateHiddenRows {
@@ -38,7 +38,7 @@ export interface UpdateHiddenRows {
 
 export const updateHiddenRows = (hiddenRowIndexes: number[]): UpdateHiddenRows => ({
   type: actionTypes.UPDATE_HIDDEN_ROW_INDEXES,
-  hiddenRowIndexes
+  hiddenRowIndexes,
 });
 
 export interface UpdateFixedColumns {
@@ -48,7 +48,7 @@ export interface UpdateFixedColumns {
 
 export const updateFixedColumns = (fixedColumnsIds: string[]): UpdateFixedColumns => ({
   type: actionTypes.UPDATE_FIXED_COLUMNS_INDEXES,
-  fixedColumnsIds
+  fixedColumnsIds,
 });
 
 export interface UpdateFixedRows {
@@ -58,7 +58,7 @@ export interface UpdateFixedRows {
 
 export const updateFixedRows = (fixedRowsIndexes: number[]): UpdateFixedRows => ({
   type: actionTypes.UPDATE_FIXED_ROWS_INDEXES,
-  fixedRowsIndexes
+  fixedRowsIndexes,
 });
 
 export interface UpdateColumnsCursor {
@@ -68,7 +68,7 @@ export interface UpdateColumnsCursor {
 
 export const updateColumnsCursor = (columnsCursor: CellValue): UpdateColumnsCursor => ({
   type: actionTypes.UPDATE_COLUMNS_CURSOR,
-  columnsCursor
+  columnsCursor,
 });
 
 export type TableInteractionsAction =

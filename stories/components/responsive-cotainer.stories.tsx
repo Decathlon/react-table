@@ -10,13 +10,13 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     fontSize: 30,
-    fontWeight: 900
+    fontWeight: 900,
   },
   listContainer: {
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   listItem: {
     width: "100%",
@@ -24,8 +24,8 @@ const styles = {
     verticalAlign: "middle",
     fontSize: 30,
     borderBottom: "solid 1px #d7d4d4",
-    color: "gray"
-  }
+    color: "gray",
+  },
 };
 
 storiesOf("Responsive container", module)
@@ -51,7 +51,7 @@ storiesOf("Responsive container", module)
         {({ height }) => {
           const items = Array.from(Array(Math.ceil(height / minItemHeight)), (_, index) => ({
             id: index,
-            title: `Item ${index}`
+            title: `Item ${index}`,
           }));
           const itemHeight = height / items.length;
           return <List items={items} itemHeighet={itemHeight} />;
@@ -64,14 +64,14 @@ const List = ({ items, itemHeighet }) => {
   return (
     // @ts-ignore
     <div style={styles.listContainer}>
-      {items.map(item => (
+      {items.map((item) => (
         <div
           key={item.id}
           // @ts-ignore textAlign type
           style={{
             ...styles.listItem,
             height: itemHeighet,
-            lineHeight: `${itemHeighet}px`
+            lineHeight: `${itemHeighet}px`,
           }}
         >
           {item.title}

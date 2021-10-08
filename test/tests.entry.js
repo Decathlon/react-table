@@ -7,6 +7,6 @@ const CommonUtils = require("../src/components/utils/table");
 
 Enzyme.configure({ adapter: new Adapter() });
 
-window.ga = function() {};
+window.ga = function () {};
 
 CommonUtils.getScrollbarSize = jest.fn(() => 15);
