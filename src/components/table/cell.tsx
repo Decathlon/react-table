@@ -99,14 +99,14 @@ export default class Cell extends React.Component<ICellProps> {
 
   private container = React.createRef<HTMLDivElement>();
 
-  public shouldComponentUpdate(nextProps: ICellProps, nextState: ICellProps) {
-    const nextRowProps = { ...nextProps };
-    const rowProps = { ...this.props };
-    const nextStyle = nextRowProps.style;
-    delete nextRowProps.style;
-    const { style } = rowProps;
-    delete rowProps.style;
-    return !shallowEqual(nextRowProps, rowProps) || !shallowEqual(nextState, this.state) || !isEqual(nextStyle, style);
+  public shouldComponentUpdate(nextProps: ICellProps) {
+    const nextCellProps = { ...nextProps };
+    const cellProps = { ...this.props };
+    const nextStyle = nextCellProps.style;
+    delete nextCellProps.style;
+    const { style } = cellProps;
+    delete cellProps.style;
+    return !shallowEqual(nextCellProps, cellProps) || !isEqual(nextStyle, style);
   }
 
   private open = () => {
@@ -121,7 +121,7 @@ export default class Cell extends React.Component<ICellProps> {
     // @ts-ignore we have default values for height and width
     const { height, width, ...others } = style;
     const cellHeight = height || DEFAULT_ROW_HEIGHT;
-    let cellWidth: number | string = Number(width);
+    let cellWidth = Number(width);
     // @ts-ignore we have a default value for colspan
     cellWidth = cellWidth ? cellWidth * colspan : width || DEFAULT_COLUMN_WIDTH;
     const wrapperStyle = { width: cellWidth, height: cellHeight };

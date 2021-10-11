@@ -270,21 +270,25 @@ export default class Row extends React.Component<IRowProps, IState> {
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
     const subRows = openedCell ? openedCell.subItems || [] : [];
+    const [relativeIndexes, rowsToRender] = getVisibleRows(subRows, absoluteIndex);
+    if (!rowsToRender.length) {
+      return null;
+    }
+
     const globalProps: IRowOptions = { size };
     const subOpenedTrees = (openedTree && openedTree.subTrees) || [];
-    const [relativeIndexes, rowsToRender] = getVisibleRows(subRows, absoluteIndex);
     const rowSpan = !parentIsVisible ? this.getDelegatedSpan(firstCellIndexWithSubItems) : undefined;
+    const subLevel = level + 1;
+    const minLevel = Math.min(subLevel, MAX_ROW_LEVEL);
     return rowsToRender.map((subRow, index) => {
       const subRowIndex = relativeIndexes ? relativeIndexes[index] : index;
       const { subItems, index: rowAbsoluteIndex } = relativeSubIndexesMapping[subRowIndex] || defaultRelativeIndex;
-      const subLevel = level + 1;
-      const minLevel = Math.min(subLevel, MAX_ROW_LEVEL);
       const isVisible = !visibleRowIndexes || (rowAbsoluteIndex !== undefined && visibleRowIndexes.includes(rowAbsoluteIndex));
       const openedSubTree = subOpenedTrees[subRowIndex];
       // get selected cells
       let rowSelectedCells = (subItems || selectedCells[rowAbsoluteIndex]) && selectedCells;
       const nextRowMap = relativeSubIndexesMapping && relativeSubIndexesMapping[subRowIndex + 1];
-      const nextRowAbsoluteIndex = nextRowMap && nextRowMap.index;
+      const nextRowAbsoluteIndex = nextRowMap?.index;
       rowSelectedCells =
         rowSelectedCells &&
         (nextRowAbsoluteIndex ? filterIndexes(rowSelectedCells, rowAbsoluteIndex, nextRowAbsoluteIndex) : rowSelectedCells);
@@ -311,7 +315,7 @@ export default class Row extends React.Component<IRowProps, IState> {
           openedTree={openedSubTree}
           elevatedColumnIndexes={elevatedColumnIndexes}
           relativeSubIndexesMapping={subItems}
-          delegatedSpan={index === 0 ? subDelegatedSpan : undefined}
+          delegatedSpan={subDelegatedSpan}
           getVisibleRows={getVisibleRows}
           onCellMouseDown={onCellMouseDown}
           onCellMouseEnter={onCellMouseEnter}
@@ -350,10 +354,15 @@ export default class Row extends React.Component<IRowProps, IState> {
       selectedCells,
       isSelectable,
     } = this.props;
-    const { mappingCellsWithColspan } = this.state;
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
     const firstCellIndexWithSubItems: number = isSpan ? this.getFirstCellIndexWithSubItems() : -1;
+    const subRows = openedCell ? this.renderSubRows(firstCellIndexWithSubItems) : null;
+    if (!isVisible) {
+      return subRows;
+    }
+
+    const { mappingCellsWithColspan } = this.state;
     const options: IRowOptions = { size };
     const selectedRowCells = selectedCells && selectedCells[absoluteIndex];
 
@@ -366,70 +375,69 @@ export default class Row extends React.Component<IRowProps, IState> {
       : cells;
     return (
       <>
-        {isVisible ? (
-          <tr
-            data-testid={`table-${isHeader ? "header" : "row"}-${id}`}
-            className={classNames("table-row", className, {
-              head: isHeader,
-              opened: openedCellIndex !== null,
-            })}
-            // @ts-ignore
-            style={computeRowStyle(options)}
-          >
-            {delegatedSpan}
-            {isSpan && !delegatedSpan ? this.renderRowSpan(firstCellIndexWithSubItems >= 0) : null}
-            {cellsToRender.map((cell: ICell, index: number) => {
-              if (!cell) {
-                return null;
-              }
-              const cellIndex = (visibleColumnIndexesAfterMapping && visibleColumnIndexesAfterMapping[index]) || index;
-              const cellColumn = columns ? columns[cellIndex] || {} : {};
-              const column = {
-                isSelectable: true,
-                ...globalColumnProps,
-                ...cellColumn,
-                style: { ...globalColumnProps.style, ...cellColumn.style },
-              };
-              const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
-                (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
-              );
-              const elevation = elevationIndex !== undefined && elevatedColumnIndexes && elevatedColumnIndexes[elevationIndex];
+        <tr
+          data-testid={`table-${isHeader ? "header" : "row"}-${id}`}
+          className={classNames("table-row", className, {
+            head: isHeader,
+            opened: openedCellIndex !== null,
+          })}
+          // @ts-ignore
+          style={computeRowStyle(options)}
+        >
+          {delegatedSpan}
+          {isSpan && !delegatedSpan ? this.renderRowSpan(firstCellIndexWithSubItems >= 0) : null}
+          {cellsToRender.map((cell: ICell, index: number) => {
+            if (!cell) {
+              return null;
+            }
+            const cellIndex = (visibleColumnIndexesAfterMapping && visibleColumnIndexesAfterMapping[index]) || index;
+            const cellColumn = columns ? columns[cellIndex] || {} : {};
+            const column = {
+              isSelectable: true,
+              ...globalColumnProps,
+              ...cellColumn,
+              style: { ...globalColumnProps.style, ...cellColumn.style },
+            };
+            const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
+              (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
+            );
+            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
+            const elevation = elevationIndex !== undefined && elevatedColumnIndexes[elevationIndex];
 
-              const isSelected = (selectedRowCells && selectedRowCells.includes(cellIndex)) || false;
-              // By default, columns, rows and cells are selectable
-              const cellIsSelectable =
-                isSelectable && column.isSelectable && (cell.isSelectable === undefined || cell.isSelectable === true);
-              const cellLoading = column.loading || cell.loading || loading;
-              return (
-                <Cell
-                  key={`cell-${id}-${cell.id}`}
-                  component={isHeader ? "th" : "td"}
-                  {...cell}
-                  loading={cellLoading}
-                  colspan={mappingColspanToIndex ? mappingColspanToIndex[cellIndex] : 1}
-                  className={classNames(cell.className, column.className, {
-                    [`elevated-${elevation}`]: elevation,
-                  })}
-                  index={cellIndex}
-                  rowIndex={absoluteIndex}
-                  relativeRowIndex={relativeRowIndex}
-                  isSelectable={cellIsSelectable}
-                  isSelected={isSelected}
-                  opened={openedCellIndex === cellIndex}
-                  hideSubItemsOpener={isSpan && firstCellIndexWithSubItems === cellIndex}
-                  onCallOpen={this.toggleCell}
-                  // TODO: MEMOIZE
-                  style={computeCellStyle(column, options)}
-                  onMouseDown={onCellMouseDown}
-                  onMouseEnter={onCellMouseEnter}
-                  onMouseUp={onCellMouseUp}
-                  onContextMenu={onCellContextMenu}
-                />
-              );
-            })}
-          </tr>
-        ) : null}
-        {openedCell ? this.renderSubRows(firstCellIndexWithSubItems) : null}
+            const isSelected = (selectedRowCells && selectedRowCells.includes(cellIndex)) || false;
+            // By default, columns, rows and cells are selectable
+            const cellIsSelectable =
+              isSelectable && column.isSelectable && (cell.isSelectable === undefined || cell.isSelectable === true);
+            const cellLoading = column.loading || cell.loading || loading;
+            return (
+              <Cell
+                key={`cell-${id}-${cell.id}`}
+                component={isHeader ? "th" : "td"}
+                {...cell}
+                loading={cellLoading}
+                colspan={mappingColspanToIndex ? mappingColspanToIndex[cellIndex] : 1}
+                className={classNames(cell.className, column.className, {
+                  [`elevated-${elevation}`]: elevation,
+                })}
+                index={cellIndex}
+                rowIndex={absoluteIndex}
+                relativeRowIndex={relativeRowIndex}
+                isSelectable={cellIsSelectable}
+                isSelected={isSelected}
+                opened={openedCellIndex === cellIndex}
+                hideSubItemsOpener={isSpan && firstCellIndexWithSubItems === cellIndex}
+                onCallOpen={this.toggleCell}
+                // TODO: MEMOIZE
+                style={computeCellStyle(column, options)}
+                onMouseDown={onCellMouseDown}
+                onMouseEnter={onCellMouseEnter}
+                onMouseUp={onCellMouseUp}
+                onContextMenu={onCellContextMenu}
+              />
+            );
+          })}
+        </tr>
+        {subRows}
       </>
     );
   }
