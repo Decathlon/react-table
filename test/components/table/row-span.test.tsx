@@ -1,5 +1,4 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import { cleanup, fireEvent } from "@testing-library/react";
 
@@ -13,7 +12,7 @@ describe("RowSpan component", () => {
       length: 2,
       title: "Foo",
       color: "red",
-      toggle: () => null
+      toggle: () => null,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<RowSpan {...props} />);
@@ -26,7 +25,7 @@ describe("RowSpan component", () => {
       opened: true,
       length: 2,
       title: "Foo",
-      toggle: () => null
+      toggle: () => null,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<RowSpan {...props} />);
@@ -39,7 +38,7 @@ describe("RowSpan component", () => {
       opened: true,
       length: 2,
       title: "Foo",
-      toggle: jest.fn()
+      toggle: jest.fn(),
     };
     const { container } = customRender(<RowSpan {...props} />);
     fireEvent.click(container.getElementsByTagName("button")[0]);

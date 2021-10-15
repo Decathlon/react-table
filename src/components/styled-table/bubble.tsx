@@ -6,7 +6,7 @@ export enum BubbleType {
   info = "info",
   success = "success",
   warning = "warning",
-  error = "error"
+  error = "error",
 }
 
 export interface IBubbleProps {
@@ -34,7 +34,7 @@ const Bubble = ({ className, badge, type, children }: IBubbleProps) => (
 );
 
 Bubble.defaultProps = {
-  type: BubbleType.info
+  type: BubbleType.info,
 };
 
 export default React.memo(Bubble);

@@ -1,6 +1,5 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 /// <reference path="../../typings.d.ts"/>
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { object } from "@storybook/addon-knobs";
 
@@ -13,18 +12,18 @@ import { CustomCellContent } from "../../stories-components/selection-menu";
 
 const defaultProps = {
   id: "table-foo",
-  rows: simpleTable({})
+  rows: simpleTable({}),
 };
 
 const table2Levels = tableWithSubItems({ firstSubRows: subRows({}) });
 
 export const table3Levels = tableWithSubItems({
-  firstSubRows: subRows({ subsubRows: subMiam })
+  firstSubRows: subRows({ subsubRows: subMiam }),
 });
 
 const storyInfoDefault = {
   inline: true,
-  propTables: [Row, Table]
+  propTables: [Row, Table],
 };
 
 storiesOf("Table/Default", module)
@@ -40,12 +39,12 @@ storiesOf("Table/Default", module)
       "elementary-table-it",
       "selectable-table",
       "virtualized-table",
-      "utils"
-    ]
+      "utils",
+    ],
   })
   .add("Default", () => <Table {...defaultProps} />, {
     notes: { markdown: Readme },
-    info: storyInfoDefault
+    info: storyInfoDefault,
   })
   .add(
     "With loading",
@@ -58,7 +57,7 @@ storiesOf("Table/Default", module)
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -69,12 +68,12 @@ storiesOf("Table/Default", module)
         isSelectable={false}
         rows={simpleTable({
           customCell: CustomCellContent,
-          customCellProps: { defaultValue: "Click to edit!" }
+          customCellProps: { defaultValue: "Click to edit!" },
         })}
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -88,7 +87,7 @@ storiesOf("Table/Default", module)
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -100,12 +99,12 @@ storiesOf("Table/Default", module)
         rows={table2Levels}
         columns={object("columns", {
           0: { style: { justifyContent: "left" }, size: 150 },
-          2: { size: 400 }
+          2: { size: 400 },
         })}
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -119,11 +118,11 @@ storiesOf("Table/Default", module)
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add("With imbricated sub-rows", () => <Table {...defaultProps} isSelectable={false} rows={object("rows", table3Levels)} />, {
-    info: storyInfoDefault
+    info: storyInfoDefault,
   })
 
   .add(
@@ -131,14 +130,14 @@ storiesOf("Table/Default", module)
     () => {
       const rows = tableWithSubItems({
         firstSubRows: subRows({}),
-        secondSubRows: subRows({})
+        secondSubRows: subRows({}),
       });
       rows[1].rowSpanProps = { title: "foo", color: "#0082c3" };
       rows[2].rowSpanProps = { title: "bar", color: "#e86430" };
       return <Table {...defaultProps} isSelectable={false} isSpan rows={rows} />;
     },
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -153,13 +152,13 @@ storiesOf("Table/Default", module)
           1: {
             rowIndex: 1,
             columnIndex: 0,
-            subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-          }
+            subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+          },
         })}
       />
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -174,7 +173,7 @@ storiesOf("Table/Default", module)
     ),
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -188,6 +187,6 @@ storiesOf("Table/Default", module)
     },
     {
       notes: { markdown: Readme },
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   );

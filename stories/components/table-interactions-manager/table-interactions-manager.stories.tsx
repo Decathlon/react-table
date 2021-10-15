@@ -1,7 +1,6 @@
 /* eslint-disable  import/no-extraneous-dependencies */
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
-import { IconButton, Icon, Button } from "@material-ui/core";
+import { IconButton, Icon, Button } from "@mui/material";
 
 import { ColumnWidth } from "../../../src/components/constants";
 import { withThemeProvider } from "../../utils/decorators";
@@ -11,7 +10,7 @@ import ColumnIdScrollController from "../../../src/components/table-interactions
 import FixedColumnController from "../../../src/components/table-interactions-manager/fixed-column-controller";
 import FixedRowController from "../../../src/components/table-interactions-manager/fixed-row-controller";
 import TabeInteractionManager, {
-  TableInteractionsContext
+  TableInteractionsContext,
 } from "../../../src/components/table-interactions-manager/table-interactions-manager";
 import { CellSize } from "../../../src/components/table-interactions-manager/reducers";
 import { getTable } from "../styled-table/tables";
@@ -25,7 +24,7 @@ const toggleableColumns = [
   { id: "W01", index: 1, label: "W01" },
   { id: "W02", index: 2, label: "W02" },
   { id: "W03", index: 3, label: "W03" },
-  { id: "W04", index: 4, label: "W04" }
+  { id: "W04", index: 4, label: "W04" },
 ];
 
 const fixedRows = [0];
@@ -33,51 +32,51 @@ const fixedColumns = [0];
 
 const storyInfoDefault = {
   inline: true,
-  propTables: [CellDimensionController, ColumnVisibilityController, TabeInteractionManager]
+  propTables: [CellDimensionController, ColumnVisibilityController, TabeInteractionManager],
 };
 
 const toolBarStyle = {
   display: "flex",
-  justifyContent: "center"
+  justifyContent: "center",
 };
 
 const defaultColumnIdScrollControllerProps = {
   columns: Array.from({ length: 50 }).map((_, i: number) => ({ id: i.toString(), label: `Label_${i}` })),
-  defaultValue: "0"
+  defaultValue: "0",
 };
 
 const trees: ITrees = {
   1: {
     rowIndex: 1,
     columnIndex: 0,
-    subTrees: { 0: { rowIndex: 1, columnIndex: 2 } }
-  }
+    subTrees: { 0: { rowIndex: 1, columnIndex: 2 } },
+  },
 };
 
 const customCellWidthOptions = {
   s: 150,
   m: 200,
-  l: 300
+  l: 300,
 };
 
 const customRowHeightOptions = {
   s: 50,
   m: 100,
-  l: 150
+  l: 150,
 };
 
 storiesOf("Table interactions manager", module)
   .addDecorator(withThemeProvider)
   .addParameters({
-    jest: ["cell-dimensions-controller", "column-visibility-controller", "week-scroll-controller", "table-interactions"]
+    jest: ["cell-dimensions-controller", "column-visibility-controller", "week-scroll-controller", "table-interactions"],
   })
   .add(
     "Cell dimension controller",
     () => (
       <TabeInteractionManager>
         <CellDimensionController
-          buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+          buttonRenderer={(toggleMenu) => (
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>line_weight</Icon>
             </IconButton>
           )}
@@ -85,7 +84,7 @@ storiesOf("Table interactions manager", module)
       </TabeInteractionManager>
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -95,13 +94,13 @@ storiesOf("Table interactions manager", module)
         initialConfig={{
           cellWidth: {
             value: ColumnWidth[CellSize.small],
-            size: CellSize.small
-          }
+            size: CellSize.small,
+          },
         }}
       >
         <CellDimensionController
-          buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+          buttonRenderer={(toggleMenu) => (
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>line_weight</Icon>
             </IconButton>
           )}
@@ -109,7 +108,7 @@ storiesOf("Table interactions manager", module)
       </TabeInteractionManager>
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -118,8 +117,8 @@ storiesOf("Table interactions manager", module)
       <TabeInteractionManager toggleableColumns={toggleableColumns}>
         <ColumnVisibilityController
           columns={toggleableColumns}
-          buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+          buttonRenderer={(toggleMenu) => (
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>view_week</Icon>
             </IconButton>
           )}
@@ -127,7 +126,7 @@ storiesOf("Table interactions manager", module)
       </TabeInteractionManager>
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add(
@@ -136,8 +135,8 @@ storiesOf("Table interactions manager", module)
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: ["W01"] }} toggleableColumns={toggleableColumns}>
         <ColumnVisibilityController
           columns={toggleableColumns}
-          buttonRenderer={toggleMenu => (
-            <IconButton onClick={toggleMenu}>
+          buttonRenderer={(toggleMenu) => (
+            <IconButton onClick={toggleMenu} size="large">
               <Icon>view_week</Icon>
             </IconButton>
           )}
@@ -145,11 +144,11 @@ storiesOf("Table interactions manager", module)
       </TabeInteractionManager>
     ),
     {
-      info: storyInfoDefault
+      info: storyInfoDefault,
     }
   )
   .add("Column id scroll controller", () => <ColumnIdScrollController {...defaultColumnIdScrollControllerProps} />, {
-    info: storyInfoDefault
+    info: storyInfoDefault,
   })
   .add("Hide row", () => (
     <TabeInteractionManager toggleableColumns={toggleableColumns}>
@@ -177,7 +176,7 @@ storiesOf("Table interactions manager", module)
                     minRowHeight: rowHeight.value,
                     fixedRows,
                     fixedColumns,
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </div>
@@ -190,7 +189,7 @@ storiesOf("Table interactions manager", module)
   .add("Integrated", () => (
     <TabeInteractionManager
       initialConfig={{
-        columnsCursor: { id: "03", index: 3 }
+        columnsCursor: { id: "03", index: 3 },
       }}
       toggleableColumns={toggleableColumns}
     >
@@ -200,16 +199,16 @@ storiesOf("Table interactions manager", module)
             <>
               <div style={toolBarStyle}>
                 <CellDimensionController
-                  buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                  buttonRenderer={(toggleMenu) => (
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>line_weight</Icon>
                     </IconButton>
                   )}
                 />
                 <ColumnVisibilityController
                   columns={toggleableColumns}
-                  buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                  buttonRenderer={(toggleMenu) => (
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>view_week</Icon>
                     </IconButton>
                   )}
@@ -230,11 +229,11 @@ storiesOf("Table interactions manager", module)
                     minColumnWidth: cellWidth.value,
                     minRowHeight: rowHeight.value,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
                     fixedRows,
                     fixedColumns,
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </div>
@@ -249,7 +248,7 @@ storiesOf("Table interactions manager", module)
       initialConfig={{
         columnsCursor: { id: "03", index: 3 },
         cellWidth: { size: "m", value: customCellWidthOptions.m },
-        rowHeight: { size: "m", value: customRowHeightOptions.m }
+        rowHeight: { size: "m", value: customRowHeightOptions.m },
       }}
       toggleableColumns={toggleableColumns}
     >
@@ -259,8 +258,8 @@ storiesOf("Table interactions manager", module)
             <>
               <div style={toolBarStyle}>
                 <CellDimensionController
-                  buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                  buttonRenderer={(toggleMenu) => (
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>line_weight</Icon>
                     </IconButton>
                   )}
@@ -269,8 +268,8 @@ storiesOf("Table interactions manager", module)
                 />
                 <ColumnVisibilityController
                   columns={toggleableColumns}
-                  buttonRenderer={toggleMenu => (
-                    <IconButton onClick={toggleMenu}>
+                  buttonRenderer={(toggleMenu) => (
+                    <IconButton onClick={toggleMenu} size="large">
                       <Icon>view_week</Icon>
                     </IconButton>
                   )}
@@ -291,11 +290,11 @@ storiesOf("Table interactions manager", module)
                     minColumnWidth: cellWidth.value,
                     minRowHeight: rowHeight.value,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
                     fixedRows,
                     fixedColumns,
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </div>
@@ -318,7 +317,7 @@ storiesOf("Table interactions manager", module)
                     display: "flex",
                     justifyContent: "center",
                     marginBottom: 10,
-                    width: "100%"
+                    width: "100%",
                   }}
                 >
                   <Button color="primary" variant="contained" onClick={() => openTrees(trees)}>
@@ -345,8 +344,8 @@ storiesOf("Table interactions manager", module)
     {
       info: {
         inline: true,
-        propTables: [TabeInteractionManager]
-      }
+        propTables: [TabeInteractionManager],
+      },
     }
   )
   .add("With pinned columns control", () => (
@@ -360,7 +359,7 @@ storiesOf("Table interactions manager", module)
                   display: "flex",
                   justifyContent: "space-evenly",
                   marginBottom: 10,
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <FixedColumnController columnId="12">
@@ -392,11 +391,11 @@ storiesOf("Table interactions manager", module)
                     minColumnWidth: cellWidth.value,
                     minRowHeight: rowHeight.value,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
                     fixedRows,
                     fixedColumns: [...fixedColumns, ...fixedColumnsIndexes],
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </div>
@@ -417,7 +416,7 @@ storiesOf("Table interactions manager", module)
                   display: "flex",
                   justifyContent: "space-evenly",
                   marginBottom: 10,
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <FixedRowController rowIndex={3}>
@@ -449,11 +448,11 @@ storiesOf("Table interactions manager", module)
                     minColumnWidth: cellWidth.value,
                     minRowHeight: rowHeight.value,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
                     fixedRows: [...fixedRows, ...fixedRowsIndexes],
                     fixedColumns,
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </div>

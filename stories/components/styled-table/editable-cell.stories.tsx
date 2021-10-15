@@ -21,7 +21,7 @@ interface IProps extends IContentCellProps {
 const mask: IMask = {
   is_percentage: false,
   is_negative: true,
-  decimals: 2
+  decimals: 2,
 };
 
 export const formatValue = (value: Nullable<number>, mask?: IMask) =>
@@ -33,7 +33,7 @@ export const formatValue = (value: Nullable<number>, mask?: IMask) =>
         //@ts-ignore mask is defined
         maximumFractionDigits: mask.decimals,
         //@ts-ignore mask is defined
-        minimumFractionDigits: mask.decimals
+        minimumFractionDigits: mask.decimals,
         //@ts-ignore value is defined
       }).format(value);
 
@@ -68,10 +68,10 @@ const defaultProps = getTable({
     1: {
       cellContent: EditableCellParent,
       cellContentProps: {
-        defaultValue: null
-      }
-    }
-  }
+        defaultValue: null,
+      },
+    },
+  },
 });
 
 storiesOf("Styled Table/editable cell", module)
@@ -84,7 +84,7 @@ storiesOf("Styled Table/editable cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -95,7 +95,7 @@ storiesOf("Styled Table/editable cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -106,7 +106,7 @@ storiesOf("Styled Table/editable cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -117,7 +117,7 @@ storiesOf("Styled Table/editable cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -134,11 +134,11 @@ storiesOf("Styled Table/editable cell", module)
           height: number("height", 500),
           width: number("width", 1000),
           rowsCount: 5,
-          columnsCount: 6
+          columnsCount: 6,
         }}
       />
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   );

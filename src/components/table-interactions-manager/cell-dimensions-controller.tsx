@@ -1,8 +1,8 @@
 import * as React from "react";
-import Menu from "@material-ui/core/Menu";
-import Divider from "@material-ui/core/Divider";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import { Icon, ListItemText, List, MenuItem, ListItemIcon } from "@material-ui/core";
+import Menu from "@mui/material/Menu";
+import Divider from "@mui/material/Divider";
+import ListSubheader from "@mui/material/ListSubheader";
+import { Icon, ListItemText, List, MenuItem, ListItemIcon } from "@mui/material";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 import { CellDimension } from "./reducers";
@@ -34,7 +34,7 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
     rowHeight,
     cellWidth,
     rowHeightOptions = RowHeight,
-    cellWidthOptions = ColumnWidth
+    cellWidthOptions = ColumnWidth,
   }) => {
     const [anchorEl, setAnchorEl] = React.useState<Nullable<Element>>(null);
     const isOpen = Boolean(anchorEl);
@@ -68,7 +68,7 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
         >
           <List classes={{ root: "table-interaction-menu" }}>
             <ListSubheader>Columns</ListSubheader>
-            {Object.keys(cellWidthOptions).map(size => (
+            {Object.keys(cellWidthOptions).map((size) => (
               <MenuItem
                 key={`column-${size}`}
                 data-testid={`column-width-dimension-${size}`}
@@ -87,7 +87,7 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
             ))}
             <Divider />
             <ListSubheader>Rows</ListSubheader>
-            {Object.keys(rowHeightOptions).map(size => (
+            {Object.keys(rowHeightOptions).map((size) => (
               <MenuItem key={`row-${size}`} data-testid={`row-height-dimension-${size}`} onClick={getRowHeightUpdater(size)}>
                 <ListItemIcon>
                   {rowHeight.size === size ? (
@@ -106,10 +106,9 @@ export const DumbCellDimensionController: React.FunctionComponent<ICellDimension
   }
 );
 
-const CellDimensionController: React.FunctionComponent<Pick<
-  ICellDimensionControllerProps,
-  "buttonRenderer" | "cellWidthOptions" | "rowHeightOptions"
->> = props => {
+const CellDimensionController: React.FunctionComponent<
+  Pick<ICellDimensionControllerProps, "buttonRenderer" | "cellWidthOptions" | "rowHeightOptions">
+> = (props) => {
   return (
     <TableInteractionsContext.Consumer>
       {({ cellWidth, rowHeight, updateCellWidth, updateRowHeight }) => {

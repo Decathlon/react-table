@@ -1,5 +1,4 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import { mount } from "enzyme";
 
@@ -11,7 +10,7 @@ import { IRow } from "../../../src/components/table/row";
 
 const rows = tableWithSubItems({
   firstSubRows: subRows({ subsubRows: subRows({}) }),
-  secondSubRows: subRows({ subsubRows: subRows({}) })
+  secondSubRows: subRows({ subsubRows: subRows({}) }),
 });
 
 const fixedRowsIndexes = [1];
@@ -29,7 +28,7 @@ describe("elementary table component", () => {
   test("should render a table with custom cell size", () => {
     const rows = tableWithSubItems({
       firstSubRows: subRows({ subsubRows: subRows({}) }),
-      secondSubRows: subRows({ subsubRows: subRows({}) })
+      secondSubRows: subRows({ subsubRows: subRows({}) }),
     });
     const indexesMap = Utils.getAllIndexesMap([], rows);
     // @ts-ignore
@@ -40,7 +39,7 @@ describe("elementary table component", () => {
       id: "foo",
       rows,
       indexesMapping: indexesMap,
-      columns: { 0: { size: 320 }, 4: { size: 300 } }
+      columns: { 0: { size: 320 }, 4: { size: 300 } },
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<ElementaryTable {...props} />);
@@ -57,7 +56,7 @@ describe("elementary table component", () => {
       indexesMapping: indexesMap,
       opendTrees,
       fixedRowsIndexes,
-      visibleRowIndexes: [0, 1, 2, 3, 4]
+      visibleRowIndexes: [0, 1, 2, 3, 4],
     };
     const wrapper = mount(withThemeProvider(() => <ElementaryTable {...props} />));
     const instance: ElementaryTable = wrapper.find(ElementaryTable).instance() as ElementaryTable;
@@ -75,7 +74,7 @@ describe("elementary table component", () => {
       indexesMapping: indexesMap,
       opendTrees,
       fixedRowsIndexes,
-      visibleRowIndexes: [0, 1, 2, 3] // the third row is hidden
+      visibleRowIndexes: [0, 1, 2, 3], // the third row is hidden
     };
     const wrapper = mount(withThemeProvider(() => <ElementaryTable {...props} />));
     const instance: ElementaryTable = wrapper.find(ElementaryTable).instance() as ElementaryTable;

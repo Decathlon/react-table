@@ -7,7 +7,7 @@ exports[`CellDimensionController component should render CellDimensionController
   >
     Foo
   </span>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -26,86 +26,86 @@ exports[`CellDimensionController component should render CellDimensionController
       }
     }
   >
-    <ForwardRef(WithStyles)
+    <ForwardRef(List)
       classes={
         Object {
           "root": "table-interaction-menu",
         }
       }
     >
-      <ForwardRef(WithStyles)>
+      <ForwardRef(ListSubheader)>
         Columns
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(ListSubheader)>
+      <ForwardRef(MenuItem)
         data-testid="column-width-dimension-xs"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="column-width-dimension-checked"
           >
             radio_button_checked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="xs"
           primary="xs"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="column-width-dimension-xl"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="column-width-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="xl"
           primary="xl"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles) />
-      <ForwardRef(WithStyles)>
+      </ForwardRef(MenuItem)>
+      <ForwardRef(Divider) />
+      <ForwardRef(ListSubheader)>
         Rows
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(ListSubheader)>
+      <ForwardRef(MenuItem)
         data-testid="row-height-dimension-s"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="row-height-dimension-checked"
           >
             radio_button_checked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="s"
           primary="s"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="row-height-dimension-m"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="row-height-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="m"
           primary="m"
         />
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
+      </ForwardRef(MenuItem)>
+    </ForwardRef(List)>
+  </ForwardRef(Menu)>
 </React.Fragment>
 `;
 
@@ -116,7 +116,7 @@ exports[`CellDimensionController component should render the default CellDimensi
   >
     Foo
   </span>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -135,117 +135,117 @@ exports[`CellDimensionController component should render the default CellDimensi
       }
     }
   >
-    <ForwardRef(WithStyles)
+    <ForwardRef(List)
       classes={
         Object {
           "root": "table-interaction-menu",
         }
       }
     >
-      <ForwardRef(WithStyles)>
+      <ForwardRef(ListSubheader)>
         Columns
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(ListSubheader)>
+      <ForwardRef(MenuItem)
         data-testid="column-width-dimension-small"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="column-width-dimension-checked"
           >
             radio_button_checked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="small"
           primary="small"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="column-width-dimension-medium"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="column-width-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="medium"
           primary="medium"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="column-width-dimension-large"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="column-width-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="large"
           primary="large"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles) />
-      <ForwardRef(WithStyles)>
+      </ForwardRef(MenuItem)>
+      <ForwardRef(Divider) />
+      <ForwardRef(ListSubheader)>
         Rows
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(ListSubheader)>
+      <ForwardRef(MenuItem)
         data-testid="row-height-dimension-small"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="row-height-dimension-checked"
           >
             radio_button_checked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="small"
           primary="small"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="row-height-dimension-medium"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="row-height-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="medium"
           primary="medium"
         />
-      </ForwardRef(WithStyles)>
-      <ForwardRef(WithStyles)
+      </ForwardRef(MenuItem)>
+      <ForwardRef(MenuItem)
         data-testid="row-height-dimension-large"
         onClick={[Function]}
       >
-        <ForwardRef(WithStyles)>
-          <ForwardRef(WithStyles)
+        <ForwardRef(ListItemIcon)>
+          <ForwardRef(Icon)
             data-testid="row-height-dimension-unchecked"
           >
             radio_button_unchecked
-          </ForwardRef(WithStyles)>
-        </ForwardRef(WithStyles)>
-        <ForwardRef(WithStyles)
+          </ForwardRef(Icon)>
+        </ForwardRef(ListItemIcon)>
+        <ForwardRef(ListItemText)
           id="large"
           primary="large"
         />
-      </ForwardRef(WithStyles)>
-    </ForwardRef(WithStyles)>
-  </ForwardRef(WithStyles)>
+      </ForwardRef(MenuItem)>
+    </ForwardRef(List)>
+  </ForwardRef(Menu)>
 </React.Fragment>
 `;

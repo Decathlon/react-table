@@ -1,5 +1,4 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import { mount } from "enzyme";
 
@@ -34,7 +33,7 @@ describe("Cell component", () => {
       rowIndex: 0,
       relativeRowIndex: 0,
       subItems: [],
-      getClassName: () => "custom-className"
+      getClassName: () => "custom-className",
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -51,8 +50,8 @@ describe("Cell component", () => {
       subItems: [],
       style: {
         width: "50px",
-        height: "25px"
-      }
+        height: "25px",
+      },
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -70,8 +69,8 @@ describe("Cell component", () => {
       colspan: 2,
       style: {
         width: 50,
-        height: "25px"
-      }
+        height: "25px",
+      },
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -85,7 +84,7 @@ describe("Cell component", () => {
       rowIndex: 0,
       relativeRowIndex: 0,
       value: "bar",
-      subItems: []
+      subItems: [],
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} component="th" />);
@@ -99,7 +98,7 @@ describe("Cell component", () => {
       rowIndex: 0,
       relativeRowIndex: 0,
       value: "bar",
-      subItems: rows
+      subItems: rows,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} component="th" />);
@@ -114,7 +113,7 @@ describe("Cell component", () => {
       relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
-      hideSubItemsOpener: true
+      hideSubItemsOpener: true,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -129,7 +128,7 @@ describe("Cell component", () => {
       relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
-      opened: true
+      opened: true,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -143,7 +142,7 @@ describe("Cell component", () => {
       rowIndex: 0,
       relativeRowIndex: 0,
       value: "bar",
-      isSelected: true
+      isSelected: true,
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -157,7 +156,7 @@ describe("Cell component", () => {
       rowIndex: 0,
       relativeRowIndex: 0,
       cellContent: ({ name }: { name: string }) => <div>{name}</div>,
-      cellContentProps: { name: "Foo" }
+      cellContentProps: { name: "Foo" },
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(<Cell {...props} />);
@@ -176,14 +175,11 @@ describe("Cell component", () => {
       onMouseEnter: jest.fn(),
       onMouseDown: jest.fn(),
       onMouseUp: jest.fn(),
-      onContextMenu: jest.fn()
+      onContextMenu: jest.fn(),
     };
     const wrapper = mount(withThemeProvider(() => <Cell {...props} />));
     // onMouseEnter
-    wrapper
-      .find("td")
-      .last()
-      .simulate("mouseenter");
+    wrapper.find("td").last().simulate("mouseenter");
     expect(props.onMouseEnter).toBeCalledWith({ rowIndex: 0, cellIndex: 2 });
     // onMouseDown
     wrapper
@@ -192,23 +188,14 @@ describe("Cell component", () => {
       .simulate("mousedown", { nativeEvent: { button: 0 } });
     expect(props.onMouseDown).toBeCalledWith({ rowIndex: 0, cellIndex: 2 }, MouseClickButtons.left);
     // onMouseUp
-    wrapper
-      .find("td")
-      .last()
-      .simulate("mouseup");
+    wrapper.find("td").last().simulate("mouseup");
     expect(props.onMouseUp).toBeCalled();
     // onContextMenu
-    const eventTarget = wrapper
-      .find("[data-testid='table-cell-wrapper-foo']")
-      .last()
-      .getDOMNode();
-    wrapper
-      .find("td")
-      .last()
-      .simulate("contextmenu");
+    const eventTarget = wrapper.find("[data-testid='table-cell-wrapper-foo']").last().getDOMNode();
+    wrapper.find("td").last().simulate("contextmenu");
     expect(props.onContextMenu).toBeCalledWith({
       anchorEl: eventTarget,
-      contextCell: { rowIndex: 0, cellIndex: 2 }
+      contextCell: { rowIndex: 0, cellIndex: 2 },
     });
   });
 
@@ -220,14 +207,11 @@ describe("Cell component", () => {
       relativeRowIndex: 0,
       value: "bar",
       subItems: rows,
-      onCallOpen: jest.fn()
+      onCallOpen: jest.fn(),
     };
     const wrapper = mount(withThemeProvider(() => <Cell {...props} />));
     // onOpen
-    wrapper
-      .find("[data-testid='table-cell-sub-item-toggle']")
-      .last()
-      .simulate("click");
+    wrapper.find("[data-testid='table-cell-sub-item-toggle']").last().simulate("click");
     expect(props.onCallOpen).toBeCalledWith(2);
   });
 });

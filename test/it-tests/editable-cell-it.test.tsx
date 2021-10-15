@@ -25,7 +25,7 @@ const mask = {
   currency: "EUR",
   decimals: 2,
   is_percentage: false,
-  is_negative: false
+  is_negative: false,
 };
 
 const EditableCellParent = (props: IProps) => {
@@ -64,19 +64,18 @@ describe("EditableCell component integration tests", () => {
   test("should render textInput on click", () => {
     const props = {
       defaultValue: null,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
     fireEvent.click(getByText("-"));
-    let input = getByTestId("editable-cell-text-field").querySelector("input");
-    // usage of focus : https://github.com/s-yadav/react-number-format/issues/269
+    let input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 22, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("22.00 €")).toBeTruthy();
 
     fireEvent.click(getByText("22.00 €"));
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: NaN, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("-")).toBeTruthy();
@@ -85,12 +84,12 @@ describe("EditableCell component integration tests", () => {
   test("should display 0 when cell is cleared and it initial value is not null", () => {
     const props = {
       defaultValue: 3,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
     fireEvent.click(getByText("3.00 €"));
-    const input = getByTestId("editable-cell-text-field").querySelector("input");
+    const input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: null, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("0.00 €")).toBeTruthy();
@@ -99,7 +98,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue", () => {
     const props = {
       defaultValue: 3.01,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -110,7 +109,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue formatted without its two trailing zeros", () => {
     const props = {
       defaultValue: 3,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -121,7 +120,7 @@ describe("EditableCell component integration tests", () => {
   test("should render input with defaultValue without the trailing 0", () => {
     const props = {
       defaultValue: 3.1,
-      alreadyEdited: false
+      alreadyEdited: false,
     };
 
     const { getByText, getByDisplayValue } = customRender(<EditableCellParent {...props} />);
@@ -133,21 +132,21 @@ describe("EditableCell component integration tests", () => {
     const props = {
       defaultValue: 12,
       alreadyEdited: false,
-      checkValue: (value: Nullable<number>) => (value ? value > 10 : false)
+      checkValue: (value: Nullable<number>) => (value ? value > 10 : false),
     };
 
     const { getByText, getByTestId } = customRender(<EditableCellParent {...props} />);
 
     fireEvent.click(getByText("12.00 €"));
-    let input = getByTestId("editable-cell-text-field").querySelector("input");
+    let input: HTMLInputElement = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 8, focus } });
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("12.00 €")).toBeTruthy();
 
     fireEvent.click(getByText("12.00 €"));
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: 15, focus } });
-    input = getByTestId("editable-cell-text-field").querySelector("input");
+    input = getByTestId("editable-cell-text-field").querySelector("input") as HTMLInputElement;
     fireEvent.keyPress(input, { keyCode: KEYCODE_ENTER });
     expect(getByText("15.00 €")).toBeTruthy();
   });

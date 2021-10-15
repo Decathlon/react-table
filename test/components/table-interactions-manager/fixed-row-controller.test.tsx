@@ -1,6 +1,5 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import { DumbFixedRowController } from "../../../src/components/table-interactions-manager/fixed-row-controller";
@@ -10,7 +9,7 @@ describe("FixedRowController component", () => {
     const props = {
       rowIndex: 2,
       fixedRowsIndexes: [1],
-      updateFixedRowsIndexes: jest.fn()
+      updateFixedRowsIndexes: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(

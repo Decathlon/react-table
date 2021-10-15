@@ -1,6 +1,6 @@
 import * as React from "react";
-import Menu from "@material-ui/core/Menu";
-import { List, ListItemText, Icon, MenuItem, ListItemIcon } from "@material-ui/core";
+import Menu from "@mui/material/Menu";
+import { List, ListItemText, Icon, MenuItem, ListItemIcon } from "@mui/material";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 import { Nullable } from "../typing";
@@ -50,7 +50,7 @@ export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumn
     };
 
     const updateHiddenColumnsIds = (columnId: string) => {
-      const newColumns = hiddenColumnsIds.filter(hiddenColumnId => hiddenColumnId !== columnId);
+      const newColumns = hiddenColumnsIds.filter((hiddenColumnId) => hiddenColumnId !== columnId);
       let isVisible = true;
       if (newColumns.length === hiddenColumnsIds.length) {
         newColumns.push(columnId);
@@ -106,7 +106,7 @@ export const DumbColumnVisibilityController: React.FunctionComponent<IDumbColumn
   }
 );
 
-const ColumnVisibilityController: React.FunctionComponent<IColumnVisibilityControllerProps> = props => {
+const ColumnVisibilityController: React.FunctionComponent<IColumnVisibilityControllerProps> = (props) => {
   return (
     <TableInteractionsContext.Consumer>
       {({ hiddenColumnsIds, updateHiddenIds }) => {

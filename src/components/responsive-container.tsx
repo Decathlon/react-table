@@ -18,7 +18,7 @@ const ResponsiveContainer = ({ className, children }: IResponsiveContainerProps)
   const wrapper = React.useRef<HTMLDivElement>(null);
   const [{ height, width }, setSize] = React.useState<IElementSize>({
     height: 0,
-    width: 0
+    width: 0,
   });
 
   const updateSize = () => {
@@ -27,7 +27,7 @@ const ResponsiveContainer = ({ className, children }: IResponsiveContainerProps)
       if (clientWidth !== width || clientHeight !== height) {
         setSize({
           width: clientWidth,
-          height: clientHeight
+          height: clientHeight,
         });
       }
     }

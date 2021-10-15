@@ -1,10 +1,9 @@
 /// <reference path="../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { fireEvent, getByTestId as globalGetByTestId, getByText as globalGetByText } from "@testing-library/react";
 
 import ColumnVisisbilityController from "../../src/components/table-interactions-manager/column-visibility-controller";
 import TabeInteractionManager, {
-  TableInteractionsContext
+  TableInteractionsContext,
 } from "../../src/components/table-interactions-manager/table-interactions-manager";
 import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
@@ -20,9 +19,9 @@ describe("ColumnVisisbilityController component", () => {
         <ColumnVisisbilityController
           columns={[
             { id: "foo", index: 0, label: "Foo" },
-            { id: "bar", index: 1, label: "Bar" }
+            { id: "bar", index: 1, label: "Bar" },
           ]}
-          buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Visisbility Controller</div>}
+          buttonRenderer={(toggleMenu) => <div onClick={toggleMenu}>Visisbility Controller</div>}
         />
       </TabeInteractionManager>
     );
@@ -45,10 +44,10 @@ describe("ColumnVisisbilityController component", () => {
   test("should update hiddencolumns", () => {
     const toggleableColumns = [
       { id: "foo", index: 1, label: "FOO" },
-      { id: "bar", index: 2, label: "BAR" }
+      { id: "bar", index: 2, label: "BAR" },
     ];
     const onColumnVisibilityChange = jest.fn();
-    const { container, getByText, getByTestId } = customRender(
+    const { getByText, getByTestId } = customRender(
       <TabeInteractionManager initialConfig={{ hiddenColumnsIds: [] }} toggleableColumns={toggleableColumns}>
         <TableInteractionsContext.Consumer>
           {({ onHorizontallyScroll, tableRef, columnsCursor, hiddenColumnsIndexes }) => {
@@ -56,7 +55,7 @@ describe("ColumnVisisbilityController component", () => {
               <>
                 <ColumnVisisbilityController
                   columns={toggleableColumns}
-                  buttonRenderer={toggleMenu => <div onClick={toggleMenu}>Visisbility Controller</div>}
+                  buttonRenderer={(toggleMenu) => <div onClick={toggleMenu}>Visisbility Controller</div>}
                   onColumnVisibilityChange={onColumnVisibilityChange}
                 />
                 <Table
@@ -70,9 +69,9 @@ describe("ColumnVisisbilityController component", () => {
                     height: 500,
                     width: 1100,
                     initialScroll: {
-                      columnIndex: columnsCursor ? columnsCursor.index : undefined
+                      columnIndex: columnsCursor ? columnsCursor.index : undefined,
                     },
-                    onHorizontallyScroll
+                    onHorizontallyScroll,
                   }}
                 />
               </>
@@ -83,35 +82,35 @@ describe("ColumnVisisbilityController component", () => {
     );
     // The initial scroll (week number 1)
     fireEvent.scroll(getByTestId("scroller-container"));
-    let header = getRows(container, true);
+    let header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W1")).toBeTruthy();
 
     // hide the FOO column
     fireEvent.click(getByText("Visisbility Controller"));
     fireEvent.click(getByText("FOO"));
     fireEvent.scroll(getByTestId("scroller-container"));
-    header = getRows(container, true);
+    header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W2")).toBeTruthy();
     expect(onColumnVisibilityChange).toBeCalledWith(1, false);
 
     // hide the BAR column
     fireEvent.click(getByText("BAR"));
     fireEvent.scroll(getByTestId("scroller-container"));
-    header = getRows(container, true);
+    header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W3")).toBeTruthy();
     expect(onColumnVisibilityChange).toBeCalledWith(2, false);
 
     // display the FOO column
     fireEvent.click(getByText("FOO"));
     fireEvent.scroll(getByTestId("scroller-container"));
-    header = getRows(container, true);
+    header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W1")).toBeTruthy();
     expect(onColumnVisibilityChange).toBeCalledWith(1, true);
 
     // display the BAR column
     fireEvent.click(getByText("BAR"));
     fireEvent.scroll(getByTestId("scroller-container"));
-    header = getRows(container, true);
+    header = getRows(true);
     expect(globalGetByText(getCellsOfRow(header[0])[1], "W1")).toBeTruthy();
     expect(onColumnVisibilityChange).toBeCalledWith(2, true);
   });

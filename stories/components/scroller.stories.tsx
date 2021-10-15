@@ -2,8 +2,8 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { number } from "@storybook/addon-knobs";
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
 
 import Scroller from "../../src/components/scroller";
 import { withThemeProvider } from "../utils/decorators";
@@ -13,7 +13,7 @@ export const defaultScrollerProps = {
   height: 300,
   virtualWidth: 4000,
   virtualHeight: 4000,
-  onScroll: (scrollValues): void => console.log(scrollValues)
+  onScroll: (scrollValues): void => console.log(scrollValues),
 };
 
 storiesOf("Scroller", module)
@@ -27,7 +27,7 @@ storiesOf("Scroller", module)
       </Scroller>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -38,7 +38,7 @@ storiesOf("Scroller", module)
       </Scroller>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -49,7 +49,7 @@ storiesOf("Scroller", module)
       </Scroller>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -139,7 +139,7 @@ const Counter = ({ children }) => {
       setLeftCounter(leftCounter - 1);
     }
   };
-  const newChildren = React.Children.map(children, child =>
+  const newChildren = React.Children.map(children, (child) =>
     React.cloneElement(child, {
       onScroll,
       children: (
@@ -150,7 +150,7 @@ const Counter = ({ children }) => {
           scrollToLeftValue={number("scrollToLeftValue", defaultScrollerProps.virtualWidth / 2)}
           scrollToTopValue={number("scrollToTopValue", defaultScrollerProps.virtualHeight / 2)}
         />
-      )
+      ),
     })
   );
   return newChildren;
@@ -178,10 +178,10 @@ class RemoteControlled extends React.Component<{}, IState> {
   public render() {
     const { topCounter } = this.state;
     const { children } = this.props;
-    const newChildren = React.Children.map(children, child =>
+    const newChildren = React.Children.map(children, (child) =>
       // @ts-ignore Type 'string' is not assignable to type ReactElement
       React.cloneElement(child, {
-        onScroll: this.onScroll
+        onScroll: this.onScroll,
       })
     );
     return (
@@ -189,7 +189,7 @@ class RemoteControlled extends React.Component<{}, IState> {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-around"
+          justifyContent: "space-around",
         }}
       >
         <Fab color="secondary">

@@ -1,5 +1,4 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import { mount } from "enzyme";
@@ -10,18 +9,18 @@ import { getIndexesIdsMapping } from "../../../src/components/utils/table";
 
 const defaultProps = {
   id: "table-foo",
-  rows: simpleTable({})
+  rows: simpleTable({}),
 };
 
 const table2Levels = tableWithSubItems({ firstSubRows: subRows({}) });
 
 const table3Levels = tableWithSubItems({
-  firstSubRows: subRows({ subsubRows: subMiam })
+  firstSubRows: subRows({ subsubRows: subMiam }),
 });
 
 const tableWithSpan = tableWithSubItems({
   firstSubRows: subRows({}),
-  secondSubRows: subRows({})
+  secondSubRows: subRows({}),
 });
 
 describe("Table component", () => {
@@ -78,8 +77,8 @@ describe("Table component", () => {
           width: 400,
           initialScroll: {
             columnIndex: 3,
-            rowIndex: 4
-          }
+            rowIndex: 4,
+          },
         }}
         rows={tableWithSpan}
       />
@@ -91,7 +90,7 @@ describe("Table component", () => {
   test("should open sub rows", () => {
     const props = {
       id: "foo",
-      rows: subRows({ subsubRows: subMiam })
+      rows: subRows({ subsubRows: subMiam }),
     };
     const wrapper = mount(withThemeProvider(() => <Table {...props} />));
     const instance: Table = wrapper.find(Table).instance() as Table;
@@ -101,13 +100,13 @@ describe("Table component", () => {
       indexesMapping: {
         absolute: {
           "0": { index: 0, parentIndex: null },
-          "1": { index: 1, parentIndex: null }
+          "1": { index: 1, parentIndex: null },
         },
-        relative: { "0": { index: 0 }, "1": { index: 1 } }
+        relative: { "0": { index: 0 }, "1": { index: 1 } },
       },
       columnsIndexesIdsMapping: getIndexesIdsMapping(props.rows[0].cells),
       openedTrees: {},
-      fixedRowsIndexes: []
+      fixedRowsIndexes: [],
     };
 
     expect(instance.state).toEqual(expectedState);
@@ -118,17 +117,17 @@ describe("Table component", () => {
         absolute: {
           "0": { index: 0, parentIndex: null },
           "1": { index: 0, parentIndex: 0 },
-          "2": { index: 1, parentIndex: null }
+          "2": { index: 1, parentIndex: null },
         },
         relative: {
           "0": { index: 0, subItems: { "0": { index: 1 } } },
-          "1": { index: 2 }
-        }
+          "1": { index: 2 },
+        },
       },
       columnsIndexesIdsMapping: getIndexesIdsMapping(props.rows[0].cells),
       openedTrees: { 0: { columnIndex: 2, rowIndex: 0 } },
       rowsLength: 3,
-      fixedRowsIndexes: []
+      fixedRowsIndexes: [],
     };
     expect(instance.state).toEqual(expectedState);
     // @ts-ignore private method
@@ -139,20 +138,20 @@ describe("Table component", () => {
           "0": { index: 0, parentIndex: null },
           "1": { index: 0, parentIndex: 0 },
           "2": { index: 1, parentIndex: null },
-          "3": { index: 0, parentIndex: 2 }
+          "3": { index: 0, parentIndex: 2 },
         },
         relative: {
           "0": { index: 0, subItems: { "0": { index: 1 } } },
-          "1": { index: 2, subItems: { "0": { index: 3 } } }
-        }
+          "1": { index: 2, subItems: { "0": { index: 3 } } },
+        },
       },
       columnsIndexesIdsMapping: getIndexesIdsMapping(props.rows[0].cells),
       openedTrees: {
         0: { columnIndex: 2, rowIndex: 0 },
-        1: { columnIndex: 2, rowIndex: 1 }
+        1: { columnIndex: 2, rowIndex: 1 },
       },
       rowsLength: 4,
-      fixedRowsIndexes: []
+      fixedRowsIndexes: [],
     };
     expect(instance.state).toEqual(expectedState);
   });
@@ -160,7 +159,7 @@ describe("Table component", () => {
   test("should close sub row", () => {
     const props = {
       id: "foo",
-      rows: subRows({ subsubRows: subMiam })
+      rows: subRows({ subsubRows: subMiam }),
     };
     const wrapper = mount(withThemeProvider(() => <Table {...props} />));
     const instance: Table = wrapper.find(Table).instance() as Table;
@@ -174,13 +173,13 @@ describe("Table component", () => {
       indexesMapping: {
         absolute: {
           "0": { index: 0, parentIndex: null },
-          "1": { index: 1, parentIndex: null }
+          "1": { index: 1, parentIndex: null },
         },
-        relative: { "0": { index: 0 }, "1": { index: 1 } }
+        relative: { "0": { index: 0 }, "1": { index: 1 } },
       },
       columnsIndexesIdsMapping: getIndexesIdsMapping(props.rows[0].cells),
       openedTrees: {},
-      fixedRowsIndexes: []
+      fixedRowsIndexes: [],
     };
     expect(instance.state).toEqual(expectedState);
   });

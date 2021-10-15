@@ -3,7 +3,7 @@ import { IRow } from "../../src/components/table/row";
 export const simpleTable = ({
   customCell,
   customCellProps,
-  loading = false
+  loading = false,
 }: {
   customCell?: React.ComponentType<any>;
   customCellProps?: object;
@@ -15,17 +15,17 @@ export const simpleTable = ({
     cells: [
       {
         id: "wawoo",
-        value: "Wawooo!"
+        value: "Wawooo!",
       },
       {
         id: "wah",
-        value: "Wah!"
+        value: "Wah!",
       },
       {
         id: "cool",
-        value: "Cool!"
-      }
-    ]
+        value: "Cool!",
+      },
+    ],
   },
   {
     id: "front1",
@@ -34,17 +34,17 @@ export const simpleTable = ({
         id: "react",
         value: "React",
         cellContent: customCell,
-        cellContentProps: customCellProps
+        cellContentProps: customCellProps,
       },
       {
         id: "angular",
-        value: "Angular"
+        value: "Angular",
       },
       {
         id: "vuejs",
-        value: "VueJS"
-      }
-    ]
+        value: "VueJS",
+      },
+    ],
   },
   {
     id: "back",
@@ -52,69 +52,69 @@ export const simpleTable = ({
     cells: [
       {
         id: "python",
-        value: "Python"
+        value: "Python",
       },
       {
         id: "Go",
-        value: "Go"
+        value: "Go",
       },
       {
         id: "Java",
-        value: "java"
-      }
-    ]
+        value: "java",
+      },
+    ],
   },
   {
     id: "back1",
     cells: [
       {
         id: "python",
-        value: "Python1"
+        value: "Python1",
       },
       {
         id: "Go",
-        value: "Go"
+        value: "Go",
       },
       {
         id: "Java",
-        value: "java"
-      }
-    ]
+        value: "java",
+      },
+    ],
   },
   {
     id: "back2",
     cells: [
       {
         id: "python",
-        value: "Python2"
+        value: "Python2",
       },
       {
         id: "Go",
-        value: "Go"
+        value: "Go",
       },
       {
         id: "Java",
-        value: "java"
-      }
-    ]
+        value: "java",
+      },
+    ],
   },
   {
     id: "back3",
     cells: [
       {
         id: "python",
-        value: "Python3"
+        value: "Python3",
       },
       {
         id: "Go",
-        value: "Go"
+        value: "Go",
       },
       {
         id: "Java",
-        value: "java"
-      }
-    ]
-  }
+        value: "java",
+      },
+    ],
+  },
 ];
 
 export const subRows = ({ subsubRows = [] }: { subsubRows?: IRow[] }): IRow[] => [
@@ -123,37 +123,37 @@ export const subRows = ({ subsubRows = [] }: { subsubRows?: IRow[] }): IRow[] =>
     cells: [
       {
         id: "storybook",
-        value: "Storybook"
+        value: "Storybook",
       },
       {
         id: "jest",
-        value: "Jest"
+        value: "Jest",
       },
       {
         id: "Enzym",
         value: "enzyme",
-        subItems: subsubRows
-      }
-    ]
+        subItems: subsubRows,
+      },
+    ],
   },
   {
     id: "back",
     cells: [
       {
         id: "docker",
-        value: "Docker"
+        value: "Docker",
       },
       {
         id: "doccomp",
-        value: "Docker compose"
+        value: "Docker compose",
       },
       {
         id: "Sentry",
         value: "Sentry",
-        subItems: subsubRows
-      }
-    ]
-  }
+        subItems: subsubRows,
+      },
+    ],
+  },
 ];
 
 export const subMiam: IRow[] = [
@@ -162,23 +162,23 @@ export const subMiam: IRow[] = [
     cells: [
       {
         id: "sushi",
-        value: "Sushi"
+        value: "Sushi",
       },
       {
         id: "pizza",
-        value: "Pizza"
+        value: "Pizza",
       },
       {
         id: "mafe",
-        value: "Mafe"
-      }
-    ]
-  }
+        value: "Mafe",
+      },
+    ],
+  },
 ];
 
 export const tableWithSubItems = ({
   firstSubRows = [],
-  secondSubRows = []
+  secondSubRows = [],
 }: {
   firstSubRows?: IRow[];
   secondSubRows?: IRow[];
@@ -191,17 +191,17 @@ export const tableWithSubItems = ({
       cells: [
         {
           id: "wawoo",
-          value: "Wawooo!"
+          value: "Wawooo!",
         },
         {
           id: "wah",
-          value: "Wah!"
+          value: "Wah!",
         },
         {
           id: "cool",
-          value: "Cool!"
-        }
-      ]
+          value: "Cool!",
+        },
+      ],
     },
     {
       title: "foo",
@@ -210,36 +210,36 @@ export const tableWithSubItems = ({
         {
           id: "react",
           value: "React",
-          subItems: firstSubRows
+          subItems: firstSubRows,
         },
         {
           id: "angular",
-          value: "Angular"
+          value: "Angular",
         },
         {
           id: "vuejs",
-          value: "VueJS"
-        }
-      ]
+          value: "VueJS",
+        },
+      ],
     },
     {
       id: "back",
       cells: [
         {
           id: "python",
-          value: "Python"
+          value: "Python",
         },
         {
           id: "Go",
           value: "Go",
-          subItems: secondSubRows
+          subItems: secondSubRows,
         },
         {
           id: "Java",
-          value: "java"
-        }
-      ]
-    }
+          value: "java",
+        },
+      ],
+    },
   ];
   return table;
 };
@@ -251,17 +251,17 @@ export const tableWithDifferentRowSizes: IRow[] = [
     cells: [
       {
         id: "wawoo",
-        value: "Wawooo!"
+        value: "Wawooo!",
       },
       {
         id: "wah",
-        value: "Wah!"
+        value: "Wah!",
       },
       {
         id: "cool",
-        value: "Cool!"
-      }
-    ]
+        value: "Cool!",
+      },
+    ],
   },
   {
     id: "front1",
@@ -269,17 +269,17 @@ export const tableWithDifferentRowSizes: IRow[] = [
     cells: [
       {
         id: "foo",
-        value: "foo"
+        value: "foo",
       },
       {
         id: "bar",
-        value: "bar"
+        value: "bar",
       },
       {
         id: "fuzz",
-        value: "fuzz"
-      }
-    ]
+        value: "fuzz",
+      },
+    ],
   },
   {
     id: "small",
@@ -287,17 +287,17 @@ export const tableWithDifferentRowSizes: IRow[] = [
     cells: [
       {
         id: "small",
-        value: "Wawooo!"
+        value: "Wawooo!",
       },
       {
         id: "wah",
-        value: "Wah!"
+        value: "Wah!",
       },
       {
         id: "cool",
-        value: "Cool!"
-      }
-    ]
+        value: "Cool!",
+      },
+    ],
   },
   {
     id: "medium",
@@ -305,17 +305,17 @@ export const tableWithDifferentRowSizes: IRow[] = [
     cells: [
       {
         id: "medium",
-        value: "React"
+        value: "React",
       },
       {
         id: "angular",
-        value: "Angular"
+        value: "Angular",
       },
       {
         id: "vuejs",
-        value: "VueJS"
-      }
-    ]
+        value: "VueJS",
+      },
+    ],
   },
   {
     id: "large",
@@ -323,18 +323,18 @@ export const tableWithDifferentRowSizes: IRow[] = [
     cells: [
       {
         id: "large",
-        value: "Python"
+        value: "Python",
       },
       {
         id: "Go",
-        value: "Go"
+        value: "Go",
       },
       {
         id: "Java",
-        value: "java"
-      }
-    ]
-  }
+        value: "java",
+      },
+    ],
+  },
 ];
 
 export const tableWithDifferentColspan: IRow[] = [
@@ -344,17 +344,17 @@ export const tableWithDifferentColspan: IRow[] = [
     cells: [
       {
         id: "wawoo",
-        value: "Wawooo!"
+        value: "Wawooo!",
       },
       {
         id: "wah",
-        value: "Wah!"
+        value: "Wah!",
       },
       {
         id: "cool",
-        value: "Cool!"
-      }
-    ]
+        value: "Cool!",
+      },
+    ],
   },
   {
     id: "front1",
@@ -363,44 +363,44 @@ export const tableWithDifferentColspan: IRow[] = [
       {
         id: "foo",
         value: "foo",
-        colspan: 2
+        colspan: 2,
       },
       {
         id: "fuzz",
-        value: "fuzz"
-      }
-    ]
+        value: "fuzz",
+      },
+    ],
   },
   {
     id: "foo",
     cells: [
       {
         id: "wah",
-        value: "Wah!"
+        value: "Wah!",
       },
       {
         id: "cool",
         value: "Cool!",
-        colspan: 2
-      }
-    ]
+        colspan: 2,
+      },
+    ],
   },
   {
     id: "foo",
     cells: [
       {
         id: "medium",
-        value: "React"
+        value: "React",
       },
       {
         id: "angular",
-        value: "Angular"
+        value: "Angular",
       },
       {
         id: "vuejs",
-        value: "VueJS"
-      }
-    ]
+        value: "VueJS",
+      },
+    ],
   },
   {
     id: "foo",
@@ -408,10 +408,10 @@ export const tableWithDifferentColspan: IRow[] = [
       {
         id: "large",
         value: "Python",
-        colspan: 3
-      }
-    ]
-  }
+        colspan: 3,
+      },
+    ],
+  },
 ];
 
 export const defaultColspanMatrix = (cellsCount: number) => [
@@ -427,22 +427,22 @@ export const defaultColspanMatrix = (cellsCount: number) => [
               {
                 column: 0,
                 value: "****** My chart ******",
-                colspan: cellsCount
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                colspan: cellsCount,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     cells: [
       {
         column: 1,
-        colspan: 2
-      }
-    ]
-  }
+        colspan: 2,
+      },
+    ],
+  },
 ];
 
 export function generateTableWithCustomColspan(
@@ -465,13 +465,13 @@ export function generateTableWithCustomColspan(
     return {
       id: `${rowIndex}`,
       isHeader: false,
-      cells
+      cells,
     };
   });
 
   return {
     id: `test`,
-    rows
+    rows,
   };
 }
 
@@ -497,12 +497,12 @@ function generateRowWithCustomColumns(
             ? Array.from(Array(cellsCount), (_, rowIndex) =>
                 generateRow(rowIndex, cellsCount, level <= 2, level + 1, currentCell.colspanMatrix)
               )
-            : []
+            : [],
       };
     }
     return {
       id: `(${rowIndex},${cellIndex})-${level}`,
-      value: `(${rowIndex},${cellIndex})`
+      value: `(${rowIndex},${cellIndex})`,
     };
   });
 }
@@ -520,13 +520,13 @@ export function generateRow(index: number, cellsCount: number, subRow = false, l
       subItems:
         subRow && cellIndex === 0 && index === 2
           ? Array.from(Array(20), (_, rowIndex) => generateRow(rowIndex, cellsCount, level <= 2, level + 1))
-          : []
+          : [],
     };
   });
   return {
     id: `${index}`,
     isHeader: index === 0,
-    cells
+    cells,
   };
 }
 
@@ -535,6 +535,6 @@ export function generateTable(rowsCount: number, cellsCount: number, props = {},
   return {
     id: "table-foo",
     ...props,
-    rows
+    rows,
   };
 }

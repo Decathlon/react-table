@@ -1,7 +1,7 @@
 import * as React from "react";
-import { IconButton, Icon } from "@material-ui/core";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import { IconButton, Icon } from "@mui/material";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 import { TableInteractionsContext } from "./table-interactions-manager";
 
@@ -25,9 +25,12 @@ export interface IDumbIColumnIdScrollControllerPropsProps extends IColumnIdScrol
 export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnIdScrollControllerPropsProps> = ({
   columns,
   columnsCursorId,
-  goToColumnId
+  goToColumnId,
 }) => {
-  const selectedColumnIndex = React.useMemo(() => columns.findIndex(column => column.id === columnsCursorId), [columnsCursorId]);
+  const selectedColumnIndex = React.useMemo(
+    () => columns.findIndex((column) => column.id === columnsCursorId),
+    [columnsCursorId]
+  );
 
   const gotToColumn = (columnIndex: number) => {
     const column = columns[columnIndex];
@@ -42,7 +45,12 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
 
   return (
     <div className="scroll-controlller">
-      <IconButton id="table-toolbar_prev-columns" className="scroll-controlller__button" onClick={() => gotToColumn(0)}>
+      <IconButton
+        id="table-toolbar_prev-columns"
+        className="scroll-controlller__button"
+        onClick={() => gotToColumn(0)}
+        size="large"
+      >
         <Icon>first_page</Icon>
       </IconButton>
 
@@ -50,6 +58,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
         id="table-toolbar_prev-column"
         className="scroll-controlller__button"
         onClick={() => gotToColumn(selectedColumnIndex - 1)}
+        size="large"
       >
         <Icon>chevron_left</Icon>
       </IconButton>
@@ -62,6 +71,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
         value={selectedColumnIndex}
         // @ts-ignore value is a number
         onChange={onChange}
+        variant="standard"
       >
         {columns.map((column, index) => (
           <MenuItem key={`column_${column.id}`} id={`column-scroll-item_${column.id}`} value={index}>
@@ -74,6 +84,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
         id="table-toolbar_next-column"
         className="scroll-controlller__button"
         onClick={() => gotToColumn(selectedColumnIndex + 1)}
+        size="large"
       >
         <Icon>chevron_right</Icon>
       </IconButton>
@@ -82,6 +93,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
         id="table-toolbar_next-columns"
         className="scroll-controlller__button"
         onClick={() => gotToColumn(columns.length - 1)}
+        size="large"
       >
         <Icon>last_page</Icon>
       </IconButton>
@@ -89,7 +101,7 @@ export const DumbColumnIdScrollController: React.FunctionComponent<IDumbIColumnI
   );
 };
 
-const ColumnIdScrollController: React.FunctionComponent<IColumnIdScrollControllerProps> = props => {
+const ColumnIdScrollController: React.FunctionComponent<IColumnIdScrollControllerProps> = (props) => {
   return (
     <TableInteractionsContext.Consumer>
       {({ columnsCursor, goToColumnId }) => {

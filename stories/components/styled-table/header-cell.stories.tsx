@@ -1,5 +1,4 @@
 /* eslint-disable  import/no-extraneous-dependencies */
-import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { object, number, text, boolean } from "@storybook/addon-knobs";
 
@@ -21,7 +20,7 @@ storiesOf("Styled Table/Header cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -38,7 +37,7 @@ storiesOf("Styled Table/Header cell", module)
       </div>
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   )
   .add(
@@ -54,11 +53,11 @@ storiesOf("Styled Table/Header cell", module)
           height: number("height", 500),
           width: number("width", 1000),
           rowsCount: 5,
-          columnsCount: 6
+          columnsCount: 6,
         }}
       />
     ),
     {
-      info: { inline: true }
+      info: { inline: true },
     }
   );

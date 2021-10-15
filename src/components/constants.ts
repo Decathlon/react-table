@@ -15,17 +15,17 @@ export const ROW_SPAN_WIDTH = 110;
 
 export enum MouseClickButtons {
   right = "right",
-  left = "left"
+  left = "left",
 }
 
 export const RowHeight = {
   small: 60,
   medium: 80,
-  large: 100
+  large: 100,
 };
 
 export const ColumnWidth = {
   small: 90,
   medium: 160,
-  large: 230
+  large: 230,
 };

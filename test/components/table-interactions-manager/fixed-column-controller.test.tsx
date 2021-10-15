@@ -1,6 +1,5 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import { DumbFixedColumnController } from "../../../src/components/table-interactions-manager/fixed-column-controller";
@@ -11,7 +10,7 @@ describe("FixedColumnController component", () => {
       columnId: "bar",
       fixedColumnsIndexes: [1],
       fixedColumnsIds: ["foo"],
-      updateFixedColumnsIds: jest.fn()
+      updateFixedColumnsIds: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(

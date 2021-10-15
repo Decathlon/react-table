@@ -6,7 +6,7 @@ import { Nullable } from "../typing";
 export enum CellSize {
   small = "small",
   medium = "medium",
-  large = "large"
+  large = "large",
 }
 
 export interface CellValue {
@@ -43,7 +43,7 @@ export const initialState: ITableInteractionManagerState = {
   hiddenColumnsIds: [],
   fixedColumnsIds: [],
   fixedRowsIndexes: [],
-  hiddenRowIndexes: []
+  hiddenRowIndexes: [],
 };
 
 const tableManagerReducer = (state: ITableInteractionManagerState = initialState, action: TableInteractionsAction) => {
@@ -51,37 +51,37 @@ const tableManagerReducer = (state: ITableInteractionManagerState = initialState
     case actionTypes.UPDATE_CELL_WIDTH:
       return {
         ...state,
-        cellWidth: action.value
+        cellWidth: action.value,
       };
     case actionTypes.UPDATE_ROW_HEIGHT:
       return {
         ...state,
-        rowHeight: action.value
+        rowHeight: action.value,
       };
     case actionTypes.UPDATE_HIDDEN_COLUMNS_INDEXES:
       return {
         ...state,
-        hiddenColumnsIds: action.hiddenColumnsIds
+        hiddenColumnsIds: action.hiddenColumnsIds,
       };
     case actionTypes.UPDATE_HIDDEN_ROW_INDEXES:
       return {
         ...state,
-        hiddenRowIndexes: action.hiddenRowIndexes
+        hiddenRowIndexes: action.hiddenRowIndexes,
       };
     case actionTypes.UPDATE_FIXED_COLUMNS_INDEXES:
       return {
         ...state,
-        fixedColumnsIds: action.fixedColumnsIds
+        fixedColumnsIds: action.fixedColumnsIds,
       };
     case actionTypes.UPDATE_FIXED_ROWS_INDEXES:
       return {
         ...state,
-        fixedRowsIndexes: action.fixedRowsIndexes
+        fixedRowsIndexes: action.fixedRowsIndexes,
       };
     case actionTypes.UPDATE_COLUMNS_CURSOR:
       return {
         ...state,
-        columnsCursor: action.columnsCursor
+        columnsCursor: action.columnsCursor,
       };
     default:
       return state;

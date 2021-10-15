@@ -1,5 +1,4 @@
 /// <reference path="../typings/tests-entry.d.ts" />
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import { mount } from "enzyme";
 
@@ -10,7 +9,7 @@ const scrollerProps = {
   height: 300,
   virtualWidth: 4000,
   virtualHeight: 4000,
-  onScroll: jest.fn()
+  onScroll: jest.fn(),
 };
 
 describe("Scroller component", () => {
@@ -52,7 +51,7 @@ describe("Scroller component", () => {
       maxRightReached: false,
       maxTopReached: false,
       scrollLeft: 0,
-      scrollTop: 1500
+      scrollTop: 1500,
     });
   });
 
@@ -77,7 +76,7 @@ describe("Scroller component", () => {
       maxRightReached: false,
       maxTopReached: false,
       scrollLeft: 0,
-      scrollTop: 1500
+      scrollTop: 1500,
     });
   });
 
@@ -102,7 +101,7 @@ describe("Scroller component", () => {
       maxRightReached: false,
       maxTopReached: false,
       scrollLeft: 0,
-      scrollTop: maxScrollTop
+      scrollTop: maxScrollTop,
     });
   });
 
@@ -123,7 +122,7 @@ describe("Scroller component", () => {
       maxRightReached: false,
       maxTopReached: true,
       scrollLeft: 1500,
-      scrollTop: 0
+      scrollTop: 0,
     });
   });
 
@@ -148,7 +147,7 @@ describe("Scroller component", () => {
       maxRightReached: false,
       maxTopReached: true,
       scrollLeft: 1500,
-      scrollTop: 0
+      scrollTop: 0,
     });
   });
 
@@ -173,7 +172,7 @@ describe("Scroller component", () => {
       maxRightReached: true,
       maxTopReached: true,
       scrollLeft: maxScrollLeft,
-      scrollTop: 0
+      scrollTop: 0,
     });
   });
 });

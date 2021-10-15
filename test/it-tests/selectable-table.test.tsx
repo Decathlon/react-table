@@ -14,23 +14,23 @@ const actions: IMenuAction[] = [
   {
     id: "foo",
     title: "Foo item",
-    component: () => <div>Foo</div>
+    component: () => <div>Foo</div>,
   },
   {
     id: "bar",
     title: "Bar item",
-    component: () => <div>Foo</div>
-  }
+    component: () => <div>Foo</div>,
+  },
 ];
 
-const MyTableSelectionMenu: React.FunctionComponent<IMenuProps> = props => {
+const MyTableSelectionMenu: React.FunctionComponent<IMenuProps> = (props) => {
   return <TableSelectionMenu {...props} actions={actions} />;
 };
 
 describe("Selection behaviour", () => {
   test("should start selecting cells on mousedown", () => {
     const { container } = customRender(<Table {...generateTable(10, 10)} />);
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     fireMouseEvent(firstCell, "mousedown");
     expect(firstCell.className.includes(selectionClassName)).toBeTruthy();
@@ -40,7 +40,7 @@ describe("Selection behaviour", () => {
 
   test("should select cells between the mousedown and the last mouseover", () => {
     const { container } = customRender(<Table {...generateTable(10, 10)} />);
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     const secondCell = getCellsOfRow(rows[0])[5];
     const lastCell = getCellsOfRow(rows[1])[6];
@@ -54,7 +54,7 @@ describe("Selection behaviour", () => {
 
   test("should stop selecting cells after mouseup", () => {
     const { container } = customRender(<Table {...generateTable(10, 10)} />);
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     const secondCell = getCellsOfRow(rows[1])[6];
     const lastCell = getCellsOfRow(rows[2])[6];
@@ -73,11 +73,11 @@ describe("Selection behaviour", () => {
         {...generateTable(10, 10)}
         selectionProps={{
           isDisabledVerticalSelection: true,
-          isDisabledHorizontalSelection: false
+          isDisabledHorizontalSelection: false,
         }}
       />
     );
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     const lastCell = getCellsOfRow(rows[1])[6];
     fireMouseEvent(firstCell, "mousedown");
@@ -94,11 +94,11 @@ describe("Selection behaviour", () => {
         {...generateTable(10, 10)}
         selectionProps={{
           isDisabledVerticalSelection: false,
-          isDisabledHorizontalSelection: true
+          isDisabledHorizontalSelection: true,
         }}
       />
     );
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     const lastCell = getCellsOfRow(rows[1])[6];
     fireMouseEvent(firstCell, "mousedown");
@@ -110,15 +110,15 @@ describe("Selection behaviour", () => {
   });
 
   test("should display menu", () => {
-    const { container, getByText } = customRender(
+    const { getByText } = customRender(
       <Table
         {...generateTable(10, 10)}
         selectionProps={{
-          menuComponent: MyTableSelectionMenu
+          menuComponent: MyTableSelectionMenu,
         }}
       />
     );
-    const rows = getRows(container);
+    const rows = getRows();
     const firstCell = getCellsOfRow(rows[0])[4];
     const lastCell = getCellsOfRow(rows[1])[6];
     fireMouseEvent(firstCell, "mousedown");

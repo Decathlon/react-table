@@ -1,19 +1,19 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 import * as React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { MenuItem, ListItemIcon, Icon, TextField } from "@material-ui/core";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { MenuItem, ListItemIcon, Icon, TextField } from "@mui/material";
 import { number, object } from "@storybook/addon-knobs";
 
 import TableSelectionMenu, {
   IMenuAction,
   IMenuProps,
   IMenuItemProps,
-  IActionMenuComponent
+  IActionMenuComponent,
 } from "../../src/components/table-selection/table-selection-menu";
 import Table from "../../src/components/table/table";
 import { generateTable } from "../utils/tables";
@@ -73,17 +73,17 @@ const getActions = (): IMenuAction[] => [
     id: "action1",
     title: "Action 1",
     component: AlertDialog,
-    menuItem: ActionMenuItem
+    menuItem: ActionMenuItem,
   },
   {
     id: "action2",
     title: "Action 2",
     component: AlertDialog,
-    menuItem: ActionMenuItem2
-  }
+    menuItem: ActionMenuItem2,
+  },
 ];
 
-export const SelectionMenu: React.FunctionComponent<IMenuProps> = props => {
+export const SelectionMenu: React.FunctionComponent<IMenuProps> = (props) => {
   const actions = getActions();
   return <TableSelectionMenu {...props} actions={actions} />;
 };
@@ -112,7 +112,7 @@ export const TableScrollController = () => {
           display: "flex",
           justifyContent: "space-around",
           marginBottom: 10,
-          width: 1000
+          width: 1000,
         }}
       >
         <Button color="primary" onClick={goToColumn}>{`Go to Column ${goToColumnIndex}`}</Button>
@@ -131,7 +131,7 @@ export const TableScrollController = () => {
           fixedRows: object("fixedRows", [0, 2, 8]),
           fixedColumns: [0, 4, 49],
           height: number("height", 500),
-          width: number("width", 1000)
+          width: number("width", 1000),
         }}
       />
     </div>
@@ -163,7 +163,7 @@ export const TableColumnsRowsController = () => {
           display: "flex",
           justifyContent: "space-around",
           marginBottom: 10,
-          width: 1000
+          width: 1000,
         }}
       >
         <Button color="primary" onClick={toggleColumn(1)} variant={hiddenColumns.includes(1) ? "text" : "contained"}>
@@ -193,7 +193,7 @@ export const TableColumnsRowsController = () => {
           fixedRows: object("fixedRows", [0, 1, 2, 8]),
           fixedColumns: [0, 1, 2, 3, 4, 49],
           height: number("height", 500),
-          width: number("width", 1000)
+          width: number("width", 1000),
         }}
       />
     </div>
@@ -201,7 +201,7 @@ export const TableColumnsRowsController = () => {
 };
 
 export const CustomCellContent = ({
-  defaultValue
+  defaultValue,
 }: ICustomCellContentProps): React.FunctionComponentElement<ICustomCellContentProps> => {
   const [editable, setEditable] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>(defaultValue);
@@ -218,7 +218,7 @@ export const CustomCellContent = ({
     <div role="cell" onClick={!editable ? toggleEditable : undefined} style={{ color: "green" }}>
       {editable ? (
         <div>
-          <TextField id="cell-id-foo" value={value} onChange={onChange} style={{ width: "auto" }} />
+          <TextField id="cell-id-foo" value={value} onChange={onChange} style={{ width: "auto" }} variant="standard" />
           <Button color="primary" variant="contained" onClick={toggleEditable}>
             ok
           </Button>

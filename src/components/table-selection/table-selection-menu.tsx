@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MenuItem, Menu } from "@material-ui/core";
+import { MenuItem, Menu } from "@mui/material";
 
 import { ISelectionContext } from "./context-menu-handler";
 import { ISelectedCells } from "./selection-handler";
@@ -41,7 +41,7 @@ const TableSelectionMenu: React.FunctionComponent<ITableSelectionMenuProps> = ({
   isMenuOpened,
   closeMenu,
   selectedCells,
-  selectionContext: { anchorEl }
+  selectionContext: { anchorEl },
 }) => {
   const [activeActionId, setActiveActionId] = React.useState<string>("");
 
@@ -54,7 +54,7 @@ const TableSelectionMenu: React.FunctionComponent<ITableSelectionMenuProps> = ({
     setActiveActionId("");
     closeMenu();
   };
-  const activeAction = actions.find(action => action.id === activeActionId);
+  const activeAction = actions.find((action) => action.id === activeActionId);
   const ActiveActionComponent = activeAction && activeAction.component;
 
   return (
@@ -68,10 +68,10 @@ const TableSelectionMenu: React.FunctionComponent<ITableSelectionMenuProps> = ({
         anchorReference="anchorEl"
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
-        {actions.map(action => {
+        {actions.map((action) => {
           const MenuItemComponent = action.menuItem || DefaultMenuItem;
           return (
-            <MenuItemComponent onClick={getMenuAction(action.id)} selectedCells={selectedCells}>
+            <MenuItemComponent key={action.id} onClick={getMenuAction(action.id)} selectedCells={selectedCells}>
               {action.title}
             </MenuItemComponent>
           );

@@ -2,7 +2,7 @@
 
 exports[`TableSelectionMenu component should render TableSelectionMenu closed menu 1`] = `
 <React.Fragment>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -20,7 +20,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu closed me
 
 exports[`TableSelectionMenu component should render TableSelectionMenu opened menu 1`] = `
 <React.Fragment>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -38,7 +38,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
 
 exports[`TableSelectionMenu component should render TableSelectionMenu opened menu with actions 1`] = `
 <React.Fragment>
-  <ForwardRef(WithStyles)
+  <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
       Object {
@@ -89,6 +89,6 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
     >
       Bar item
     </DefaultMenuItem>
-  </ForwardRef(WithStyles)>
+  </ForwardRef(Menu)>
 </React.Fragment>
 `;

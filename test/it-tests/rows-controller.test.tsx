@@ -1,11 +1,10 @@
 /// <reference path="../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { fireEvent } from "@testing-library/react";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 import TabeInteractionManager, {
-  TableInteractionsContext
+  TableInteractionsContext,
 } from "../../src/components/table-interactions-manager/table-interactions-manager";
 import { customRender } from "../tests-utils/react-testing-library-utils";
 import Table from "../../src/components/table/table";
@@ -16,7 +15,7 @@ import { tableWithSubItems, subRows, subMiam } from "../../stories/utils/tables"
 const defaultProps = getTable();
 
 const table3Levels = tableWithSubItems({
-  firstSubRows: subRows({ subsubRows: subMiam })
+  firstSubRows: subRows({ subsubRows: subMiam }),
 });
 
 describe("Rows controller", () => {
@@ -25,8 +24,8 @@ describe("Rows controller", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 1, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 1, columnIndex: 2 } },
+      },
     };
     const { container, getByText } = customRender(
       <TabeInteractionManager>
@@ -64,8 +63,8 @@ describe("Rows controller", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 1, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 1, columnIndex: 2 } },
+      },
     };
     const { container, getByText } = customRender(
       <TabeInteractionManager>

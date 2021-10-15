@@ -8,7 +8,7 @@ import { ICell, ICellCoordinates } from "../../../src/components/table/cell";
 
 const rows = tableWithSubItems({
   firstSubRows: subRows({ subsubRows: subRows({}) }),
-  secondSubRows: subRows({ subsubRows: subRows({}) })
+  secondSubRows: subRows({ subsubRows: subRows({}) }),
 });
 
 describe("computeRowStyle", () => {
@@ -30,14 +30,14 @@ describe("computeCellStyle", () => {
     expect(cellStyle).toEqual({
       color: "red",
       width: 20,
-      height: 30
+      height: 30,
     });
   });
 
   test("should compute the most basic cell style", () => {
     const cellStyle = Utils.computeCellStyle();
     expect(cellStyle).toEqual({
-      height: DEFAULT_ROW_HEIGHT
+      height: DEFAULT_ROW_HEIGHT,
     });
   });
 });
@@ -111,7 +111,7 @@ describe("getElevatedIndexes method", () => {
     const newList = Utils.getElevatedIndexes(itemIndexes, [0, 1, 2, 5, 6]);
     const expectedIntersection = {
       2: "start",
-      5: "end"
+      5: "end",
     };
     expect(newList).toEqual(expectedIntersection);
   });
@@ -120,7 +120,7 @@ describe("getElevatedIndexes method", () => {
     const newList = Utils.getElevatedIndexes(itemIndexes, [0, 1, 2, 5, 6], true);
     const expectedIntersection = {
       2: "start",
-      4: "end"
+      4: "end",
     };
     expect(newList).toEqual(expectedIntersection);
   });
@@ -142,13 +142,13 @@ describe("getAllIndexesMap method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const expected = {
@@ -163,7 +163,7 @@ describe("getAllIndexesMap method", () => {
         "7": { index: 0, parentIndex: 6 },
         "8": { index: 0, parentIndex: 7 },
         "9": { index: 1, parentIndex: 7 },
-        "10": { index: 1, parentIndex: 6 }
+        "10": { index: 1, parentIndex: 6 },
       },
       relative: {
         "0": { index: 0 },
@@ -174,11 +174,11 @@ describe("getAllIndexesMap method", () => {
               index: 2,
               subItems: {
                 "0": { index: 3 },
-                "1": { index: 4 }
-              }
+                "1": { index: 4 },
+              },
             },
-            "1": { index: 5 }
-          }
+            "1": { index: 5 },
+          },
         },
         "2": {
           index: 6,
@@ -187,13 +187,13 @@ describe("getAllIndexesMap method", () => {
               index: 7,
               subItems: {
                 "0": { index: 8 },
-                "1": { index: 9 }
-              }
+                "1": { index: 9 },
+              },
             },
-            "1": { index: 10 }
-          }
-        }
-      }
+            "1": { index: 10 },
+          },
+        },
+      },
     };
     expect(indexesMap).toEqual(expected);
   });
@@ -204,8 +204,8 @@ describe("getAllIndexesMap method", () => {
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const expected = {
@@ -218,7 +218,7 @@ describe("getAllIndexesMap method", () => {
         "5": { index: 0, parentIndex: 4 },
         "6": { index: 0, parentIndex: 5 },
         "7": { index: 1, parentIndex: 5 },
-        "8": { index: 1, parentIndex: 4 }
+        "8": { index: 1, parentIndex: 4 },
       },
       relative: {
         "0": { index: 0 },
@@ -226,8 +226,8 @@ describe("getAllIndexesMap method", () => {
           index: 1,
           subItems: {
             "0": { index: 2 },
-            "1": { index: 3 }
-          }
+            "1": { index: 3 },
+          },
         },
         "2": {
           index: 4,
@@ -236,13 +236,13 @@ describe("getAllIndexesMap method", () => {
               index: 5,
               subItems: {
                 "0": { index: 6 },
-                "1": { index: 7 }
-              }
+                "1": { index: 7 },
+              },
             },
-            "1": { index: 8 }
-          }
-        }
-      }
+            "1": { index: 8 },
+          },
+        },
+      },
     };
 
     expect(indexesMap).toEqual(expected);
@@ -251,7 +251,7 @@ describe("getAllIndexesMap method", () => {
   test("should return an object with the global indexes where all of the sub-items of the first level are opened", () => {
     const trees = {
       1: { rowIndex: 1, columnIndex: 0 },
-      2: { rowIndex: 2, columnIndex: 1 }
+      2: { rowIndex: 2, columnIndex: 1 },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const expected = {
@@ -262,7 +262,7 @@ describe("getAllIndexesMap method", () => {
         "3": { index: 1, parentIndex: 1 },
         "4": { index: 2, parentIndex: null },
         "5": { index: 0, parentIndex: 4 },
-        "6": { index: 1, parentIndex: 4 }
+        "6": { index: 1, parentIndex: 4 },
       },
       relative: {
         "0": { index: 0 },
@@ -270,17 +270,17 @@ describe("getAllIndexesMap method", () => {
           index: 1,
           subItems: {
             "0": { index: 2 },
-            "1": { index: 3 }
-          }
+            "1": { index: 3 },
+          },
         },
         "2": {
           index: 4,
           subItems: {
             "0": { index: 5 },
-            "1": { index: 6 }
-          }
-        }
-      }
+            "1": { index: 6 },
+          },
+        },
+      },
     };
 
     expect(indexesMap).toEqual(expected);
@@ -295,7 +295,7 @@ describe("getAllIndexesMap method", () => {
         "1": { index: 1, parentIndex: null },
         "2": { index: 0, parentIndex: 1 },
         "3": { index: 1, parentIndex: 1 },
-        "4": { index: 2, parentIndex: null }
+        "4": { index: 2, parentIndex: null },
       },
       relative: {
         "0": { index: 0 },
@@ -303,11 +303,11 @@ describe("getAllIndexesMap method", () => {
           index: 1,
           subItems: {
             "0": { index: 2 },
-            "1": { index: 3 }
-          }
+            "1": { index: 3 },
+          },
         },
-        "2": { index: 4 }
-      }
+        "2": { index: 4 },
+      },
     };
 
     expect(indexesMap).toEqual(expected);
@@ -322,7 +322,7 @@ describe("getAllIndexesMap method", () => {
         "1": { index: 1, parentIndex: null },
         "2": { index: 2, parentIndex: null },
         "3": { index: 0, parentIndex: 2 },
-        "4": { index: 1, parentIndex: 2 }
+        "4": { index: 1, parentIndex: 2 },
       },
       relative: {
         "0": { index: 0 },
@@ -331,10 +331,10 @@ describe("getAllIndexesMap method", () => {
           index: 2,
           subItems: {
             "0": { index: 3 },
-            "1": { index: 4 }
-          }
-        }
-      }
+            "1": { index: 4 },
+          },
+        },
+      },
     };
 
     expect(indexesMap).toEqual(expected);
@@ -347,13 +347,13 @@ describe("getAllIndexesMap method", () => {
       absolute: {
         "0": { index: 0, parentIndex: null },
         "1": { index: 1, parentIndex: null },
-        "2": { index: 2, parentIndex: null }
+        "2": { index: 2, parentIndex: null },
       },
       relative: {
         "0": { index: 0 },
         "1": { index: 1 },
-        "2": { index: 2 }
-      }
+        "2": { index: 2 },
+      },
     };
 
     expect(indexesMap).toEqual(expected);
@@ -366,13 +366,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [0, 1, 2, 3], indexesMap.absolute, null);
@@ -384,13 +384,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [1, 2, 3, 4], indexesMap.absolute, null);
@@ -402,13 +402,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [2, 3, 4, 5], indexesMap.absolute, null);
@@ -420,13 +420,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [3, 4, 5, 6], indexesMap.absolute, null);
@@ -438,13 +438,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, null);
@@ -456,13 +456,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, 6);
@@ -474,13 +474,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, 7);
@@ -494,13 +494,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [0, 1, 2, 3], indexesMap.absolute, null);
@@ -512,13 +512,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [1, 2, 3, 4], indexesMap.absolute, null);
@@ -530,13 +530,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [2, 3, 4, 5], indexesMap.absolute, null);
@@ -548,13 +548,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [3, 4, 5, 6], indexesMap.absolute, null);
@@ -566,13 +566,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, null);
@@ -584,13 +584,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, 6);
@@ -602,13 +602,13 @@ describe("filterRowsByIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const [rowsRelativeIndexes] = Utils.filterRowsByIndexes(rows, [7, 8, 9, 10], indexesMap.absolute, 7);
@@ -622,7 +622,7 @@ describe("getTreeLength method", () => {
     let tree = {
       rowIndex: 1,
       columnIndex: 0,
-      subTrees: [{ rowIndex: 0, columnIndex: 2 }]
+      subTrees: [{ rowIndex: 0, columnIndex: 2 }],
     };
     let treesLength = Utils.getTreeLength(tree, rows);
     expect(treesLength).toEqual(4);
@@ -640,13 +640,13 @@ describe("getTreesLength method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     let treesLength = Utils.getTreesLength(trees, rows);
     expect(treesLength).toEqual(8);
@@ -655,15 +655,15 @@ describe("getTreesLength method", () => {
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     treesLength = Utils.getTreesLength(trees, rows);
     expect(treesLength).toEqual(6);
     // With 1 level
     trees = {
       1: { rowIndex: 1, columnIndex: 0, subTrees: {} },
-      2: { rowIndex: 2, columnIndex: 1, subTrees: {} }
+      2: { rowIndex: 2, columnIndex: 1, subTrees: {} },
     };
     treesLength = Utils.getTreesLength(trees, rows);
     expect(treesLength).toEqual(4);
@@ -683,13 +683,13 @@ describe("getRootIndex method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     let rootIndex = Utils.getRootIndex(2, null, indexesMap.absolute);
@@ -711,36 +711,36 @@ describe("getIndexesMap method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     // first level
     let indexesMap = Utils.getIndexesMap(trees, 0, rows);
     const expected = {
       absolute: {
-        "0": { index: 0, parentIndex: null }
+        "0": { index: 0, parentIndex: null },
       },
       relative: {
-        "0": { index: 0 }
-      }
+        "0": { index: 0 },
+      },
     };
     expect(indexesMap).toEqual(expected);
     // Second level
     indexesMap = Utils.getIndexesMap(trees, 0, rows, 1);
     const expectedSecond = {
       absolute: {
-        "2": { index: 0, parentIndex: 1 }
+        "2": { index: 0, parentIndex: 1 },
       },
       relative: {
         "0": {
-          index: 2
-        }
-      }
+          index: 2,
+        },
+      },
     };
 
     expect(indexesMap).toEqual(expectedSecond);
@@ -753,13 +753,13 @@ describe("getRowTreeLength method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     // initial position (max top)
@@ -817,7 +817,7 @@ describe("getFixedElementFixedSizeSum method", () => {
     const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows, [0, 1, 4]);
     expect(fixedCellsHeight).toEqual({
       sum: 400,
-      count: 3
+      count: 3,
     });
   });
 
@@ -826,7 +826,7 @@ describe("getFixedElementFixedSizeSum method", () => {
     const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows, [0, 1, 4]);
     expect(fixedCellsHeight).toEqual({
       sum: 0,
-      count: 0
+      count: 0,
     });
   });
 
@@ -844,14 +844,14 @@ describe("getFixedElementFixedSizeSum method", () => {
       {
         0: { size: 25 },
         1: { size: 150 },
-        4: { size: 225 }
+        4: { size: 225 },
       },
       [0, 1, 4]
     );
 
     expect(fixedCellsHeight).toEqual({
       sum: 400,
-      count: 3
+      count: 3,
     });
   });
 });
@@ -900,13 +900,13 @@ describe("relativeToAbsoluteIndexes method", () => {
       1: {
         rowIndex: 1,
         columnIndex: 0,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
       },
       2: {
         rowIndex: 2,
         columnIndex: 1,
-        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } }
-      }
+        subTrees: { 0: { rowIndex: 0, columnIndex: 2 } },
+      },
     };
     const indexesMap = Utils.getAllIndexesMap(trees, rows);
     const relativeIndexes = Utils.relativeToAbsoluteIndexes([0, 1, 2], indexesMap.relative);
@@ -921,7 +921,7 @@ describe("getIndexesIdsMapping method", () => {
     const expectedMapping = {
       foo: 0,
       bar: 1,
-      tar: 2
+      tar: 2,
     };
     expect(mapping).toEqual(expectedMapping);
   });
@@ -954,7 +954,7 @@ describe("getCell method", () => {
     const cell = Utils.getCell(rows, path);
     const expectedCell = {
       id: "wawoo",
-      value: "Wawooo!"
+      value: "Wawooo!",
     };
     expect(cell).toEqual(expectedCell);
   });
@@ -962,12 +962,12 @@ describe("getCell method", () => {
   test("should return the second cell of the second level", () => {
     const path = [
       { rowIndex: 1, cellIndex: 0 },
-      { rowIndex: 0, cellIndex: 1 }
+      { rowIndex: 0, cellIndex: 1 },
     ];
     const cell = Utils.getCell(rows, path);
     const expectedCell = {
       id: "jest",
-      value: "Jest"
+      value: "Jest",
     };
     expect(cell).toEqual(expectedCell);
   });
@@ -998,7 +998,7 @@ describe("setCell method", () => {
   test("should return an updated rows (second level)", () => {
     const path = [
       { rowIndex: 1, cellIndex: 0 },
-      { rowIndex: 0, cellIndex: 1 }
+      { rowIndex: 0, cellIndex: 1 },
     ];
     const newCell = { id: "jest", value: "newValue" };
     const newRows = Utils.setCell(rows, path, newCell);
@@ -1011,16 +1011,16 @@ describe("getMappingCellsWithColspan method", () => {
   test("should return mapping with colspan when first item contain colspan 2", () => {
     const items: ICell[] = [
       { id: "1", colspan: 2 },
-      { id: "2", colspan: 1 }
+      { id: "2", colspan: 1 },
     ];
     const mapping = Utils.getMappingCellsWithColspan(items);
     const expectedMapping = {
       isIdentity: false,
       indexToColspan: {
         0: [0, 1],
-        1: [2]
+        1: [2],
       },
-      colspanToIndex: { 0: 0, 1: 0, 2: 1 }
+      colspanToIndex: { 0: 0, 1: 0, 2: 1 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1029,16 +1029,16 @@ describe("getMappingCellsWithColspan method", () => {
   test("should return mapping with colspan when all items contain colspan", () => {
     const items: ICell[] = [
       { id: "1", colspan: 4 },
-      { id: "2", colspan: 2 }
+      { id: "2", colspan: 2 },
     ];
     const mapping = Utils.getMappingCellsWithColspan(items);
     const expectedMapping = {
       isIdentity: false,
       indexToColspan: {
         0: [0, 1, 2, 3],
-        1: [4, 5]
+        1: [4, 5],
       },
-      colspanToIndex: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 1, 5: 1 }
+      colspanToIndex: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 1, 5: 1 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1047,16 +1047,16 @@ describe("getMappingCellsWithColspan method", () => {
   test("should return mapping with colspan  when first item contain colspan 1", () => {
     const items: ICell[] = [
       { id: "1", colspan: 1 },
-      { id: "2", colspan: 2 }
+      { id: "2", colspan: 2 },
     ];
     const mapping = Utils.getMappingCellsWithColspan(items);
     const expectedMapping = {
       isIdentity: false,
       indexToColspan: {
         0: [0],
-        1: [1, 2]
+        1: [1, 2],
       },
-      colspanToIndex: { 0: 0, 1: 1, 2: 1 }
+      colspanToIndex: { 0: 0, 1: 1, 2: 1 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1065,16 +1065,16 @@ describe("getMappingCellsWithColspan method", () => {
   test("should return mapping with colspan when all items contain colspan 1", () => {
     const items: ICell[] = [
       { id: "1", colspan: 1 },
-      { id: "2", colspan: 1 }
+      { id: "2", colspan: 1 },
     ];
     const mapping = Utils.getMappingCellsWithColspan(items);
     const expectedMapping = {
       isIdentity: true,
       indexToColspan: {
         0: [0],
-        1: [1]
+        1: [1],
       },
-      colspanToIndex: { 0: 0, 1: 1 }
+      colspanToIndex: { 0: 0, 1: 1 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1084,7 +1084,7 @@ describe("getMappingCellsWithColspan method", () => {
     const items: ICell[] = [
       { id: "1", colspan: 1 },
       { id: "2", colspan: 3 },
-      { id: "3", colspan: 1 }
+      { id: "3", colspan: 1 },
     ];
     const mapping = Utils.getMappingCellsWithColspan(items);
     const expectedMapping = {
@@ -1092,9 +1092,9 @@ describe("getMappingCellsWithColspan method", () => {
       indexToColspan: {
         0: [0],
         1: [1, 2, 3],
-        2: [4]
+        2: [4],
       },
-      colspanToIndex: { 0: 0, 1: 1, 2: 1, 3: 1, 4: 2 }
+      colspanToIndex: { 0: 0, 1: 1, 2: 1, 3: 1, 4: 2 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1106,7 +1106,7 @@ describe("getMappingCellsWithColspan method", () => {
     const expectedMapping = {
       isIdentity: true,
       indexToColspan: {},
-      colspanToIndex: {}
+      colspanToIndex: {},
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1118,9 +1118,9 @@ describe("getMappingCellsWithColspan method", () => {
     const expectedMapping = {
       isIdentity: false,
       indexToColspan: {
-        0: [0, 1, 2, 3, 4]
+        0: [0, 1, 2, 3, 4],
       },
-      colspanToIndex: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 }
+      colspanToIndex: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1133,9 +1133,9 @@ describe("getMappingCellsWithColspan method", () => {
       isIdentity: false,
       indexToColspan: {
         0: [0, 1],
-        1: [2]
+        1: [2],
       },
-      colspanToIndex: { 0: 0, 1: 0, 2: 1 }
+      colspanToIndex: { 0: 0, 1: 0, 2: 1 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1151,9 +1151,9 @@ describe("getMappingCellsWithColspan method", () => {
         1: [2],
         2: [3],
         3: [4],
-        4: [5, 6, 7]
+        4: [5, 6, 7],
       },
-      colspanToIndex: { 0: 0, 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 4, 7: 4 }
+      colspanToIndex: { 0: 0, 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 4, 7: 4 },
     };
 
     expect(mapping).toEqual(expectedMapping);
@@ -1223,8 +1223,8 @@ describe("getColumnsLength method", () => {
     const rows = [
       {
         id: "header",
-        cells: [{ id: "0", colspan: 1 }, { id: "1", colspan: 3 }, { id: "2" }]
-      }
+        cells: [{ id: "0", colspan: 1 }, { id: "1", colspan: 3 }, { id: "2" }],
+      },
     ];
     const columnsLength = Utils.getColumnsLength(rows);
     const expectedLength = 5;
@@ -1278,7 +1278,7 @@ describe("getDenseColumns method", () => {
     const denseColumns = Utils.getDenseColumns(tableWidth, containerWidth, columnsLength, columns);
     const expectedColumns: IColumns = {
       "0": { size: 3 },
-      "3": { size: 10, style: { paddingRight: 200 } }
+      "3": { size: 10, style: { paddingRight: 200 } },
     };
     expect(denseColumns).toEqual(expectedColumns);
   });

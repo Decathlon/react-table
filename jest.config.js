@@ -1,13 +1,14 @@
 module.exports = {
   verbose: false,
+  testEnvironment: "jsdom",
   roots: ["test"],
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.tsx?$": "ts-jest",
   },
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleDirectories: ["node_modules", "src"],
   globalSetup: "./test/global-test-setup.js",
-  setupFilesAfterEnv: ["./test/polyfill/array.find.polyfill.js", "./test/tests.entry.js"]
+  setupFilesAfterEnv: ["./test/polyfill/array.find.polyfill.js", "./test/tests.entry.js"],
 };

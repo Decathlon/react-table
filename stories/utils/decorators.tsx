@@ -1,25 +1,26 @@
-import * as React from "react";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from "@mui/material/styles";
 
 export const blueDkt = "#0082c3";
 
-const muiDktTheme = createMuiTheme({
-  typography: {
-    fontFamily: "Roboto Condensed"
-  },
-  palette: {
-    primary: {
-      light: blueDkt,
-      dark: blueDkt,
-      main: blueDkt
+const muiDktTheme = createTheme(
+  adaptV4Theme({
+    typography: {
+      fontFamily: "Roboto Condensed",
     },
-    secondary: {
-      light: blueDkt,
-      dark: blueDkt,
-      main: blueDkt
-    }
-  }
-});
+    palette: {
+      primary: {
+        light: blueDkt,
+        dark: blueDkt,
+        main: blueDkt,
+      },
+      secondary: {
+        light: blueDkt,
+        dark: blueDkt,
+        main: blueDkt,
+      },
+    },
+  })
+);
 
 /**
  * The MUI theme provider wrapper
@@ -29,5 +30,9 @@ const muiDktTheme = createMuiTheme({
  * @return {JSX.Element} The child wrapped by the MUI theme provider.
  */
 export function withThemeProvider(renderChild: () => JSX.Element): JSX.Element {
-  return <MuiThemeProvider theme={muiDktTheme}>{renderChild()}</MuiThemeProvider>;
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={muiDktTheme}>{renderChild()}</ThemeProvider>
+    </StyledEngineProvider>
+  );
 }

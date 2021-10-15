@@ -1,10 +1,10 @@
 import * as React from "react";
-import IconButton from "@material-ui/core/IconButton";
-import Skeleton from "@material-ui/lab/Skeleton";
+import IconButton from "@mui/material/IconButton";
+import Skeleton from "@mui/material/Skeleton";
 import classNames from "classnames";
 import { isEqual } from "lodash";
 
-import { Icon } from "@material-ui/core";
+import { Icon } from "@mui/material";
 import { DEFAULT_ROW_HEIGHT, DEFAULT_COLUMN_WIDTH, DEFAULT_COLSPAN, MouseClickButtons } from "../constants";
 import { IRow } from "./row";
 import { getMouseClickButton } from "../utils/table";
@@ -94,19 +94,19 @@ export default class Cell extends React.Component<ICellProps> {
     style: { height: DEFAULT_ROW_HEIGHT, width: DEFAULT_COLUMN_WIDTH },
     isSelectable: true,
     component: defaultCellComponent,
-    colspan: DEFAULT_COLSPAN
+    colspan: DEFAULT_COLSPAN,
   };
 
   private container = React.createRef<HTMLDivElement>();
 
-  public shouldComponentUpdate(nextProps: ICellProps, nextState: ICellProps) {
-    const nextRowProps = { ...nextProps };
-    const rowProps = { ...this.props };
-    const nextStyle = nextRowProps.style;
-    delete nextRowProps.style;
-    const { style } = rowProps;
-    delete rowProps.style;
-    return !shallowEqual(nextRowProps, rowProps) || !shallowEqual(nextState, this.state) || !isEqual(nextStyle, style);
+  public shouldComponentUpdate(nextProps: ICellProps) {
+    const nextCellProps = { ...nextProps };
+    const cellProps = { ...this.props };
+    const nextStyle = nextCellProps.style;
+    delete nextCellProps.style;
+    const { style } = cellProps;
+    delete cellProps.style;
+    return !shallowEqual(nextCellProps, cellProps) || !isEqual(nextStyle, style);
   }
 
   private open = () => {
@@ -121,7 +121,7 @@ export default class Cell extends React.Component<ICellProps> {
     // @ts-ignore we have default values for height and width
     const { height, width, ...others } = style;
     const cellHeight = height || DEFAULT_ROW_HEIGHT;
-    let cellWidth: number | string = Number(width);
+    let cellWidth = Number(width);
     // @ts-ignore we have a default value for colspan
     cellWidth = cellWidth ? cellWidth * colspan : width || DEFAULT_COLUMN_WIDTH;
     const wrapperStyle = { width: cellWidth, height: cellHeight };
@@ -130,12 +130,12 @@ export default class Cell extends React.Component<ICellProps> {
       padding: 0,
       ...others,
       height: cellHeight,
-      width: cellWidth
+      width: cellWidth,
     };
     return {
       wrapper: wrapperStyle,
       text: textStyle,
-      column: columnStyle
+      column: columnStyle,
     };
   };
 
@@ -168,7 +168,7 @@ export default class Cell extends React.Component<ICellProps> {
       const contextCell = { rowIndex, cellIndex: index };
       const selectionContext: ISelectionContext = {
         anchorEl: this.container.current,
-        contextCell
+        contextCell,
       };
       onContextMenu(selectionContext);
     }
@@ -194,7 +194,7 @@ export default class Cell extends React.Component<ICellProps> {
       style,
       colspan,
       isSelectable,
-      isSelected
+      isSelected,
     } = this.props;
     const canToggleSubItems = !hideSubItemsOpener && subItems && subItems.length > 0;
     const justifyContent = style && style.justifyContent;
@@ -207,7 +207,7 @@ export default class Cell extends React.Component<ICellProps> {
         colSpan={colspan}
         data-testid="table-column"
         className={classNames("table-column", dynamicClassName, {
-          selected: isSelected && isSelectable
+          selected: isSelected && isSelectable,
         })}
         onMouseDown={this.onMouseDown}
         onMouseEnter={this.onMouseEnter}
@@ -224,7 +224,12 @@ export default class Cell extends React.Component<ICellProps> {
         >
           <div className="table-cell-container" style={{ justifyContent }}>
             {canToggleSubItems ? (
-              <IconButton className="table-cell-sub-item-toggle" data-testid="table-cell-sub-item-toggle" onClick={this.open}>
+              <IconButton
+                className="table-cell-sub-item-toggle"
+                data-testid="table-cell-sub-item-toggle"
+                onClick={this.open}
+                size="large"
+              >
                 <Icon>{opened ? "keyboard_arrow_down" : "keyboard_arrow_right"}</Icon>
               </IconButton>
             ) : null}
@@ -245,7 +250,7 @@ export default class Cell extends React.Component<ICellProps> {
               <div style={styles.text} className="cell-value" title={value || ""}>
                 {loading ? (
                   <div className="cell-skeleton-container" style={styles.text}>
-                    <Skeleton variant="rect" width={30} height={15} />
+                    <Skeleton variant="rectangular" width={30} height={15} />
                   </div>
                 ) : (
                   value

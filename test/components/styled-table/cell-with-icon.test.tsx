@@ -1,6 +1,5 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 import { mount } from "enzyme";
 
@@ -40,14 +39,11 @@ describe("CellWithIcon component", () => {
     const props = {
       iconName: "edit",
       value: "Foo",
-      onClick: jest.fn()
+      onClick: jest.fn(),
     };
     const wrapper = mount(withThemeProvider(() => <CellWithIcon {...props} />));
     // onClick
-    wrapper
-      .find("[data-testid='toolbar-action-btn']")
-      .last()
-      .simulate("click");
+    wrapper.find("[data-testid='toolbar-action-btn']").last().simulate("click");
     expect(props.onClick).toBeCalledTimes(1);
   });
 });

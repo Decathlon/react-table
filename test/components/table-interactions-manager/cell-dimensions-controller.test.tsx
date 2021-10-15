@@ -1,6 +1,5 @@
 /// <reference path="../../typings/tests-entry.d.ts" />
 
-import * as React from "react";
 import { createRenderer } from "react-test-renderer/shallow";
 
 import { DumbCellDimensionController } from "../../../src/components/table-interactions-manager/cell-dimensions-controller";
@@ -12,11 +11,11 @@ describe("CellDimensionController component", () => {
       cellWidth: { value: 60, size: CellSize.small },
       rowHeight: { value: 60, size: CellSize.small },
       updateRowHeight: jest.fn(),
-      updateCellWidth: jest.fn()
+      updateCellWidth: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(
-      <DumbCellDimensionController {...props} buttonRenderer={toggleMenu => <span onClick={toggleMenu}>Foo</span>} />
+      <DumbCellDimensionController {...props} buttonRenderer={(toggleMenu) => <span onClick={toggleMenu}>Foo</span>} />
     );
     const rendered = shallowRenderer.getRenderOutput();
     expect(rendered).toMatchSnapshot();
@@ -28,11 +27,11 @@ describe("CellDimensionController component", () => {
       rowHeightOptions: { s: 100, m: 200 },
       cellWidthOptions: { xs: 100, xl: 200 },
       updateRowHeight: jest.fn(),
-      updateCellWidth: jest.fn()
+      updateCellWidth: jest.fn(),
     };
     const shallowRenderer = createRenderer();
     shallowRenderer.render(
-      <DumbCellDimensionController {...props} buttonRenderer={toggleMenu => <span onClick={toggleMenu}>Foo</span>} />
+      <DumbCellDimensionController {...props} buttonRenderer={(toggleMenu) => <span onClick={toggleMenu}>Foo</span>} />
     );
     const rendered = shallowRenderer.getRenderOutput();
     expect(rendered).toMatchSnapshot();

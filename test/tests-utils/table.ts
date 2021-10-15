@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { fireEvent, getAllByTestId } from "@testing-library/react";
+import { screen, fireEvent, getAllByTestId } from "@testing-library/react";
 
-export const getRows = (container: HTMLElement, isHeader = false, rowId?: string) => {
+export const getRows = (isHeader = false, rowId?: string) => {
   const textMatch = `table-${isHeader ? "header" : "row"}${rowId !== undefined ? `-${rowId}` : ""}`;
-  return getAllByTestId(container, textMatch, { exact: rowId !== undefined });
+  return screen.getAllByTestId(textMatch, { exact: rowId !== undefined });
 };
 
 export const getCellsOfRow = (row: HTMLElement) => getAllByTestId(row, "table-column");
@@ -13,6 +13,6 @@ export const fireMouseEvent = (element: Document | Element | Window, eventName: 
     element,
     new MouseEvent(eventName, {
       bubbles: true,
-      cancelable: true
+      cancelable: true,
     })
   );
