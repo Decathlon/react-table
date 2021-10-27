@@ -293,7 +293,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       this.cellHeight,
       fixedCellsHeight.customSizes
     );
-    const scrollIndex = Math.floor((scrollTop + fixedRowsTotalHeight) / this.cellHeight);
+    const scrollIndex = Math.ceil((scrollTop + fixedRowsTotalHeight) / this.cellHeight);
+
     const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
     return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
   };
@@ -306,7 +307,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       this.cellWidth,
       fixedCellsWidth.customSizes
     );
-    const scrollIndex = Math.floor((scrollLeft + fixedColumnsTotalWidth) / this.cellWidth);
+    const scrollIndex = Math.ceil((scrollLeft + fixedColumnsTotalWidth) / this.cellWidth);
     const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
     return addSequentialIndexesToFixedIndexList(
       this.visibleFixedColumns,
@@ -423,33 +424,35 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     fixedItems: number[],
     cellSize: number,
     sizes: FixedCustomSizesElements["customSizes"]
-  ): boolean => {
+  ): number | null => {
     if (this.scroller.current) {
       const nbOfHiddenIndexesBeforeStartIndex = hiddenItems.filter((hiddenIndex) => hiddenIndex <= itemIndex).length;
       const beforeFixedItemsCount = getNumberOfFixedItemsBeforeSelectedItemIndex(fixedItems, itemIndex);
       const selectedItemSize = sizes[itemIndex] ?? cellSize;
       /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
       const scrollableItemsTotalSize = (itemIndex - 1 - beforeFixedItemsCount - nbOfHiddenIndexesBeforeStartIndex) * cellSize;
-      const toTopOrLeft = selectedItemSize + scrollableItemsTotalSize + cellSize / 2;
-      return this.scroller.current.scrollToLeft(toTopOrLeft);
+      const toTopOrLeft = selectedItemSize + scrollableItemsTotalSize;
+      return toTopOrLeft;
     }
-    return false;
+    return null;
   };
 
   public scrollToColumnIndex = (columnIndex: number): boolean => {
-    if (this.scroller.current) {
-      const { hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
-      return this.scrollToItemIndex(columnIndex, hiddenColumns, fixedColumns, this.cellWidth, fixedCellsWidth?.customSizes ?? {});
-    }
-    return false;
+    const { hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
+    const toLeft = this.scrollToItemIndex(
+      columnIndex,
+      hiddenColumns,
+      fixedColumns,
+      this.cellWidth,
+      fixedCellsWidth?.customSizes ?? {}
+    );
+    return this.scroller.current && toLeft != null ? this.scroller.current.scrollToLeft(toLeft) : false;
   };
 
   public scrollToRowIndex = (rowIndex: number): boolean => {
-    if (this.scroller.current) {
-      const { hiddenRows, fixedRows, fixedCellsHeight } = this.props;
-      return this.scrollToItemIndex(rowIndex, hiddenRows, fixedRows, this.cellHeight, fixedCellsHeight?.customSizes ?? {});
-    }
-    return false;
+    const { hiddenRows, fixedRows, fixedCellsHeight } = this.props;
+    const toTop = this.scrollToItemIndex(rowIndex, hiddenRows, fixedRows, this.cellHeight, fixedCellsHeight?.customSizes ?? {});
+    return this.scroller.current && toTop != null ? this.scroller.current.scrollToTop(toTop) : false;
   };
 
   public render() {
