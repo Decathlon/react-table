@@ -633,9 +633,9 @@ export const getScrollbarSize = () => {
 };
 
 /**
- * Get the total size (either width or height) of fixed items that are placed before the scroll value
+ * Get the number of fixed items that are placed before the scroll value
  */
-export const getFixedItemsTotalSizeBeforeScrollValue = (
+export const getFixedItemsCountBeforeScrollValue = (
   fixedItems: number[],
   scrollValue: number,
   cellSize: number,
@@ -671,7 +671,7 @@ export const getFixedItemsTotalSizeBeforeScrollValue = (
 /**
  * Get the number of fixed items that are placed before the selectedItemIndex
  */
-export const getNumberOfFixedItemsBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number) => {
+export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
   let beforeFixedColumnsCount = 0;
 
   fixedItems.findIndex((fixedColumnIndex) => {

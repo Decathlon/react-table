@@ -10,8 +10,8 @@ import {
   IElevateds,
   scrollIndexToGridIndex,
   findFirstNotIncluded,
-  getFixedItemsTotalSizeBeforeScrollValue,
-  getNumberOfFixedItemsBeforeSelectedItemIndex,
+  getFixedItemsCountBeforeScrollValue,
+  getFixedItemsCountBeforeSelectedItemIndex,
   FixedCustomSizesElements,
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
@@ -287,7 +287,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
     const { rowsLength, hiddenRows, fixedRows, fixedCellsHeight } = this.props;
-    const fixedRowsCount = getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedRowsCount = getFixedItemsCountBeforeScrollValue(
       fixedRows,
       scrollTop,
       this.cellHeight,
@@ -300,7 +300,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
     const { columnsLength, hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
-    const fixedColumnsCount = getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedColumnsCount = getFixedItemsCountBeforeScrollValue(
       fixedColumns,
       scrollLeft,
       this.cellWidth,
@@ -426,7 +426,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   ): number | null => {
     if (this.scroller.current) {
       const nbOfHiddenIndexesBeforeStartIndex = hiddenItems.filter((hiddenIndex) => hiddenIndex <= itemIndex).length;
-      const beforeFixedItemsCount = getNumberOfFixedItemsBeforeSelectedItemIndex(fixedItems, itemIndex);
+      const beforeFixedItemsCount = getFixedItemsCountBeforeSelectedItemIndex(fixedItems, itemIndex);
       const selectedItemSize = sizes[itemIndex] ?? cellSize;
       /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
       const scrollableItemsTotalSize = (itemIndex - 1 - beforeFixedItemsCount - nbOfHiddenIndexesBeforeStartIndex) * cellSize;

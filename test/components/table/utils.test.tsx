@@ -1295,8 +1295,8 @@ describe("getDenseColumns method", () => {
   });
 });
 
-describe("getFixedItemsTotalSizeBeforeScrollValue method", () => {
-  test("should return the size of all fixed items with custom sizes before the scroll value", () => {
+describe("getFixedItemsCountBeforeScrollValue method", () => {
+  test("should return the number of all fixed items with custom sizes before the scroll value", () => {
     const fixedItems = [0, 1, 10];
     const scrollValue = 1000;
     const cellSize = 100;
@@ -1305,33 +1305,47 @@ describe("getFixedItemsTotalSizeBeforeScrollValue method", () => {
       1: 200,
       10: 50,
     };
-    const fixedItemsTotalSizeWithCustomSizes = Utils.getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getFixedItemsCountBeforeScrollValue(
       fixedItems,
       scrollValue,
       cellSize,
       sizes
     );
-    expect(fixedItemsTotalSizeWithCustomSizes).toEqual(350);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual(2);
   });
 
-  test("should return the size of all fixed items without custom sizes before the scroll value", () => {
+  test("should return the number of all fixed items without custom sizes before the scroll value", () => {
     const fixedItems = [0, 1, 10];
     const scrollValue = 900;
     const cellSize = 100;
-    const fixedItemsTotalSizeWithoutCustomSizes = Utils.getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedItemsTotalSizeWithoutCustomSizes = Utils.getFixedItemsCountBeforeScrollValue(
       fixedItems,
       scrollValue,
       cellSize,
       {}
     );
-    expect(fixedItemsTotalSizeWithoutCustomSizes).toEqual(200);
+    expect(fixedItemsTotalSizeWithoutCustomSizes).toEqual(2);
   });
 
-  test("should return the size without fixed items before the scroll value", () => {
+  test("should return 0 without fixed items before the scroll value", () => {
     const fixedItems = [10];
     const scrollValue = 900;
     const cellSize = 100;
-    const fixedItemsTotalSize = Utils.getFixedItemsTotalSizeBeforeScrollValue(fixedItems, scrollValue, cellSize, {});
+    const fixedItemsTotalSize = Utils.getFixedItemsCountBeforeScrollValue(fixedItems, scrollValue, cellSize, {});
+    expect(fixedItemsTotalSize).toEqual(0);
+  });
+});
+
+describe("getFixedItemsCountBeforeSelectedItemIndex method", () => {
+  test("should return the number of all fixed items before the selected scroll index", () => {
+    const fixedItems = [0, 1, 10];
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getFixedItemsCountBeforeSelectedItemIndex(fixedItems, 3);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual(2);
+  });
+
+  test("should return 0 without fixed items before the scroll value", () => {
+    const fixedItems = [10];
+    const fixedItemsTotalSize = Utils.getFixedItemsCountBeforeSelectedItemIndex(fixedItems, 3);
     expect(fixedItemsTotalSize).toEqual(0);
   });
 });
