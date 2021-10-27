@@ -352,19 +352,27 @@ export const getMouseClickButton = (clickCode: number): MouseClickButtons => {
   }
 };
 
+export interface FixedCustomSizesElements {
+  sum: number;
+  count: number;
+  // key === item index and value item width
+  customSizes: Record<number, number>;
+}
+
 /**
  * Calculate the  size of all fixed elements with a custom size and count those elements
  * @param elements
  * @param fixedElements
  */
-export const getFixedElementFixedSizeSum = (
+export const getFixedElementsWithCustomSize = (
   elements: IRow[] | { [index: number]: IColumn } = [],
   fixedElements?: number[],
   hiddenIndexes: number[] = []
-) => {
+): FixedCustomSizesElements => {
   let fixedElementFixedSizeSum = {
     sum: 0,
     count: 0,
+    customSizes: {},
   };
   if (fixedElements) {
     fixedElementFixedSizeSum = fixedElements.reduce(
@@ -375,12 +383,14 @@ export const getFixedElementFixedSizeSum = (
           ? {
               sum: currFixedElementFixedSizeSum.sum + size,
               count: currFixedElementFixedSizeSum.count + 1,
+              customSizes: { ...currFixedElementFixedSizeSum.customSizes, [index]: size },
             }
           : currFixedElementFixedSizeSum;
       },
       {
         sum: 0,
         count: 0,
+        customSizes: {},
       }
     );
   }
@@ -620,4 +630,56 @@ export const getScrollbarSize = () => {
   body.removeChild(scrollDiv);
 
   return scrollbarSize;
+};
+
+/**
+ * Get the total size (either width or height) of fixed items that are placed before the scroll value
+ */
+export const getFixedItemsTotalSizeBeforeScrollValue = (
+  fixedItems: number[],
+  scrollValue: number,
+  cellSize: number,
+  sizes: FixedCustomSizesElements["customSizes"]
+) => {
+  /** Number of fixed items that are placed before the currentFixedItemIndex */
+  let fixedItemsCount = 0;
+  /** Total size of fixed items that are placed before the currentFixedItemIndex */
+  let fixedItemsTotalSize = 0;
+  /** Total size of scrollable items that are placed before the currentFixedItemIndex */
+  let scrollableItemsTotalSize = 0;
+
+  // index of the fixedItems
+  let currentIndex = 0;
+  let isCurrentFixedItemIndexBeforeScrollTop = false;
+  // iterate on fixed items
+  while (!isCurrentFixedItemIndexBeforeScrollTop && currentIndex <= fixedItems.length - 1) {
+    const currentFixedItemIndex = fixedItems[currentIndex];
+    const scrollableItemsBeforeCurrentFixedItemIndex = currentFixedItemIndex - fixedItemsCount;
+    scrollableItemsTotalSize = scrollableItemsBeforeCurrentFixedItemIndex * cellSize;
+    const currentFixedItemSize = sizes[currentFixedItemIndex] ?? cellSize;
+    if (fixedItemsTotalSize + scrollableItemsTotalSize > scrollValue) {
+      isCurrentFixedItemIndexBeforeScrollTop = true;
+    } else {
+      fixedItemsCount += 1;
+      fixedItemsTotalSize += currentFixedItemSize;
+    }
+    currentIndex += 1;
+  }
+  return fixedItemsTotalSize;
+};
+
+/**
+ * Get the number of fixed items that are placed before the selectedItemIndex
+ */
+export const getNumberOfFixedItemsBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number) => {
+  let beforeFixedColumnsCount = 0;
+
+  fixedItems.findIndex((fixedColumnIndex) => {
+    if (fixedColumnIndex > selectedItemIndex) {
+      return true;
+    }
+    beforeFixedColumnsCount += 1;
+    return false;
+  });
+  return beforeFixedColumnsCount;
 };

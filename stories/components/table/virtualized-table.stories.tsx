@@ -41,8 +41,8 @@ storiesOf("Table/Virtualized", module)
           isSelectable={false}
           isVirtualized
           virtualizerProps={{
-            // fixedRows: object("fixedRows", [0, 1]),
-            // fixedColumns: object("fixedColumns", [0, 1]),
+            fixedRows: object("fixedRows", [0, 1]),
+            fixedColumns: object("fixedColumns", [0, 1]),
             height: number("height", 500),
             width: number("width", 1000),
           }}
@@ -303,8 +303,8 @@ storiesOf("Table/Virtualized", module)
     "With fixed footer rows custom height",
     () => {
       const table = generateTable(30, 10, {}, true);
-      // table.rows[table.rows.length - 1].size = 65;
-      // table.rows[table.rows.length - 2].size = 65;
+      table.rows[table.rows.length - 1].size = 105;
+      table.rows[table.rows.length - 2].size = 65;
       return (
         <div style={{ height: "100vh", width: "100%" }}>
           <div
@@ -316,9 +316,9 @@ storiesOf("Table/Virtualized", module)
               {...table}
               isSelectable={false}
               isVirtualized
-              // columns={{ 0: { size: 200 } }}
+              columns={{ 0: { size: 200 } }}
               virtualizerProps={{
-                // fixedColumns: [0],
+                fixedColumns: [0],
                 fixedRows: [0, table.rows.length - 1, table.rows.length - 2],
                 rowsCount: 10,
                 minColumnWidth: 130,

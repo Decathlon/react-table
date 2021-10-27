@@ -10,6 +10,9 @@ import {
   IElevateds,
   scrollIndexToGridIndex,
   findFirstNotIncluded,
+  getFixedItemsTotalSizeBeforeScrollValue,
+  getNumberOfFixedItemsBeforeSelectedItemIndex,
+  FixedCustomSizesElements,
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -63,15 +66,9 @@ export interface IVirtualizerOptionalProps {
   /** Minimal height of a row */
   minRowHeight?: number;
   /** Sum of the height of fixed rows with a pre-defined height */
-  fixedCellsHeight: {
-    sum: number;
-    count: number;
-  };
+  fixedCellsHeight: FixedCustomSizesElements;
   /** Sum of the width of fixed columns with a pre-defined width */
-  fixedCellsWidth: {
-    sum: number;
-    count: number;
-  };
+  fixedCellsWidth: FixedCustomSizesElements;
   /** A pre-defined vertical padding of the grid */
   verticalPadding: number;
   /** A pre-defined horizontal padding of the grid */
@@ -215,13 +212,9 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     const {
       height,
       width,
-      // user specifies number of rows he want to display
       rowsCount,
-      // user specifies number of columns he want to display
       columnsCount,
-      // number of ALL columns, visible or not, fixed or not
       columnsLength,
-      // number of ALL rows, visible or not, fixed or not
       rowsLength,
       minRowHeight,
       minColumnWidth,
@@ -242,8 +235,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     /** Width allocated to the verticalPadding and the fixed columns that have a custom width specified by the user */
     let extraCellsWidth = fixedCellsWidth.sum + verticalPadding;
 
-    // TODO compute dynamically the + 15 which is the scrollbar size
-
     /** Available height on the table container displayable height */
     let scrollableRowsHeight = height - extraCellsHeight;
     /** Available width on the table container displayable width */
@@ -261,24 +252,24 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
      */
     const scrollableRowsCount = rowsLength - hiddenRows.length;
 
-    /** the number of rows we have to display inside the scrollableRowsHeight */
+    /** the total number of rows we have to display inside the table height */
     this.rowsCount =
       rowsCount !== undefined ? rowsCount : Math.floor(scrollableRowsHeight / minCellHeight + fixedCellsHeight.count);
-    /** the number of columns we have to display inside the scrollableColumnsWidth */
+    /** the total number of columns we have to display inside the table width */
     this.columnsCount =
       columnsCount !== undefined ? columnsCount : Math.floor(scrollableColumnsWidth / minCellWidth + fixedCellsWidth.count);
 
     if (this.rowsCount < rowsLength) {
       scrollableRowsHeight = scrollableRowsHeight - SCROLLBAR_SIZE;
       extraCellsHeight = extraCellsHeight + SCROLLBAR_SIZE;
-      /** the number of rows we have to display inside the scrollableRowsHeight */
+      /** the total number of rows we have to display inside the table height */
       this.rowsCount =
         rowsCount !== undefined ? rowsCount : Math.floor(scrollableRowsHeight / minCellHeight + fixedCellsHeight.count);
     }
     if (this.columnsCount < columnsLength) {
       scrollableColumnsWidth = scrollableColumnsWidth - SCROLLBAR_SIZE;
       extraCellsWidth = extraCellsWidth + SCROLLBAR_SIZE;
-      /** the number of columns we have to display inside the scrollableColumnsWidth */
+      /** the total number of columns we have to display inside the table width */
       this.columnsCount =
         columnsCount !== undefined ? columnsCount : Math.floor(scrollableColumnsWidth / minCellWidth + fixedCellsWidth.count);
     }
@@ -295,25 +286,27 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
-    const { rowsLength, hiddenRows, fixedRows } = this.props;
-    // replace this.cellHeight by the custom fixed cell height
-    const firstNextFixedIndex = fixedRows.findIndex((fixedRowIndex) => fixedRowIndex * this.cellHeight > scrollTop);
-    const n = firstNextFixedIndex >= 0 ? firstNextFixedIndex : this.visibleFixedRows.length;
-    const fixedHeight = n * this.cellHeight;
-    const scrollIndex = Math.floor((scrollTop + fixedHeight) / this.cellHeight);
-
+    const { rowsLength, hiddenRows, fixedRows, fixedCellsHeight } = this.props;
+    const fixedRowsTotalHeight = getFixedItemsTotalSizeBeforeScrollValue(
+      fixedRows,
+      scrollTop,
+      this.cellHeight,
+      fixedCellsHeight.customSizes
+    );
+    const scrollIndex = Math.floor((scrollTop + fixedRowsTotalHeight) / this.cellHeight);
     const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
     return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
   };
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
-    const { columnsLength, hiddenColumns, fixedColumns } = this.props;
-    // replace this.cellWidth by the custom fixed cell width
-    const firstNextFixedIndex = fixedColumns.findIndex((fixedRowIndex) => fixedRowIndex * this.cellWidth > scrollLeft);
-    const n = firstNextFixedIndex >= 0 ? firstNextFixedIndex : this.visibleFixedColumns.length;
-    const fixedWidth = n * this.cellWidth;
-    const scrollIndex = Math.floor((scrollLeft + fixedWidth) / this.cellWidth);
-
+    const { columnsLength, hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
+    const fixedColumnsTotalWidth = getFixedItemsTotalSizeBeforeScrollValue(
+      fixedColumns,
+      scrollLeft,
+      this.cellWidth,
+      fixedCellsWidth.customSizes
+    );
+    const scrollIndex = Math.floor((scrollLeft + fixedColumnsTotalWidth) / this.cellWidth);
     const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
     return addSequentialIndexesToFixedIndexList(
       this.visibleFixedColumns,
@@ -351,7 +344,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   private getVisibleRowsState = (scrollTop = 0): IRowsState | null => {
     const { visibleRowIndexes } = this.state;
     const newVisibleRowIndexes = this.getVisibleRowIndexes(scrollTop);
-    console.log("newVisibleRowIndexes", newVisibleRowIndexes);
     let rowState = null;
     if (!isEqual(newVisibleRowIndexes, visibleRowIndexes)) {
       rowState = {
@@ -365,7 +357,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   private getVisibleColumnsState = (scrollLeft = 0): IColumnState | null => {
     const { visibleColumnIndexes } = this.state;
     const newVisibleColumnIndexes = this.getVisibleColumnIndexes(scrollLeft);
-    console.log("newVisibleColumnIndexes", newVisibleColumnIndexes);
     let columnState = null;
     if (!isEqual(newVisibleColumnIndexes, visibleColumnIndexes)) {
       columnState = {
@@ -426,23 +417,37 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     }
   };
 
-  // TODO fig scrollTo*
-  public scrollToColumnIndex = (columnIndex: number) => {
+  private scrollToItemIndex = (
+    itemIndex: number,
+    hiddenItems: number[],
+    fixedItems: number[],
+    cellSize: number,
+    sizes: FixedCustomSizesElements["customSizes"]
+  ): boolean => {
     if (this.scroller.current) {
-      const { hiddenColumns } = this.props;
-      const nbOfHiddenIndexesBeforeStartIndex = hiddenColumns.filter((hiddenIndex) => hiddenIndex <= columnIndex).length;
-      const toleft = this.cellWidth * (columnIndex - nbOfHiddenIndexesBeforeStartIndex) + this.cellWidth / 2;
-      return this.scroller.current.scrollToLeft(toleft);
+      const nbOfHiddenIndexesBeforeStartIndex = hiddenItems.filter((hiddenIndex) => hiddenIndex <= itemIndex).length;
+      const beforeFixedItemsCount = getNumberOfFixedItemsBeforeSelectedItemIndex(fixedItems, itemIndex);
+      const selectedItemSize = sizes[itemIndex] ?? cellSize;
+      /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
+      const scrollableItemsTotalSize = (itemIndex - 1 - beforeFixedItemsCount - nbOfHiddenIndexesBeforeStartIndex) * cellSize;
+      const toTopOrLeft = selectedItemSize + scrollableItemsTotalSize + cellSize / 2;
+      return this.scroller.current.scrollToLeft(toTopOrLeft);
     }
     return false;
   };
 
-  public scrollToRowIndex = (rowIndex: number) => {
+  public scrollToColumnIndex = (columnIndex: number): boolean => {
     if (this.scroller.current) {
-      const { hiddenRows } = this.props;
-      const nbOfHiddenIndexesBeforeStartIndex = hiddenRows.filter((hiddenIndex) => hiddenIndex <= rowIndex).length;
-      const toTop = this.cellHeight * (rowIndex - nbOfHiddenIndexesBeforeStartIndex) + this.cellHeight / 2;
-      return this.scroller.current.scrollToTop(toTop);
+      const { hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
+      return this.scrollToItemIndex(columnIndex, hiddenColumns, fixedColumns, this.cellWidth, fixedCellsWidth?.customSizes ?? {});
+    }
+    return false;
+  };
+
+  public scrollToRowIndex = (rowIndex: number): boolean => {
+    if (this.scroller.current) {
+      const { hiddenRows, fixedRows, fixedCellsHeight } = this.props;
+      return this.scrollToItemIndex(rowIndex, hiddenRows, fixedRows, this.cellHeight, fixedCellsHeight?.customSizes ?? {});
     }
     return false;
   };

@@ -523,6 +523,7 @@ describe("Virtualizer", () => {
       fixedCellsHeight: {
         sum: 200,
         count: 2,
+        customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };
@@ -553,6 +554,7 @@ describe("Virtualizer", () => {
       fixedCellsWidth: {
         sum: 200,
         count: 2,
+        customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };
@@ -584,6 +586,7 @@ describe("Virtualizer", () => {
       fixedCellsWidth: {
         sum: 200,
         count: 2,
+        customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };
@@ -606,6 +609,7 @@ describe("Virtualizer", () => {
       fixedCellsWidth: {
         sum: 200,
         count: 2,
+        customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };

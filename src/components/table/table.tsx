@@ -8,7 +8,7 @@ import {
   getTreesLength,
   getAllIndexesMap,
   IIndexesMap,
-  getFixedElementFixedSizeSum,
+  getFixedElementsWithCustomSize,
   relativeToAbsoluteIndexes,
   getIndexesIdsMapping,
   IIndexesIdsMapping,
@@ -18,6 +18,7 @@ import {
   IRelativeIndexesMap,
   IElevateds,
   getDenseColumns,
+  FixedCustomSizesElements,
 } from "../utils/table";
 import SelectionHandler, { ISelection, ISelectionHandlerOptionalProps } from "../table-selection/selection-handler";
 import { ROW_SPAN_WIDTH } from "../constants";
@@ -67,20 +68,16 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
 
   private globalColumnProps?: IColumnOptions;
 
-  private fixedCellsHeight: {
-    sum: number;
-    count: number;
-  } = {
+  private fixedCellsHeight: FixedCustomSizesElements = {
     sum: 0,
     count: 0,
+    customSizes: {},
   };
 
-  private fixedCellsWidth: {
-    sum: number;
-    count: number;
-  } = {
+  private fixedCellsWidth: FixedCustomSizesElements = {
     sum: 0,
     count: 0,
+    customSizes: {},
   };
 
   private virtualizer: React.RefObject<Virtualizer> = React.createRef<Virtualizer>();
@@ -106,8 +103,8 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
       fixedRowsIndexes: this.getFixedRowsIndexes(initialOpenedTrees, indexesMapping.relative),
     };
     if (isVirtualized) {
-      this.fixedCellsHeight = getFixedElementFixedSizeSum(rows, fixedRows, hiddenRows);
-      this.fixedCellsWidth = getFixedElementFixedSizeSum(columns, fixedColumns, hiddenColumns);
+      this.fixedCellsHeight = getFixedElementsWithCustomSize(rows, fixedRows, hiddenRows);
+      this.fixedCellsWidth = getFixedElementsWithCustomSize(columns, fixedColumns, hiddenColumns);
     }
   }
 
