@@ -63,7 +63,7 @@ storiesOf("Table/Virtualized", module)
         <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
           <Table
             {...props}
-            columns={{ 0: { style: { justifyContent: "left" } } }}
+            columns={{ 0: { size: 40 }, 2: { size: 90 }, 3: { size: 90 }, 4: { size: 90 } }}
             isSelectable={false}
             isVirtualized
             isSpan={boolean("isSpan", false)}

@@ -639,8 +639,8 @@ export const getFixedItemsTotalSizeBeforeScrollValue = (
   fixedItems: number[],
   scrollValue: number,
   cellSize: number,
-  sizes: FixedCustomSizesElements["customSizes"]
-) => {
+  sizes: FixedCustomSizesElements["customSizes"] = {}
+): number => {
   /** Number of fixed items that are placed before the currentFixedItemIndex */
   let fixedItemsCount = 0;
   /** Total size of fixed items that are placed before the currentFixedItemIndex */
@@ -665,7 +665,7 @@ export const getFixedItemsTotalSizeBeforeScrollValue = (
     }
     currentIndex += 1;
   }
-  return fixedItemsTotalSize;
+  return fixedItemsCount;
 };
 
 /**

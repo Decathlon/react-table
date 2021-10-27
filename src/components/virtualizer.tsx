@@ -287,27 +287,26 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
     const { rowsLength, hiddenRows, fixedRows, fixedCellsHeight } = this.props;
-    const fixedRowsTotalHeight = getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedRowsCount = getFixedItemsTotalSizeBeforeScrollValue(
       fixedRows,
       scrollTop,
       this.cellHeight,
       fixedCellsHeight.customSizes
     );
-    const scrollIndex = Math.ceil((scrollTop + fixedRowsTotalHeight) / this.cellHeight);
-
+    const scrollIndex = Math.ceil(scrollTop / this.cellHeight) + fixedRowsCount;
     const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
     return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
   };
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
     const { columnsLength, hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
-    const fixedColumnsTotalWidth = getFixedItemsTotalSizeBeforeScrollValue(
+    const fixedColumnsCount = getFixedItemsTotalSizeBeforeScrollValue(
       fixedColumns,
       scrollLeft,
       this.cellWidth,
       fixedCellsWidth.customSizes
     );
-    const scrollIndex = Math.ceil((scrollLeft + fixedColumnsTotalWidth) / this.cellWidth);
+    const scrollIndex = Math.ceil(scrollLeft / this.cellWidth) + fixedColumnsCount;
     const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
     return addSequentialIndexesToFixedIndexList(
       this.visibleFixedColumns,
