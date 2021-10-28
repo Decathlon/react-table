@@ -635,7 +635,7 @@ export const getScrollbarSize = () => {
 /**
  * Get the number of fixed items that are placed before the selectedItemIndex
  */
-export const getNumberOfFixedItemsBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
+export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
   let beforeFixedColumnsCount = 0;
 
   fixedItems.findIndex((fixedColumnIndex) => {
