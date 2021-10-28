@@ -3,14 +3,13 @@ import { createRenderer } from "react-test-renderer/shallow";
 import { mount } from "enzyme";
 
 import Virtualizer from "../../src/components/virtualizer";
-import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "../../src/components/constants";
 import { SCROLLBAR_SIZE, ScrollDirection, ScrollOrigin } from "../../src/components/scroller";
 
 describe("Virtualizer", () => {
   test("should render children", () => {
     const children = () => <div>Foo</div>;
     const props = {
-      width: 100,
+      width: 200,
       height: 100,
       columnsLength: 50,
       rowsLength: 50,
@@ -31,14 +30,12 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
-    const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 65;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
+      visibleColumnIndexes: [0, 1, 2],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
       elevatedColumnIndexes: {},
       elevatedRowIndexes: {},
       cellHeight,
@@ -78,16 +75,14 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
-    const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 65;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 30],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 15],
+      visibleColumnIndexes: [0, 1, 30],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 15],
       // we use the prev visible index please see getElevatedIndexes table utils
-      elevatedColumnIndexes: { 2: "end" },
+      elevatedColumnIndexes: { 1: "end" },
       elevatedRowIndexes: { 15: "end" },
       cellHeight,
       cellWidth,
@@ -108,16 +103,14 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
-    const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 65;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [1, 3, 4, 14],
-      visibleRowIndexes: [1, 3, 4, 5, 7, 8, 15],
+      visibleColumnIndexes: [1, 3, 14],
+      visibleRowIndexes: [1, 3, 4, 5, 7, 15],
       // we use the prev visible index getElevatedIndexes table utils
-      elevatedColumnIndexes: { 4: "end" },
+      elevatedColumnIndexes: { 3: "end" },
       elevatedRowIndexes: { 15: "end" },
       cellHeight,
       cellWidth,
@@ -136,14 +129,12 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
-    const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 65;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
+      visibleColumnIndexes: [0, 1, 2],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
       elevatedColumnIndexes: { 0: "start" },
       elevatedRowIndexes: { 0: "start" },
       cellHeight,
@@ -163,8 +154,8 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil(props.height / props.rowsCount);
-    const cellWidth = Math.ceil(props.width / props.columnsCount);
+    const cellHeight = 129;
+    const cellWidth = 129;
 
     const values = {
       visibleColumnIndexes: [0, 1, 2],
@@ -188,14 +179,12 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / props.minRowHeight);
-    const columnsCount = Math.floor(props.width / props.minColumnWidth);
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 129;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3], // 400/100 === 4 columns
-      visibleRowIndexes: [0, 1, 2, 3], // 400/100 === 4 rows
+      visibleColumnIndexes: [0, 1, 2], // 400/129 === 3 columns
+      visibleRowIndexes: [0, 1, 2], // 400/129 === 3 rows
       elevatedColumnIndexes: {},
       elevatedRowIndexes: {},
       cellHeight,
@@ -215,8 +204,8 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil(props.height / props.rowsCount);
-    const cellWidth = Math.ceil(props.width / props.columnsCount);
+    const cellHeight = 97;
+    const cellWidth = 97;
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -301,8 +290,8 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = Math.ceil(props.height / props.rowsCount);
-    const cellWidth = Math.ceil(props.width / props.columnsCount);
+    const cellHeight = 97;
+    const cellWidth = 97;
 
     const values = {
       visibleColumnIndexes: [0, 1, 2, 3],
@@ -528,13 +517,11 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor((props.height - props.fixedCellsHeight.sum) / DEFAULT_ROW_HEIGHT) + props.fixedCellsHeight.count;
-    const columnsCount = Math.floor(props.width / MIN_COLUMN_WIDTH);
-    const cellHeight = Math.ceil((props.height - props.fixedCellsHeight.sum) / (rowsCount - props.fixedCellsHeight.count));
-    const cellWidth = Math.ceil(props.width / columnsCount);
+    const cellHeight = 62;
+    const cellWidth = 129;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
+      visibleColumnIndexes: [0, 1, 2],
       visibleRowIndexes: [0, 1, 2, 3, 4],
       elevatedColumnIndexes: {},
       elevatedRowIndexes: { 0: "start" },
@@ -559,16 +546,13 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const rowsCount = Math.floor(props.height / DEFAULT_ROW_HEIGHT);
-    const columnsCount = Math.floor((props.width - props.fixedCellsWidth.sum) / MIN_COLUMN_WIDTH) + props.fixedCellsWidth.count;
-
-    const cellHeight = Math.ceil(props.height / rowsCount);
-    const cellWidth = Math.ceil((props.width - props.fixedCellsWidth.sum) / (columnsCount - props.fixedCellsWidth.count));
+    const cellHeight = 65;
+    const cellWidth = 185;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
-      elevatedColumnIndexes: { 0: "start" },
+      visibleColumnIndexes: [0, 1, 2],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
+      elevatedColumnIndexes: { 0: "start", 1: "end" },
       elevatedRowIndexes: {},
       cellHeight,
       cellWidth,
@@ -596,7 +580,7 @@ describe("Virtualizer", () => {
     instance.scroller.current.scrollToLeft = jest.fn();
     instance.scrollToColumnIndex(25);
     // @ts-ignore
-    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2550);
+    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(4255);
   });
 
   test("should call the scrollToTop scroller method (scroll to row index)", () => {
@@ -618,9 +602,7 @@ describe("Virtualizer", () => {
     // @ts-ignore
     instance.scroller.current.scrollToTop = jest.fn();
     instance.scrollToRowIndex(30);
-    // @ts-ignore private props
-    const expected = instance.cellHeight * 30 + instance.cellHeight / 2;
     // @ts-ignore
-    expect(instance.scroller.current.scrollToTop).toBeCalledWith(expected);
+    expect(instance.scroller.current.scrollToTop).toBeCalledWith(1950);
   });
 });

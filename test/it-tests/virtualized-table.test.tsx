@@ -70,7 +70,7 @@ describe("virtualized table component", () => {
     cleanup();
   });
 
-  test.only("should render a table with a limit to the number of rows and column rendered at once (with default cell size)", () => {
+  test("should render a table with a limit to the number of rows and column rendered at once (with default cell size)", () => {
     customRender(
       <Table
         {...generateTable(30, 12)}
@@ -87,7 +87,7 @@ describe("virtualized table component", () => {
     const header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[0])).toHaveLength(10);
+    expect(getCellsOfRow(rows[0])).toHaveLength(9);
     cleanup();
   });
 
@@ -872,7 +872,7 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,39)");
   });
 
-  test.only("Should scroll to the first unfixed column if we hide a column (large columns)", () => {
+  test("Should scroll to the first unfixed column if we hide a column (large columns)", () => {
     const TableColumnsRowsController = tableColumnsRowsControllerGenerator(250);
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */

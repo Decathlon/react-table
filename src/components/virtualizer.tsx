@@ -309,9 +309,9 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     }
 
     /** Cells heights for the rows without manual specified height */
-    this.cellHeight = this.rowsCount ? Math.ceil(scrollableRowsHeight / (this.rowsCount - fixedCellsHeight.count)) : 0;
+    this.cellHeight = this.rowsCount > 0 ? Math.ceil(scrollableRowsHeight / (this.rowsCount - fixedCellsHeight.count)) : 0;
     /** Cells width for the columns without manual specified width */
-    this.cellWidth = this.columnsCount ? Math.ceil(scrollableColumnsWidth / (this.columnsCount - fixedCellsWidth.count)) : 0;
+    this.cellWidth = this.columnsCount > 0 ? Math.ceil(scrollableColumnsWidth / (this.columnsCount - fixedCellsWidth.count)) : 0;
 
     /** The width of the table if all columns are displayed */
     this.virtualWidth = (scrollableColumnsCount - fixedCellsWidth.count) * this.cellWidth + extraCellsWidth;
