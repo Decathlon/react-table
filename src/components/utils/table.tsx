@@ -658,7 +658,7 @@ export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], 
  */
 export const getIndexScrollMapping = (
   itemsLength: number,
-  itemsSizes: Record<number, number>,
+  itemsSizes: Record<number, number> = {},
   defaultItemSize: number,
   hiddenItems: number[]
 ): number[] => {

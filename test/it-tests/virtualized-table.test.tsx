@@ -70,7 +70,7 @@ describe("virtualized table component", () => {
     cleanup();
   });
 
-  test("should render a table with a limit to the number of rows and column rendered at once (with default cell size)", () => {
+  test.only("should render a table with a limit to the number of rows and column rendered at once (with default cell size)", () => {
     customRender(
       <Table
         {...generateTable(30, 12)}
@@ -578,7 +578,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 1400 },
+      target: { scrollLeft: 600 },
     });
     const rows = getRows();
     expect(getCellsOfRow(rows[0])[5].textContent).toEqual("(1,7)");
@@ -607,7 +607,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third row that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 775 },
+      target: { scrollTop: 375 },
     });
     const rows = getRows();
     expect(getCellsOfRow(rows[4])[0].textContent).toEqual("(10,0)");
@@ -714,7 +714,7 @@ describe("virtualized table component", () => {
     rows = getRows();
     // Scroll to buttom 4*20*25px (500/20) = 2000
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1675 },
+      target: { scrollTop: 1550 },
     });
     rows = getRows();
     let header = getRows(true);
@@ -750,7 +750,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 500 },
+      target: { scrollLeft: 375 },
     });
 
     let rows = getRows();
@@ -786,7 +786,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 650 },
+      target: { scrollLeft: 400 },
     });
 
     let rows = getRows();
@@ -851,7 +851,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 650 },
+      target: { scrollLeft: 450 },
     });
 
     let rows = getRows();
@@ -872,12 +872,12 @@ describe("virtualized table component", () => {
     expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,39)");
   });
 
-  test("Should scroll to the first unfixed column if we hide a column (large columns)", () => {
+  test.only("Should scroll to the first unfixed column if we hide a column (large columns)", () => {
     const TableColumnsRowsController = tableColumnsRowsControllerGenerator(250);
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 1150 },
+      target: { scrollLeft: 425 },
     });
 
     let rows = getRows();
