@@ -506,12 +506,14 @@ exports[`Table component should render a virtualized Table 1`] = `
   fixedCellsHeight={
     Object {
       "count": 0,
+      "customSizes": Object {},
       "sum": 0,
     }
   }
   fixedCellsWidth={
     Object {
       "count": 0,
+      "customSizes": Object {},
       "sum": 0,
     }
   }

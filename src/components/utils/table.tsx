@@ -352,19 +352,27 @@ export const getMouseClickButton = (clickCode: number): MouseClickButtons => {
   }
 };
 
+export interface FixedCustomSizesElements {
+  sum: number;
+  count: number;
+  // key === item index and value item width
+  customSizes: Record<number, number>;
+}
+
 /**
  * Calculate the  size of all fixed elements with a custom size and count those elements
  * @param elements
  * @param fixedElements
  */
-export const getFixedElementFixedSizeSum = (
+export const getFixedElementsWithCustomSize = (
   elements: IRow[] | { [index: number]: IColumn } = [],
   fixedElements?: number[],
   hiddenIndexes: number[] = []
-) => {
+): FixedCustomSizesElements => {
   let fixedElementFixedSizeSum = {
     sum: 0,
     count: 0,
+    customSizes: {},
   };
   if (fixedElements) {
     fixedElementFixedSizeSum = fixedElements.reduce(
@@ -375,12 +383,14 @@ export const getFixedElementFixedSizeSum = (
           ? {
               sum: currFixedElementFixedSizeSum.sum + size,
               count: currFixedElementFixedSizeSum.count + 1,
+              customSizes: { ...currFixedElementFixedSizeSum.customSizes, [index]: size },
             }
           : currFixedElementFixedSizeSum;
       },
       {
         sum: 0,
         count: 0,
+        customSizes: {},
       }
     );
   }
@@ -620,4 +630,42 @@ export const getScrollbarSize = () => {
   body.removeChild(scrollDiv);
 
   return scrollbarSize;
+};
+
+/**
+ * Get the number of fixed items that are placed before the selectedItemIndex
+ */
+export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
+  let beforeFixedColumnsCount = 0;
+
+  fixedItems.findIndex((fixedColumnIndex) => {
+    if (fixedColumnIndex > selectedItemIndex) {
+      return true;
+    }
+    beforeFixedColumnsCount += 1;
+    return false;
+  });
+  return beforeFixedColumnsCount;
+};
+/**
+ * ex itemsLength=4; itemsSizes={ 0:40 }; defaultCellSize=10; hiddenItems=[1] =>
+ *  [0, 40, 40, 50]
+ * @param itemsLength number of total items
+ * @param itemsSizes custom item sizes
+ * @param defaultCellSize default item size if no custom item size
+ * @param hiddenItems hidden items (size == 0)
+ * @returns
+ */
+export const getIndexScrollMapping = (
+  itemsLength: number,
+  itemsSizes: Record<number, number> = {},
+  defaultItemSize: number,
+  hiddenItems: number[]
+): number[] => {
+  const result: number[] = [0];
+  for (let i = 1; i < itemsLength; i++) {
+    const prevItemSize = hiddenItems.includes(i - 1) ? 0 : itemsSizes[i - 1] || defaultItemSize;
+    result[i] = (result[i - 1] || 0) + prevItemSize;
+  }
+  return result;
 };

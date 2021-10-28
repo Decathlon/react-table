@@ -808,25 +808,31 @@ describe("filterIndexes method", () => {
   });
 });
 
-describe("getFixedElementFixedSizeSum method", () => {
+describe("getFixedElementsWithCustomSize method", () => {
   test("should return the height of all fixed rows with a custom height and count those elements", () => {
     const table = generateTable(5, 2, {}, true);
     table.rows[0].size = 25;
     table.rows[1].size = 150;
     table.rows[4].size = 225;
-    const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows, [0, 1, 4]);
+    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
     expect(fixedCellsHeight).toEqual({
       sum: 400,
       count: 3,
+      customSizes: {
+        0: 25,
+        1: 150,
+        4: 225,
+      },
     });
   });
 
   test("should return a sum and count at 0 when there is no custom height for fixed rows", () => {
     const table = generateTable(5, 2, {}, true);
-    const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows, [0, 1, 4]);
+    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
     expect(fixedCellsHeight).toEqual({
       sum: 0,
       count: 0,
+      customSizes: {},
     });
   });
 
@@ -835,12 +841,12 @@ describe("getFixedElementFixedSizeSum method", () => {
     table.rows[0].size = 25;
     table.rows[1].size = 150;
     table.rows[4].size = 225;
-    const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(table.rows);
-    expect(fixedCellsHeight).toEqual({ count: 0, sum: 0 });
+    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows);
+    expect(fixedCellsHeight).toEqual({ count: 0, sum: 0, customSizes: {} });
   });
 
   test("should return the width of all fixed columns with a custom width and count those elements", () => {
-    const fixedCellsHeight = Utils.getFixedElementFixedSizeSum(
+    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(
       {
         0: { size: 25 },
         1: { size: 150 },
@@ -852,6 +858,11 @@ describe("getFixedElementFixedSizeSum method", () => {
     expect(fixedCellsHeight).toEqual({
       sum: 400,
       count: 3,
+      customSizes: {
+        0: 25,
+        1: 150,
+        4: 225,
+      },
     });
   });
 });
@@ -1281,5 +1292,25 @@ describe("getDenseColumns method", () => {
       "3": { size: 10, style: { paddingRight: 200 } },
     };
     expect(denseColumns).toEqual(expectedColumns);
+  });
+});
+
+describe("getIndexScrollMapping method", () => {
+  test("should return the scroll mapping (4 itmes)", () => {
+    const itemsLength = 4;
+    const itemsSizes = { 0: 40 };
+    const defaultCellSize = 10;
+    const hiddenItems = [1];
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getIndexScrollMapping(itemsLength, itemsSizes, defaultCellSize, hiddenItems);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual([0, 40, 40, 50]);
+  });
+
+  test("should return the scroll mapping (10 items)", () => {
+    const itemsLength = 10;
+    const itemsSizes = { 1: 30, 4: 40 };
+    const defaultCellSize = 10;
+    const hiddenItems = [2, 7];
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getIndexScrollMapping(itemsLength, itemsSizes, defaultCellSize, hiddenItems);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual([0, 10, 40, 40, 50, 90, 100, 110, 110, 120]);
   });
 });

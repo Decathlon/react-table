@@ -87,7 +87,7 @@ describe("virtualized table component", () => {
     const header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[0])).toHaveLength(10);
+    expect(getCellsOfRow(rows[0])).toHaveLength(9);
     cleanup();
   });
 
@@ -578,7 +578,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 1400 },
+      target: { scrollLeft: 600 },
     });
     const rows = getRows();
     expect(getCellsOfRow(rows[0])[5].textContent).toEqual("(1,7)");
@@ -607,7 +607,7 @@ describe("virtualized table component", () => {
 
     /** Simulate a scroll action to display the third row that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 775 },
+      target: { scrollTop: 375 },
     });
     const rows = getRows();
     expect(getCellsOfRow(rows[4])[0].textContent).toEqual("(10,0)");
@@ -714,7 +714,7 @@ describe("virtualized table component", () => {
     rows = getRows();
     // Scroll to buttom 4*20*25px (500/20) = 2000
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollTop: 1675 },
+      target: { scrollTop: 1550 },
     });
     rows = getRows();
     let header = getRows(true);
@@ -750,7 +750,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 500 },
+      target: { scrollLeft: 375 },
     });
 
     let rows = getRows();
@@ -786,7 +786,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 650 },
+      target: { scrollLeft: 400 },
     });
 
     let rows = getRows();
@@ -851,7 +851,7 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 650 },
+      target: { scrollLeft: 450 },
     });
 
     let rows = getRows();
@@ -877,11 +877,12 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 1150 },
+      target: { scrollLeft: 300 },
     });
 
     let rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
+
     // toggle the first column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
     /**
@@ -890,22 +891,22 @@ describe("virtualized table component", () => {
      *  */
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
     // toggle the second column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,3)");
     // toggle the first column (display)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
     // toggle the second column (display)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
   });
 
   test("Should display only one cell for the first row", () => {
