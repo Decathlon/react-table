@@ -633,45 +633,9 @@ export const getScrollbarSize = () => {
 };
 
 /**
- * Get the number of fixed items that are placed before the scroll value
- */
-export const getFixedItemsCountBeforeScrollValue = (
-  fixedItems: number[],
-  scrollValue: number,
-  cellSize: number,
-  sizes: FixedCustomSizesElements["customSizes"] = {}
-): number => {
-  /** Number of fixed items that are placed before the currentFixedItemIndex */
-  let fixedItemsCount = 0;
-  /** Total size of fixed items that are placed before the currentFixedItemIndex */
-  let fixedItemsTotalSize = 0;
-  /** Total size of scrollable items that are placed before the currentFixedItemIndex */
-  let scrollableItemsTotalSize = 0;
-
-  // index of the fixedItems
-  let currentIndex = 0;
-  let isCurrentFixedItemIndexBeforeScrollTop = false;
-  // iterate on fixed items
-  while (!isCurrentFixedItemIndexBeforeScrollTop && currentIndex <= fixedItems.length - 1) {
-    const currentFixedItemIndex = fixedItems[currentIndex];
-    const scrollableItemsBeforeCurrentFixedItemIndex = currentFixedItemIndex - fixedItemsCount;
-    scrollableItemsTotalSize = scrollableItemsBeforeCurrentFixedItemIndex * cellSize;
-    const currentFixedItemSize = sizes[currentFixedItemIndex] ?? cellSize;
-    if (fixedItemsTotalSize + scrollableItemsTotalSize > scrollValue) {
-      isCurrentFixedItemIndexBeforeScrollTop = true;
-    } else {
-      fixedItemsCount += 1;
-      fixedItemsTotalSize += currentFixedItemSize;
-    }
-    currentIndex += 1;
-  }
-  return fixedItemsCount;
-};
-
-/**
  * Get the number of fixed items that are placed before the selectedItemIndex
  */
-export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
+export const getNumberOfFixedItemsBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
   let beforeFixedColumnsCount = 0;
 
   fixedItems.findIndex((fixedColumnIndex) => {
@@ -682,4 +646,26 @@ export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], 
     return false;
   });
   return beforeFixedColumnsCount;
+};
+/**
+ * ex itemsLength=4; itemsSizes={ 0:40 }; defaultCellSize=10; hiddenItems=[1] =>
+ *  [0, 40, 40, 50]
+ * @param itemsLength number of total items
+ * @param itemsSizes custom item sizes
+ * @param defaultCellSize default item size if no custom item size
+ * @param hiddenItems hidden items (size == 0)
+ * @returns
+ */
+export const getIndexScrollMapping = (
+  itemsLength: number,
+  itemsSizes: Record<number, number>,
+  defaultItemSize: number,
+  hiddenItems: number[]
+): number[] => {
+  const result: number[] = [0];
+  for (let i = 1; i < itemsLength; i++) {
+    const prevItemSize = hiddenItems.includes(i - 1) ? 0 : itemsSizes[i - 1] || defaultItemSize;
+    result[i] = (result[i - 1] || 0) + prevItemSize;
+  }
+  return result;
 };

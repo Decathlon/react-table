@@ -1295,57 +1295,22 @@ describe("getDenseColumns method", () => {
   });
 });
 
-describe("getFixedItemsCountBeforeScrollValue method", () => {
-  test("should return the number of all fixed items with custom sizes before the scroll value", () => {
-    const fixedItems = [0, 1, 10];
-    const scrollValue = 1000;
-    const cellSize = 100;
-    const sizes = {
-      0: 150,
-      1: 200,
-      10: 50,
-    };
-    const fixedItemsTotalSizeWithCustomSizes = Utils.getFixedItemsCountBeforeScrollValue(
-      fixedItems,
-      scrollValue,
-      cellSize,
-      sizes
-    );
-    expect(fixedItemsTotalSizeWithCustomSizes).toEqual(2);
+describe("getIndexScrollMapping method", () => {
+  test("should return the scroll mapping (4 itmes)", () => {
+    const itemsLength = 4;
+    const itemsSizes = { 0: 40 };
+    const defaultCellSize = 10;
+    const hiddenItems = [1];
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getIndexScrollMapping(itemsLength, itemsSizes, defaultCellSize, hiddenItems);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual([0, 40, 40, 50]);
   });
 
-  test("should return the number of all fixed items without custom sizes before the scroll value", () => {
-    const fixedItems = [0, 1, 10];
-    const scrollValue = 900;
-    const cellSize = 100;
-    const fixedItemsTotalSizeWithoutCustomSizes = Utils.getFixedItemsCountBeforeScrollValue(
-      fixedItems,
-      scrollValue,
-      cellSize,
-      {}
-    );
-    expect(fixedItemsTotalSizeWithoutCustomSizes).toEqual(2);
-  });
-
-  test("should return 0 without fixed items before the scroll value", () => {
-    const fixedItems = [10];
-    const scrollValue = 900;
-    const cellSize = 100;
-    const fixedItemsTotalSize = Utils.getFixedItemsCountBeforeScrollValue(fixedItems, scrollValue, cellSize, {});
-    expect(fixedItemsTotalSize).toEqual(0);
-  });
-});
-
-describe("getFixedItemsCountBeforeSelectedItemIndex method", () => {
-  test("should return the number of all fixed items before the selected scroll index", () => {
-    const fixedItems = [0, 1, 10];
-    const fixedItemsTotalSizeWithCustomSizes = Utils.getFixedItemsCountBeforeSelectedItemIndex(fixedItems, 3);
-    expect(fixedItemsTotalSizeWithCustomSizes).toEqual(2);
-  });
-
-  test("should return 0 without fixed items before the scroll value", () => {
-    const fixedItems = [10];
-    const fixedItemsTotalSize = Utils.getFixedItemsCountBeforeSelectedItemIndex(fixedItems, 3);
-    expect(fixedItemsTotalSize).toEqual(0);
+  test("should return the scroll mapping (10 items)", () => {
+    const itemsLength = 10;
+    const itemsSizes = { 1: 30, 4: 40 };
+    const defaultCellSize = 10;
+    const hiddenItems = [2, 7];
+    const fixedItemsTotalSizeWithCustomSizes = Utils.getIndexScrollMapping(itemsLength, itemsSizes, defaultCellSize, hiddenItems);
+    expect(fixedItemsTotalSizeWithCustomSizes).toEqual([0, 10, 40, 40, 50, 90, 100, 110, 110, 120]);
   });
 });

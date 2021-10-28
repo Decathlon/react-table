@@ -10,9 +10,9 @@ import {
   IElevateds,
   scrollIndexToGridIndex,
   findFirstNotIncluded,
-  getFixedItemsCountBeforeScrollValue,
-  getFixedItemsCountBeforeSelectedItemIndex,
+  getNumberOfFixedItemsBeforeSelectedItemIndex,
   FixedCustomSizesElements,
+  getIndexScrollMapping,
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -103,6 +103,13 @@ export interface IVirtualizerProps extends IVirtualizerOptionalProps {
   children: (props: IChildrenProps) => JSX.Element;
 }
 
+interface VirtualizerCache {
+  rowIndexesScrollMapping: number[];
+  columnIndexesScrollMapping: number[];
+  visibleColumnIndexes: Record<number, number[]>;
+  visibleRowIndexes: Record<number, number[]>;
+}
+
 interface IState extends IRowsState, IColumnState {}
 
 class Virtualizer extends React.Component<IVirtualizerProps, IState> {
@@ -142,9 +149,17 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private scroller: React.RefObject<Scroller> = React.createRef<Scroller>();
 
+  private cache: VirtualizerCache = {
+    rowIndexesScrollMapping: [],
+    columnIndexesScrollMapping: [],
+    visibleColumnIndexes: {},
+    visibleRowIndexes: {},
+  };
+
   public constructor(props: IVirtualizerProps) {
     super(props);
     this.initializeGridProps();
+    this.initCache();
     const visibleColumnIndexes = this.getVisibleColumnIndexes();
     const visibleRowIndexes = this.getVisibleRowIndexes();
     this.state = {
@@ -202,11 +217,30 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     ) {
       const { scrollTop, scrollLeft } = this.scroller.current.getScrollValues();
       this.initializeGridProps();
+      this.initCache();
       const newColumnsState = this.getVisibleColumnsState(scrollLeft) || {};
       const newRowsState = this.getVisibleRowsState(scrollTop) || {};
       this.setState({ ...newRowsState, ...newColumnsState });
     }
   }
+
+  private initCache = () => {
+    const { columnsLength, rowsLength, fixedCellsHeight, fixedCellsWidth, hiddenColumns, hiddenRows } = this.props;
+    this.cache.rowIndexesScrollMapping = getIndexScrollMapping(
+      rowsLength,
+      fixedCellsHeight.customSizes,
+      this.cellHeight,
+      hiddenRows
+    );
+    this.cache.columnIndexesScrollMapping = getIndexScrollMapping(
+      columnsLength,
+      fixedCellsWidth.customSizes,
+      this.cellWidth,
+      hiddenColumns
+    );
+    this.cache.visibleColumnIndexes = {};
+    this.cache.visibleRowIndexes = {};
+  };
 
   private initializeGridProps = () => {
     const {
@@ -286,35 +320,45 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   private getVisibleRowIndexes = (scrollTop = 0) => {
-    const { rowsLength, hiddenRows, fixedRows, fixedCellsHeight } = this.props;
-    const fixedRowsCount = getFixedItemsCountBeforeScrollValue(
-      fixedRows,
-      scrollTop,
-      this.cellHeight,
-      fixedCellsHeight.customSizes
-    );
-    const scrollIndex = Math.ceil(scrollTop / this.cellHeight) + fixedRowsCount;
+    const { rowsLength, hiddenRows, fixedRows } = this.props;
+    let fixedRowsCount = fixedRows.findIndex((r) => this.cache.rowIndexesScrollMapping[r] >= scrollTop);
+    fixedRowsCount = fixedRowsCount === -1 ? fixedRows.length : fixedRowsCount;
+    const scrollIndex = Math.round(scrollTop / this.cellHeight) + fixedRowsCount;
     const rowIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenRows);
-    return addSequentialIndexesToFixedIndexList(this.visibleFixedRows, rowIndexStart, rowsLength, this.rowsCount, hiddenRows);
+
+    if (!this.cache.visibleRowIndexes[rowIndexStart]) {
+      this.cache.visibleRowIndexes[rowIndexStart] = addSequentialIndexesToFixedIndexList(
+        this.visibleFixedRows,
+        rowIndexStart,
+        rowsLength,
+        this.rowsCount,
+        hiddenRows
+      );
+      return this.cache.visibleRowIndexes[rowIndexStart];
+    }
+
+    return this.cache.visibleRowIndexes[rowIndexStart];
   };
 
   private getVisibleColumnIndexes = (scrollLeft = 0) => {
-    const { columnsLength, hiddenColumns, fixedColumns, fixedCellsWidth } = this.props;
-    const fixedColumnsCount = getFixedItemsCountBeforeScrollValue(
-      fixedColumns,
-      scrollLeft,
-      this.cellWidth,
-      fixedCellsWidth.customSizes
-    );
-    const scrollIndex = Math.ceil(scrollLeft / this.cellWidth) + fixedColumnsCount;
+    const { columnsLength, hiddenColumns, fixedColumns } = this.props;
+    let fixedColumnsCount = fixedColumns.findIndex((r) => this.cache.columnIndexesScrollMapping[r] >= scrollLeft);
+    fixedColumnsCount = fixedColumnsCount === -1 ? fixedColumns.length : fixedColumnsCount;
+    const scrollIndex = Math.round(scrollLeft / this.cellWidth) + fixedColumnsCount;
     const columnIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenColumns);
-    return addSequentialIndexesToFixedIndexList(
-      this.visibleFixedColumns,
-      columnIndexStart,
-      columnsLength,
-      this.columnsCount,
-      hiddenColumns
-    );
+
+    if (!this.cache.visibleColumnIndexes[columnIndexStart]) {
+      this.cache.visibleColumnIndexes[columnIndexStart] = addSequentialIndexesToFixedIndexList(
+        this.visibleFixedColumns,
+        columnIndexStart,
+        columnsLength,
+        this.columnsCount,
+        hiddenColumns
+      );
+      return this.cache.visibleColumnIndexes[columnIndexStart];
+    }
+
+    return this.cache.visibleColumnIndexes[columnIndexStart];
   };
 
   private getElevatedColumnIndexes = (visibleColumnIndexes: number[]): IElevateds => {
@@ -426,7 +470,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   ): number | null => {
     if (this.scroller.current) {
       const nbOfHiddenIndexesBeforeStartIndex = hiddenItems.filter((hiddenIndex) => hiddenIndex <= itemIndex).length;
-      const beforeFixedItemsCount = getFixedItemsCountBeforeSelectedItemIndex(fixedItems, itemIndex);
+      const beforeFixedItemsCount = getNumberOfFixedItemsBeforeSelectedItemIndex(fixedItems, itemIndex);
       const selectedItemSize = sizes[itemIndex] ?? cellSize;
       /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
       const scrollableItemsTotalSize = (itemIndex - 1 - beforeFixedItemsCount - nbOfHiddenIndexesBeforeStartIndex) * cellSize;
