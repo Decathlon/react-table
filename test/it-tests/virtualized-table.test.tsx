@@ -877,11 +877,12 @@ describe("virtualized table component", () => {
     const { container } = customRender(<TableColumnsRowsController />);
     /** Simulate a scroll action to display the third column that is not fixed */
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
-      target: { scrollLeft: 425 },
+      target: { scrollLeft: 300 },
     });
 
     let rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
+
     // toggle the first column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
     /**
@@ -890,22 +891,22 @@ describe("virtualized table component", () => {
      *  */
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
     // toggle the second column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,3)");
     // toggle the first column (display)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
     // toggle the second column (display)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
   });
 
   test("Should display only one cell for the first row", () => {
