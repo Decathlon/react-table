@@ -293,14 +293,15 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     this.columnsCount =
       columnsCount !== undefined ? columnsCount : Math.floor(scrollableColumnsWidth / minCellWidth + fixedCellsWidth.count);
 
-    if (this.rowsCount < rowsLength) {
+    if (this.columnsCount < columnsLength) {
       scrollableRowsHeight = scrollableRowsHeight - SCROLLBAR_SIZE;
       extraCellsHeight = extraCellsHeight + SCROLLBAR_SIZE;
       /** the total number of rows we have to display inside the table height */
       this.rowsCount =
         rowsCount !== undefined ? rowsCount : Math.floor(scrollableRowsHeight / minCellHeight + fixedCellsHeight.count);
     }
-    if (this.columnsCount < columnsLength) {
+
+    if (this.rowsCount < rowsLength) {
       scrollableColumnsWidth = scrollableColumnsWidth - SCROLLBAR_SIZE;
       extraCellsWidth = extraCellsWidth + SCROLLBAR_SIZE;
       /** the total number of columns we have to display inside the table width */
