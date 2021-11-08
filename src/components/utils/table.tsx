@@ -129,6 +129,8 @@ export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: numb
   for (let i = 0; i < ignoredIndexes.length; i += 1) {
     if (ignoredIndexes[i] <= updatedScrollIndex) {
       updatedScrollIndex += 1;
+    } else {
+      break;
     }
   }
 
@@ -149,24 +151,24 @@ export const addSequentialIndexesToFixedIndexList = (
   indexStart: number,
   maxLength: number,
   totalCount: number,
-  hiddenIndexes: number[] = []
+  ignoredIndexes: Record<number, true> = {}
 ): number[] => {
+  const localIgnoredIndexes = { ...ignoredIndexes };
   const result = [];
-  let ignoredIndexes = [...fixedIndexes, ...hiddenIndexes];
   const numberOfIndexesToAdd = totalCount - fixedIndexes.length;
   let itemIndex = indexStart;
   // forward
   while (result.length < numberOfIndexesToAdd && itemIndex < maxLength) {
-    if (!ignoredIndexes.includes(itemIndex)) {
+    if (!localIgnoredIndexes[itemIndex]) {
       result.push(itemIndex);
+      localIgnoredIndexes[itemIndex] = true;
     }
     itemIndex += 1;
   }
   // backward if not enough items
   if (result.length < numberOfIndexesToAdd) {
-    ignoredIndexes = [...ignoredIndexes, ...result];
     while (result.length < numberOfIndexesToAdd && itemIndex > 0) {
-      if (!ignoredIndexes.includes(itemIndex) && itemIndex < maxLength) {
+      if (!ignoredIndexes[itemIndex] && itemIndex < maxLength) {
         result.push(itemIndex);
       }
       itemIndex -= 1;
@@ -177,24 +179,24 @@ export const addSequentialIndexesToFixedIndexList = (
 };
 
 /**
- * @param {number[]} itemsIndexes an ordered list of number
- * @param {number[]} fixedIndexes a list of number
+ * @param {number[]} visibleItemIndexes an ordered list of number
+ * @param {Record<number, true>} ignoredIndexes the ignored indexes (fixed indexes)
  * @return {IElevateds} returns an oject of numbers contained in both input list, where for each of those values the next one
  * contained in itemIndexes is not contained in fixedIndexes
  */
 export const getElevatedIndexes = (
-  itemsIndexes: number[],
-  fixedIndexes: number[],
+  visibleItemIndexes: number[],
+  ignoredIndexes: Record<number, true> = {},
   usePrevIndexForLastElevation = false
 ): IElevateds => {
   const isLimit = (item1: number, item2: number) => {
-    return item1 !== undefined && !fixedIndexes.includes(item1) && (item2 === undefined || fixedIndexes.includes(item2));
+    return item1 !== undefined && !ignoredIndexes[item1] && (item2 === undefined || ignoredIndexes[item2]);
   };
-  return itemsIndexes.reduce((result, itemIndex, index) => {
-    const isFixed = fixedIndexes.includes(itemIndex);
+  return visibleItemIndexes.reduce((result, itemIndex, index) => {
+    const isFixed = ignoredIndexes[itemIndex];
     if (isFixed) {
-      const nextItem = itemsIndexes[index + 1];
-      const prevItem = itemsIndexes[index - 1];
+      const nextItem = visibleItemIndexes[index + 1];
+      const prevItem = visibleItemIndexes[index - 1];
       const isFixedStart = isLimit(nextItem, prevItem);
       const isFixedEnd = !isFixedStart && isLimit(prevItem, nextItem);
       if (isFixedStart || isFixedEnd) {

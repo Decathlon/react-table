@@ -1,18 +1,24 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 /// <reference path="../typings.d.ts"/>
+import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { number } from "@storybook/addon-knobs";
 
 import Readme from "./virtualizer.md";
 import { withThemeProvider } from "../utils/decorators";
-import Virtualizer from "../../src/components/virtualizer";
+import VirtualizedGrid from "../../src/redesign/VirtualizedGrid";
+import { generateTable } from "../utils/tables";
 
 const items = Array.from(Array(100), (_, index) => ({
   id: index,
   title: `Item ${index}`,
 }));
 
-const fixedItemsIndexes = [0, 3, 20];
+const rows = generateTable(100, 1, {}, true).rows;
+
+const row = generateTable(1, 100, {}, true).rows;
+
+const fixedItemsIndexes = [0, 3, 17, 20, 45];
 
 const styles = {
   horizontalListContainer: {
@@ -62,24 +68,32 @@ const styles = {
     fontSize: 20,
   },
 };
-storiesOf("Virtualizer", module)
+storiesOf("VirtualizedGrid", module)
   .addDecorator(withThemeProvider)
   .addParameters({ jest: ["virtualizer", "virtualized-table"] })
   .add(
-    "Virtualized vertical List",
+    "VirtualizedGrid vertical List",
     () => (
-      <Virtualizer
-        height={number("height", 500)}
-        width={number("width", 300)}
-        rowsCount={number("rowsCount", 7)}
-        rowsLength={items.length}
-        columnsLength={1}
+      <VirtualizedGrid
+        rows={rows}
+        //@ts-ignore
+        columnsVirtualizerProps={{
+          containerSize: 300,
+          itemsLength: 1,
+        }}
+        //@ts-ignore
+        rowsVirtualizerProps={{
+          containerSize: 500,
+          itemsLength: items.length,
+          itemsCount: 7,
+          initialScroll: 30,
+        }}
       >
         {({ visibleRowIndexes, cellHeight }) => {
           const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <List items={visibleItems} itemHeight={cellHeight} />;
         }}
-      </Virtualizer>
+      </VirtualizedGrid>
     ),
     {
       notes: { markdown: Readme },
@@ -89,56 +103,80 @@ storiesOf("Virtualizer", module)
   .add(
     "Virtualized vertical List with fixed rows",
     () => (
-      <Virtualizer
-        height={number("height", 500)}
-        width={number("width", 300)}
-        rowsCount={number("rowsCount", 7)}
-        rowsLength={items.length}
-        columnsLength={1}
-        fixedRows={fixedItemsIndexes}
+      <VirtualizedGrid
+        rows={rows}
+        //@ts-ignore
+        columnsVirtualizerProps={{
+          containerSize: 300,
+          itemsLength: 1,
+        }}
+        //@ts-ignore
+        rowsVirtualizerProps={{
+          containerSize: 500,
+          itemsLength: items.length,
+          itemsCount: 7,
+          fixedItems: fixedItemsIndexes,
+          initialScroll: 30,
+        }}
       >
         {({ visibleRowIndexes, cellHeight }) => {
           const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <List items={visibleItems} itemHeight={cellHeight} fixedItems={fixedItemsIndexes} />;
         }}
-      </Virtualizer>
+      </VirtualizedGrid>
     ),
     { info: { inline: true } }
   )
   .add(
     "Virtualized horizontal List",
     () => (
-      <Virtualizer
-        height={number("height", 70)}
-        width={number("width", 1000)}
-        columnsCount={number("columnsCount", 7)}
-        rowsLength={1}
-        columnsLength={items.length}
+      <VirtualizedGrid
+        rows={row}
+        //@ts-ignore
+        rowsVirtualizerProps={{
+          containerSize: 70,
+          itemsLength: 1,
+        }}
+        //@ts-ignore
+        columnsVirtualizerProps={{
+          containerSize: 1000,
+          itemsLength: items.length,
+          itemsCount: 7,
+          initialScroll: 30,
+        }}
       >
         {({ visibleColumnIndexes, cellWidth }) => {
           const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <HorizontalList items={visibleItems} itemWidth={cellWidth} />;
         }}
-      </Virtualizer>
+      </VirtualizedGrid>
     ),
     { info: { inline: true } }
   )
   .add(
     "Virtualized horizontal List with fixed columns",
     () => (
-      <Virtualizer
-        height={number("height", 70)}
-        width={number("width", 1000)}
-        columnsCount={number("columnsCount", 7)}
-        rowsLength={1}
-        columnsLength={items.length}
-        fixedColumns={fixedItemsIndexes}
+      <VirtualizedGrid
+        rows={row}
+        //@ts-ignore
+        rowsVirtualizerProps={{
+          containerSize: 70,
+          itemsLength: 1,
+        }}
+        //@ts-ignore
+        columnsVirtualizerProps={{
+          containerSize: 1000,
+          itemsLength: items.length,
+          itemsCount: 7,
+          fixedItems: fixedItemsIndexes,
+          initialScroll: 30,
+        }}
       >
         {({ visibleColumnIndexes, cellWidth }) => {
           const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
           return <HorizontalList items={visibleItems} itemWidth={cellWidth} fixedItems={fixedItemsIndexes} />;
         }}
-      </Virtualizer>
+      </VirtualizedGrid>
     ),
     { info: { inline: true } }
   )
@@ -147,14 +185,22 @@ storiesOf("Virtualizer", module)
     () => {
       const padding = number("padding", 100);
       return (
-        <Virtualizer
-          height={number("height", 500)}
-          width={number("width", 300)}
-          rowsCount={number("rowsCount", 7)}
-          rowsLength={items.length}
-          columnsLength={1}
-          fixedRows={fixedItemsIndexes}
-          horizontalPadding={padding}
+        <VirtualizedGrid
+          rows={rows}
+          //@ts-ignore
+          columnsVirtualizerProps={{
+            containerSize: 300,
+            itemsLength: 1,
+          }}
+          //@ts-ignore
+          rowsVirtualizerProps={{
+            containerSize: 500,
+            itemsLength: items.length,
+            itemsCount: 7,
+            fixedItems: fixedItemsIndexes,
+            padding,
+            initialScroll: 30,
+          }}
         >
           {({ visibleRowIndexes, cellHeight }) => {
             const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
@@ -166,7 +212,7 @@ storiesOf("Virtualizer", module)
               </List>
             );
           }}
-        </Virtualizer>
+        </VirtualizedGrid>
       );
     },
     { info: { inline: true } }
@@ -176,15 +222,23 @@ storiesOf("Virtualizer", module)
     () => {
       const padding = number("padding", 100);
       return (
-        <Virtualizer
-          hiddenRows={[1, 2, 3, 4]}
-          height={number("height", 500)}
-          width={number("width", 300)}
-          rowsCount={number("rowsCount", 7)}
-          rowsLength={items.length}
-          columnsLength={1}
-          fixedRows={fixedItemsIndexes}
-          horizontalPadding={padding}
+        <VirtualizedGrid
+          rows={rows}
+          //@ts-ignore
+          columnsVirtualizerProps={{
+            containerSize: 300,
+            itemsLength: 1,
+          }}
+          //@ts-ignore
+          rowsVirtualizerProps={{
+            containerSize: 500,
+            itemsLength: items.length,
+            itemsCount: 7,
+            fixedItems: fixedItemsIndexes,
+            padding,
+            hiddenItems: [1, 2, 3, 17, 4],
+            initialScroll: 30,
+          }}
         >
           {({ visibleRowIndexes, cellHeight }) => {
             const visibleItems = visibleRowIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
@@ -196,7 +250,7 @@ storiesOf("Virtualizer", module)
               </List>
             );
           }}
-        </Virtualizer>
+        </VirtualizedGrid>
       );
     },
     { info: { inline: true } }
@@ -206,14 +260,22 @@ storiesOf("Virtualizer", module)
     () => {
       const padding = number("padding", 100);
       return (
-        <Virtualizer
-          height={number("height", 70)}
-          width={number("width", 1000)}
-          columnsCount={number("columnsCount", 7)}
-          rowsLength={1}
-          columnsLength={items.length}
-          fixedColumns={fixedItemsIndexes}
-          verticalPadding={padding + padding}
+        <VirtualizedGrid
+          rows={rows}
+          //@ts-ignore
+          rowsVirtualizerProps={{
+            containerSize: 70,
+            itemsLength: 1,
+          }}
+          //@ts-ignore
+          columnsVirtualizerProps={{
+            containerSize: 1000,
+            itemsLength: items.length,
+            itemsCount: 7,
+            fixedItems: fixedItemsIndexes,
+            padding: padding + padding,
+            initialScroll: 30,
+          }}
         >
           {({ visibleColumnIndexes, cellWidth }) => {
             const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
@@ -225,7 +287,7 @@ storiesOf("Virtualizer", module)
               </HorizontalList>
             );
           }}
-        </Virtualizer>
+        </VirtualizedGrid>
       );
     },
     { info: { inline: true } }
@@ -235,15 +297,23 @@ storiesOf("Virtualizer", module)
     () => {
       const padding = number("padding", 100);
       return (
-        <Virtualizer
-          hiddenColumns={[2, 3, 4]}
-          height={number("height", 70)}
-          width={number("width", 1000)}
-          columnsCount={number("columnsCount", 7)}
-          rowsLength={1}
-          columnsLength={items.length}
-          fixedColumns={fixedItemsIndexes}
-          verticalPadding={padding + padding}
+        <VirtualizedGrid
+          rows={rows}
+          //@ts-ignore
+          rowsVirtualizerProps={{
+            containerSize: 70,
+            itemsLength: 1,
+          }}
+          //@ts-ignore
+          columnsVirtualizerProps={{
+            containerSize: 1000,
+            itemsLength: items.length,
+            itemsCount: 7,
+            fixedItems: fixedItemsIndexes,
+            padding: padding + padding,
+            hiddenItems: [1, 2, 3, 4],
+            initialScroll: 30,
+          }}
         >
           {({ visibleColumnIndexes, cellWidth }) => {
             const visibleItems = visibleColumnIndexes.map((vsibleItemIndex) => items[vsibleItemIndex]);
@@ -255,7 +325,7 @@ storiesOf("Virtualizer", module)
               </HorizontalList>
             );
           }}
-        </Virtualizer>
+        </VirtualizedGrid>
       );
     },
     { info: { inline: true } }
@@ -303,25 +373,40 @@ interface ListProps extends IProps {
   itemHeight: number;
 }
 
+function Item({ item, itemHeight, fixedItems }) {
+  return (
+    <div
+      key={item.id}
+      // @ts-ignore
+      style={{
+        ...styles.listItem,
+        height: itemHeight,
+        lineHeight: `${itemHeight}px`,
+        ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {}),
+      }}
+    >
+      {item.title}
+    </div>
+  );
+}
+
+const ItemMem = React.memo(Item);
+
+const cache = {};
 const List = ({ items, itemHeight, fixedItems = [], children = null }: ListProps) => {
   return (
     // @ts-ignore
     <div style={styles.listContainer}>
       {children}
-      {items.map((item) => (
-        <div
-          key={item.id}
-          // @ts-ignore
-          style={{
-            ...styles.listItem,
-            height: itemHeight,
-            lineHeight: `${itemHeight}px`,
-            ...(fixedItems && fixedItems.includes(item.id) ? styles.fixedItem : {}),
-          }}
-        >
-          {item.title}
-        </div>
-      ))}
+      {items.map((item) => {
+        // if (cache[item.id]) {
+        //   console.log("cache", cache[item.id]);
+
+        //   return cache[item.id];
+        // }
+        cache[item.id] = <ItemMem key={item.id} item={item} itemHeight={itemHeight} fixedItems={fixedItems} />;
+        return cache[item.id];
+      })}
     </div>
   );
 };

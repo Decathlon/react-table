@@ -1,21 +1,18 @@
 // / <reference lib="es2017.string" />
 import * as React from "react";
-import { isEqual } from "lodash";
 
-import { IOnScroll, SCROLLBAR_SIZE } from "./scroller";
+import { IOnScroll } from "./useScroller";
 import {
   addSequentialIndexesToFixedIndexList,
   getElevatedIndexes,
-  getVisibleIndexesInsideDatalength,
   IElevateds,
   scrollIndexToGridIndex,
   findFirstNotIncluded,
-  getFixedItemsCountBeforeSelectedItemIndex,
   FixedCustomSizesElements,
   getIndexScrollMapping,
-} from "./utils/table";
-import { MIN_COLUMN_WIDTH } from "./constants";
-import { Nullable } from "./typing";
+} from "../components/utils/table";
+import { MIN_COLUMN_WIDTH } from "../components/constants";
+import { Nullable } from "../components/typing";
 import useStableValue from "../hooks/useStableValue";
 
 export interface OnScrollProps {
@@ -35,14 +32,12 @@ export interface IVirtualizerOptionalProps {
   minItemSize?: number;
   /** Sum of the size of fixed items with a pre-defined size */
   fixedItemsSize: FixedCustomSizesElements;
-  /** A pre-defined horizontal padding of the grid */
-  horizontalPadding: number;
+  /** A pre-defined padding of the grid */
+  padding: number;
   /** Initial scroll postions */
   initialScroll: number;
-  getScrollValue?: () => number;
-  scrollTo?: (newScrollValue: number) => boolean;
   /** The scroll handler */
-  onScroll?: (props: OnScrollProps) => void;
+  onScroll: (props: OnScrollProps) => void;
 }
 
 export interface IVirtualizerProps extends IVirtualizerOptionalProps {
@@ -50,6 +45,8 @@ export interface IVirtualizerProps extends IVirtualizerOptionalProps {
   containerSize: number;
   /** Number of items of the child element */
   itemsLength: number;
+  getScrollValue: () => number | null;
+  scrollTo: (newScrollValue: number) => boolean;
 }
 
 export interface IState {
@@ -66,24 +63,34 @@ interface VirtualizerCache {
   virtualSize: number;
   itemIndexesScrollMapping: number[];
   visibleItemIndexes: Record<number, number[]>;
+  ignoredIndexes: Record<number, true>;
+  elevatedItemIndexes: Map<number[], IElevateds>;
 }
 
-function useVirtualizer(props: IVirtualizerProps): {
+export interface IVirtualizerController {
   virtualSize: number;
-  onScrollerScroll: (scrollValues: IOnScroll) => void;
+  itemsCount: number;
   itemSize: number;
   visibleItemIndexes: number[];
   elevatedItemIndexes: IElevateds;
-} {
+  updateVisibleItems: (scrollValues: IOnScroll) => void;
+  goToItemIndex: (itemIndex: number) => boolean;
+}
+
+function useVirtualizer(props: IVirtualizerProps, ref?: React.RefObject<IVirtualizerController>): IVirtualizerController {
   const {
     containerSize,
     itemsLength,
     itemsCount,
     minItemSize = MIN_COLUMN_WIDTH,
-    fixedItems,
-    hiddenItems,
-    fixedItemsSize,
-    horizontalPadding,
+    fixedItems = [],
+    hiddenItems = [],
+    fixedItemsSize = {
+      sum: 0,
+      count: 0,
+      customSizes: {},
+    },
+    padding,
     initialScroll,
     getScrollValue,
     scrollTo,
@@ -92,6 +99,7 @@ function useVirtualizer(props: IVirtualizerProps): {
   const stableFixedItems = useStableValue(fixedItems);
   const stableHiddenItems = useStableValue(hiddenItems);
 
+  const isInitialized = React.useRef(false);
   const cache = React.useRef<VirtualizerCache>({
     itemsCount: 0,
     itemSize: 0,
@@ -99,6 +107,8 @@ function useVirtualizer(props: IVirtualizerProps): {
     virtualSize: 0,
     itemIndexesScrollMapping: [],
     visibleItemIndexes: {},
+    ignoredIndexes: {},
+    elevatedItemIndexes: new Map(),
   });
   const [state, setState] = React.useState<IState>({
     visibleItemIndexes: [],
@@ -109,31 +119,29 @@ function useVirtualizer(props: IVirtualizerProps): {
   const initCache = () => {
     const currentCache = cache.current;
     /** Size allocated to the verticalPadding and the fixed items that have a custom size specified by the user */
-    let extraItemsSize = fixedItemsSize.sum + horizontalPadding;
+    const extraItemsSize = fixedItemsSize.sum + padding;
     /** Available size on the table container displayable size */
-    let scrollableItemsSize = containerSize - extraItemsSize;
-    currentCache.visibleFixedItems = stableFixedItems.filter((fixedItem) => !hiddenItems.includes(fixedItem));
+    const scrollableItemsSize = containerSize - extraItemsSize;
     /**
      * contains every items that are not hidden
      */
     const scrollableItemsCount = itemsLength - hiddenItems.length;
+
+    currentCache.visibleFixedItems = stableFixedItems.filter((fixedItem) => !hiddenItems.includes(fixedItem));
     /** the total number of items we have to display inside the table size */
     currentCache.itemsCount =
       itemsCount !== undefined ? itemsCount : Math.floor(scrollableItemsSize / minItemSize + fixedItemsSize.count);
-
-    if (currentCache.itemsCount < itemsLength) {
-      scrollableItemsSize = scrollableItemsSize - SCROLLBAR_SIZE;
-      extraItemsSize = extraItemsSize + SCROLLBAR_SIZE;
-      /** the total number of items we have to display inside the table size */
-      currentCache.itemsCount =
-        itemsCount !== undefined ? itemsCount : Math.floor(scrollableItemsSize / minItemSize + fixedItemsSize.count);
-    }
-
     /** Items size for the items without manual specified size */
     currentCache.itemSize =
       currentCache.itemsCount > 0 ? Math.ceil(scrollableItemsSize / (currentCache.itemsCount - fixedItemsSize.count)) : 0;
     /** The size of the table if all items are displayed */
     currentCache.virtualSize = (scrollableItemsCount - fixedItemsSize.count) * currentCache.itemSize + extraItemsSize;
+
+    currentCache.ignoredIndexes = {};
+    [...currentCache.visibleFixedItems, ...hiddenItems].forEach((ignoredIndex) => {
+      currentCache.ignoredIndexes[ignoredIndex] = true;
+    });
+
     currentCache.itemIndexesScrollMapping = getIndexScrollMapping(
       itemsLength,
       fixedItemsSize.customSizes,
@@ -141,40 +149,50 @@ function useVirtualizer(props: IVirtualizerProps): {
       hiddenItems
     );
     currentCache.visibleItemIndexes = {};
+    currentCache.elevatedItemIndexes = new Map();
   };
 
-  const getVisibleItemIndexes = (scrollLeft = 0) => {
+  const getVisibleItemIndexes = (scrollValue = 0) => {
     const currentCache = cache.current;
-    let fixedItemsCount = stableFixedItems.findIndex((r) => currentCache.itemIndexesScrollMapping[r] >= scrollLeft);
-    fixedItemsCount = fixedItemsCount === -1 ? stableFixedItems.length : fixedItemsCount;
-    const scrollIndex = Math.round(scrollLeft / currentCache.itemSize) + fixedItemsCount;
-    const itemIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenItems);
+    let fixedItemsCount = currentCache.visibleFixedItems.findIndex(
+      (fixedItemIndex) => currentCache.itemIndexesScrollMapping[fixedItemIndex] >= scrollValue
+    );
+    fixedItemsCount = fixedItemsCount === -1 ? currentCache.visibleFixedItems.length : fixedItemsCount;
 
-    if (!currentCache.visibleItemIndexes[itemIndexStart]) {
-      currentCache.visibleItemIndexes[itemIndexStart] = addSequentialIndexesToFixedIndexList(
+    const scrollIndex = Math.round(scrollValue / currentCache.itemSize) + fixedItemsCount;
+
+    if (!currentCache.visibleItemIndexes[scrollIndex]) {
+      const itemIndexStart = scrollIndexToGridIndex(scrollIndex, hiddenItems);
+      currentCache.visibleItemIndexes[scrollIndex] = addSequentialIndexesToFixedIndexList(
         currentCache.visibleFixedItems,
         itemIndexStart,
         itemsLength,
         currentCache.itemsCount,
-        hiddenItems
+        currentCache.ignoredIndexes
       );
-      return currentCache.visibleItemIndexes[itemIndexStart];
+      return currentCache.visibleItemIndexes[scrollIndex];
     }
 
-    return currentCache.visibleItemIndexes[itemIndexStart];
+    return currentCache.visibleItemIndexes[scrollIndex];
   };
 
   const getElevatedItemIndexes = (visibleItemIndexes: number[]): IElevateds => {
-    const newElevatedItemIndexes = getElevatedIndexes(visibleItemIndexes, stableFixedItems, true);
-    if (!isEqual(elevatedItemIndexes, newElevatedItemIndexes)) {
-      return newElevatedItemIndexes;
+    const currentCache = cache.current;
+    const elevatedItems = currentCache.elevatedItemIndexes.get(visibleItemIndexes);
+
+    if (!elevatedItems) {
+      currentCache.elevatedItemIndexes.set(
+        visibleItemIndexes,
+        getElevatedIndexes(visibleItemIndexes, currentCache.ignoredIndexes, true)
+      );
+      return currentCache.elevatedItemIndexes.get(visibleItemIndexes) as IElevateds;
     }
-    return elevatedItemIndexes;
+    return elevatedItems as IElevateds;
   };
 
-  const getVisibleItemsState = (scrollLeft = 0): IState | null => {
-    const newVisibleItemIndexes = getVisibleItemIndexes(scrollLeft);
-    if (!isEqual(newVisibleItemIndexes, visibleItemIndexes)) {
+  const getVisibleItemsState = (scrollValue = 0): IState | null => {
+    const newVisibleItemIndexes = getVisibleItemIndexes(scrollValue);
+    if (newVisibleItemIndexes !== visibleItemIndexes) {
       return {
         visibleItemIndexes: newVisibleItemIndexes,
         elevatedItemIndexes: getElevatedItemIndexes(newVisibleItemIndexes),
@@ -183,9 +201,9 @@ function useVirtualizer(props: IVirtualizerProps): {
     return null;
   };
 
-  const onScrollerScroll = (scrollValues: IOnScroll) => {
-    const { scrollLeft } = scrollValues;
-    const newItemsState = getVisibleItemsState(scrollLeft);
+  const updateVisibleItems = (scrollValues: IOnScroll) => {
+    const { scrollValue } = scrollValues;
+    const newItemsState = getVisibleItemsState(scrollValue);
 
     if (newItemsState) {
       setState(newItemsState);
@@ -196,57 +214,54 @@ function useVirtualizer(props: IVirtualizerProps): {
       const itemsCursor = findFirstNotIncluded(visibleItemIndexes, cache.current.visibleFixedItems);
       onScroll({
         scrollValues,
-        newItemsState,
+        newItemsState: newItemsState || state,
         itemsCursor,
       });
     }
   };
 
-  const scrollToItemIndex = (itemIndex: number): boolean => {
-    if (scrollTo) {
-      const sizes = fixedItemsSize?.customSizes ?? {};
-      const nbOfHiddenIndexesBeforeStartIndex = hiddenItems.filter((hiddenIndex) => hiddenIndex <= itemIndex).length;
-      const beforeFixedItemsCount = getFixedItemsCountBeforeSelectedItemIndex(fixedItems, itemIndex);
-      const selectedItemSize = sizes[itemIndex] ?? cache.current.itemSize;
-      /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
-      const scrollableItemsTotalSize =
-        (itemIndex - 1 - beforeFixedItemsCount - nbOfHiddenIndexesBeforeStartIndex) * cache.current.itemSize;
-      const newScrollValue = selectedItemSize + scrollableItemsTotalSize;
-
-      return newScrollValue != null ? scrollTo(newScrollValue) : false;
-    }
-    return false;
+  const goToItemIndex = (itemIndex: number): boolean => {
+    const toItemIndex = Math.max(Math.min(itemIndex, itemsLength - 1), 0);
+    const fixedItemsBeforeItem = cache.current.visibleFixedItems.filter((fixedItemIndex) => fixedItemIndex < toItemIndex).length;
+    /** Total size of scrollable items that are placed before the itemIndex we want to scroll on */
+    const newScrollValue = cache.current.itemIndexesScrollMapping[toItemIndex - fixedItemsBeforeItem];
+    return newScrollValue != null ? scrollTo(newScrollValue) : false;
   };
 
   React.useEffect(() => {
-    initCache();
-    const initalVisibleItemIndexes = getVisibleItemIndexes();
-    const newState = {
-      visibleItemIndexes: initalVisibleItemIndexes,
-      elevatedItemIndexes: getElevatedItemIndexes(initalVisibleItemIndexes),
-    };
-    setState(newState);
-    if (initialScroll && initialScroll >= 0) {
-      scrollToItemIndex(initialScroll);
+    if (isInitialized.current) {
+      if (initialScroll && initialScroll >= 0) {
+        goToItemIndex(initialScroll);
+      }
     }
+  }, [isInitialized.current]);
+
+  React.useEffect(() => {
+    isInitialized.current = true;
   }, []);
 
   React.useEffect(() => {
-    if (getScrollValue) {
-      initCache();
-      const scrollValue = getScrollValue();
-      const newItemsState = getVisibleItemsState(scrollValue) as IState;
+    const scrollValue = getScrollValue();
+    initCache();
+    const newItemsState = getVisibleItemsState(scrollValue || 0) as IState;
+    if (newItemsState) {
       setState(newItemsState);
     }
-  }, [containerSize, itemsLength, minItemSize, itemsCount, stableFixedItems, stableHiddenItems, getScrollValue]);
+  }, [containerSize, itemsLength, minItemSize, itemsCount, stableFixedItems, stableHiddenItems, padding, getScrollValue]);
 
-  return {
-    virtualSize: cache.current.virtualSize,
-    onScrollerScroll,
-    itemSize: cache.current.itemSize,
-    visibleItemIndexes: getVisibleIndexesInsideDatalength(itemsLength, visibleItemIndexes),
+  const controller: IVirtualizerController = {
+    visibleItemIndexes,
     elevatedItemIndexes,
+    virtualSize: cache.current.virtualSize,
+    itemSize: cache.current.itemSize,
+    itemsCount: cache.current.itemsCount,
+    updateVisibleItems,
+    goToItemIndex,
   };
+
+  React.useImperativeHandle(ref, () => controller);
+
+  return controller;
 }
 
 export default useVirtualizer;
