@@ -1,6 +1,6 @@
 {
   "name": "@decathlon/react-table",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "React components for efficiently rendering large tabular data",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,8 @@
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",
     "memoize-one": "^5.2.1",
-    "react-number-format": "^4.7.3"
+    "react-number-format": "^4.7.3",
+    "react-resize-detector": "^6.7.7"
   },
   "peerDependencies": {
     "@emotion/react": "^11.4.1",
