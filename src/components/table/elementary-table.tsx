@@ -99,6 +99,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
     fixedRowsAbsoluteIndexes: number[] = []
   ): [number[], IRow[]] => {
     const { visibleRowIndexes, indexesMapping } = this.props;
+
     // @ts-ignore we have a default value for visibleRowIndexes
     return filterRowsByIndexes(rows, visibleRowIndexes || null, indexesMapping.absolute, absoluteIndex, fixedRowsAbsoluteIndexes);
   };

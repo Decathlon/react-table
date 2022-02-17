@@ -1,7 +1,7 @@
 // / <reference lib="es2017.string" />
 import * as React from "react";
 
-import { IElevateds, ITrees } from "../components";
+import { ElementaryTable, getDenseColumns, IColumnOptions, IElevateds, IRowOptions, ITrees } from "../components";
 import VirtualScroller from "./VirtualScroller";
 import useVirtializedGrid, { IVirtualizedGridController, VirtualizerProps as UseVirtualizerProps } from "./useVirtializedGrid";
 import useTable from "./useTable";
@@ -28,21 +28,28 @@ interface IChildrenProps extends IRowsState, IColumnState {
 }
 
 export interface VirtualizerProps extends UseVirtualizerProps {
+  id: string;
   /** A list of branches to initialize opened rows and sub rows */
   initialOpenedTrees: ITrees;
+  globalRowProps?: IRowOptions;
+  /** Options to customize any column, such as size */
+  globalColumnProps?: IColumnOptions;
   /** Children to display inside the virtualizer */
   children: (props: IChildrenProps) => JSX.Element;
 }
 
 function VirtializedTable<IDataCoordinates = any>({
-  children,
+  id,
   rows,
   columns,
   initialOpenedTrees,
   columnsVirtualizerProps,
   rowsVirtualizerProps,
+  globalRowProps,
+  globalColumnProps,
 }: VirtualizerProps): JSX.Element {
   const virtualizedGridController = React.useRef<IVirtualizedGridController>(null);
+
   const goToColumnIndex = React.useCallback((itemIndex: number) => {
     if (virtualizedGridController.current?.columnsVirtualizer) {
       return virtualizedGridController.current.columnsVirtualizer.goToItemIndex(itemIndex);
@@ -50,7 +57,13 @@ function VirtializedTable<IDataCoordinates = any>({
     return false;
   }, []);
 
-  const table = useTable<IDataCoordinates>({ rows, initialOpenedTrees, goToColumnIndex });
+  const table = useTable<IDataCoordinates>({
+    rows,
+    initialOpenedTrees,
+    globalRowProps,
+    fixedRows: rowsVirtualizerProps.fixedItems,
+    goToColumnIndex,
+  });
 
   const { virtualScroller, columnsVirtualizer, rowsVirtualizer, scroller } = useVirtializedGrid(
     {
@@ -62,8 +75,30 @@ function VirtializedTable<IDataCoordinates = any>({
     virtualizedGridController
   );
 
-  const { containerSize: width } = columnsVirtualizerProps;
+  const {
+    containerSize: width,
+    fixedItemsSize: fixedCellsWidth = {
+      sum: 0,
+      count: 0,
+      customSizes: {},
+    },
+  } = columnsVirtualizerProps;
   const { containerSize: height } = rowsVirtualizerProps;
+
+  const rowsProps = React.useMemo(
+    () => (rowsVirtualizer.itemSize ? table.getRowsProps(rowsVirtualizer.itemSize) : globalRowProps),
+    [rowsVirtualizer.itemSize, globalRowProps]
+  );
+
+  const columnsProps = React.useMemo(
+    () => (columnsVirtualizer.itemSize ? table.getColumnsProps(columnsVirtualizer.itemSize) : globalColumnProps),
+    [columnsVirtualizer.itemSize, globalColumnProps]
+  );
+
+  const tableWidth =
+    fixedCellsWidth.sum + (columnsVirtualizer.visibleItemIndexes.length - fixedCellsWidth.count) * columnsVirtualizer.itemSize;
+  const denseColumns = getDenseColumns(tableWidth, width, table.columnsLength, columns);
+  console.log(columnsVirtualizer.visibleItemIndexes);
 
   return (
     <VirtualScroller
@@ -74,14 +109,22 @@ function VirtializedTable<IDataCoordinates = any>({
       virtualHeight={rowsVirtualizer.virtualSize}
       onScroll={scroller.handleContainerScroll}
     >
-      {children({
-        visibleColumnIndexes: columnsVirtualizer.visibleItemIndexes,
-        visibleRowIndexes: rowsVirtualizer.visibleItemIndexes,
-        elevatedColumnIndexes: columnsVirtualizer.elevatedItemIndexes,
-        elevatedRowIndexes: rowsVirtualizer.elevatedItemIndexes,
-        cellHeight: rowsVirtualizer.itemSize,
-        cellWidth: columnsVirtualizer.itemSize,
-      })}
+      <ElementaryTable
+        id={id}
+        rows={rows}
+        columns={denseColumns}
+        visibleColumnIndexes={columnsVirtualizer.visibleItemIndexes}
+        visibleRowIndexes={rowsVirtualizer.visibleItemIndexes}
+        fixedRowsIndexes={table.fixedRowsIndexes}
+        globalRowProps={rowsProps}
+        globalColumnProps={columnsProps}
+        elevatedColumnIndexes={columnsVirtualizer.elevatedItemIndexes}
+        elevatedRowIndexes={rowsVirtualizer.elevatedItemIndexes}
+        onRowOpen={table.onRowOpen}
+        onRowClose={table.onRowClose}
+        indexesMapping={table.indexesMapping}
+        openedTrees={table.openedTrees}
+      />
     </VirtualScroller>
   );
 }

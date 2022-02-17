@@ -9,6 +9,8 @@ import Row, { IRow } from "../../../src/components/table/row";
 import { withThemeProvider } from "../../utils/decorators";
 import { generateTable, generateTableWithCustomColspan, generateRow } from "../../utils/tables";
 import { TableColumnsRowsController, TableScrollController } from "../../stories-components/selection-menu";
+import VirtializedTable from "../../../src/redesign/VirtualizedTable";
+import { ResponsiveContainer } from "../../../src/components";
 
 const storyInfoDefault = {
   inline: true,
@@ -74,6 +76,48 @@ storiesOf("Table/Virtualized", module)
               fixedColumns: object("fixedColumns", [0, 1, 2, 3, 4]),
             }}
           />
+        </div>
+      );
+    },
+    { notes: { markdown: Readme } }
+  )
+  .add(
+    "ResponsiveNew",
+    () => {
+      const props = generateTable(100, 100, {}, true);
+      props.rows[20].size = 320;
+      return (
+        <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
+          <ResponsiveContainer>
+            {({ width, height }) => {
+              return (
+                <VirtializedTable
+                  {...props}
+                  columns={{
+                    0: { size: 40 },
+                    2: { size: 90 },
+                    3: { size: 90 },
+                    4: { size: 90 },
+                    20: { size: 200 },
+                    95: { size: 450 },
+                  }}
+                  // isSpan={boolean("isSpan", false)}
+                  //@ts-ignore
+                  columnsVirtualizerProps={{
+                    itemsCount: 20,
+                    containerSize: width,
+                    fixedItems: [0, 1, 2, 3, 4],
+                  }}
+                  //@ts-ignore
+                  rowsVirtualizerProps={{
+                    // itemsCount: 10,
+                    containerSize: height,
+                    fixedItems: [0],
+                  }}
+                />
+              );
+            }}
+          </ResponsiveContainer>
         </div>
       );
     },

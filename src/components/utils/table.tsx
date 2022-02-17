@@ -174,8 +174,9 @@ export const addSequentialIndexesToFixedIndexList = (
       itemIndex -= 1;
     }
   }
-
-  return result.concat(fixedIndexes).sort(compareNumbers);
+  const tt = result.concat(fixedIndexes).sort(compareNumbers);
+  //@ts-ignore
+  return [...new Set(tt)];
 };
 
 /**
@@ -371,31 +372,35 @@ export const getFixedElementsWithCustomSize = (
   fixedElements?: number[],
   hiddenIndexes: number[] = []
 ): FixedCustomSizesElements => {
+  const keys = Object.keys(elements);
   let fixedElementFixedSizeSum = {
     sum: 0,
     count: 0,
     customSizes: {},
   };
+  keys.forEach((key) => {
+    const element = elements[key];
+    const size = element && element.size;
+    if (size) {
+      fixedElementFixedSizeSum.customSizes[key] = size;
+    }
+  });
+
   if (fixedElements) {
-    fixedElementFixedSizeSum = fixedElements.reduce(
-      (currFixedElementFixedSizeSum, index) => {
-        const element = elements[index];
-        const size = element && element.size;
-        return !hiddenIndexes.includes(index) && size
-          ? {
-              sum: currFixedElementFixedSizeSum.sum + size,
-              count: currFixedElementFixedSizeSum.count + 1,
-              customSizes: { ...currFixedElementFixedSizeSum.customSizes, [index]: size },
-            }
-          : currFixedElementFixedSizeSum;
-      },
-      {
-        sum: 0,
-        count: 0,
-        customSizes: {},
-      }
-    );
+    fixedElementFixedSizeSum = fixedElements.reduce((currFixedElementFixedSizeSum, index) => {
+      const element = elements[index];
+      const size = element && element.size;
+      return !hiddenIndexes.includes(index) && size
+        ? {
+            ...currFixedElementFixedSizeSum,
+            sum: currFixedElementFixedSizeSum.sum + size,
+            count: currFixedElementFixedSizeSum.count + 1,
+          }
+        : currFixedElementFixedSizeSum;
+    }, fixedElementFixedSizeSum);
   }
+  console.log(fixedElementFixedSizeSum);
+
   return fixedElementFixedSizeSum;
 };
 
@@ -664,6 +669,8 @@ export const getIndexScrollMapping = (
   defaultItemSize: number,
   hiddenItems: number[]
 ): number[] => {
+  console.log("itemsSizes", itemsSizes);
+
   const result: number[] = [0];
   for (let i = 1; i < itemsLength; i++) {
     const prevItemSize = hiddenItems.includes(i - 1) ? 0 : itemsSizes[i - 1] || defaultItemSize;

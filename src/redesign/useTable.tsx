@@ -49,6 +49,9 @@ interface IState {
 export interface ITableController<IDataCoordinates> {
   columnsLength: number;
   rowsLength: number;
+  fixedRowsIndexes: number[];
+  indexesMapping: IIndexesMap;
+  openedTrees: ITrees;
   getVisibleRows: (
     rows: IRow[],
     absoluteIndex: Nullable<number>,
@@ -108,18 +111,16 @@ function useTable<IDataCoordinates = any>(
     //   currentCache.fixedCellsHeight = getFixedElementsWithCustomSize(rows, fixedRows, hiddenRows);
     //   currentCache.fixedCellsWidth = getFixedElementsWithCustomSize(columns, fixedColumns, hiddenColumns);
     // }
-    setState(newState);
+    console.log("zzzzz");
+    setState((prevState) => ({ ...prevState, ...newState }));
   }, [rows]);
 
   React.useEffect(() => {
-    const newState: IState = {
-      ...state,
-      fixedRowsIndexes: getFixedRowsIndexes(openedTrees, indexesMapping.relative),
-    };
+    console.log("reeeows");
     // if (isVirtualized) {
     //   cache.current.fixedCellsHeight = getFixedElementsWithCustomSize(rows, fixedRows, hiddenRows);
     // }
-    setState(newState);
+    setState((prevState) => ({ ...prevState, fixedRowsIndexes: getFixedRowsIndexes(openedTrees, indexesMapping.relative) }));
   }, [fixedRows]);
 
   const cache = React.useRef<{
@@ -274,6 +275,9 @@ function useTable<IDataCoordinates = any>(
   const tableController = {
     columnsLength: cache.current.columnsLength,
     rowsLength: state.rowsLength,
+    fixedRowsIndexes: state.fixedRowsIndexes,
+    indexesMapping: state.indexesMapping,
+    openedTrees: state.openedTrees,
     getVisibleRows,
     getRowTreeLength,
     getCell,

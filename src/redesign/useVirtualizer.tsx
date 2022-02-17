@@ -135,13 +135,16 @@ function useVirtualizer(props: IVirtualizerProps, ref?: React.RefObject<IVirtual
     currentCache.itemSize =
       currentCache.itemsCount > 0 ? Math.ceil(scrollableItemsSize / (currentCache.itemsCount - fixedItemsSize.count)) : 0;
     /** The size of the table if all items are displayed */
-    currentCache.virtualSize = (scrollableItemsCount - fixedItemsSize.count) * currentCache.itemSize + extraItemsSize;
+    currentCache.virtualSize =
+      (scrollableItemsCount - fixedItemsSize.count) * currentCache.itemSize +
+      extraItemsSize +
+      (450 - currentCache.itemSize) +
+      (200 - currentCache.itemSize);
 
     currentCache.ignoredIndexes = {};
     [...currentCache.visibleFixedItems, ...hiddenItems].forEach((ignoredIndex) => {
       currentCache.ignoredIndexes[ignoredIndex] = true;
     });
-
     currentCache.itemIndexesScrollMapping = getIndexScrollMapping(
       itemsLength,
       fixedItemsSize.customSizes,
