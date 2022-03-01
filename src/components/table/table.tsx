@@ -18,7 +18,8 @@ import {
   IRelativeIndexesMap,
   IElevateds,
   getDenseColumns,
-  FixedCustomSizesElements,
+  CustomSizesElements,
+  relativeToAbsoluteObject,
 } from "../utils/table";
 import SelectionHandler, { ISelection, ISelectionHandlerOptionalProps } from "../table-selection/selection-handler";
 import { ROW_SPAN_WIDTH } from "../constants";
@@ -68,15 +69,27 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
 
   private globalColumnProps?: IColumnOptions;
 
-  private fixedCellsHeight: FixedCustomSizesElements = {
-    sum: 0,
-    count: 0,
+  private fixedCellsHeight: CustomSizesElements = {
+    fixed: {
+      sum: 0,
+      count: 0,
+    },
+    scrollable: {
+      sum: 0,
+      count: 0,
+    },
     customSizes: {},
   };
 
-  private fixedCellsWidth: FixedCustomSizesElements = {
-    sum: 0,
-    count: 0,
+  private fixedCellsWidth: CustomSizesElements = {
+    fixed: {
+      sum: 0,
+      count: 0,
+    },
+    scrollable: {
+      sum: 0,
+      count: 0,
+    },
     customSizes: {},
   };
 
@@ -347,13 +360,21 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         rowsLength={rowsLength}
         width={width}
         height={height}
-        fixedCellsHeight={this.fixedCellsHeight}
+        fixedCellsHeight={{
+          ...this.fixedCellsHeight,
+          customSizes: relativeToAbsoluteObject(this.fixedCellsHeight.customSizes, indexesMapping.relative),
+        }}
         fixedCellsWidth={this.fixedCellsWidth}
         verticalPadding={isSpan ? ROW_SPAN_WIDTH : 0}
       >
         {({ visibleColumnIndexes, visibleRowIndexes, elevatedColumnIndexes, elevatedRowIndexes, cellHeight, cellWidth }) => {
-          const tableWidth = this.fixedCellsWidth.sum + (visibleColumnIndexes.length - this.fixedCellsWidth.count) * cellWidth;
-          const adjustedColumns = getDenseColumns(tableWidth, width, this.columnsLength, columns);
+          const tableWidth =
+            this.fixedCellsWidth.fixed.sum +
+            this.fixedCellsWidth.scrollable.sum +
+            (visibleColumnIndexes.length - this.fixedCellsWidth.fixed.count - this.fixedCellsWidth.scrollable.count) * cellWidth;
+          const adjustedColumns = !virtualizerProps.fixedColumns?.includes(visibleColumnIndexes[visibleColumnIndexes.length - 1])
+            ? getDenseColumns(tableWidth, width, this.columnsLength, columns)
+            : columns;
 
           return this.renderTable(
             visibleColumnIndexes,

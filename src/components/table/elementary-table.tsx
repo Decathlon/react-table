@@ -2,7 +2,7 @@ import * as React from "react";
 import classnames from "classnames";
 
 import Row, { IRow, IRowOptions } from "./row";
-import { IIndexesMap, filterRowsByIndexes, getRowTreeLength, filterIndexes, IElevateds } from "../utils/table";
+import { IIndexesMap, filterRowsByIndexes, getRowTreeLength, filterIndexes, IElevateds, ElevationType } from "../utils/table";
 import { ISelection } from "../table-selection/selection-handler";
 import { Nullable } from "../typing";
 
@@ -129,6 +129,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       onCellContextMenu,
       selectedCells,
     } = this.props;
+
     const [relativeIndexes, rowsToRender] = this.getVisibleRows(rows, null, fixedRowsIndexes);
 
     return rowsToRender.reduce<{ header: JSX.Element[]; body: JSX.Element[] }>(
@@ -143,7 +144,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
         const rowOpenedTree = openedTrees[rowIndex];
 
         // @ts-ignore we have a default value for openedTrees
-        const elevation = elevatedRowIndexes[rowAbsoluteIndex];
+        const elevation = elevatedRowIndexes?.elevations[rowAbsoluteIndex];
         let rowSelectedCells = (subItems || selectedCells[rowAbsoluteIndex]) && selectedCells;
         if (rowSelectedCells) {
           const nextRowMap = indexesMapping.relative && indexesMapping.relative[rowIndex + 1];
@@ -152,6 +153,8 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             ? filterIndexes(rowSelectedCells, rowAbsoluteIndex, nextRowAbsoluteIndex)
             : rowSelectedCells;
         }
+        const absolutePosition = elevatedRowIndexes?.absoluteEndPositions[rowAbsoluteIndex];
+        const rowStyle = absolutePosition != null ? { bottom: absolutePosition } : undefined;
         const renderedRow = (
           <Row
             key={`row-${id}-${row.id}`}
@@ -160,6 +163,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             className={classnames(row.className, {
               [`elevated-${elevation}`]: elevation,
             })}
+            style={rowStyle}
             absoluteIndex={rowAbsoluteIndex}
             index={rowIndex}
             isVisible={isVisible}

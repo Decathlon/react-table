@@ -1,3 +1,19 @@
+.table-column.elevated-end + .elevated-absolute {
+  .table-overflow-wrapper {
+    position: relative;
+    &::after {
+      content: "";
+      border: solid 1px transparent;
+      box-shadow: 0px 0 7px -1px rgba(0, 0, 0, 0.5) !important;
+      position: absolute;
+      height: calc(100% + 5px);
+      top: 0;
+      right: -5px;
+      width: 3px;
+    }
+  }
+}
+
 .table-root {
   width: 100%;
   display: table;
@@ -48,13 +64,6 @@
 
     &.selected {
       background-color: rgba(2, 171, 255, 0.1) !important;
-      // gets rid of the blue selection overlay, but prevents value selection, which may suck
-      // -webkit-touch-callout: none;
-      // -webkit-user-select: none;
-      // -khtml-user-select: none;
-      // -moz-user-select: none;
-      // -ms-user-select: none;
-      // user-select: none;
     }
     &.elevated-start + .table-column {
       .table-overflow-wrapper {
@@ -62,7 +71,7 @@
         &::after {
           content: "";
           border: solid 1px transparent;
-          box-shadow: 6px 0px 9px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.5);
           position: absolute;
           height: calc(100% + 5px);
           top: 0;
@@ -70,20 +79,10 @@
         }
       }
     }
-    &.elevated-end {
-      .table-overflow-wrapper {
-        position: relative;
-        &::before {
-          content: "";
-          border: solid 1px transparent;
-          box-shadow: 0px 0 9px 1px rgba(0, 0, 0, 0.1);
-          position: absolute;
-          height: calc(100% + 5px);
-          top: 0;
-          right: -5px;
-          width: 3px;
-        }
-      }
+    &.elevated-absolute {
+      position: absolute;
+      right: 0;
+      background-color: white;
     }
   }
 }
@@ -111,4 +110,23 @@ th {
       justify-content: start;
     }
   }
+}
+
+.table-column.editable .table-cell-container:hover,
+.table-column.editable .table-cell-container:focus-within {
+  box-shadow: inset 0 0 0 1px rgb(238, 237, 237);
+  z-index: 1;
+}
+.table-root .table-column {
+  box-shadow: inset 0 1px 0 0 rgb(238, 237, 237) !important;
+}
+
+.table-root .table-column:not(.elevated-start) + .table-column .table-overflow-wrapper::after {
+  position: absolute;
+  top: 0;
+  content: "";
+  height: 100%;
+  right: 100%;
+  width: 1px;
+  background-color: rgb(238, 237, 237);
 }

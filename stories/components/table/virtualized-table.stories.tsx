@@ -45,6 +45,7 @@ storiesOf("Table/Virtualized", module)
             fixedColumns: object("fixedColumns", [0, 1]),
             height: number("height", 500),
             width: number("width", 1000),
+            hiddenColumns: [13, 34],
           }}
         />
       );
@@ -57,21 +58,60 @@ storiesOf("Table/Virtualized", module)
   .add(
     "Responsive",
     () => {
-      const props = generateTable(371, 351, {}, true);
-      props.rows[0].size = 30;
+      const props = generateTable(100, 100, {}, true);
+      props.rows[15].size = 122;
+      props.rows[97].size = 300;
       return (
         <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
           <Table
             {...props}
-            columns={{ 0: { size: 40 }, 2: { size: 90 }, 3: { size: 90 }, 4: { size: 90 } }}
+            columns={{
+              0: { style: { justifyContent: "center" } },
+              12: { size: 234 },
+              // 32: { size: 234 },
+              // 97: { size: 300 },
+            }}
             isSelectable={false}
             isVirtualized
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
-              rowsCount: 10,
-              columnsCount: 10,
-              fixedRows: object("fixedRows", [0]),
-              fixedColumns: object("fixedColumns", [0, 1, 2, 3, 4]),
+              // rowsCount: 10,
+              // columnsCount: 10,
+              hiddenColumns: [13, 32],
+              fixedRows: object("fixedRows", [0, 50, 97]),
+              fixedColumns: object("fixedColumns", [0, 1, 2, 3, 98, 99]),
+            }}
+          />
+        </div>
+      );
+    },
+    { notes: { markdown: Readme } }
+  )
+  .add(
+    "Responsive2",
+    () => {
+      const props = generateTable(3, 300, {});
+      // props.rows[15].size = 122;
+      // props.rows[2].size = 300;
+      return (
+        <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
+          <Table
+            {...props}
+            columns={{
+              0: { style: { justifyContent: "center" } },
+              // 2: { size: 234 },
+              // 32: { size: 234 },
+              // 97: { size: 300 },
+            }}
+            isSelectable={false}
+            isVirtualized
+            isSpan={boolean("isSpan", false)}
+            virtualizerProps={{
+              // rowsCount: 10,
+              // columnsCount: 10,
+              hiddenColumns: [13, 32],
+              fixedRows: object("fixedRows", [0, 2]),
+              fixedColumns: object("fixedColumns", [299]),
             }}
           />
         </div>
@@ -118,9 +158,9 @@ storiesOf("Table/Virtualized", module)
           isSpan={boolean("isSpan", false)}
           virtualizerProps={{
             rowsCount: 10,
-            columnsCount: 10,
+            // columnsCount: 10,
             fixedRows: object("fixedRows", [0, 1]),
-            fixedColumns: object("fixedColumns", [0, 1]),
+            fixedColumns: object("fixedColumns", [0, 5]),
           }}
         />
       </div>
@@ -147,7 +187,7 @@ storiesOf("Table/Virtualized", module)
               rowsCount: 10,
               columnsCount: 10,
               fixedRows: object("fixedRows", [0, 1, 99]),
-              fixedColumns: object("fixedColumns", [0, 1, 49, 50]),
+              fixedColumns: object("fixedColumns", [0, 1, 50]),
             }}
           />
         </div>
@@ -165,7 +205,7 @@ storiesOf("Table/Virtualized", module)
           globalColumnProps={{ style: { justifyContent: "center" } }}
           isSelectable={false}
           isVirtualized
-          isSpan
+          // isSpan
           virtualizerProps={{
             rowsCount: 10,
             columnsCount: 10,
@@ -232,7 +272,7 @@ storiesOf("Table/Virtualized", module)
       return (
         <Table
           {...table}
-          isSpan
+          // isSpan
           isSelectable={false}
           columns={{ 0: { size: 320 }, 4: { size: 300 } }}
           isVirtualized

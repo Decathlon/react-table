@@ -184,7 +184,7 @@ export const TableColumnsRowsController = () => {
       </div>
       <Table
         {...generateTable(50, 50, {}, true)}
-        isSpan
+        // isSpan
         isSelectable={false}
         isVirtualized
         virtualizerProps={{

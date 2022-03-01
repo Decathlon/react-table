@@ -70,6 +70,7 @@ export interface IRowProps extends IRow {
   delegatedSpan?: JSX.Element;
   /** Determine if the row needs to be displayed */
   isVisible?: boolean;
+  style?: React.CSSProperties;
   /** Column options to apply to the right cells of the row */
   columns?: { [index: number]: IColumn };
   /** Properties shared between cells belonging to the same columns */
@@ -353,7 +354,10 @@ export default class Row extends React.Component<IRowProps, IState> {
       onCellContextMenu,
       selectedCells,
       isSelectable,
+      style,
     } = this.props;
+    console.log(elevatedColumnIndexes);
+
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
     const firstCellIndexWithSubItems: number = isSpan ? this.getFirstCellIndexWithSubItems() : -1;
@@ -382,7 +386,7 @@ export default class Row extends React.Component<IRowProps, IState> {
             opened: openedCellIndex !== null,
           })}
           // @ts-ignore
-          style={computeRowStyle(options)}
+          style={computeRowStyle(options, style)}
         >
           {delegatedSpan}
           {isSpan && !delegatedSpan ? this.renderRowSpan(firstCellIndexWithSubItems >= 0) : null}
@@ -392,17 +396,22 @@ export default class Row extends React.Component<IRowProps, IState> {
             }
             const cellIndex = (visibleColumnIndexesAfterMapping && visibleColumnIndexesAfterMapping[index]) || index;
             const cellColumn = columns ? columns[cellIndex] || {} : {};
+
+            const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
+              (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes.elevations[index])
+            );
+            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
+            const elevation = elevatedColumnIndexes?.elevations[elevationIndex];
             const column = {
               isSelectable: true,
               ...globalColumnProps,
               ...cellColumn,
-              style: { ...globalColumnProps.style, ...cellColumn.style },
+              style: {
+                ...globalColumnProps.style,
+                ...cellColumn.style,
+                right: elevatedColumnIndexes?.absoluteEndPositions[cellIndex] || 0,
+              },
             };
-            const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
-              (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
-            );
-            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
-            const elevation = elevationIndex !== undefined && elevatedColumnIndexes[elevationIndex];
 
             const isSelected = (selectedRowCells && selectedRowCells.includes(cellIndex)) || false;
             // By default, columns, rows and cells are selectable
