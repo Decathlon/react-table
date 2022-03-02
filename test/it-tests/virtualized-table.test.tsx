@@ -66,7 +66,7 @@ describe("virtualized table component", () => {
     const header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[0])).toHaveLength(10);
+    expect(getCellsOfRow(rows[0])).toHaveLength(11);
     cleanup();
   });
 
@@ -87,17 +87,16 @@ describe("virtualized table component", () => {
     const header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[0])).toHaveLength(9);
+    expect(getCellsOfRow(rows[0])).toHaveLength(11);
     cleanup();
   });
 
   test("should render a table with a limit to the number of rows and column rendered at once (with custom cell size)", () => {
     const table = generateTable(30, 12);
-    table.rows[0].size = 200;
-    table.rows[8].size = 150;
     customRender(
       <Table
         {...table}
+        rowsProps={{ 0: { size: 200 }, 8: { size: 150 } }}
         columns={{ 0: { size: 320 }, 4: { size: 300 } }}
         isVirtualized
         virtualizerProps={{
@@ -110,7 +109,7 @@ describe("virtualized table component", () => {
     );
     const rows = getRows();
     const header = getRows(true);
-    expect(rows).toHaveLength(3);
+    expect(rows).toHaveLength(4);
     expect(header).toHaveLength(1);
     expect(getCellsOfRow(rows[0])).toHaveLength(5);
     cleanup();
@@ -216,7 +215,7 @@ describe("virtualized table component", () => {
     expect(cellsOfRow[0].textContent).toEqual("(1,0)");
     expect(cellsOfRow[1].textContent).toEqual("(1,1)");
     expect(cellsOfRow[8].textContent).toEqual("(1,8)");
-    expect(cellsOfRow[9].textContent).toEqual("(1,19)");
+    expect(cellsOfRow[10].textContent).toEqual("(1,19)");
 
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
       target: { scrollLeft: 1100 },
@@ -472,7 +471,7 @@ describe("virtualized table component", () => {
     let header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[1])).toHaveLength(10);
+    expect(getCellsOfRow(rows[1])).toHaveLength(11);
     // scroll to the max left
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
       target: { scrollLeft: 1000 },
@@ -506,7 +505,7 @@ describe("virtualized table component", () => {
     let header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[1])).toHaveLength(10);
+    expect(getCellsOfRow(rows[1])).toHaveLength(11);
     // scroll to the max left
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
       target: { scrollLeft: 1000 },
@@ -540,7 +539,7 @@ describe("virtualized table component", () => {
     let header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[1])).toHaveLength(10);
+    expect(getCellsOfRow(rows[1])).toHaveLength(11);
     // scroll to the max left
     fireEvent.scroll(getByTestId(container, "scroller-container"), {
       target: { scrollLeft: 1000 - ROW_SPAN_WIDTH },
@@ -581,8 +580,8 @@ describe("virtualized table component", () => {
       target: { scrollLeft: 600 },
     });
     const rows = getRows();
-    expect(getCellsOfRow(rows[0])[5].textContent).toEqual("(1,7)");
-    expect(getCellsOfRow(rows[0])[6].textContent).toEqual("(1,8)");
+    expect(getCellsOfRow(rows[0])[5].textContent).toEqual("(1,8)");
+    expect(getCellsOfRow(rows[0])[6].textContent).toEqual("(1,9)");
   });
 
   test("Should scroll to the third row that is not fixed", () => {
@@ -635,7 +634,7 @@ describe("virtualized table component", () => {
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     const rows = getRows();
     expect(rows).toHaveLength(8);
-    expect(getCellsOfRow(rows[0])).toHaveLength(10);
+    expect(getCellsOfRow(rows[0])).toHaveLength(11);
     expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(15,21)");
     cleanup();
   });
@@ -657,7 +656,7 @@ describe("virtualized table component", () => {
     let header = getRows(true);
     expect(rows).toHaveLength(7);
     expect(header).toHaveLength(1);
-    expect(getCellsOfRow(rows[0])).toHaveLength(10);
+    expect(getCellsOfRow(rows[0])).toHaveLength(11);
     expect(getCellsOfRow(rows[0])[0].textContent).toEqual("(1,0)");
 
     const updateProps = (props: ITableProps) => rerender(<Table {...props} />);
@@ -723,8 +722,8 @@ describe("virtualized table component", () => {
     // fixed with subItems
     expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(2,2)");
     // the therd row of the first level
-    expect(getCellsOfRow(rows[5])[1].textContent).toEqual("(11,2)");
-    expect(getCellsOfRow(rows[12])[1].textContent).toEqual("(18,2)");
+    expect(getCellsOfRow(rows[7])[1].textContent).toEqual("(11,2)");
+    expect(getCellsOfRow(rows[12])[1].textContent).toEqual("(16,2)");
     // fixed
     expect(getCellsOfRow(rows[13])[1].textContent).toEqual("(19,2)");
     // Scroll to top
@@ -881,7 +880,7 @@ describe("virtualized table component", () => {
     });
 
     let rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
 
     // toggle the first column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
@@ -891,22 +890,22 @@ describe("virtualized table component", () => {
      *  */
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
     // toggle the second column (hide)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,3)");
+    expect(getCellsOfRow(rows[0])[1].textContent).toEqual("(1,4)");
     // toggle the first column (display)
     fireEvent.click(getByTestId(container, "toggle-column-1"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,3)");
+    expect(getCellsOfRow(rows[0])[2].textContent).toEqual("(1,4)");
     // toggle the second column (display)
     fireEvent.click(getByTestId(container, "toggle-column-2"));
     fireEvent.scroll(getByTestId(container, "scroller-container"));
     rows = getRows();
-    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,3)");
+    expect(getCellsOfRow(rows[0])[3].textContent).toEqual("(1,4)");
   });
 
   test("Should display only one cell for the first row", () => {

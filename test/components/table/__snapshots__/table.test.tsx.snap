@@ -2,8 +2,18 @@
 
 exports[`Table component should render a Table with 2 levels 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
+  elevatedRowIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
   id="table-foo"
   indexesMapping={
     Object {
@@ -134,14 +144,25 @@ exports[`Table component should render a Table with 2 levels 1`] = `
       },
     ]
   }
+  rowsProps={Object {}}
   selectedCells={Object {}}
 />
 `;
 
 exports[`Table component should render a Table with 3 levels 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
+  elevatedRowIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
   id="table-foo"
   indexesMapping={
     Object {
@@ -308,14 +329,25 @@ exports[`Table component should render a Table with 3 levels 1`] = `
       },
     ]
   }
+  rowsProps={Object {}}
   selectedCells={Object {}}
 />
 `;
 
 exports[`Table component should render a Table with spans 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
+  elevatedRowIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
   id="table-foo"
   indexesMapping={
     Object {
@@ -484,6 +516,7 @@ exports[`Table component should render a Table with spans 1`] = `
       },
     ]
   }
+  rowsProps={Object {}}
   selectedCells={Object {}}
 />
 `;
@@ -505,16 +538,28 @@ exports[`Table component should render a virtualized Table 1`] = `
   columnsLength={3}
   fixedCellsHeight={
     Object {
-      "count": 0,
       "customSizes": Object {},
-      "sum": 0,
+      "fixed": Object {
+        "count": 0,
+        "sum": 0,
+      },
+      "scrollable": Object {
+        "count": 0,
+        "sum": 0,
+      },
     }
   }
   fixedCellsWidth={
     Object {
-      "count": 0,
       "customSizes": Object {},
-      "sum": 0,
+      "fixed": Object {
+        "count": 0,
+        "sum": 0,
+      },
+      "scrollable": Object {
+        "count": 0,
+        "sum": 0,
+      },
     }
   }
   fixedColumns={Array []}
@@ -539,8 +584,18 @@ exports[`Table component should render a virtualized Table 1`] = `
 
 exports[`Table component should render the default table 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
+  elevatedRowIndexes={
+    Object {
+      "absoluteEndPositions": Object {},
+      "elevations": Object {},
+    }
+  }
   id="table-foo"
   indexesMapping={
     Object {
@@ -705,6 +760,7 @@ exports[`Table component should render the default table 1`] = `
       },
     ]
   }
+  rowsProps={Object {}}
   selectedCells={Object {}}
 />
 `;

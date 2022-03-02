@@ -103,6 +103,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
       initialOpenedTrees,
       rows,
       columns,
+      rowsProps,
       isVirtualized,
       virtualizerProps: { fixedRows, fixedColumns, hiddenRows, hiddenColumns },
     } = this.props;
@@ -116,7 +117,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
       fixedRowsIndexes: this.getFixedRowsIndexes(initialOpenedTrees, indexesMapping.relative),
     };
     if (isVirtualized) {
-      this.fixedCellsHeight = getFixedElementsWithCustomSize(rows, fixedRows, hiddenRows);
+      this.fixedCellsHeight = getFixedElementsWithCustomSize(rowsProps, fixedRows, hiddenRows);
       this.fixedCellsWidth = getFixedElementsWithCustomSize(columns, fixedColumns, hiddenColumns);
     }
   }

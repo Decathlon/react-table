@@ -11,7 +11,7 @@ import {
   VirtualizerCache,
   getVirtualizerCache,
   getVisibleItemIndexes,
-  getElevatedItemIndexes,
+  getElevatedIndexes,
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -147,7 +147,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     itemIndexesScrollMapping: [],
     visibleItemIndexes: {},
     ignoredIndexes: {},
-    elevatedItemIndexes: new Map(),
   };
 
   private horizontalData: VirtualizerCache = {
@@ -158,7 +157,6 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     itemIndexesScrollMapping: [],
     visibleItemIndexes: {},
     ignoredIndexes: {},
-    elevatedItemIndexes: new Map(),
     scrollableCustomSize: 0,
   };
 
@@ -285,14 +283,14 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
 
   private getElevatedColumnIndexes = (visibleColumnIndexes: number[]): IElevateds => {
     const { fixedCellsWidth } = this.props;
-    const currentCache = this.horizontalData;
-    return getElevatedItemIndexes(visibleColumnIndexes, currentCache, fixedCellsWidth.customSizes, true);
+    const { ignoredIndexes, itemSize } = this.horizontalData;
+    return getElevatedIndexes(visibleColumnIndexes, ignoredIndexes, fixedCellsWidth.customSizes, itemSize, true);
   };
 
   private getElevatedRowIndexes = (visibleRowIndexes: number[]): IElevateds => {
     const { fixedCellsHeight } = this.props;
-    const currentCache = this.verticalData;
-    return getElevatedItemIndexes(visibleRowIndexes, currentCache, fixedCellsHeight.customSizes);
+    const { ignoredIndexes, itemSize } = this.verticalData;
+    return getElevatedIndexes(visibleRowIndexes, ignoredIndexes, fixedCellsHeight.customSizes, itemSize);
   };
 
   private getVisibleRowsState = (scrollTop = 0): IRowsState | null => {
@@ -372,12 +370,12 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   public scrollToColumnIndex = (columnIndex: number): boolean => {
-    const toLeft = this.horizontalData.itemIndexesScrollMapping[columnIndex] + 5;
+    const toLeft = this.horizontalData.itemIndexesScrollMapping[columnIndex] + 1;
     return this.scroller.current && toLeft != null ? this.scroller.current.scrollToLeft(toLeft) : false;
   };
 
   public scrollToRowIndex = (rowIndex: number): boolean => {
-    const toTop = this.verticalData.itemIndexesScrollMapping[rowIndex] + 5;
+    const toTop = this.verticalData.itemIndexesScrollMapping[rowIndex] + 1;
     return this.scroller.current && toTop != null ? this.scroller.current.scrollToTop(toTop) : false;
   };
 

@@ -58,28 +58,27 @@ storiesOf("Table/Virtualized", module)
   .add(
     "Responsive",
     () => {
-      const props = generateTable(100, 100, {}, true);
-      props.rows[15].size = 122;
-      props.rows[97].size = 300;
+      const props = generateTable(1000, 350, {}, true);
+
       return (
         <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
           <Table
             {...props}
+            rowsProps={{
+              15: { size: 122 },
+              97: { size: 300 },
+            }}
             columns={{
               0: { style: { justifyContent: "center" } },
               12: { size: 234 },
-              // 32: { size: 234 },
-              // 97: { size: 300 },
             }}
             isSelectable={false}
             isVirtualized
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
-              // rowsCount: 10,
-              // columnsCount: 10,
               hiddenColumns: [13, 32],
               fixedRows: object("fixedRows", [0, 50, 97]),
-              fixedColumns: object("fixedColumns", [0, 1, 2, 3, 98, 99]),
+              fixedColumns: object("fixedColumns", [0, 1, 2, 3]),
             }}
           />
         </div>
@@ -88,27 +87,20 @@ storiesOf("Table/Virtualized", module)
     { notes: { markdown: Readme } }
   )
   .add(
-    "Responsive2",
+    "Absolute column and row",
     () => {
       const props = generateTable(3, 300, {});
-      // props.rows[15].size = 122;
-      // props.rows[2].size = 300;
       return (
         <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
           <Table
             {...props}
             columns={{
               0: { style: { justifyContent: "center" } },
-              // 2: { size: 234 },
-              // 32: { size: 234 },
-              // 97: { size: 300 },
             }}
             isSelectable={false}
             isVirtualized
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
-              // rowsCount: 10,
-              // columnsCount: 10,
               hiddenColumns: [13, 32],
               fixedRows: object("fixedRows", [0, 2]),
               fixedColumns: object("fixedColumns", [299]),
@@ -173,7 +165,7 @@ storiesOf("Table/Virtualized", module)
       const table = generateTable(100, 100, {}, true);
       const lastRow: IRow = table.rows[99];
       lastRow.fixSubRows = true;
-      lastRow.cells[0].subItems = [generateRow(1, 100, false, 2)];
+      lastRow.cells[0].subItems = [generateRow(1, 100, false, 2), generateRow(2, 100, false, 2)];
       return (
         <div style={{ height: "100vh", width: "100%" }}>
           <Table
@@ -220,11 +212,13 @@ storiesOf("Table/Virtualized", module)
     "With custom row height for some fixed rows",
     () => {
       const table = generateTable(30, 20, {}, true);
-      table.rows[0].size = 24;
-      table.rows[8].size = 150;
       return (
         <Table
           {...table}
+          rowsProps={{
+            0: { size: 24 },
+            8: { size: 150 },
+          }}
           isSelectable={false}
           isVirtualized
           virtualizerProps={{
@@ -267,14 +261,15 @@ storiesOf("Table/Virtualized", module)
     "With custom cell size",
     () => {
       const table = generateTable(30, 12, {}, true);
-      table.rows[0].size = 24;
-      table.rows[8].size = 150;
       return (
         <Table
           {...table}
-          // isSpan
-          isSelectable={false}
+          rowsProps={{
+            0: { size: 24 },
+            8: { size: 150 },
+          }}
           columns={{ 0: { size: 320 }, 4: { size: 300 } }}
+          isSelectable={false}
           isVirtualized
           virtualizerProps={{
             fixedRows: object("fixedRows", [0, 2, 8]),
@@ -294,11 +289,13 @@ storiesOf("Table/Virtualized", module)
     "With hidden rows and columns",
     () => {
       const table = generateTable(30, 20, {}, true);
-      table.rows[0].size = 24;
-      table.rows[8].size = 150;
       return (
         <Table
           {...table}
+          rowsProps={{
+            0: { size: 24 },
+            8: { size: 150 },
+          }}
           isSelectable={false}
           isVirtualized
           virtualizerProps={{

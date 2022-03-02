@@ -34,7 +34,18 @@ exports[`elementary table component should render a table with custom cell size 
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}
@@ -191,7 +202,18 @@ exports[`elementary table component should render a table with custom cell size 
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}
@@ -345,7 +367,18 @@ exports[`elementary table component should render a table with custom cell size 
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}
@@ -387,7 +420,18 @@ exports[`elementary table component should render the default table 1`] = `
       }
       className=""
       columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}
@@ -534,7 +578,18 @@ exports[`elementary table component should render the default table 1`] = `
       }
       className=""
       columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}
@@ -679,7 +734,18 @@ exports[`elementary table component should render the default table 1`] = `
       }
       className=""
       columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
+      elevatedRowIndexes={
+        Object {
+          "absoluteEndPositions": Object {},
+          "elevations": Object {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
       globalColumnProps={Object {}}

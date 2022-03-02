@@ -2,7 +2,7 @@ import * as React from "react";
 import classnames from "classnames";
 
 import Row, { IRow, IRowOptions } from "./row";
-import { IIndexesMap, filterRowsByIndexes, getRowTreeLength, filterIndexes, IElevateds, ElevationType } from "../utils/table";
+import { IIndexesMap, filterRowsByIndexes, getRowTreeLength, filterIndexes, IElevateds } from "../utils/table";
 import { ISelection } from "../table-selection/selection-handler";
 import { Nullable } from "../typing";
 
@@ -55,6 +55,8 @@ export interface IElementaryTable<IDataCoordinates = any> {
   elevatedRowIndexes?: IElevateds;
   /** Options to customize any columns, such as size or align */
   columns?: IColumns;
+  /** Options to customize any rows, such as size */
+  rowsProps?: Record<number, IRowOptions>;
   /** Options to customize any row, such as size */
   globalRowProps?: IRowOptions;
   /** Options to customize any column, such as size */
@@ -78,10 +80,11 @@ export interface IElementaryTableProps<IDataCoordinates = any> extends IElementa
 
 class ElementaryTable extends React.Component<IElementaryTableProps> {
   static defaultProps = {
-    elevatedColumnIndexes: {},
-    elevatedRowIndexes: {},
+    elevatedColumnIndexes: { elevations: {}, absoluteEndPositions: {} },
+    elevatedRowIndexes: { elevations: {}, absoluteEndPositions: {} },
     openedTrees: {},
     selectedCells: {},
+    rowsProps: {},
   };
 
   /** An utility of the table that return the length of the visible sub-rows
@@ -112,6 +115,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       isSpan,
       rows,
       columns,
+      rowsProps,
       globalRowProps,
       globalColumnProps,
       visibleColumnIndexes,
@@ -129,7 +133,6 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       onCellContextMenu,
       selectedCells,
     } = this.props;
-
     const [relativeIndexes, rowsToRender] = this.getVisibleRows(rows, null, fixedRowsIndexes);
 
     return rowsToRender.reduce<{ header: JSX.Element[]; body: JSX.Element[] }>(
@@ -138,6 +141,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
           return result;
         }
         const rowIndex = relativeIndexes ? relativeIndexes[index] : index;
+        const rowProps = rowsProps ? rowsProps[rowIndex] : {};
         const { subItems, index: rowAbsoluteIndex } = indexesMapping.relative[rowIndex];
         const isVisible = !visibleRowIndexes || visibleRowIndexes.includes(rowAbsoluteIndex);
         // @ts-ignore we have a default value for openedTrees
@@ -160,6 +164,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             key={`row-${id}-${row.id}`}
             {...globalRowProps}
             {...row}
+            {...rowProps}
             className={classnames(row.className, {
               [`elevated-${elevation}`]: elevation,
             })}
@@ -170,6 +175,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             isSpan={isSpan}
             columns={columns}
             elevatedColumnIndexes={elevatedColumnIndexes}
+            elevatedRowIndexes={elevatedRowIndexes}
             globalColumnProps={globalColumnProps}
             visibleColumnIndexes={visibleColumnIndexes}
             visibleRowIndexes={visibleRowIndexes}

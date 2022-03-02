@@ -5,7 +5,7 @@ import update from "immutability-helper";
 
 import { DEFAULT_ROW_HEIGHT, MouseClickButtons } from "../constants";
 import { IColumn, ITree, IColumns, ITrees } from "../table/elementary-table";
-import { IRowOptions, IRow } from "../table/row";
+import { IRowOptions, IRow, IRowProps } from "../table/row";
 import { ICell, ICellCoordinates } from "../table/cell";
 import { Nullable } from "../typing";
 import { isEmptyObj } from "./common";
@@ -89,7 +89,6 @@ export interface VirtualizerCache {
   itemIndexesScrollMapping: number[];
   visibleItemIndexes: Record<number, number[]>;
   ignoredIndexes: Record<number, true>;
-  elevatedItemIndexes: Map<number[], IElevateds>;
   scrollableItemsSize?: number;
   scrollableCustomSize?: number;
 }
@@ -179,6 +178,9 @@ export const addSequentialIndexesToFixedIndexList = ({
   ignoredIndexes = {},
   customSizes = {},
 }: AddSequentialIndexesToFixedIndexList): number[] => {
+  if (!maxSize) {
+    return [];
+  }
   const localIgnoredIndexes = { ...ignoredIndexes };
   let currentSize = 0;
   const result = [];
@@ -224,7 +226,7 @@ export const getElevatedIndexes = (
   ignoredIndexes: Record<number, true> = {},
   itemSizes: Record<number, number> = {},
   defaultSize: number,
-  usePrevIndexForLastElevation: boolean
+  usePrevIndexForLastElevation?: boolean
 ): IElevateds => {
   const isLimit = (item1: number, item2: number) => {
     return item1 !== undefined && !ignoredIndexes[item1] && (item2 === undefined || ignoredIndexes[item2]);
@@ -239,7 +241,6 @@ export const getElevatedIndexes = (
       const isEnd = isLimit(prevItem, nextItem);
       const isFixedEnd = !isFixedStart && isEnd;
       const isAbsoluteEnd = isEnd || result[prevItem] === ElevationType.absolute;
-      console.log(isFixedEnd, isAbsoluteEnd, isFixedStart);
 
       if (isFixedStart || isFixedEnd) {
         const elevationIndex = usePrevIndexForLastElevation && !isFixedStart ? prevItem : itemIndex;
@@ -433,7 +434,7 @@ export interface CustomSizesElements {
  * @param fixedElements
  */
 export const getFixedElementsWithCustomSize = (
-  elements: IRow[] | { [index: number]: IColumn } = [],
+  elements: Record<number, IColumn | IRowProps> = {},
   fixedElements?: number[],
   hiddenIndexes: number[] = []
 ): CustomSizesElements => {
@@ -758,7 +759,6 @@ export const getVirtualizerCache = ({
     itemIndexesScrollMapping: [],
     visibleItemIndexes: {},
     ignoredIndexes: {},
-    elevatedItemIndexes: new Map(),
   };
   const { fixed: fixedCustomSizesItems, scrollable: scrollableCustomSizesItems, customSizes } = customSizesElements;
   /**
@@ -798,9 +798,24 @@ export const getVirtualizerCache = ({
   // The sum of the sizes of custom scrollable items
   cache.scrollableCustomSize = scrollableCustomSizesItems.sum;
   cache.visibleItemIndexes = {};
-  cache.elevatedItemIndexes = new Map();
   return cache;
 };
+
+function interpolationSearch(arr: number[], value: number) {
+  let low = 0;
+  let high = arr.length - 1;
+  let mid = 0;
+
+  while (high > low + 1) {
+    mid = Math.ceil((high - low) / 2) + low;
+    if (arr[low] >= value) return low;
+    if (value >= arr[mid]) low = mid;
+    else high = mid;
+  }
+
+  if (value >= arr[low]) return low;
+  else return arr.length - 1;
+}
 
 export const getVisibleItemIndexes = (
   scrollValue = 0,
@@ -815,8 +830,7 @@ export const getVisibleItemIndexes = (
   itemsLength: number,
   fixedItemsSize: CustomSizesElements
 ): number[] => {
-  let scrollIndex = itemIndexesScrollMapping.findIndex((scroll) => scroll > scrollValue);
-  scrollIndex = scrollIndex == -1 ? itemIndexesScrollMapping.length - 1 : scrollIndex - 1;
+  const scrollIndex = interpolationSearch(itemIndexesScrollMapping, scrollValue);
 
   if (!visibleItemIndexes[scrollIndex]) {
     visibleItemIndexes[scrollIndex] = addSequentialIndexesToFixedIndexList({
@@ -832,22 +846,4 @@ export const getVisibleItemIndexes = (
   }
 
   return visibleItemIndexes[scrollIndex];
-};
-
-export const getElevatedItemIndexes = (
-  visibleItemIndexes: number[],
-  { elevatedItemIndexes, ignoredIndexes, itemSize }: VirtualizerCache,
-  customSizes: Record<number, number> = {},
-  usePrevIndexForLastElevation = false
-): IElevateds => {
-  const elevatedItems = elevatedItemIndexes.get(visibleItemIndexes);
-
-  if (!elevatedItems) {
-    elevatedItemIndexes.set(
-      visibleItemIndexes,
-      getElevatedIndexes(visibleItemIndexes, ignoredIndexes, customSizes, itemSize, usePrevIndexForLastElevation)
-    );
-    return elevatedItemIndexes.get(visibleItemIndexes) as IElevateds;
-  }
-  return elevatedItems as IElevateds;
 };

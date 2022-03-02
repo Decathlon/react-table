@@ -26,6 +26,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       style={
         Object {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -46,6 +47,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       style={
         Object {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -66,6 +68,7 @@ exports[`Row component should render a Row with a small size 1`] = `
       style={
         Object {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -101,6 +104,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -121,6 +125,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -141,6 +146,7 @@ exports[`Row component should render a Row with nested children 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -206,6 +212,7 @@ exports[`Row component should render a Row with span 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -227,6 +234,7 @@ exports[`Row component should render a Row with span 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -248,6 +256,7 @@ exports[`Row component should render a Row with span 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -304,6 +313,7 @@ exports[`Row component should render a simple row 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -324,6 +334,7 @@ exports[`Row component should render a simple row 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -344,6 +355,7 @@ exports[`Row component should render a simple row 1`] = `
       style={
         Object {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
