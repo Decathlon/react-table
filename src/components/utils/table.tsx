@@ -741,6 +741,11 @@ export const getIndexScrollMapping = (
   return result;
 };
 
+/**
+ *
+ * @param props The grid props
+ * @returns The cache associated with the virtualized grid
+ */
 export const getVirtualizerCache = ({
   customSizesElements,
   padding,
@@ -817,8 +822,18 @@ function interpolationSearch(arr: number[], value: number) {
   else return arr.length - 1;
 }
 
+/**
+ *
+ * @param scrollValue the scroll value of the virtualized scroller
+ * @param maxLength the max number of items
+ * @param customSizes custom item sizes
+ * @param cache the virtualizer cache
+ * @returns visible items
+ */
 export const getVisibleItemIndexes = (
   scrollValue = 0,
+  maxLength: number,
+  customSizes: Record<number, number>,
   {
     visibleFixedItems,
     visibleItemIndexes,
@@ -826,9 +841,7 @@ export const getVisibleItemIndexes = (
     ignoredIndexes,
     scrollableItemsSize = 0,
     itemSize,
-  }: VirtualizerCache,
-  itemsLength: number,
-  fixedItemsSize: CustomSizesElements
+  }: VirtualizerCache
 ): number[] => {
   const scrollIndex = interpolationSearch(itemIndexesScrollMapping, scrollValue);
 
@@ -837,10 +850,10 @@ export const getVisibleItemIndexes = (
       indexStart: scrollIndex,
       fixedIndexes: visibleFixedItems,
       ignoredIndexes,
-      maxLength: itemsLength,
+      maxLength,
       maxSize: scrollableItemsSize,
       defaultItemSize: itemSize,
-      customSizes: fixedItemsSize.customSizes,
+      customSizes,
     });
     return visibleItemIndexes[scrollIndex];
   }

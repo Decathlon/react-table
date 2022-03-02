@@ -272,13 +272,13 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   private getVisibleRowIndexes = (scrollValue = 0) => {
     const { rowsLength, fixedCellsHeight } = this.props;
     const currentCache = this.verticalData;
-    return getVisibleItemIndexes(scrollValue, currentCache, rowsLength, fixedCellsHeight);
+    return getVisibleItemIndexes(scrollValue, rowsLength, fixedCellsHeight.customSizes, currentCache);
   };
 
   private getVisibleColumnIndexes = (scrollValue = 0) => {
     const { columnsLength, fixedCellsWidth } = this.props;
     const currentCache = this.horizontalData;
-    return getVisibleItemIndexes(scrollValue, currentCache, columnsLength, fixedCellsWidth);
+    return getVisibleItemIndexes(scrollValue, columnsLength, fixedCellsWidth.customSizes, currentCache);
   };
 
   private getElevatedColumnIndexes = (visibleColumnIndexes: number[]): IElevateds => {
