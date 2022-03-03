@@ -110,7 +110,7 @@ class Scroller extends React.Component<IScrollerProps> {
         const nbIgnoredHorizontalParts = ignoredHorizontalParts?.length || 0;
         const nbPrevIgnoredHorizontalParts = this.prevIgnoredHorizontalParts?.length || 0;
         const nbRemovedParts = nbPrevIgnoredHorizontalParts - nbIgnoredHorizontalParts;
-        // 1 if added or _1 if scrollable parts are removed ;
+        // 1 if added or -1 if scrollable parts are removed ;
         const changeDirection = diff >= 0 ? -1 : 1;
         const newLeft = scrollLeft - newRelativeDiff + (changeDirection * newRelativeDiff) / nbRemovedParts;
         this.scrollToLeft(newLeft);
