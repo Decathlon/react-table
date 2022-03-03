@@ -433,7 +433,7 @@ export interface CustomSizesElements {
  * @param elements
  * @param fixedElements
  */
-export const getFixedElementsWithCustomSize = (
+export const getItemsCustomSizes = (
   elements: Record<number, IColumn | IRowProps> = {},
   fixedElements?: number[],
   hiddenIndexes: number[] = []

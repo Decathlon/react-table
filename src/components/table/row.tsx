@@ -60,7 +60,7 @@ export interface IRowProps extends IRow {
   visibleColumnIndexes?: number[];
   /** Index of columns that need to be "elevated" by displaying a shadow on its right side */
   elevatedColumnIndexes?: IElevateds;
-  /** Index of rows that need to be "elevated" by displaying a shadow on its right side */
+  /** Index of rows that need to be "elevated" by displaying a shadow on its bottom side */
   elevatedRowIndexes?: IElevateds;
   /** TODO with tree update */
   openedTree?: ITree;
@@ -418,6 +418,9 @@ export default class Row extends React.Component<IRowProps, IState> {
             );
             // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
             const elevation = elevatedColumnIndexes?.elevations[elevationIndex];
+            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
+            const absolutePosition = elevatedColumnIndexes?.absoluteEndPositions[elevationIndex] || 0;
+
             const column = {
               isSelectable: true,
               ...globalColumnProps,
@@ -425,7 +428,8 @@ export default class Row extends React.Component<IRowProps, IState> {
               style: {
                 ...globalColumnProps.style,
                 ...cellColumn.style,
-                right: elevatedColumnIndexes?.absoluteEndPositions[cellIndex] || 0,
+                //@ts-ignore
+                right: absolutePosition,
               },
             };
 

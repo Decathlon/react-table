@@ -536,7 +536,7 @@ exports[`Table component should render a selectable Table 1`] = `
 exports[`Table component should render a virtualized Table 1`] = `
 <Virtualizer
   columnsLength={3}
-  fixedCellsHeight={
+  customCellsHeight={
     Object {
       "customSizes": Object {},
       "fixed": Object {
@@ -549,7 +549,7 @@ exports[`Table component should render a virtualized Table 1`] = `
       },
     }
   }
-  fixedCellsWidth={
+  customCellsWidth={
     Object {
       "customSizes": Object {},
       "fixed": Object {

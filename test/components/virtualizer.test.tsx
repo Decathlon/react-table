@@ -621,7 +621,7 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedRows: [0, 2],
-      fixedCellsHeight: {
+      customCellsHeight: {
         fixed: { sum: 200, count: 2 },
         scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
@@ -656,7 +656,7 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
+      customCellsWidth: {
         fixed: { sum: 200, count: 2 },
         scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
@@ -691,7 +691,7 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
+      customCellsWidth: {
         fixed: { sum: 200, count: 2 },
         scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
@@ -714,7 +714,7 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
+      customCellsWidth: {
         fixed: { sum: 200, count: 2 },
         scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },

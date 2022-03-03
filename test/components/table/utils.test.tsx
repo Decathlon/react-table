@@ -839,14 +839,14 @@ describe("filterIndexes method", () => {
   });
 });
 
-describe("getFixedElementsWithCustomSize method", () => {
+describe("getItemsCustomSizes method", () => {
   test("should return the height of all fixed rows with a custom height and count those elements", () => {
     const table = generateTable(5, 2, {}, true);
     table.rows[0].size = 25;
     table.rows[1].size = 150;
     table.rows[4].size = 225;
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
-    expect(fixedCellsHeight).toEqual({
+    const customCellsHeight = Utils.getItemsCustomSizes(table.rows, [0, 1, 4]);
+    expect(customCellsHeight).toEqual({
       fixed: {
         sum: 400,
         count: 3,
@@ -865,8 +865,8 @@ describe("getFixedElementsWithCustomSize method", () => {
 
   test("should return a sum and count at 0 when there is no custom height for fixed rows", () => {
     const table = generateTable(5, 2, {}, true);
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
-    expect(fixedCellsHeight).toEqual({
+    const customCellsHeight = Utils.getItemsCustomSizes(table.rows, [0, 1, 4]);
+    expect(customCellsHeight).toEqual({
       fixed: {
         sum: 0,
         count: 0,
@@ -881,8 +881,8 @@ describe("getFixedElementsWithCustomSize method", () => {
 
   test("should return undefined if fixedRows is undefined", () => {
     const rowsProps = { 0: { size: 25 }, 1: { size: 150 }, 4: { size: 225 } };
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(rowsProps);
-    expect(fixedCellsHeight).toEqual({
+    const customCellsHeight = Utils.getItemsCustomSizes(rowsProps);
+    expect(customCellsHeight).toEqual({
       customSizes: {
         "0": 25,
         "1": 150,
@@ -900,7 +900,7 @@ describe("getFixedElementsWithCustomSize method", () => {
   });
 
   test("should return the width of all fixed columns with a custom width and count those elements", () => {
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(
+    const customCellsHeight = Utils.getItemsCustomSizes(
       {
         0: { size: 25 },
         1: { size: 150 },
@@ -909,7 +909,7 @@ describe("getFixedElementsWithCustomSize method", () => {
       [0, 1, 4]
     );
 
-    expect(fixedCellsHeight).toEqual({
+    expect(customCellsHeight).toEqual({
       fixed: {
         sum: 400,
         count: 3,

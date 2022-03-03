@@ -8,7 +8,7 @@ import {
   getTreesLength,
   getAllIndexesMap,
   IIndexesMap,
-  getFixedElementsWithCustomSize,
+  getItemsCustomSizes,
   relativeToAbsoluteIndexes,
   getIndexesIdsMapping,
   IIndexesIdsMapping,
@@ -69,7 +69,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
 
   private globalColumnProps?: IColumnOptions;
 
-  private fixedCellsHeight: CustomSizesElements = {
+  private customCellsHeight: CustomSizesElements = {
     fixed: {
       sum: 0,
       count: 0,
@@ -81,7 +81,7 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
     customSizes: {},
   };
 
-  private fixedCellsWidth: CustomSizesElements = {
+  private customCellsWidth: CustomSizesElements = {
     fixed: {
       sum: 0,
       count: 0,
@@ -117,8 +117,8 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
       fixedRowsIndexes: this.getFixedRowsIndexes(initialOpenedTrees, indexesMapping.relative),
     };
     if (isVirtualized) {
-      this.fixedCellsHeight = getFixedElementsWithCustomSize(rowsProps, fixedRows, hiddenRows);
-      this.fixedCellsWidth = getFixedElementsWithCustomSize(columns, fixedColumns, hiddenColumns);
+      this.customCellsHeight = getItemsCustomSizes(rowsProps, fixedRows, hiddenRows);
+      this.customCellsWidth = getItemsCustomSizes(columns, fixedColumns, hiddenColumns);
     }
   }
 
@@ -361,18 +361,19 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
         rowsLength={rowsLength}
         width={width}
         height={height}
-        fixedCellsHeight={{
-          ...this.fixedCellsHeight,
-          customSizes: relativeToAbsoluteObject(this.fixedCellsHeight.customSizes, indexesMapping.relative),
+        customCellsHeight={{
+          ...this.customCellsHeight,
+          customSizes: relativeToAbsoluteObject(this.customCellsHeight.customSizes, indexesMapping.relative),
         }}
-        fixedCellsWidth={this.fixedCellsWidth}
+        customCellsWidth={this.customCellsWidth}
         verticalPadding={isSpan ? ROW_SPAN_WIDTH : 0}
       >
         {({ visibleColumnIndexes, visibleRowIndexes, elevatedColumnIndexes, elevatedRowIndexes, cellHeight, cellWidth }) => {
           const tableWidth =
-            this.fixedCellsWidth.fixed.sum +
-            this.fixedCellsWidth.scrollable.sum +
-            (visibleColumnIndexes.length - this.fixedCellsWidth.fixed.count - this.fixedCellsWidth.scrollable.count) * cellWidth;
+            this.customCellsWidth.fixed.sum +
+            this.customCellsWidth.scrollable.sum +
+            (visibleColumnIndexes.length - this.customCellsWidth.fixed.count - this.customCellsWidth.scrollable.count) *
+              cellWidth;
           const adjustedColumns = !virtualizerProps.fixedColumns?.includes(visibleColumnIndexes[visibleColumnIndexes.length - 1])
             ? getDenseColumns(tableWidth, width, this.columnsLength, columns)
             : columns;

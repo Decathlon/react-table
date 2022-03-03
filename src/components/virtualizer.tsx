@@ -65,9 +65,9 @@ export interface IVirtualizerOptionalProps {
   /** Minimal height of a row */
   minRowHeight?: number;
   /** Sum of the height of fixed rows with a pre-defined height */
-  fixedCellsHeight: CustomSizesElements;
+  customCellsHeight: CustomSizesElements;
   /** Sum of the width of fixed columns with a pre-defined width */
-  fixedCellsWidth: CustomSizesElements;
+  customCellsWidth: CustomSizesElements;
   /** A pre-defined vertical padding of the grid */
   verticalPadding: number;
   /** A pre-defined horizontal padding of the grid */
@@ -108,7 +108,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   public static defaultProps = {
     fixedColumns: [],
     fixedRows: [],
-    fixedCellsHeight: {
+    customCellsHeight: {
       fixed: {
         sum: 0,
         count: 0,
@@ -119,7 +119,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       },
       customSizes: {},
     },
-    fixedCellsWidth: {
+    customCellsWidth: {
       fixed: {
         sum: 0,
         count: 0,
@@ -236,8 +236,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       rowsLength,
       minRowHeight,
       minColumnWidth,
-      fixedCellsHeight,
-      fixedCellsWidth,
+      customCellsHeight,
+      customCellsWidth,
       horizontalPadding,
       verticalPadding,
       fixedColumns,
@@ -252,7 +252,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       fixedItems: fixedRows,
       padding: horizontalPadding,
       hiddenItems: hiddenRows,
-      customSizesElements: fixedCellsHeight,
+      customSizesElements: customCellsHeight,
       containerSize: height,
       itemsLength: rowsLength,
       itemsCount: rowsCount,
@@ -262,7 +262,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       fixedItems: fixedColumns,
       padding: verticalPadding,
       hiddenItems: hiddenColumns,
-      customSizesElements: fixedCellsWidth,
+      customSizesElements: customCellsWidth,
       containerSize: width,
       itemsLength: columnsLength,
       itemsCount: columnsCount,
@@ -270,27 +270,27 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
   };
 
   private getVisibleRowIndexes = (scrollValue = 0) => {
-    const { rowsLength, fixedCellsHeight } = this.props;
+    const { rowsLength, customCellsHeight } = this.props;
     const currentCache = this.verticalData;
-    return getVisibleItemIndexes(scrollValue, rowsLength, fixedCellsHeight.customSizes, currentCache);
+    return getVisibleItemIndexes(scrollValue, rowsLength, customCellsHeight.customSizes, currentCache);
   };
 
   private getVisibleColumnIndexes = (scrollValue = 0) => {
-    const { columnsLength, fixedCellsWidth } = this.props;
+    const { columnsLength, customCellsWidth } = this.props;
     const currentCache = this.horizontalData;
-    return getVisibleItemIndexes(scrollValue, columnsLength, fixedCellsWidth.customSizes, currentCache);
+    return getVisibleItemIndexes(scrollValue, columnsLength, customCellsWidth.customSizes, currentCache);
   };
 
   private getElevatedColumnIndexes = (visibleColumnIndexes: number[]): IElevateds => {
-    const { fixedCellsWidth } = this.props;
+    const { customCellsWidth } = this.props;
     const { ignoredIndexes, itemSize } = this.horizontalData;
-    return getElevatedIndexes(visibleColumnIndexes, ignoredIndexes, fixedCellsWidth.customSizes, itemSize, true);
+    return getElevatedIndexes(visibleColumnIndexes, ignoredIndexes, customCellsWidth.customSizes, itemSize, true);
   };
 
   private getElevatedRowIndexes = (visibleRowIndexes: number[]): IElevateds => {
-    const { fixedCellsHeight } = this.props;
+    const { customCellsHeight } = this.props;
     const { ignoredIndexes, itemSize } = this.verticalData;
-    return getElevatedIndexes(visibleRowIndexes, ignoredIndexes, fixedCellsHeight.customSizes, itemSize);
+    return getElevatedIndexes(visibleRowIndexes, ignoredIndexes, customCellsHeight.customSizes, itemSize);
   };
 
   private getVisibleRowsState = (scrollTop = 0): IRowsState | null => {
