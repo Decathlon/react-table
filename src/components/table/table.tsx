@@ -135,8 +135,25 @@ class Table<IDataCoordinates = any> extends React.Component<ITableProps<IDataCoo
   }
 
   public componentDidUpdate(prevProps: ITableProps<IDataCoordinates>) {
-    const { rows, virtualizerProps } = this.props;
+    const {
+      rows,
+      columns,
+      rowsProps,
+      isVirtualized,
+      virtualizerProps,
+      virtualizerProps: { fixedColumns, hiddenColumns, fixedRows, hiddenRows },
+    } = this.props;
     const { openedTrees, indexesMapping } = this.state;
+
+    if (isVirtualized) {
+      if (columns !== prevProps.columns) {
+        this.customCellsWidth = getItemsCustomSizes(columns, fixedColumns, hiddenColumns);
+      }
+      if (rowsProps !== prevProps.rowsProps) {
+        this.customCellsHeight = getItemsCustomSizes(rowsProps, fixedRows, hiddenRows);
+      }
+    }
+
     if (prevProps.rows !== rows) {
       this.columnsLength = getColumnsLength(rows);
       const newIndexesMapping = getAllIndexesMap(openedTrees, rows);

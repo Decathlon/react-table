@@ -199,6 +199,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
       hiddenRows,
       minColumnWidth,
       minRowHeight,
+      customCellsWidth,
+      customCellsHeight,
     } = this.props;
 
     if (
@@ -212,6 +214,8 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
         prevProps.minRowHeight !== minRowHeight ||
         prevProps.rowsCount !== rowsCount ||
         prevProps.columnsCount !== columnsCount ||
+        prevProps.customCellsWidth !== customCellsWidth ||
+        prevProps.customCellsHeight !== customCellsHeight ||
         !isEqual(prevProps.fixedRows, fixedRows) ||
         !isEqual(prevProps.fixedColumns, fixedColumns) ||
         !isEqual(prevProps.hiddenColumns, hiddenColumns) ||

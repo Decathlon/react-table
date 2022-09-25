@@ -58,7 +58,7 @@ storiesOf("Table/Virtualized", module)
   .add(
     "Responsive",
     () => {
-      const props = generateTable(1000, 350, {}, true);
+      const props = generateTable(1000, 350, {}, false);
 
       return (
         <div style={{ height: "calc(100vh - 50px)", width: "100%" }}>
@@ -69,16 +69,32 @@ storiesOf("Table/Virtualized", module)
               97: { size: 300 },
             }}
             columns={{
-              0: { style: { justifyContent: "center" } },
-              12: { size: 234 },
+              "0": {
+                size: 40,
+              },
+              "1": {
+                size: 86,
+              },
+              "2": {
+                size: 96,
+              },
+              "3": {
+                size: 273,
+              },
+              "4": {
+                size: 206,
+              },
+              "22": {
+                size: 200,
+              },
             }}
             isSelectable={false}
             isVirtualized
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
-              hiddenColumns: [13, 32],
+              // hiddenColumns: [13, 32],
               fixedRows: object("fixedRows", [0, 50, 97]),
-              fixedColumns: object("fixedColumns", [0, 1, 2, 3]),
+              fixedColumns: object("fixedColumns", [0, 1, 2, 3, 4]),
             }}
           />
         </div>
@@ -178,7 +194,7 @@ storiesOf("Table/Virtualized", module)
             virtualizerProps={{
               rowsCount: 10,
               columnsCount: 10,
-              fixedRows: object("fixedRows", [0, 1, 99]),
+              fixedRows: object("fixedRows", [0, 1, 22, 99]),
               fixedColumns: object("fixedColumns", [0, 1, 50]),
             }}
           />

@@ -80,7 +80,7 @@
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.2.5",
     "markdown-loader": "^6.0.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.3",
     "path": "~0.12.7",
     "prettier": "^2.4.1",
     "prettier-check": "~2.0.0",
@@ -97,7 +97,7 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc && npm run build:scss",
-    "build:scss": "node-sass src/style/index.scss -o dist/style && cp -r src/style/fonts dist/style",
+    "build:scss": "node-sass src/style/index.scss -o dist/style",
     "prepublish": "npm run build",
     "test": "npm run test:unit",
     "test:unit": "jest",
