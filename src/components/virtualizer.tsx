@@ -147,6 +147,7 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     itemIndexesScrollMapping: [],
     visibleItemIndexes: {},
     ignoredIndexes: {},
+    scrollableCustomSize: 0,
   };
 
   private horizontalData: VirtualizerCache = {

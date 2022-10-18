@@ -11,6 +11,8 @@ import { Nullable } from "../typing";
 import { isEmptyObj } from "./common";
 import shallowEqual from "./shallowEqual";
 
+const ERROR_MARGIN = 10;
+
 // @ts-ignore https://github.com/s-yadav/react-number-format/issues/180
 const memoizeFunc = memoize.default || memoize;
 
@@ -96,7 +98,7 @@ export interface VirtualizerCache {
 interface CacheProps {
   /** List of fixed items on the left or right of your table */
   fixedItems: number[];
-  /** Specifies indexes of the items to be shown */
+  /** Specifies indexes of the items to be hidden */
   hiddenItems: number[];
   /** Number of items that should be visible on screen */
   itemsCount?: number;
@@ -106,7 +108,9 @@ interface CacheProps {
   customSizesElements: CustomSizesElements;
   /** A pre-defined padding of the grid */
   padding: number;
+  /** Table container displayable size */
   containerSize: number;
+  /** Total number of items */
   itemsLength: number;
 }
 
@@ -200,7 +204,7 @@ export const addSequentialIndexesToFixedIndexList = ({
   if (currentSize < maxSize) {
     while (itemIndex > 0 && currentSize <= maxSize) {
       const itemSize = customSizes[itemIndex] || defaultItemSize;
-      const newSize = currentSize + itemSize - 10;
+      const newSize = currentSize + itemSize - ERROR_MARGIN;
       if (!localIgnoredIndexes[itemIndex] && itemIndex < maxLength && newSize <= maxSize) {
         result.push(itemIndex);
         currentSize += itemSize;
@@ -216,10 +220,13 @@ export const addSequentialIndexesToFixedIndexList = ({
 };
 
 /**
- * @param {number[]} visibleItemIndexes an ordered list of number
- * @param {Record<number, true>} ignoredIndexes the ignored indexes (fixed indexes)
- * @return {IElevateds} returns an oject of numbers contained in both input list, where for each of those values the next one
- * contained in itemIndexes is not contained in fixedIndexes
+ *
+ * @param visibleItemIndexes an ordered list of number
+ * @param ignoredIndexes the ignored indexes (fixed indexes)
+ * @param itemSizes custom sizes
+ * @param defaultSize default size if no custom sizes
+ * @param usePrevIndexForLastElevation used for elevation computation
+ * @returns elevations and absolute positions of fixed columns
  */
 export const getElevatedIndexes = (
   visibleItemIndexes: number[],
@@ -791,7 +798,7 @@ export const getVirtualizerCache = ({
     (scrollableItemsCount - scrollableCustomSizesItems.count) * cache.itemSize + extraItemsSize + scrollableCustomSizesItems.sum;
   // The visible fixed items and hidden items must be ignored by the scroller
   const ignoredIndexes = [...cache.visibleFixedItems, ...hiddenItems];
-  cache.ignoredIndexes = {};
+
   ignoredIndexes.forEach((ignoredIndex) => {
     cache.ignoredIndexes[ignoredIndex] = true;
   });
