@@ -30,14 +30,14 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 65;
-    const cellWidth = 129;
+    const cellHeight = 58;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
+      elevatedColumnIndexes: { absoluteEndPositions: {}, elevations: {} },
+      elevatedRowIndexes: { absoluteEndPositions: {}, elevations: {} },
       cellHeight,
       cellWidth,
     };
@@ -56,8 +56,8 @@ describe("Virtualizer", () => {
     const values = {
       visibleColumnIndexes: [],
       visibleRowIndexes: [],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      elevatedColumnIndexes: { absoluteEndPositions: {}, elevations: {} },
+      elevatedRowIndexes: { absoluteEndPositions: {}, elevations: {} },
       cellHeight: 0,
       cellWidth: 0,
     };
@@ -75,15 +75,30 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 65;
-    const cellWidth = 129;
+    const cellHeight = 58;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 30],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 15],
+      visibleColumnIndexes: [0, 1, 2, 3, 30],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 15],
       // we use the prev visible index please see getElevatedIndexes table utils
-      elevatedColumnIndexes: { 1: "end" },
-      elevatedRowIndexes: { 15: "end" },
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {
+          "30": 0,
+        },
+        elevations: {
+          "3": "end",
+          "30": "absolute",
+        },
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {
+          "15": 0,
+        },
+        elevations: {
+          "15": "absolute",
+        },
+      },
       cellHeight,
       cellWidth,
     };
@@ -103,15 +118,30 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 65;
-    const cellWidth = 129;
+    const cellHeight = 58;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [1, 3, 14],
-      visibleRowIndexes: [1, 3, 4, 5, 7, 15],
+      visibleColumnIndexes: [1, 3, 4, 5, 14],
+      visibleRowIndexes: [1, 3, 4, 5, 7, 8, 15],
       // we use the prev visible index getElevatedIndexes table utils
-      elevatedColumnIndexes: { 3: "end" },
-      elevatedRowIndexes: { 15: "end" },
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {
+          "14": 0,
+        },
+        elevations: {
+          "14": "absolute",
+          "5": "end",
+        },
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {
+          "15": 0,
+        },
+        elevations: {
+          "15": "absolute",
+        },
+      },
       cellHeight,
       cellWidth,
     };
@@ -129,14 +159,24 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 65;
-    const cellWidth = 129;
+    const cellHeight = 58;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
-      elevatedColumnIndexes: { 0: "start" },
-      elevatedRowIndexes: { 0: "start" },
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {
+          "0": "start",
+        },
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {
+          "0": "start",
+        },
+      },
       cellHeight,
       cellWidth,
     };
@@ -154,14 +194,20 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 129;
-    const cellWidth = 129;
+    const cellHeight = 134;
+    const cellWidth = 134;
 
     const values = {
       visibleColumnIndexes: [0, 1, 2],
       visibleRowIndexes: [0, 1, 2],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
       cellHeight,
       cellWidth,
     };
@@ -179,14 +225,20 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 129;
-    const cellWidth = 129;
+    const cellHeight = 100;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2], // 400/129 === 3 columns
-      visibleRowIndexes: [0, 1, 2], // 400/129 === 3 rows
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4], // 400/100 === 4+1 columns
+      visibleRowIndexes: [0, 1, 2, 3, 4], // 400/100 === 4+1 rows
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
       cellHeight,
       cellWidth,
     };
@@ -204,14 +256,20 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = 97;
-    const cellWidth = 97;
+    const cellHeight = 100;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [0, 1, 2, 3],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [0, 1, 2, 3, 4],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
       cellHeight,
       cellWidth,
     };
@@ -231,10 +289,16 @@ describe("Virtualizer", () => {
     // @ts-ignore private fnction
     instance.onScroll(scroll);
     let expectedState = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [1, 2, 3, 4],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [1, 2, 3, 4, 5],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
     // scroll to the last row
@@ -251,10 +315,16 @@ describe("Virtualizer", () => {
     // @ts-ignore private fnction
     instance.onScroll(scroll);
     expectedState = {
-      visibleColumnIndexes: [0, 1, 2, 3],
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
       visibleRowIndexes: [96, 97, 98, 99],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
     // scroll to the second row
@@ -271,10 +341,16 @@ describe("Virtualizer", () => {
     // @ts-ignore private fnction
     instance.onScroll(scroll);
     expectedState = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [2, 3, 4, 5],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [2, 3, 4, 5, 6],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
   });
@@ -290,14 +366,20 @@ describe("Virtualizer", () => {
       children: jest.fn(),
     };
     const wrapper = mount(<Virtualizer {...props} />);
-    const cellHeight = 97;
-    const cellWidth = 97;
+    const cellHeight = 100;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2, 3],
-      visibleRowIndexes: [0, 1, 2, 3],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [0, 1, 2, 3, 4],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
       cellHeight,
       cellWidth,
     };
@@ -318,10 +400,16 @@ describe("Virtualizer", () => {
     // @ts-ignore private fnction
     instance.onScroll(scroll);
     let expectedState = {
-      visibleColumnIndexes: [1, 2, 3, 4],
-      visibleRowIndexes: [0, 1, 2, 3],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [1, 2, 3, 4, 5],
+      visibleRowIndexes: [0, 1, 2, 3, 4],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
     // scroll to the last column
@@ -340,9 +428,15 @@ describe("Virtualizer", () => {
     instance.onScroll(scroll);
     expectedState = {
       visibleColumnIndexes: [96, 97, 98, 99],
-      visibleRowIndexes: [0, 1, 2, 3],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleRowIndexes: [0, 1, 2, 3, 4],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
     // scroll to the second column
@@ -359,10 +453,16 @@ describe("Virtualizer", () => {
     // @ts-ignore private fnction
     instance.onScroll(scroll);
     expectedState = {
-      visibleColumnIndexes: [2, 3, 4, 5],
-      visibleRowIndexes: [0, 1, 2, 3],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [2, 3, 4, 5, 6],
+      visibleRowIndexes: [0, 1, 2, 3, 4],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     expect(instance.state).toEqual(expectedState);
   });
@@ -407,12 +507,18 @@ describe("Virtualizer", () => {
     };
 
     const newColumnsState = {
-      visibleColumnIndexes: [1, 2, 3, 4],
-      elevatedColumnIndexes: {},
+      visibleColumnIndexes: [1, 2, 3, 4, 5],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     const newRowsState = {
-      visibleRowIndexes: [1, 2, 3, 4],
-      elevatedRowIndexes: {},
+      visibleRowIndexes: [1, 2, 3, 4, 5],
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
 
     // @ts-ignore private function
@@ -424,7 +530,7 @@ describe("Virtualizer", () => {
       columnsCursor: 1,
       rowsCursor: 0,
     });
-
+    props.onScroll.mockClear();
     // @ts-ignore private function
     instance.onScroll(topScroll);
     expect(props.onScroll).toHaveBeenCalledWith({
@@ -477,12 +583,18 @@ describe("Virtualizer", () => {
     };
 
     const newColumnsState = {
-      visibleColumnIndexes: [1, 2, 3, 4],
-      elevatedColumnIndexes: {},
+      visibleColumnIndexes: [1, 2, 3, 4, 5],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
     const newRowsState = {
-      visibleRowIndexes: [1, 2, 3, 4],
-      elevatedRowIndexes: {},
+      visibleRowIndexes: [1, 2, 3, 4, 5],
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
     };
 
     // @ts-ignore private function
@@ -492,7 +604,7 @@ describe("Virtualizer", () => {
       newColumnsState,
       columnsCursor: 1,
     });
-
+    props.onVerticallyScroll.mockClear();
     // @ts-ignore private function
     instance.onScroll(topScroll);
     expect(props.onVerticallyScroll).toHaveBeenCalledWith({
@@ -509,22 +621,28 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedRows: [0, 2],
-      fixedCellsHeight: {
-        sum: 200,
-        count: 2,
+      customCellsHeight: {
+        fixed: { sum: 200, count: 2 },
+        scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 62;
-    const cellWidth = 129;
+    const cellHeight = 67;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2],
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
       visibleRowIndexes: [0, 1, 2, 3, 4],
-      elevatedColumnIndexes: {},
-      elevatedRowIndexes: { 0: "start" },
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: { 0: "start" },
+      },
       cellHeight,
       cellWidth,
     };
@@ -538,22 +656,28 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
-        sum: 200,
-        count: 2,
+      customCellsWidth: {
+        fixed: { sum: 200, count: 2 },
+        scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
     };
     mount(<Virtualizer {...props} />);
-    const cellHeight = 65;
-    const cellWidth = 185;
+    const cellHeight = 58;
+    const cellWidth = 100;
 
     const values = {
-      visibleColumnIndexes: [0, 1, 2],
-      visibleRowIndexes: [0, 1, 2, 3, 4, 5],
-      elevatedColumnIndexes: { 0: "start", 1: "end" },
-      elevatedRowIndexes: {},
+      visibleColumnIndexes: [0, 1, 2, 3, 4],
+      visibleRowIndexes: [0, 1, 2, 3, 4, 5, 6],
+      elevatedColumnIndexes: {
+        absoluteEndPositions: {},
+        elevations: { 0: "start" },
+      },
+      elevatedRowIndexes: {
+        absoluteEndPositions: {},
+        elevations: {},
+      },
       cellHeight,
       cellWidth,
     };
@@ -567,9 +691,9 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
-        sum: 200,
-        count: 2,
+      customCellsWidth: {
+        fixed: { sum: 200, count: 2 },
+        scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
@@ -580,7 +704,7 @@ describe("Virtualizer", () => {
     instance.scroller.current.scrollToLeft = jest.fn();
     instance.scrollToColumnIndex(25);
     // @ts-ignore
-    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(4255);
+    expect(instance.scroller.current.scrollToLeft).toBeCalledWith(2301);
   });
 
   test("should call the scrollToTop scroller method (scroll to row index)", () => {
@@ -590,9 +714,9 @@ describe("Virtualizer", () => {
       columnsLength: 50,
       rowsLength: 50,
       fixedColumns: [0, 2],
-      fixedCellsWidth: {
-        sum: 200,
-        count: 2,
+      customCellsWidth: {
+        fixed: { sum: 200, count: 2 },
+        scrollable: { sum: 0, count: 0 },
         customSizes: { 0: 100, 2: 100 },
       },
       children: jest.fn(),
@@ -603,6 +727,6 @@ describe("Virtualizer", () => {
     instance.scroller.current.scrollToTop = jest.fn();
     instance.scrollToRowIndex(30);
     // @ts-ignore
-    expect(instance.scroller.current.scrollToTop).toBeCalledWith(1950);
+    expect(instance.scroller.current.scrollToTop).toBeCalledWith(1741);
   });
 });

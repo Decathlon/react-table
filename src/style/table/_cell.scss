@@ -48,21 +48,15 @@
 
     &.selected {
       background-color: rgba(2, 171, 255, 0.1) !important;
-      // gets rid of the blue selection overlay, but prevents value selection, which may suck
-      // -webkit-touch-callout: none;
-      // -webkit-user-select: none;
-      // -khtml-user-select: none;
-      // -moz-user-select: none;
-      // -ms-user-select: none;
-      // user-select: none;
     }
+
     &.elevated-start + .table-column {
       .table-overflow-wrapper {
         position: relative;
         &::after {
           content: "";
           border: solid 1px transparent;
-          box-shadow: 6px 0px 9px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.5);
           position: absolute;
           height: calc(100% + 5px);
           top: 0;
@@ -70,20 +64,27 @@
         }
       }
     }
-    &.elevated-end {
+
+    &.elevated-end + .elevated-absolute {
       .table-overflow-wrapper {
         position: relative;
-        &::before {
-          content: "";
-          border: solid 1px transparent;
-          box-shadow: 0px 0 9px 1px rgba(0, 0, 0, 0.1);
+        &::after {
           position: absolute;
-          height: calc(100% + 5px);
           top: 0;
-          right: -5px;
-          width: 3px;
+          content: "";
+          height: 100%;
+          right: 100%;
+          width: 1px;
+          border: solid 1px transparent;
+          box-shadow: 0px 0 7px -1px rgba(0, 0, 0, 0.5) !important;
         }
       }
+    }
+
+    &.elevated-absolute {
+      position: absolute;
+      right: 0;
+      background-color: white;
     }
   }
 }

@@ -60,6 +60,8 @@ export interface IRowProps extends IRow {
   visibleColumnIndexes?: number[];
   /** Index of columns that need to be "elevated" by displaying a shadow on its right side */
   elevatedColumnIndexes?: IElevateds;
+  /** Index of rows that need to be "elevated" by displaying a shadow on its bottom side */
+  elevatedRowIndexes?: IElevateds;
   /** TODO with tree update */
   openedTree?: ITree;
   /**
@@ -70,6 +72,7 @@ export interface IRowProps extends IRow {
   delegatedSpan?: JSX.Element;
   /** Determine if the row needs to be displayed */
   isVisible?: boolean;
+  style?: React.CSSProperties;
   /** Column options to apply to the right cells of the row */
   columns?: { [index: number]: IColumn };
   /** Properties shared between cells belonging to the same columns */
@@ -109,7 +112,8 @@ export default class Row extends React.Component<IRowProps, IState> {
     isVisible: true,
     isSelectable: true,
     columns: {},
-    elevatedColumnIndexes: [],
+    elevatedColumnIndexes: { elevations: {}, absoluteEndPositions: {} },
+    elevatedRowIndexes: { elevations: {}, absoluteEndPositions: {} },
     selectedCells: [],
     getVisibleRows: (rows: IRow[]) => [null, rows],
     relativeSubIndexesMapping: {},
@@ -143,13 +147,20 @@ export default class Row extends React.Component<IRowProps, IState> {
       delete nextRowProps.visibleRowIndexes;
       delete rowProps.visibleRowIndexes;
     }
-    const nextSelectCells = nextRowProps.selectedCells;
-    // @ts-ignore
-    delete nextRowProps.selectedCells;
-    const { selectedCells } = rowProps;
-    // @ts-ignore
-    delete rowProps.selectedCells;
-    return !shallowEqual(nextRowProps, rowProps) || !isEqual(nextSelectCells, selectedCells);
+    const {
+      selectedCells: nextSelectCells,
+      elevatedRowIndexes: nextElevatedRowIndexes,
+      elevatedColumnIndexes: nextElevatedColumnIndexes,
+      ...otherNextProps
+    } = nextRowProps;
+    const { selectedCells, elevatedRowIndexes, elevatedColumnIndexes, ...otherProps } = rowProps;
+
+    return (
+      !shallowEqual(otherNextProps, otherProps) ||
+      !isEqual(nextSelectCells, selectedCells) ||
+      !isEqual(nextElevatedRowIndexes, elevatedRowIndexes) ||
+      !isEqual(nextElevatedColumnIndexes, elevatedColumnIndexes)
+    );
   }
 
   private updateOpenedCell = (cellIndex: number) => {
@@ -260,6 +271,7 @@ export default class Row extends React.Component<IRowProps, IState> {
       visibleColumnIndexes,
       relativeSubIndexesMapping,
       elevatedColumnIndexes,
+      elevatedRowIndexes,
       globalColumnProps,
       onCellMouseUp,
       onCellContextMenu,
@@ -285,6 +297,9 @@ export default class Row extends React.Component<IRowProps, IState> {
       const { subItems, index: rowAbsoluteIndex } = relativeSubIndexesMapping[subRowIndex] || defaultRelativeIndex;
       const isVisible = !visibleRowIndexes || (rowAbsoluteIndex !== undefined && visibleRowIndexes.includes(rowAbsoluteIndex));
       const openedSubTree = subOpenedTrees[subRowIndex];
+      const elevation = elevatedRowIndexes?.elevations[rowAbsoluteIndex];
+      const absolutePosition = elevatedRowIndexes?.absoluteEndPositions[rowAbsoluteIndex];
+      const rowStyle = absolutePosition != null ? { bottom: absolutePosition } : undefined;
       // get selected cells
       let rowSelectedCells = (subItems || selectedCells[rowAbsoluteIndex]) && selectedCells;
       const nextRowMap = relativeSubIndexesMapping && relativeSubIndexesMapping[subRowIndex + 1];
@@ -303,7 +318,9 @@ export default class Row extends React.Component<IRowProps, IState> {
           id={subrowId}
           className={classNames(subRow.className, `sub-row sub-row__${minLevel}`, {
             "last-sub-row": subRows.length === subRowIndex + 1,
+            [`elevated-${elevation}`]: elevation,
           })}
+          style={rowStyle}
           absoluteIndex={rowAbsoluteIndex}
           index={subRowIndex}
           level={subLevel}
@@ -314,6 +331,7 @@ export default class Row extends React.Component<IRowProps, IState> {
           visibleRowIndexes={visibleRowIndexes}
           openedTree={openedSubTree}
           elevatedColumnIndexes={elevatedColumnIndexes}
+          elevatedRowIndexes={elevatedRowIndexes}
           relativeSubIndexesMapping={subItems}
           delegatedSpan={subDelegatedSpan}
           getVisibleRows={getVisibleRows}
@@ -353,7 +371,9 @@ export default class Row extends React.Component<IRowProps, IState> {
       onCellContextMenu,
       selectedCells,
       isSelectable,
+      style,
     } = this.props;
+
     const openedCellIndex = openedTree ? openedTree.columnIndex : null;
     const openedCell = openedCellIndex !== null ? cells[openedCellIndex] : null;
     const firstCellIndexWithSubItems: number = isSpan ? this.getFirstCellIndexWithSubItems() : -1;
@@ -382,7 +402,7 @@ export default class Row extends React.Component<IRowProps, IState> {
             opened: openedCellIndex !== null,
           })}
           // @ts-ignore
-          style={computeRowStyle(options)}
+          style={computeRowStyle(options, style)}
         >
           {delegatedSpan}
           {isSpan && !delegatedSpan ? this.renderRowSpan(firstCellIndexWithSubItems >= 0) : null}
@@ -392,17 +412,26 @@ export default class Row extends React.Component<IRowProps, IState> {
             }
             const cellIndex = (visibleColumnIndexesAfterMapping && visibleColumnIndexesAfterMapping[index]) || index;
             const cellColumn = columns ? columns[cellIndex] || {} : {};
+
+            const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
+              (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes.elevations[index])
+            );
+            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
+            const elevation = elevatedColumnIndexes?.elevations[elevationIndex];
+            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
+            const absolutePosition = elevatedColumnIndexes?.absoluteEndPositions[elevationIndex] || 0;
+
             const column = {
               isSelectable: true,
               ...globalColumnProps,
               ...cellColumn,
-              style: { ...globalColumnProps.style, ...cellColumn.style },
+              style: {
+                ...globalColumnProps.style,
+                ...cellColumn.style,
+                //@ts-ignore
+                right: absolutePosition,
+              },
             };
-            const elevationIndex = mappingCellsWithColspan.indexToColspan[cellIndex].find(
-              (index) => !!(elevatedColumnIndexes && elevatedColumnIndexes[index])
-            );
-            // @ts-ignore elevationIndex !== undefined => elevatedColumnIndexes !== undefined
-            const elevation = elevationIndex !== undefined && elevatedColumnIndexes[elevationIndex];
 
             const isSelected = (selectedRowCells && selectedRowCells.includes(cellIndex)) || false;
             // By default, columns, rows and cells are selectable

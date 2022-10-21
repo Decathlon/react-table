@@ -5,11 +5,13 @@ import update from "immutability-helper";
 
 import { DEFAULT_ROW_HEIGHT, MouseClickButtons } from "../constants";
 import { IColumn, ITree, IColumns, ITrees } from "../table/elementary-table";
-import { IRowOptions, IRow } from "../table/row";
+import { IRowOptions, IRow, IRowProps } from "../table/row";
 import { ICell, ICellCoordinates } from "../table/cell";
 import { Nullable } from "../typing";
 import { isEmptyObj } from "./common";
 import shallowEqual from "./shallowEqual";
+
+const ERROR_MARGIN = 10;
 
 // @ts-ignore https://github.com/s-yadav/react-number-format/issues/180
 const memoizeFunc = memoize.default || memoize;
@@ -17,10 +19,12 @@ const memoizeFunc = memoize.default || memoize;
 export enum ElevationType {
   start = "start",
   end = "end",
+  absolute = "absolute",
 }
 
 export interface IElevateds {
-  [key: string]: ElevationType;
+  elevations: Record<number, ElevationType>;
+  absoluteEndPositions: Record<number, number>;
 }
 
 export interface IAbsoluteIndex {
@@ -79,6 +83,37 @@ export interface IIndexColspanMapping {
   colspanToIndex: IColspanToIndexMapping;
 }
 
+export interface VirtualizerCache {
+  itemsCount: number;
+  itemSize: number;
+  visibleFixedItems: number[];
+  virtualSize: number;
+  itemIndexesScrollMapping: number[];
+  visibleItemIndexes: Record<number, number[]>;
+  ignoredIndexes: Record<number, true>;
+  scrollableItemsSize?: number;
+  scrollableCustomSize?: number;
+}
+
+interface CacheProps {
+  /** List of fixed items on the left or right of your table */
+  fixedItems: number[];
+  /** Specifies indexes of the items to be hidden */
+  hiddenItems: number[];
+  /** Number of items that should be visible on screen */
+  itemsCount?: number;
+  /** Minimal size of a item */
+  minItemSize: number;
+  /** Sum of the custom items sizes */
+  customSizesElements: CustomSizesElements;
+  /** A pre-defined padding of the grid */
+  padding: number;
+  /** Table container displayable size */
+  containerSize: number;
+  /** Total number of items */
+  itemsLength: number;
+}
+
 /**
  * Used for sorting a list of numbers.
  * example of use: [2, 0, 3, 1].sort(compareNumbers) => [0, 1, 2, 3]
@@ -113,27 +148,21 @@ export const computeCellStyle = (column?: IColumn, options?: IRowOptions): React
   return cellStyle;
 };
 
-export const computeRowStyle = (options: Nullable<IRowOptions>): React.CSSProperties => {
-  const rowStyle: React.CSSProperties = {};
+export const computeRowStyle = (options: Nullable<IRowOptions>, style: React.CSSProperties = {}): React.CSSProperties => {
+  const rowStyle: React.CSSProperties = { ...style };
   rowStyle.height = options && options.size ? options.size : DEFAULT_ROW_HEIGHT;
   return rowStyle;
 };
 
-/**
- * @param {number} scrollIndex the scroll index computed by the scroller
- * @param {number[]} ignoredIndexes the list of the sorted ignored indexes of the grid
- * @return {number} the index corresponding to the index of the scroller
- */
-export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: number[] = []) => {
-  let updatedScrollIndex = scrollIndex;
-  for (let i = 0; i < ignoredIndexes.length; i += 1) {
-    if (ignoredIndexes[i] <= updatedScrollIndex) {
-      updatedScrollIndex += 1;
-    }
-  }
-
-  return updatedScrollIndex;
-};
+interface AddSequentialIndexesToFixedIndexList {
+  indexStart: number;
+  fixedIndexes: number[];
+  maxLength: number;
+  maxSize: number;
+  defaultItemSize: number;
+  ignoredIndexes: Record<number, true>;
+  customSizes: Record<number, number>;
+}
 
 /**
  * @param {number[]} fixedIndexes a list of number
@@ -144,30 +173,44 @@ export const scrollIndexToGridIndex = (scrollIndex: number, ignoredIndexes: numb
  * @return {number[]} a list of number corresponding to the concatenation between
  * fixed indexes inferior of indexStart and unfixed indexes
  */
-export const addSequentialIndexesToFixedIndexList = (
-  fixedIndexes: number[],
-  indexStart: number,
-  maxLength: number,
-  totalCount: number,
-  hiddenIndexes: number[] = []
-): number[] => {
+export const addSequentialIndexesToFixedIndexList = ({
+  indexStart,
+  fixedIndexes,
+  maxLength,
+  maxSize,
+  defaultItemSize,
+  ignoredIndexes = {},
+  customSizes = {},
+}: AddSequentialIndexesToFixedIndexList): number[] => {
+  if (!maxSize) {
+    return [];
+  }
+  const localIgnoredIndexes = { ...ignoredIndexes };
+  let currentSize = 0;
   const result = [];
-  let ignoredIndexes = [...fixedIndexes, ...hiddenIndexes];
-  const numberOfIndexesToAdd = totalCount - fixedIndexes.length;
+
   let itemIndex = indexStart;
   // forward
-  while (result.length < numberOfIndexesToAdd && itemIndex < maxLength) {
-    if (!ignoredIndexes.includes(itemIndex)) {
+  while (itemIndex < maxLength && currentSize <= maxSize) {
+    const itemSize = customSizes[itemIndex] || defaultItemSize;
+    if (!localIgnoredIndexes[itemIndex]) {
+      currentSize += itemSize;
       result.push(itemIndex);
+      localIgnoredIndexes[itemIndex] = true;
     }
     itemIndex += 1;
   }
   // backward if not enough items
-  if (result.length < numberOfIndexesToAdd) {
-    ignoredIndexes = [...ignoredIndexes, ...result];
-    while (result.length < numberOfIndexesToAdd && itemIndex > 0) {
-      if (!ignoredIndexes.includes(itemIndex) && itemIndex < maxLength) {
+  if (currentSize < maxSize) {
+    while (itemIndex > 0 && currentSize <= maxSize) {
+      const itemSize = customSizes[itemIndex] || defaultItemSize;
+      const newSize = currentSize + itemSize - ERROR_MARGIN;
+      if (!localIgnoredIndexes[itemIndex] && itemIndex < maxLength && newSize <= maxSize) {
         result.push(itemIndex);
+        currentSize += itemSize;
+        localIgnoredIndexes[itemIndex] = true;
+      } else if (!localIgnoredIndexes[itemIndex] && itemIndex < maxLength) {
+        break;
       }
       itemIndex -= 1;
     }
@@ -177,33 +220,61 @@ export const addSequentialIndexesToFixedIndexList = (
 };
 
 /**
- * @param {number[]} itemsIndexes an ordered list of number
- * @param {number[]} fixedIndexes a list of number
- * @return {IElevateds} returns an oject of numbers contained in both input list, where for each of those values the next one
- * contained in itemIndexes is not contained in fixedIndexes
+ *
+ * @param visibleItemIndexes an ordered list of number
+ * @param ignoredIndexes the ignored indexes (fixed indexes)
+ * @param itemSizes custom sizes
+ * @param defaultSize default size if no custom sizes
+ * @param usePrevIndexForLastElevation used for elevation computation
+ * @returns elevations and absolute positions of fixed columns
  */
 export const getElevatedIndexes = (
-  itemsIndexes: number[],
-  fixedIndexes: number[],
-  usePrevIndexForLastElevation = false
+  visibleItemIndexes: number[],
+  ignoredIndexes: Record<number, true> = {},
+  itemSizes: Record<number, number> = {},
+  defaultSize: number,
+  usePrevIndexForLastElevation?: boolean
 ): IElevateds => {
   const isLimit = (item1: number, item2: number) => {
-    return item1 !== undefined && !fixedIndexes.includes(item1) && (item2 === undefined || fixedIndexes.includes(item2));
+    return item1 !== undefined && !ignoredIndexes[item1] && (item2 === undefined || ignoredIndexes[item2]);
   };
-  return itemsIndexes.reduce((result, itemIndex, index) => {
-    const isFixed = fixedIndexes.includes(itemIndex);
+  const absoluteFixed: number[] = [];
+  const elevations = visibleItemIndexes.reduce((result, itemIndex, index) => {
+    const isFixed = ignoredIndexes[itemIndex];
     if (isFixed) {
-      const nextItem = itemsIndexes[index + 1];
-      const prevItem = itemsIndexes[index - 1];
+      const nextItem = visibleItemIndexes[index + 1];
+      const prevItem = visibleItemIndexes[index - 1];
       const isFixedStart = isLimit(nextItem, prevItem);
-      const isFixedEnd = !isFixedStart && isLimit(prevItem, nextItem);
+      const isEnd = isLimit(prevItem, nextItem);
+      const isFixedEnd = !isFixedStart && isEnd;
+      const isAbsoluteEnd = isEnd || result[prevItem] === ElevationType.absolute;
+
       if (isFixedStart || isFixedEnd) {
         const elevationIndex = usePrevIndexForLastElevation && !isFixedStart ? prevItem : itemIndex;
         result[elevationIndex] = isFixedStart ? ElevationType.start : ElevationType.end;
       }
+      if (isAbsoluteEnd) {
+        result[itemIndex] = ElevationType.absolute;
+        absoluteFixed.unshift(itemIndex);
+      }
     }
     return result;
   }, {});
+
+  const absoluteEndPositions: Record<number, number> = {};
+  if (absoluteFixed.length) {
+    absoluteEndPositions[absoluteFixed[0]] = 0;
+    for (let i = 1; i < absoluteFixed.length; i++) {
+      const itemIndex = absoluteFixed[i];
+      const prevItemIndex = absoluteFixed[i - 1];
+      const itemSize = itemSizes[prevItemIndex] || defaultSize;
+      absoluteEndPositions[itemIndex] = itemSize + absoluteEndPositions[prevItemIndex];
+    }
+  }
+  return {
+    elevations,
+    absoluteEndPositions,
+  };
 };
 
 export const getAllIndexesMap = (trees: ITrees = {}, rows: IRow[], root: Nullable<number> = null): IIndexesMap => {
@@ -319,7 +390,7 @@ export const getRowTreeLength = (
   rowAbsoluteIndex: number,
   absoluteIndexes: number[],
   absoluteIndexesMap: IAbsoluteIndexesMap
-) => {
+): number => {
   return absoluteIndexes.filter((absoluteIndex) => getRootIndex(absoluteIndex, rowAbsoluteIndex, absoluteIndexesMap) > -1).length;
 };
 
@@ -352,9 +423,14 @@ export const getMouseClickButton = (clickCode: number): MouseClickButtons => {
   }
 };
 
-export interface FixedCustomSizesElements {
+interface CustomSizesData {
   sum: number;
   count: number;
+}
+
+export interface CustomSizesElements {
+  fixed: CustomSizesData;
+  scrollable: CustomSizesData;
   // key === item index and value item width
   customSizes: Record<number, number>;
 }
@@ -364,37 +440,36 @@ export interface FixedCustomSizesElements {
  * @param elements
  * @param fixedElements
  */
-export const getFixedElementsWithCustomSize = (
-  elements: IRow[] | { [index: number]: IColumn } = [],
+export const getItemsCustomSizes = (
+  elements: Record<number, IColumn | IRowProps> = {},
   fixedElements?: number[],
   hiddenIndexes: number[] = []
-): FixedCustomSizesElements => {
-  let fixedElementFixedSizeSum = {
-    sum: 0,
-    count: 0,
+): CustomSizesElements => {
+  const keys = Object.keys(elements);
+  const customSizesElements: CustomSizesElements = {
+    fixed: {
+      sum: 0,
+      count: 0,
+    },
+    scrollable: {
+      sum: 0,
+      count: 0,
+    },
     customSizes: {},
   };
-  if (fixedElements) {
-    fixedElementFixedSizeSum = fixedElements.reduce(
-      (currFixedElementFixedSizeSum, index) => {
-        const element = elements[index];
-        const size = element && element.size;
-        return !hiddenIndexes.includes(index) && size
-          ? {
-              sum: currFixedElementFixedSizeSum.sum + size,
-              count: currFixedElementFixedSizeSum.count + 1,
-              customSizes: { ...currFixedElementFixedSizeSum.customSizes, [index]: size },
-            }
-          : currFixedElementFixedSizeSum;
-      },
-      {
-        sum: 0,
-        count: 0,
-        customSizes: {},
-      }
-    );
-  }
-  return fixedElementFixedSizeSum;
+  keys.forEach((key) => {
+    const element = elements[key];
+    const size = element && element.size;
+    if (!hiddenIndexes.includes(Number(key)) && size) {
+      const isFixed = fixedElements?.includes(Number(key));
+      const items = isFixed ? customSizesElements.fixed : customSizesElements.scrollable;
+      customSizesElements.customSizes[key] = size;
+      items.sum += size;
+      items.count += 1;
+    }
+  });
+
+  return customSizesElements;
 };
 
 /** this method is used to prevent the render of a previously visible index that does not exist in the new data received in props */
@@ -416,6 +491,24 @@ export const relativeToAbsoluteIndexes = (relativeIndexes: number[] = [], relati
     }
     return absoluteIndexes;
   }, []);
+};
+
+/**
+ * transform relative indexes into absolute indexes
+ * @param {Record<string, number>} relativeObject object with absolute keys.
+ * @param {IRelativeIndexesMap} relativeMap the relative indexes mapping.
+ * @return {Record<string, number>} a list of absolute indexes
+ */
+export const relativeToAbsoluteObject = (
+  relativeObject: Record<string, number> = {},
+  relativeMap: IRelativeIndexesMap
+): Record<string, number> => {
+  return Object.keys(relativeObject).reduce<Record<string, number>>((absoluteIndexes, relativeIndex) => {
+    if (relativeMap[relativeIndex]) {
+      absoluteIndexes[relativeMap[relativeIndex].index] = relativeObject[relativeIndex];
+    }
+    return absoluteIndexes;
+  }, {});
 };
 
 export const getIndexesIdsMapping = (items: INode[]): IIndexesIdsMapping => {
@@ -633,21 +726,6 @@ export const getScrollbarSize = () => {
 };
 
 /**
- * Get the number of fixed items that are placed before the selectedItemIndex
- */
-export const getFixedItemsCountBeforeSelectedItemIndex = (fixedItems: number[], selectedItemIndex: number): number => {
-  let beforeFixedColumnsCount = 0;
-
-  fixedItems.findIndex((fixedColumnIndex) => {
-    if (fixedColumnIndex > selectedItemIndex) {
-      return true;
-    }
-    beforeFixedColumnsCount += 1;
-    return false;
-  });
-  return beforeFixedColumnsCount;
-};
-/**
  * ex itemsLength=4; itemsSizes={ 0:40 }; defaultCellSize=10; hiddenItems=[1] =>
  *  [0, 40, 40, 50]
  * @param itemsLength number of total items
@@ -668,4 +746,122 @@ export const getIndexScrollMapping = (
     result[i] = (result[i - 1] || 0) + prevItemSize;
   }
   return result;
+};
+
+/**
+ *
+ * @param props The grid props
+ * @returns The cache associated with the virtualized grid
+ */
+export const getVirtualizerCache = ({
+  customSizesElements,
+  padding,
+  containerSize,
+  itemsLength,
+  hiddenItems,
+  fixedItems,
+  itemsCount,
+  minItemSize,
+}: CacheProps): VirtualizerCache => {
+  const cache: VirtualizerCache = {
+    itemsCount: 0,
+    itemSize: 0,
+    visibleFixedItems: [],
+    virtualSize: 0,
+    itemIndexesScrollMapping: [],
+    visibleItemIndexes: {},
+    ignoredIndexes: {},
+  };
+  const { fixed: fixedCustomSizesItems, scrollable: scrollableCustomSizesItems } = customSizesElements;
+  /**
+   * Size allocated to the padding and the fixed items that have a custom size specified by the user.
+   * We only take into account visible fixed items  with a custom size.
+   */
+  const extraItemsSize = fixedCustomSizesItems.sum + padding;
+  /** Available size on the table container displayable size */
+  const scrollableItemsSize = containerSize - extraItemsSize;
+  /**
+   * contains every items that are not hidden
+   */
+  const scrollableItemsCount = itemsLength - hiddenItems.length - fixedCustomSizesItems.count;
+
+  cache.visibleFixedItems = fixedItems.filter((fixedItem) => !hiddenItems.includes(fixedItem));
+  /** the total number of items we have to display inside the table size */
+  cache.itemsCount =
+    itemsCount !== undefined ? itemsCount : Math.floor(scrollableItemsSize / minItemSize + fixedCustomSizesItems.count);
+
+  /** Items size for the items without manual specified size */
+  cache.itemSize = cache.itemsCount > 0 ? Math.ceil(scrollableItemsSize / (cache.itemsCount - fixedCustomSizesItems.count)) : 0;
+
+  /** The size of the table if all items are displayed */
+  cache.virtualSize =
+    (scrollableItemsCount - scrollableCustomSizesItems.count) * cache.itemSize + extraItemsSize + scrollableCustomSizesItems.sum;
+  // The visible fixed items and hidden items must be ignored by the scroller
+  const ignoredIndexes = [...cache.visibleFixedItems, ...hiddenItems];
+
+  ignoredIndexes.forEach((ignoredIndex) => {
+    cache.ignoredIndexes[ignoredIndex] = true;
+  });
+  // The size of the scrollable element area
+  cache.scrollableItemsSize =
+    scrollableItemsSize - (cache.visibleFixedItems.length - fixedCustomSizesItems.count) * cache.itemSize;
+  // The sum of the sizes of custom scrollable items
+  cache.scrollableCustomSize = scrollableCustomSizesItems.sum;
+  cache.visibleItemIndexes = {};
+  return cache;
+};
+
+function interpolationSearch(arr: number[], value: number) {
+  let low = 0;
+  let high = arr.length - 1;
+  let mid = 0;
+
+  while (high > low + 1) {
+    mid = Math.ceil((high - low) / 2) + low;
+    if (arr[low] >= value) return low;
+    if (value >= arr[mid]) low = mid;
+    else high = mid;
+  }
+
+  if (value >= arr[low]) return low;
+  else return arr.length - 1;
+}
+
+/**
+ *
+ * @param scrollValue the scroll value of the virtualized scroller
+ * @param maxLength the max number of items
+ * @param customSizes custom item sizes
+ * @param cache the virtualizer cache
+ * @returns visible items
+ */
+export const getVisibleItemIndexes = (
+  scrollValue = 0,
+  maxLength: number,
+  customSizes: Record<number, number>,
+  {
+    visibleFixedItems,
+    visibleItemIndexes,
+    itemIndexesScrollMapping,
+    ignoredIndexes,
+    scrollableItemsSize = 0,
+    itemSize,
+  }: VirtualizerCache
+): number[] => {
+  const scrollIndex = interpolationSearch(itemIndexesScrollMapping, scrollValue);
+
+  if (!visibleItemIndexes[scrollIndex]) {
+    visibleItemIndexes[scrollIndex] = addSequentialIndexesToFixedIndexList({
+      indexStart: scrollIndex,
+      fixedIndexes: visibleFixedItems,
+      ignoredIndexes,
+      maxLength,
+      maxSize: scrollableItemsSize,
+      defaultItemSize: itemSize,
+      customSizes,
+    });
+    return visibleItemIndexes[scrollIndex];
+  }
+
+  return visibleItemIndexes[scrollIndex];
 };

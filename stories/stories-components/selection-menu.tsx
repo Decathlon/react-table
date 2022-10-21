@@ -124,7 +124,6 @@ export const TableScrollController = () => {
       <Table
         ref={table}
         {...generateTable(50, 50, {}, true)}
-        isSpan
         isSelectable={false}
         isVirtualized
         virtualizerProps={{
@@ -184,7 +183,6 @@ export const TableColumnsRowsController = () => {
       </div>
       <Table
         {...generateTable(50, 50, {}, true)}
-        isSpan
         isSelectable={false}
         isVirtualized
         virtualizerProps={{

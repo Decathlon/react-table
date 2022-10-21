@@ -2,33 +2,43 @@
 
 exports[`Table component should render a Table with 2 levels 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
+  elevatedRowIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
   id="table-foo"
   indexesMapping={
-    Object {
-      "absolute": Object {
-        "0": Object {
+    {
+      "absolute": {
+        "0": {
           "index": 0,
           "parentIndex": null,
         },
-        "1": Object {
+        "1": {
           "index": 1,
           "parentIndex": null,
         },
-        "2": Object {
+        "2": {
           "index": 2,
           "parentIndex": null,
         },
       },
-      "relative": Object {
-        "0": Object {
+      "relative": {
+        "0": {
           "index": 0,
         },
-        "1": Object {
+        "1": {
           "index": 1,
         },
-        "2": Object {
+        "2": {
           "index": 2,
         },
       },
@@ -36,20 +46,20 @@ exports[`Table component should render a Table with 2 levels 1`] = `
   }
   onRowClose={[Function]}
   onRowOpen={[Function]}
-  openedTrees={Object {}}
+  openedTrees={{}}
   rows={
-    Array [
-      Object {
-        "cells": Array [
-          Object {
+    [
+      {
+        "cells": [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
@@ -58,42 +68,42 @@ exports[`Table component should render a Table with 2 levels 1`] = `
         "isHeader": true,
         "isSelectable": false,
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "react",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "enzyme",
                   },
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "Sentry",
                   },
                 ],
@@ -102,11 +112,11 @@ exports[`Table component should render a Table with 2 levels 1`] = `
             ],
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
@@ -114,18 +124,18 @@ exports[`Table component should render a Table with 2 levels 1`] = `
         "id": "front1",
         "title": "foo",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
-            "subItems": Array [],
+            "subItems": [],
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -134,39 +144,50 @@ exports[`Table component should render a Table with 2 levels 1`] = `
       },
     ]
   }
-  selectedCells={Object {}}
+  rowsProps={{}}
+  selectedCells={{}}
 />
 `;
 
 exports[`Table component should render a Table with 3 levels 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
+  elevatedRowIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
   id="table-foo"
   indexesMapping={
-    Object {
-      "absolute": Object {
-        "0": Object {
+    {
+      "absolute": {
+        "0": {
           "index": 0,
           "parentIndex": null,
         },
-        "1": Object {
+        "1": {
           "index": 1,
           "parentIndex": null,
         },
-        "2": Object {
+        "2": {
           "index": 2,
           "parentIndex": null,
         },
       },
-      "relative": Object {
-        "0": Object {
+      "relative": {
+        "0": {
           "index": 0,
         },
-        "1": Object {
+        "1": {
           "index": 1,
         },
-        "2": Object {
+        "2": {
           "index": 2,
         },
       },
@@ -174,20 +195,20 @@ exports[`Table component should render a Table with 3 levels 1`] = `
   }
   onRowClose={[Function]}
   onRowOpen={[Function]}
-  openedTrees={Object {}}
+  openedTrees={{}}
   rows={
-    Array [
-      Object {
-        "cells": Array [
-          Object {
+    [
+      {
+        "cells": [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
@@ -196,35 +217,35 @@ exports[`Table component should render a Table with 3 levels 1`] = `
         "isHeader": true,
         "isSelectable": false,
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "react",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "sushi",
                             "value": "Sushi",
                           },
-                          Object {
+                          {
                             "id": "pizza",
                             "value": "Pizza",
                           },
-                          Object {
+                          {
                             "id": "mafe",
                             "value": "Mafe",
                           },
@@ -237,30 +258,30 @@ exports[`Table component should render a Table with 3 levels 1`] = `
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "sushi",
                             "value": "Sushi",
                           },
-                          Object {
+                          {
                             "id": "pizza",
                             "value": "Pizza",
                           },
-                          Object {
+                          {
                             "id": "mafe",
                             "value": "Mafe",
                           },
@@ -276,11 +297,11 @@ exports[`Table component should render a Table with 3 levels 1`] = `
             ],
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
@@ -288,18 +309,18 @@ exports[`Table component should render a Table with 3 levels 1`] = `
         "id": "front1",
         "title": "foo",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
-            "subItems": Array [],
+            "subItems": [],
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -308,39 +329,50 @@ exports[`Table component should render a Table with 3 levels 1`] = `
       },
     ]
   }
-  selectedCells={Object {}}
+  rowsProps={{}}
+  selectedCells={{}}
 />
 `;
 
 exports[`Table component should render a Table with spans 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
+  elevatedRowIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
   id="table-foo"
   indexesMapping={
-    Object {
-      "absolute": Object {
-        "0": Object {
+    {
+      "absolute": {
+        "0": {
           "index": 0,
           "parentIndex": null,
         },
-        "1": Object {
+        "1": {
           "index": 1,
           "parentIndex": null,
         },
-        "2": Object {
+        "2": {
           "index": 2,
           "parentIndex": null,
         },
       },
-      "relative": Object {
-        "0": Object {
+      "relative": {
+        "0": {
           "index": 0,
         },
-        "1": Object {
+        "1": {
           "index": 1,
         },
-        "2": Object {
+        "2": {
           "index": 2,
         },
       },
@@ -349,20 +381,20 @@ exports[`Table component should render a Table with spans 1`] = `
   isSpan={true}
   onRowClose={[Function]}
   onRowOpen={[Function]}
-  openedTrees={Object {}}
+  openedTrees={{}}
   rows={
-    Array [
-      Object {
-        "cells": Array [
-          Object {
+    [
+      {
+        "cells": [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
@@ -371,42 +403,42 @@ exports[`Table component should render a Table with spans 1`] = `
         "isHeader": true,
         "isSelectable": false,
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "react",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "enzyme",
                   },
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "Sentry",
                   },
                 ],
@@ -415,11 +447,11 @@ exports[`Table component should render a Table with spans 1`] = `
             ],
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
@@ -427,46 +459,46 @@ exports[`Table component should render a Table with spans 1`] = `
         "id": "front1",
         "title": "foo",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "enzyme",
                   },
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [],
+                    "subItems": [],
                     "value": "Sentry",
                   },
                 ],
@@ -475,7 +507,7 @@ exports[`Table component should render a Table with spans 1`] = `
             ],
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -484,7 +516,8 @@ exports[`Table component should render a Table with spans 1`] = `
       },
     ]
   }
-  selectedCells={Object {}}
+  rowsProps={{}}
+  selectedCells={{}}
 />
 `;
 
@@ -503,28 +536,40 @@ exports[`Table component should render a selectable Table 1`] = `
 exports[`Table component should render a virtualized Table 1`] = `
 <Virtualizer
   columnsLength={3}
-  fixedCellsHeight={
-    Object {
-      "count": 0,
-      "customSizes": Object {},
-      "sum": 0,
+  customCellsHeight={
+    {
+      "customSizes": {},
+      "fixed": {
+        "count": 0,
+        "sum": 0,
+      },
+      "scrollable": {
+        "count": 0,
+        "sum": 0,
+      },
     }
   }
-  fixedCellsWidth={
-    Object {
-      "count": 0,
-      "customSizes": Object {},
-      "sum": 0,
+  customCellsWidth={
+    {
+      "customSizes": {},
+      "fixed": {
+        "count": 0,
+        "sum": 0,
+      },
+      "scrollable": {
+        "count": 0,
+        "sum": 0,
+      },
     }
   }
-  fixedColumns={Array []}
-  fixedRows={Array []}
+  fixedColumns={[]}
+  fixedRows={[]}
   height={300}
-  hiddenColumns={Array []}
-  hiddenRows={Array []}
+  hiddenColumns={[]}
+  hiddenRows={[]}
   horizontalPadding={0}
   initialScroll={
-    Object {
+    {
       "columnIndex": 3,
       "rowIndex": 4,
     }
@@ -539,54 +584,64 @@ exports[`Table component should render a virtualized Table 1`] = `
 
 exports[`Table component should render the default table 1`] = `
 <ElementaryTable
-  elevatedColumnIndexes={Object {}}
-  elevatedRowIndexes={Object {}}
+  elevatedColumnIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
+  elevatedRowIndexes={
+    {
+      "absoluteEndPositions": {},
+      "elevations": {},
+    }
+  }
   id="table-foo"
   indexesMapping={
-    Object {
-      "absolute": Object {
-        "0": Object {
+    {
+      "absolute": {
+        "0": {
           "index": 0,
           "parentIndex": null,
         },
-        "1": Object {
+        "1": {
           "index": 1,
           "parentIndex": null,
         },
-        "2": Object {
+        "2": {
           "index": 2,
           "parentIndex": null,
         },
-        "3": Object {
+        "3": {
           "index": 3,
           "parentIndex": null,
         },
-        "4": Object {
+        "4": {
           "index": 4,
           "parentIndex": null,
         },
-        "5": Object {
+        "5": {
           "index": 5,
           "parentIndex": null,
         },
       },
-      "relative": Object {
-        "0": Object {
+      "relative": {
+        "0": {
           "index": 0,
         },
-        "1": Object {
+        "1": {
           "index": 1,
         },
-        "2": Object {
+        "2": {
           "index": 2,
         },
-        "3": Object {
+        "3": {
           "index": 3,
         },
-        "4": Object {
+        "4": {
           "index": 4,
         },
-        "5": Object {
+        "5": {
           "index": 5,
         },
       },
@@ -594,20 +649,20 @@ exports[`Table component should render the default table 1`] = `
   }
   onRowClose={[Function]}
   onRowOpen={[Function]}
-  openedTrees={Object {}}
+  openedTrees={{}}
   rows={
-    Array [
-      Object {
-        "cells": Array [
-          Object {
+    [
+      {
+        "cells": [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
@@ -615,36 +670,36 @@ exports[`Table component should render the default table 1`] = `
         "id": "front",
         "isHeader": true,
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "cellContent": undefined,
             "cellContentProps": undefined,
             "id": "react",
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
         ],
         "id": "front1",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -652,51 +707,51 @@ exports[`Table component should render the default table 1`] = `
         "id": "back",
         "loading": false,
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python1",
           },
-          Object {
+          {
             "id": "Go",
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
         ],
         "id": "back1",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python2",
           },
-          Object {
+          {
             "id": "Go",
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
         ],
         "id": "back2",
       },
-      Object {
-        "cells": Array [
-          Object {
+      {
+        "cells": [
+          {
             "id": "python",
             "value": "Python3",
           },
-          Object {
+          {
             "id": "Go",
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -705,6 +760,7 @@ exports[`Table component should render the default table 1`] = `
       },
     ]
   }
-  selectedCells={Object {}}
+  rowsProps={{}}
+  selectedCells={{}}
 />
 `;

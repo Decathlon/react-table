@@ -1,30 +1,28 @@
 /* eslint-disable  import/no-extraneous-dependencies */
 import * as React from "react";
 import { render, RenderOptions } from "@testing-library/react";
-import { createTheme, adaptV4Theme, StyledEngineProvider } from "@mui/material/styles";
+import { createTheme, StyledEngineProvider } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/styles";
 
 export const blueDkt = "#0082c3";
 
-const muiDktTheme = createTheme(
-  adaptV4Theme({
-    typography: {
-      fontFamily: "Roboto Condensed",
+const muiDktTheme = createTheme({
+  typography: {
+    fontFamily: "Roboto Condensed",
+  },
+  palette: {
+    primary: {
+      light: blueDkt,
+      dark: blueDkt,
+      main: blueDkt,
     },
-    palette: {
-      primary: {
-        light: blueDkt,
-        dark: blueDkt,
-        main: blueDkt,
-      },
-      secondary: {
-        light: blueDkt,
-        dark: blueDkt,
-        main: blueDkt,
-      },
+    secondary: {
+      light: blueDkt,
+      dark: blueDkt,
+      main: blueDkt,
     },
-  })
-);
+  },
+});
 
 const AllTheProviders = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   return (
@@ -38,5 +36,4 @@ const AllTheProviders = ({ children }: { children: JSX.Element | JSX.Element[] }
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export const customRender = (ui: React.ReactElement<any>, options?: Omit<RenderOptions, "queries">) =>
-  // @ts-ignore
   render(ui, { wrapper: AllTheProviders, ...options });

@@ -9,4 +9,4 @@ Enzyme.configure({ adapter: new Adapter() });
 
 window.ga = function () {};
 
-CommonUtils.getScrollbarSize = jest.fn(() => 15);
+CommonUtils.getScrollbarSize = jest.fn(() => 0);

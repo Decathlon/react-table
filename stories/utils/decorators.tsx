@@ -1,26 +1,24 @@
-import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from "@mui/material/styles";
+import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
 
 export const blueDkt = "#0082c3";
 
-const muiDktTheme = createTheme(
-  adaptV4Theme({
-    typography: {
-      fontFamily: "Roboto Condensed",
+const muiDktTheme = createTheme({
+  typography: {
+    fontFamily: "Roboto Condensed",
+  },
+  palette: {
+    primary: {
+      light: blueDkt,
+      dark: blueDkt,
+      main: blueDkt,
     },
-    palette: {
-      primary: {
-        light: blueDkt,
-        dark: blueDkt,
-        main: blueDkt,
-      },
-      secondary: {
-        light: blueDkt,
-        dark: blueDkt,
-        main: blueDkt,
-      },
+    secondary: {
+      light: blueDkt,
+      dark: blueDkt,
+      main: blueDkt,
     },
-  })
-);
+  },
+});
 
 /**
  * The MUI theme provider wrapper

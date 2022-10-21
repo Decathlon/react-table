@@ -60,46 +60,56 @@ describe("findFirstNotIncluded method", () => {
   });
 });
 
-describe("scrollIndexToGridIndex method", () => {
-  test("should return the first visible index (jump 3 and 4)", () => {
-    const gridIndex = Utils.scrollIndexToGridIndex(2, [0, 1, 2, 3, 4]);
-    expect(gridIndex).toEqual(7);
-  });
-
-  test("should return the first visible index (no jumping)", () => {
-    const gridIndex = Utils.scrollIndexToGridIndex(3, [1, 2, 4]);
-    expect(gridIndex).toEqual(6);
-  });
-
-  test("should return the first  visible index (jump 4)", () => {
-    const gridIndex = Utils.scrollIndexToGridIndex(3, [0, 1, 3, 4]);
-    expect(gridIndex).toEqual(7);
-  });
-
-  test("should return scrollIndex when the hiddenIndexes list is empty", () => {
-    const gridIndex = Utils.scrollIndexToGridIndex(4, []);
-    expect(gridIndex).toEqual(4);
-  });
-});
-
 describe("addSequentialIndexesToFixedIndexList method", () => {
   test("should return a list of sequential ids, starting at (index start: 1), of length 4", () => {
-    const newList = Utils.addSequentialIndexesToFixedIndexList([], 1, 6, 4);
-    expect(newList).toEqual([1, 2, 3, 4]);
+    const newList = Utils.addSequentialIndexesToFixedIndexList({
+      fixedIndexes: [],
+      indexStart: 1,
+      maxLength: 6,
+      maxSize: 200,
+      defaultItemSize: 10,
+      customSizes: {},
+      ignoredIndexes: [],
+    });
+    expect(newList).toEqual([1, 2, 3, 4, 5]);
   });
 
   test("should return a list of sequential ids, starting at (index start: 1) + (fixed index before start: 1), concat to fixed index input", () => {
-    const newList = Utils.addSequentialIndexesToFixedIndexList([0, 2], 1, 6, 4);
-    expect(newList).toEqual([0, 1, 2, 3]);
+    const newList = Utils.addSequentialIndexesToFixedIndexList({
+      fixedIndexes: [0, 2],
+      indexStart: 1,
+      maxLength: 6,
+      maxSize: 200,
+      defaultItemSize: 40,
+      customSizes: {},
+      ignoredIndexes: { 0: true, 2: true },
+    });
+    expect(newList).toEqual([0, 1, 2, 3, 4, 5]);
   });
 
   test("should return a list of sequential ids, starting at (index start: 1) + (fixed indexes before start: 0,1,2,3,4), concat to fixed index input", () => {
-    const newList = Utils.addSequentialIndexesToFixedIndexList([0, 1, 2, 3, 4], 1, 57, 7);
-    expect(newList).toEqual([0, 1, 2, 3, 4, 5, 6]);
+    const newList = Utils.addSequentialIndexesToFixedIndexList({
+      fixedIndexes: [0, 1, 2, 3, 4],
+      indexStart: 1,
+      maxLength: 57,
+      maxSize: 200,
+      defaultItemSize: 40,
+      customSizes: {},
+      ignoredIndexes: { 0: true, 1: true, 2: true, 3: true, 4: true },
+    });
+    expect(newList).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   test("should return a list with only fixed indexes", () => {
-    const newList = Utils.addSequentialIndexesToFixedIndexList([0, 2, 4, 5], 1, 6, 4);
+    const newList = Utils.addSequentialIndexesToFixedIndexList({
+      fixedIndexes: [0, 2, 4, 5],
+      indexStart: 2,
+      maxLength: 0,
+      maxSize: 200,
+      defaultItemSize: 50,
+      customSizes: {},
+      ignoredIndexes: { 0: true, 2: true, 4: true, 5: true },
+    });
     expect(newList).toEqual([0, 2, 4, 5]);
   });
 });
@@ -108,31 +118,52 @@ describe("getElevatedIndexes method", () => {
   const itemIndexes = [0, 1, 2, 3, 4, 5, 6];
 
   test("should return a list with fixed indexes where the item in itemIndexesList isn't in the fixed indexes list", () => {
-    const newList = Utils.getElevatedIndexes(itemIndexes, [0, 1, 2, 5, 6]);
+    const newList = Utils.getElevatedIndexes(itemIndexes, { 0: true, 1: true, 2: true, 5: true, 6: true }, {}, 30);
     const expectedIntersection = {
-      2: "start",
-      5: "end",
+      absoluteEndPositions: {
+        "5": 30,
+        "6": 0,
+      },
+      elevations: {
+        "2": "start",
+        "5": "absolute",
+        "6": "absolute",
+      },
     };
+
     expect(newList).toEqual(expectedIntersection);
   });
 
   test("should return a list with fixed indexes where the item in itemIndexesList isn't in the fixed indexes list (usePrevIndexForLastElevation)", () => {
-    const newList = Utils.getElevatedIndexes(itemIndexes, [0, 1, 2, 5, 6], true);
+    const newList = Utils.getElevatedIndexes(itemIndexes, { 0: true, 1: true, 2: true, 5: true, 6: true }, {}, 30, true);
     const expectedIntersection = {
-      2: "start",
-      4: "end",
+      absoluteEndPositions: {
+        "5": 30,
+        "6": 0,
+      },
+      elevations: {
+        "2": "start",
+        "4": "end",
+        "5": "absolute",
+        "6": "absolute",
+      },
     };
     expect(newList).toEqual(expectedIntersection);
   });
 
   test("should return an empty list if there are no fixed indexes", () => {
-    const newList = Utils.getElevatedIndexes(itemIndexes, []);
-    expect(newList).toEqual({});
+    const newList = Utils.getElevatedIndexes(itemIndexes, {}, {}, 30);
+    expect(newList).toEqual({ absoluteEndPositions: {}, elevations: {} });
   });
 
   test("should return an empty list if all itemIndexes are fixedIndexes", () => {
-    const newList = Utils.getElevatedIndexes(itemIndexes, itemIndexes);
-    expect(newList).toEqual({});
+    const newList = Utils.getElevatedIndexes(
+      itemIndexes,
+      { 0: true, 1: true, 2: true, 3: true, 4: true, 5: true, 6: true },
+      {},
+      30
+    );
+    expect(newList).toEqual({ absoluteEndPositions: {}, elevations: {} });
   });
 });
 
@@ -808,16 +839,22 @@ describe("filterIndexes method", () => {
   });
 });
 
-describe("getFixedElementsWithCustomSize method", () => {
+describe("getItemsCustomSizes method", () => {
   test("should return the height of all fixed rows with a custom height and count those elements", () => {
     const table = generateTable(5, 2, {}, true);
     table.rows[0].size = 25;
     table.rows[1].size = 150;
     table.rows[4].size = 225;
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
-    expect(fixedCellsHeight).toEqual({
-      sum: 400,
-      count: 3,
+    const customCellsHeight = Utils.getItemsCustomSizes(table.rows, [0, 1, 4]);
+    expect(customCellsHeight).toEqual({
+      fixed: {
+        sum: 400,
+        count: 3,
+      },
+      scrollable: {
+        count: 0,
+        sum: 0,
+      },
       customSizes: {
         0: 25,
         1: 150,
@@ -828,25 +865,42 @@ describe("getFixedElementsWithCustomSize method", () => {
 
   test("should return a sum and count at 0 when there is no custom height for fixed rows", () => {
     const table = generateTable(5, 2, {}, true);
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows, [0, 1, 4]);
-    expect(fixedCellsHeight).toEqual({
-      sum: 0,
-      count: 0,
+    const customCellsHeight = Utils.getItemsCustomSizes(table.rows, [0, 1, 4]);
+    expect(customCellsHeight).toEqual({
+      fixed: {
+        sum: 0,
+        count: 0,
+      },
+      scrollable: {
+        count: 0,
+        sum: 0,
+      },
       customSizes: {},
     });
   });
 
   test("should return undefined if fixedRows is undefined", () => {
-    const table = generateTable(5, 2, {}, true);
-    table.rows[0].size = 25;
-    table.rows[1].size = 150;
-    table.rows[4].size = 225;
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(table.rows);
-    expect(fixedCellsHeight).toEqual({ count: 0, sum: 0, customSizes: {} });
+    const rowsProps = { 0: { size: 25 }, 1: { size: 150 }, 4: { size: 225 } };
+    const customCellsHeight = Utils.getItemsCustomSizes(rowsProps);
+    expect(customCellsHeight).toEqual({
+      customSizes: {
+        "0": 25,
+        "1": 150,
+        "4": 225,
+      },
+      fixed: {
+        count: 0,
+        sum: 0,
+      },
+      scrollable: {
+        count: 3,
+        sum: 400,
+      },
+    });
   });
 
   test("should return the width of all fixed columns with a custom width and count those elements", () => {
-    const fixedCellsHeight = Utils.getFixedElementsWithCustomSize(
+    const customCellsHeight = Utils.getItemsCustomSizes(
       {
         0: { size: 25 },
         1: { size: 150 },
@@ -855,9 +909,15 @@ describe("getFixedElementsWithCustomSize method", () => {
       [0, 1, 4]
     );
 
-    expect(fixedCellsHeight).toEqual({
-      sum: 400,
-      count: 3,
+    expect(customCellsHeight).toEqual({
+      fixed: {
+        sum: 400,
+        count: 3,
+      },
+      scrollable: {
+        count: 0,
+        sum: 0,
+      },
       customSizes: {
         0: 25,
         1: 150,

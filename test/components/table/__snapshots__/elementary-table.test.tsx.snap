@@ -8,16 +8,16 @@ exports[`elementary table component should render a table with custom cell size 
     <Row
       absoluteIndex={0}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
@@ -25,27 +25,38 @@ exports[`elementary table component should render a table with custom cell size 
       }
       className=""
       columns={
-        Object {
-          "0": Object {
+        {
+          "0": {
             "size": 320,
           },
-          "4": Object {
+          "4": {
             "size": 300,
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="front"
       index={0}
       isHeader={true}
       isSelectable={false}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
       size={24}
     />
   </thead>
@@ -53,54 +64,54 @@ exports[`elementary table component should render a table with custom cell size 
     <Row
       absoluteIndex={1}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "react",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -112,50 +123,50 @@ exports[`elementary table component should render a table with custom cell size 
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -170,11 +181,11 @@ exports[`elementary table component should render a table with custom cell size 
             ],
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
@@ -182,83 +193,94 @@ exports[`elementary table component should render a table with custom cell size 
       }
       className=""
       columns={
-        Object {
-          "0": Object {
+        {
+          "0": {
             "size": 320,
           },
-          "4": Object {
+          "4": {
             "size": 300,
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="front1"
       index={1}
       isSelectable={true}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
       title="foo"
     />
     <Row
       absoluteIndex={2}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -270,50 +292,50 @@ exports[`elementary table component should render a table with custom cell size 
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -328,7 +350,7 @@ exports[`elementary table component should render a table with custom cell size 
             ],
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
@@ -336,26 +358,37 @@ exports[`elementary table component should render a table with custom cell size 
       }
       className=""
       columns={
-        Object {
-          "0": Object {
+        {
+          "0": {
             "size": 320,
           },
-          "4": Object {
+          "4": {
             "size": 300,
           },
         }
       }
-      elevatedColumnIndexes={Object {}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="back"
       index={2}
       isSelectable={true}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
       size={150}
     />
   </tbody>
@@ -370,89 +403,100 @@ exports[`elementary table component should render the default table 1`] = `
     <Row
       absoluteIndex={0}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "wawoo",
             "value": "Wawooo!",
           },
-          Object {
+          {
             "id": "wah",
             "value": "Wah!",
           },
-          Object {
+          {
             "id": "cool",
             "value": "Cool!",
           },
         ]
       }
       className=""
-      columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      columns={{}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="front"
       index={0}
       isHeader={true}
       isSelectable={false}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
     />
   </thead>
   <tbody>
     <Row
       absoluteIndex={1}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "react",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -464,50 +508,50 @@ exports[`elementary table component should render the default table 1`] = `
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -522,86 +566,97 @@ exports[`elementary table component should render the default table 1`] = `
             ],
             "value": "React",
           },
-          Object {
+          {
             "id": "angular",
             "value": "Angular",
           },
-          Object {
+          {
             "id": "vuejs",
             "value": "VueJS",
           },
         ]
       }
       className=""
-      columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      columns={{}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="front1"
       index={1}
       isSelectable={true}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
       title="foo"
     />
     <Row
       absoluteIndex={2}
       cells={
-        Array [
-          Object {
+        [
+          {
             "id": "python",
             "value": "Python",
           },
-          Object {
+          {
             "id": "Go",
-            "subItems": Array [
-              Object {
-                "cells": Array [
-                  Object {
+            "subItems": [
+              {
+                "cells": [
+                  {
                     "id": "storybook",
                     "value": "Storybook",
                   },
-                  Object {
+                  {
                     "id": "jest",
                     "value": "Jest",
                   },
-                  Object {
+                  {
                     "id": "Enzym",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -613,50 +668,50 @@ exports[`elementary table component should render the default table 1`] = `
                 ],
                 "id": "foo",
               },
-              Object {
-                "cells": Array [
-                  Object {
+              {
+                "cells": [
+                  {
                     "id": "docker",
                     "value": "Docker",
                   },
-                  Object {
+                  {
                     "id": "doccomp",
                     "value": "Docker compose",
                   },
-                  Object {
+                  {
                     "id": "Sentry",
-                    "subItems": Array [
-                      Object {
-                        "cells": Array [
-                          Object {
+                    "subItems": [
+                      {
+                        "cells": [
+                          {
                             "id": "storybook",
                             "value": "Storybook",
                           },
-                          Object {
+                          {
                             "id": "jest",
                             "value": "Jest",
                           },
-                          Object {
+                          {
                             "id": "Enzym",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "enzyme",
                           },
                         ],
                         "id": "foo",
                       },
-                      Object {
-                        "cells": Array [
-                          Object {
+                      {
+                        "cells": [
+                          {
                             "id": "docker",
                             "value": "Docker",
                           },
-                          Object {
+                          {
                             "id": "doccomp",
                             "value": "Docker compose",
                           },
-                          Object {
+                          {
                             "id": "Sentry",
-                            "subItems": Array [],
+                            "subItems": [],
                             "value": "Sentry",
                           },
                         ],
@@ -671,25 +726,36 @@ exports[`elementary table component should render the default table 1`] = `
             ],
             "value": "Go",
           },
-          Object {
+          {
             "id": "Java",
             "value": "java",
           },
         ]
       }
       className=""
-      columns={Object {}}
-      elevatedColumnIndexes={Object {}}
+      columns={{}}
+      elevatedColumnIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
+      elevatedRowIndexes={
+        {
+          "absoluteEndPositions": {},
+          "elevations": {},
+        }
+      }
       getRowTreeLength={[Function]}
       getVisibleRows={[Function]}
-      globalColumnProps={Object {}}
+      globalColumnProps={{}}
       id="back"
       index={2}
       isSelectable={true}
       isVisible={true}
       level={0}
-      relativeSubIndexesMapping={Object {}}
-      selectedCells={Array []}
+      relativeSubIndexesMapping={{}}
+      selectedCells={[]}
     />
   </tbody>
 </table>

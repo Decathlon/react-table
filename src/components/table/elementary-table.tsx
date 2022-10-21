@@ -55,6 +55,8 @@ export interface IElementaryTable<IDataCoordinates = any> {
   elevatedRowIndexes?: IElevateds;
   /** Options to customize any columns, such as size or align */
   columns?: IColumns;
+  /** Options to customize any rows, such as size */
+  rowsProps?: Record<number, IRowOptions>;
   /** Options to customize any row, such as size */
   globalRowProps?: IRowOptions;
   /** Options to customize any column, such as size */
@@ -78,10 +80,11 @@ export interface IElementaryTableProps<IDataCoordinates = any> extends IElementa
 
 class ElementaryTable extends React.Component<IElementaryTableProps> {
   static defaultProps = {
-    elevatedColumnIndexes: {},
-    elevatedRowIndexes: {},
+    elevatedColumnIndexes: { elevations: {}, absoluteEndPositions: {} },
+    elevatedRowIndexes: { elevations: {}, absoluteEndPositions: {} },
     openedTrees: {},
     selectedCells: {},
+    rowsProps: {},
   };
 
   /** An utility of the table that return the length of the visible sub-rows
@@ -112,6 +115,7 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
       isSpan,
       rows,
       columns,
+      rowsProps,
       globalRowProps,
       globalColumnProps,
       visibleColumnIndexes,
@@ -137,13 +141,14 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
           return result;
         }
         const rowIndex = relativeIndexes ? relativeIndexes[index] : index;
+        const rowProps = rowsProps ? rowsProps[rowIndex] : {};
         const { subItems, index: rowAbsoluteIndex } = indexesMapping.relative[rowIndex];
         const isVisible = !visibleRowIndexes || visibleRowIndexes.includes(rowAbsoluteIndex);
         // @ts-ignore we have a default value for openedTrees
         const rowOpenedTree = openedTrees[rowIndex];
 
         // @ts-ignore we have a default value for openedTrees
-        const elevation = elevatedRowIndexes[rowAbsoluteIndex];
+        const elevation = elevatedRowIndexes?.elevations[rowAbsoluteIndex];
         let rowSelectedCells = (subItems || selectedCells[rowAbsoluteIndex]) && selectedCells;
         if (rowSelectedCells) {
           const nextRowMap = indexesMapping.relative && indexesMapping.relative[rowIndex + 1];
@@ -152,20 +157,25 @@ class ElementaryTable extends React.Component<IElementaryTableProps> {
             ? filterIndexes(rowSelectedCells, rowAbsoluteIndex, nextRowAbsoluteIndex)
             : rowSelectedCells;
         }
+        const absolutePosition = elevatedRowIndexes?.absoluteEndPositions[rowAbsoluteIndex];
+        const rowStyle = absolutePosition != null ? { bottom: absolutePosition } : undefined;
         const renderedRow = (
           <Row
             key={`row-${id}-${row.id}`}
             {...globalRowProps}
             {...row}
+            {...rowProps}
             className={classnames(row.className, {
               [`elevated-${elevation}`]: elevation,
             })}
+            style={rowStyle}
             absoluteIndex={rowAbsoluteIndex}
             index={rowIndex}
             isVisible={isVisible}
             isSpan={isSpan}
             columns={columns}
             elevatedColumnIndexes={elevatedColumnIndexes}
+            elevatedRowIndexes={elevatedRowIndexes}
             globalColumnProps={globalColumnProps}
             visibleColumnIndexes={visibleColumnIndexes}
             visibleRowIndexes={visibleRowIndexes}

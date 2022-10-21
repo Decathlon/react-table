@@ -6,7 +6,7 @@ exports[`Scroller component should render a vertical scroller 1`] = `
   data-testid="scroller-container"
   onScroll={[Function]}
   style={
-    Object {
+    {
       "maxHeight": 300,
       "maxWidth": 300,
       "overflowX": "hidden",
@@ -17,18 +17,18 @@ exports[`Scroller component should render a vertical scroller 1`] = `
   <div
     className="scroller-content"
     style={
-      Object {
+      {
         "minHeight": 300,
-        "minWidth": 285,
+        "minWidth": 300,
       }
     }
   />
   <div
     className="scroller-scrollbar"
     style={
-      Object {
+      {
         "minHeight": 3700,
-        "minWidth": 315,
+        "minWidth": 300,
       }
     }
   />
@@ -41,7 +41,7 @@ exports[`Scroller component should render an horizontal scroller 1`] = `
   data-testid="scroller-container"
   onScroll={[Function]}
   style={
-    Object {
+    {
       "maxHeight": 300,
       "maxWidth": 300,
       "overflowX": "scroll",
@@ -52,8 +52,8 @@ exports[`Scroller component should render an horizontal scroller 1`] = `
   <div
     className="scroller-content"
     style={
-      Object {
-        "minHeight": 285,
+      {
+        "minHeight": 300,
         "minWidth": 300,
       }
     }
@@ -61,8 +61,8 @@ exports[`Scroller component should render an horizontal scroller 1`] = `
   <div
     className="scroller-scrollbar"
     style={
-      Object {
-        "minHeight": 315,
+      {
+        "minHeight": 300,
         "minWidth": 4000,
       }
     }
@@ -76,7 +76,7 @@ exports[`Scroller component should render the default scroller 1`] = `
   data-testid="scroller-container"
   onScroll={[Function]}
   style={
-    Object {
+    {
       "maxHeight": 300,
       "maxWidth": 300,
       "overflowX": "scroll",
@@ -87,18 +87,18 @@ exports[`Scroller component should render the default scroller 1`] = `
   <div
     className="scroller-content"
     style={
-      Object {
-        "minHeight": 285,
-        "minWidth": 285,
+      {
+        "minHeight": 300,
+        "minWidth": 300,
       }
     }
   />
   <div
     className="scroller-scrollbar"
     style={
-      Object {
-        "minHeight": 3715,
-        "minWidth": 4015,
+      {
+        "minHeight": 3700,
+        "minWidth": 4000,
       }
     }
   />

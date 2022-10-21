@@ -1,4 +1,3 @@
-@import "fonts/material-design-icons/material-icons";
 @import "variable/index";
 @import "responsive-container";
 @import "styled-table/index";
@@ -6,15 +5,3 @@
 @import "table/index";
 @import "table-selection/index";
 @import "table-interactions-manager/index";
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-}
-
-* {
-  box-sizing: border-box;
-  outline: none;
-}

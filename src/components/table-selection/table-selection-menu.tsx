@@ -19,13 +19,14 @@ export interface IActionMenuComponent {
 export interface IMenuItemProps {
   onClick: () => void;
   selectedCells: ISelectedCells;
+  children: React.ReactNode;
 }
 
 export interface IMenuAction {
   id: string;
   title: string;
   component: React.ComponentType<any>;
-  menuItem?: React.ComponentType<any>;
+  menuItem?: React.ComponentType<{ children: React.ReactNode }>;
 }
 
 export interface ITableSelectionMenuProps extends IMenuProps {

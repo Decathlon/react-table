@@ -104,17 +104,18 @@ class Scroller extends React.Component<IScrollerProps> {
     if (this.scrollerContainer.current && horizontalPartWidth) {
       const { scrollLeft } = this.scrollerContainer.current;
       if (prevProps.virtualWidth !== virtualWidth && scrollLeft) {
+        const diff = prevProps.virtualWidth - virtualWidth;
+        const percentageDiff = (100 * diff) / prevProps.virtualWidth;
+        const newRelativeDiff = (virtualWidth * percentageDiff) / 100;
         const nbIgnoredHorizontalParts = ignoredHorizontalParts?.length || 0;
         const nbPrevIgnoredHorizontalParts = this.prevIgnoredHorizontalParts?.length || 0;
         const nbRemovedParts = nbPrevIgnoredHorizontalParts - nbIgnoredHorizontalParts;
-        const scrollablePartsAreChanged =
-          this.prevIgnoredHorizontalParts && ignoredHorizontalParts !== this.prevIgnoredHorizontalParts;
-        // 1 if added or 0 if scrollable parts are changed ;
-        const changeKind = scrollablePartsAreChanged ? 1 : 0;
-        const oldPartScrollIndex = Math.floor(scrollLeft / horizontalPartWidth);
-        // 1 nb changed parts
-        const newLeft = (oldPartScrollIndex + changeKind * nbRemovedParts) * horizontalPartWidth;
-        this.scrollToLeft(newLeft);
+        // 1 if added or -1 if scrollable parts are removed ;
+        const changeDirection = diff >= 0 ? -1 : 1;
+        if (nbRemovedParts !== 0) {
+          const newLeft = scrollLeft - newRelativeDiff + (changeDirection * newRelativeDiff) / nbRemovedParts;
+          this.scrollToLeft(newLeft);
+        }
       }
     }
   };

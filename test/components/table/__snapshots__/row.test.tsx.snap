@@ -6,7 +6,7 @@ exports[`Row component should render a Row with a small size 1`] = `
     className="table-row"
     data-testid="table-row-small"
     style={
-      Object {
+      {
         "height": 25,
       }
     }
@@ -24,8 +24,9 @@ exports[`Row component should render a Row with a small size 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -44,8 +45,9 @@ exports[`Row component should render a Row with a small size 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -64,8 +66,9 @@ exports[`Row component should render a Row with a small size 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 25,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -81,7 +84,7 @@ exports[`Row component should render a Row with nested children 1`] = `
     className="table-row"
     data-testid="table-row-foo"
     style={
-      Object {
+      {
         "height": 56,
       }
     }
@@ -99,8 +102,9 @@ exports[`Row component should render a Row with nested children 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -119,8 +123,9 @@ exports[`Row component should render a Row with nested children 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -139,24 +144,25 @@ exports[`Row component should render a Row with nested children 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
       subItems={
-        Array [
-          Object {
-            "cells": Array [
-              Object {
+        [
+          {
+            "cells": [
+              {
                 "id": "sushi",
                 "value": "Sushi",
               },
-              Object {
+              {
                 "id": "pizza",
                 "value": "Pizza",
               },
-              Object {
+              {
                 "id": "mafe",
                 "value": "Mafe",
               },
@@ -177,7 +183,7 @@ exports[`Row component should render a Row with span 1`] = `
     className="table-row"
     data-testid="table-row-foo"
     style={
-      Object {
+      {
         "height": 56,
       }
     }
@@ -204,8 +210,9 @@ exports[`Row component should render a Row with span 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -225,8 +232,9 @@ exports[`Row component should render a Row with span 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -246,24 +254,25 @@ exports[`Row component should render a Row with span 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
       subItems={
-        Array [
-          Object {
-            "cells": Array [
-              Object {
+        [
+          {
+            "cells": [
+              {
                 "id": "sushi",
                 "value": "Sushi",
               },
-              Object {
+              {
                 "id": "pizza",
                 "value": "Pizza",
               },
-              Object {
+              {
                 "id": "mafe",
                 "value": "Mafe",
               },
@@ -284,7 +293,7 @@ exports[`Row component should render a simple row 1`] = `
     className="table-row"
     data-testid="table-row-foo"
     style={
-      Object {
+      {
         "height": 56,
       }
     }
@@ -302,8 +311,9 @@ exports[`Row component should render a simple row 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -322,8 +332,9 @@ exports[`Row component should render a simple row 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
@@ -342,12 +353,13 @@ exports[`Row component should render a simple row 1`] = `
       relativeRowIndex={0}
       rowIndex={0}
       style={
-        Object {
+        {
           "height": 56,
+          "right": 0,
           "width": "auto",
         }
       }
-      subItems={Array []}
+      subItems={[]}
       value="enzyme"
     />
   </tr>
@@ -360,7 +372,7 @@ exports[`Row component should render the default table 1`] = `
     className="table-row"
     data-testid="table-row-foo"
     style={
-      Object {
+      {
         "height": 56,
       }
     }

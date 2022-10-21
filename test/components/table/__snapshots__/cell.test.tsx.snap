@@ -10,7 +10,7 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -21,7 +21,7 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -30,7 +30,7 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -48,7 +48,7 @@ exports[`Cell component should render a cell with closed subItems 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -72,7 +72,7 @@ exports[`Cell component should render a cell with custom cell content 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -83,7 +83,7 @@ exports[`Cell component should render a cell with custom cell content 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -92,7 +92,7 @@ exports[`Cell component should render a cell with custom cell content 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -119,7 +119,7 @@ exports[`Cell component should render a cell with custom style 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": "25px",
       "padding": 0,
       "width": "50px",
@@ -130,7 +130,7 @@ exports[`Cell component should render a cell with custom style 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": "25px",
         "width": "50px",
       }
@@ -139,7 +139,7 @@ exports[`Cell component should render a cell with custom style 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -147,7 +147,7 @@ exports[`Cell component should render a cell with custom style 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": "25px",
             "lineHeight": "25pxpx",
           }
@@ -171,7 +171,7 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": "25px",
       "padding": 0,
       "width": 100,
@@ -182,7 +182,7 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": "25px",
         "width": 100,
       }
@@ -191,7 +191,7 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -199,7 +199,7 @@ exports[`Cell component should render a cell with custom style with colspan 1`] 
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": "25px",
             "lineHeight": "25pxpx",
           }
@@ -223,7 +223,7 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -234,7 +234,7 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -243,7 +243,7 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -261,7 +261,7 @@ exports[`Cell component should render a cell with opened subItems 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -285,7 +285,7 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -296,7 +296,7 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -305,7 +305,7 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -313,7 +313,7 @@ exports[`Cell component should render a cell with subItems (hideSubItemsOpener) 
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -337,7 +337,7 @@ exports[`Cell component should render a header cell 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -348,7 +348,7 @@ exports[`Cell component should render a header cell 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -357,7 +357,7 @@ exports[`Cell component should render a header cell 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -365,7 +365,7 @@ exports[`Cell component should render a header cell 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -389,7 +389,7 @@ exports[`Cell component should render a selected cell 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -400,7 +400,7 @@ exports[`Cell component should render a selected cell 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -409,7 +409,7 @@ exports[`Cell component should render a selected cell 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -417,7 +417,7 @@ exports[`Cell component should render a selected cell 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -441,7 +441,7 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -452,7 +452,7 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -461,7 +461,7 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -469,7 +469,7 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -479,7 +479,7 @@ exports[`Cell component should render the cell with a custom class Name 1`] = `
         <div
           className="cell-skeleton-container"
           style={
-            Object {
+            {
               "height": 56,
               "lineHeight": "56px",
             }
@@ -507,7 +507,7 @@ exports[`Cell component should render the default cell 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -518,7 +518,7 @@ exports[`Cell component should render the default cell 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -527,7 +527,7 @@ exports[`Cell component should render the default cell 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -535,7 +535,7 @@ exports[`Cell component should render the default cell 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -559,7 +559,7 @@ exports[`Cell component should render the loading cell 1`] = `
   onMouseEnter={[Function]}
   onMouseUp={[Function]}
   style={
-    Object {
+    {
       "height": 56,
       "padding": 0,
       "width": "auto",
@@ -570,7 +570,7 @@ exports[`Cell component should render the loading cell 1`] = `
     className="table-overflow-wrapper"
     data-testid="table-cell-wrapper-foo"
     style={
-      Object {
+      {
         "height": 56,
         "width": "auto",
       }
@@ -579,7 +579,7 @@ exports[`Cell component should render the loading cell 1`] = `
     <div
       className="table-cell-container"
       style={
-        Object {
+        {
           "justifyContent": undefined,
         }
       }
@@ -587,7 +587,7 @@ exports[`Cell component should render the loading cell 1`] = `
       <div
         className="cell-value"
         style={
-          Object {
+          {
             "height": 56,
             "lineHeight": "56px",
           }
@@ -597,7 +597,7 @@ exports[`Cell component should render the loading cell 1`] = `
         <div
           className="cell-skeleton-container"
           style={
-            Object {
+            {
               "height": 56,
               "lineHeight": "56px",
             }
