@@ -92,7 +92,7 @@ storiesOf("Table/Virtualized", module)
             isVirtualized
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
-              // hiddenColumns: [13, 32],
+              hiddenColumns: [13, 32],
               fixedRows: object("fixedRows", [0, 50, 97]),
               fixedColumns: object("fixedColumns", [0, 1, 2, 3, 4]),
             }}
@@ -103,7 +103,7 @@ storiesOf("Table/Virtualized", module)
     { notes: { markdown: Readme } }
   )
   .add(
-    "Absolute column and row",
+    "Fixed columns and rows",
     () => {
       const props = generateTable(3, 300, {});
       return (
@@ -166,7 +166,6 @@ storiesOf("Table/Virtualized", module)
           isSpan={boolean("isSpan", false)}
           virtualizerProps={{
             rowsCount: 10,
-            // columnsCount: 10,
             fixedRows: object("fixedRows", [0, 1]),
             fixedColumns: object("fixedColumns", [0, 5]),
           }}

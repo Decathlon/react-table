@@ -2,7 +2,7 @@
 import * as React from "react";
 import { isEqual } from "lodash";
 
-import Scroller, { IOnScroll, VERTICAL_SCROLL_DIRECTIONS, HORIZONTAL_SCROLL_DIRECTIONS } from "./scroller";
+import Scroller, { IOnScroll, VERTICAL_SCROLL_DIRECTIONS, HORIZONTAL_SCROLL_DIRECTIONS, SCROLLBAR_SIZE } from "./scroller";
 import {
   getVisibleIndexesInsideDatalength,
   IElevateds,
@@ -12,6 +12,7 @@ import {
   getVirtualizerCache,
   getVisibleItemIndexes,
   getElevatedIndexes,
+  getIndexScrollMapping,
 } from "./utils/table";
 import { DEFAULT_ROW_HEIGHT, MIN_COLUMN_WIDTH } from "./constants";
 import { Nullable } from "./typing";
@@ -252,26 +253,56 @@ class Virtualizer extends React.Component<IVirtualizerProps, IState> {
     } = this.props;
     const minCellHeight = minRowHeight || DEFAULT_ROW_HEIGHT;
     const minCellWidth = minColumnWidth || MIN_COLUMN_WIDTH;
-    this.verticalData = getVirtualizerCache({
-      minItemSize: minCellHeight,
-      fixedItems: fixedRows,
-      padding: horizontalPadding,
-      hiddenItems: hiddenRows,
-      customSizesElements: customCellsHeight,
-      containerSize: height,
-      itemsLength: rowsLength,
-      itemsCount: rowsCount,
-    });
-    this.horizontalData = getVirtualizerCache({
-      minItemSize: minCellWidth,
-      fixedItems: fixedColumns,
-      padding: verticalPadding,
-      hiddenItems: hiddenColumns,
-      customSizesElements: customCellsWidth,
-      containerSize: width,
-      itemsLength: columnsLength,
-      itemsCount: columnsCount,
-    });
+    const setverticalData = (padding: number) => {
+      this.verticalData = getVirtualizerCache({
+        minItemSize: minCellHeight,
+        fixedItems: fixedRows,
+        padding,
+        hiddenItems: hiddenRows,
+        customSizesElements: customCellsHeight,
+        containerSize: height,
+        itemsLength: rowsLength,
+        itemsCount: rowsCount,
+      });
+    };
+
+    const sethorizontalData = (padding: number) => {
+      this.horizontalData = getVirtualizerCache({
+        minItemSize: minCellWidth,
+        fixedItems: fixedColumns,
+        padding,
+        hiddenItems: hiddenColumns,
+        customSizesElements: customCellsWidth,
+        containerSize: width,
+        itemsLength: columnsLength,
+        itemsCount: columnsCount,
+      });
+    };
+
+    setverticalData(horizontalPadding);
+
+    const horizontalScrollBarSize =
+      this.verticalData.virtualSize > (this.verticalData.scrollableItemsSize || 0) ? SCROLLBAR_SIZE : 0;
+    sethorizontalData(verticalPadding + horizontalScrollBarSize);
+
+    const verticalScrollBarSize =
+      this.horizontalData.virtualSize > (this.horizontalData.scrollableItemsSize || 0) ? SCROLLBAR_SIZE : 0;
+    setverticalData(verticalScrollBarSize + horizontalPadding);
+
+    // Returns the distance (in pixels) between the different items
+    this.verticalData.itemIndexesScrollMapping = getIndexScrollMapping(
+      rowsLength,
+      customCellsHeight.customSizes,
+      this.verticalData.itemSize,
+      [...this.verticalData.visibleFixedItems, ...hiddenRows]
+    );
+    // Returns the distance (in pixels) between the different items
+    this.horizontalData.itemIndexesScrollMapping = getIndexScrollMapping(
+      columnsLength,
+      customCellsWidth.customSizes,
+      this.horizontalData.itemSize,
+      [...this.horizontalData.visibleFixedItems, ...hiddenColumns]
+    );
   };
 
   private getVisibleRowIndexes = (scrollValue = 0) => {

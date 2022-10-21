@@ -104,7 +104,7 @@ interface CacheProps {
   itemsCount?: number;
   /** Minimal size of a item */
   minItemSize: number;
-  /** Sum of the size of fixed items with a pre-defined size */
+  /** Sum of the custom items sizes */
   customSizesElements: CustomSizesElements;
   /** A pre-defined padding of the grid */
   padding: number;
@@ -772,9 +772,9 @@ export const getVirtualizerCache = ({
     visibleItemIndexes: {},
     ignoredIndexes: {},
   };
-  const { fixed: fixedCustomSizesItems, scrollable: scrollableCustomSizesItems, customSizes } = customSizesElements;
+  const { fixed: fixedCustomSizesItems, scrollable: scrollableCustomSizesItems } = customSizesElements;
   /**
-   * Size allocated to the verticalPadding and the fixed items that have a custom size specified by the user.
+   * Size allocated to the padding and the fixed items that have a custom size specified by the user.
    * We only take into account visible fixed items  with a custom size.
    */
   const extraItemsSize = fixedCustomSizesItems.sum + padding;
@@ -802,8 +802,6 @@ export const getVirtualizerCache = ({
   ignoredIndexes.forEach((ignoredIndex) => {
     cache.ignoredIndexes[ignoredIndex] = true;
   });
-  // Returns the distance (in pixels) between the different items
-  cache.itemIndexesScrollMapping = getIndexScrollMapping(itemsLength, customSizes, cache.itemSize, ignoredIndexes);
   // The size of the scrollable element area
   cache.scrollableItemsSize =
     scrollableItemsSize - (cache.visibleFixedItems.length - fixedCustomSizesItems.count) * cache.itemSize;
