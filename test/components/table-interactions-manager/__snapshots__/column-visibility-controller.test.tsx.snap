@@ -10,7 +10,7 @@ exports[`ColumnVisisbilityController component should render the default ColumnV
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "center",
         "vertical": "bottom",
       }
@@ -22,7 +22,7 @@ exports[`ColumnVisisbilityController component should render the default ColumnV
     onClose={[Function]}
     open={false}
     transformOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -30,7 +30,7 @@ exports[`ColumnVisisbilityController component should render the default ColumnV
   >
     <ForwardRef(List)
       classes={
-        Object {
+        {
           "root": "table-interaction-menu",
         }
       }

@@ -43,6 +43,7 @@ module.exports = {
     "react/jsx-fragments": 0,
     "react/require-default-props": 0,
     "react/display-name": 1,
+    "@typescript-eslint/default-param-last": 0,
     "@typescript-eslint/naming-convention": 0,
     "@typescript-eslint/no-redeclare": 0,
     "@typescript-eslint/ban-types": 0,

@@ -5,7 +5,7 @@ exports[`SelectionHandler component should render children 1`] = `
   className="selection-handler-container"
 >
   <ContextMenuHandler
-    selectedCells={Object {}}
+    selectedCells={{}}
   >
     [Function]
   </ContextMenuHandler>

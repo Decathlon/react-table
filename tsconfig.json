@@ -35,6 +35,6 @@
     /* Module Resolution Options */
     "moduleResolution": "node"
   },
-  "include": ["./src"],
+  "include": ["./src", "./stories", "./test"],
   "exclude": ["node_modules", "build"]
 }

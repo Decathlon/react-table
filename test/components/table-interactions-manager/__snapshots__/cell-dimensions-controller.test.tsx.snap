@@ -10,7 +10,7 @@ exports[`CellDimensionController component should render CellDimensionController
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "center",
         "vertical": "bottom",
       }
@@ -20,7 +20,7 @@ exports[`CellDimensionController component should render CellDimensionController
     onClose={[Function]}
     open={false}
     transformOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -28,7 +28,7 @@ exports[`CellDimensionController component should render CellDimensionController
   >
     <ForwardRef(List)
       classes={
-        Object {
+        {
           "root": "table-interaction-menu",
         }
       }
@@ -119,7 +119,7 @@ exports[`CellDimensionController component should render the default CellDimensi
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "center",
         "vertical": "bottom",
       }
@@ -129,7 +129,7 @@ exports[`CellDimensionController component should render the default CellDimensi
     onClose={[Function]}
     open={false}
     transformOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -137,7 +137,7 @@ exports[`CellDimensionController component should render the default CellDimensi
   >
     <ForwardRef(List)
       classes={
-        Object {
+        {
           "root": "table-interaction-menu",
         }
       }

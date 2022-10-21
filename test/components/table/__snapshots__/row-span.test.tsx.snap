@@ -5,7 +5,7 @@ exports[`RowSpan component should render a closed span 1`] = `
   className="table-column row-span-column"
   rowSpan={2}
   style={
-    Object {
+    {
       "borderLeft": "solid 15px red",
       "maxWidth": 110,
       "minWidth": 110,
@@ -39,7 +39,7 @@ exports[`RowSpan component should render an opened span 1`] = `
   className="table-column row-span-column"
   rowSpan={2}
   style={
-    Object {
+    {
       "borderLeft": "solid 15px initial",
       "maxWidth": 110,
       "minWidth": 110,

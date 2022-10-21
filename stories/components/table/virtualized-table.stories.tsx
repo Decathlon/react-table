@@ -93,8 +93,8 @@ storiesOf("Table/Virtualized", module)
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
               hiddenColumns: [13, 32],
-              fixedRows: object("fixedRows", [0, 50, 97]),
-              fixedColumns: object("fixedColumns", [0, 1, 2, 3, 4]),
+              fixedRows: [0, 50, 97],
+              fixedColumns: [0, 1, 2, 3, 4],
             }}
           />
         </div>
@@ -118,8 +118,8 @@ storiesOf("Table/Virtualized", module)
             isSpan={boolean("isSpan", false)}
             virtualizerProps={{
               hiddenColumns: [13, 32],
-              fixedRows: object("fixedRows", [0, 2]),
-              fixedColumns: object("fixedColumns", [299]),
+              fixedRows: [0, 2],
+              fixedColumns: [299],
             }}
           />
         </div>
@@ -137,8 +137,8 @@ storiesOf("Table/Virtualized", module)
           isSelectable={false}
           isVirtualized
           virtualizerProps={{
-            fixedRows: object("fixedRows", [0, 1]),
-            fixedColumns: object("fixedColumns", [0, 1]),
+            fixedRows: [0, 1],
+            fixedColumns: [0, 1],
             height: number("height", 500),
             width: number("width", 1000),
             initialScroll: {
@@ -166,8 +166,8 @@ storiesOf("Table/Virtualized", module)
           isSpan={boolean("isSpan", false)}
           virtualizerProps={{
             rowsCount: 10,
-            fixedRows: object("fixedRows", [0, 1]),
-            fixedColumns: object("fixedColumns", [0, 5]),
+            fixedRows: [0, 1],
+            fixedColumns: [0, 5],
           }}
         />
       </div>
@@ -193,8 +193,8 @@ storiesOf("Table/Virtualized", module)
             virtualizerProps={{
               rowsCount: 10,
               columnsCount: 10,
-              fixedRows: object("fixedRows", [0, 1, 22, 99]),
-              fixedColumns: object("fixedColumns", [0, 1, 50]),
+              fixedRows: [0, 1, 22, 99],
+              fixedColumns: [0, 1, 50],
             }}
           />
         </div>
@@ -237,7 +237,7 @@ storiesOf("Table/Virtualized", module)
           isSelectable={false}
           isVirtualized
           virtualizerProps={{
-            fixedRows: object("fixedRows", [0, 8]),
+            fixedRows: [0, 8],
             height: number("height", 500),
             width: number("width", 1000),
           }}
@@ -260,7 +260,7 @@ storiesOf("Table/Virtualized", module)
           isVirtualized
           columns={object("columns", { 0: { size: 320 }, 4: { size: 300 } })}
           virtualizerProps={{
-            fixedColumns: object("fixedColumns", [0, 4]),
+            fixedColumns: [0, 4],
             height: number("height", 500),
             width: number("width", 1000),
           }}
@@ -287,7 +287,7 @@ storiesOf("Table/Virtualized", module)
           isSelectable={false}
           isVirtualized
           virtualizerProps={{
-            fixedRows: object("fixedRows", [0, 2, 8]),
+            fixedRows: [0, 2, 8],
             fixedColumns: [0, 4],
             height: number("height", 500),
             width: number("width", 1000),

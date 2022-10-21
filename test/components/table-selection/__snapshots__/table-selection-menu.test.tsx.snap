@@ -5,7 +5,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu closed me
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -23,7 +23,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -41,7 +41,7 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
   <ForwardRef(Menu)
     anchorEl={null}
     anchorOrigin={
-      Object {
+      {
         "horizontal": "right",
         "vertical": "top",
       }
@@ -54,13 +54,13 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
     <menuItem
       onClick={[Function]}
       selectedCells={
-        Object {
-          "1": Array [
+        {
+          "1": [
             0,
             1,
             2,
           ],
-          "2": Array [
+          "2": [
             0,
             1,
             2,
@@ -73,13 +73,13 @@ exports[`TableSelectionMenu component should render TableSelectionMenu opened me
     <DefaultMenuItem
       onClick={[Function]}
       selectedCells={
-        Object {
-          "1": Array [
+        {
+          "1": [
             0,
             1,
             2,
           ],
-          "2": Array [
+          "2": [
             0,
             1,
             2,
